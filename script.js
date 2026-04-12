@@ -493,7 +493,7 @@ function updateSubjectDropdown() {
     if (board === 'ICSE') {
         subjects = [
             'English', 'Mathematics', 'Science (Physics)', 'Science (Chemistry)', 
-            'Science (Biology)', 'Social Studies', 'History & Civics', 
+            'Science (Biology)', 'Hindi' , 'History & Civics', 
             'Geography', 'Information Technology', 'Computer Science'
         ];
     } else if (board === 'ISC') {
@@ -651,7 +651,7 @@ function updateFilterSubjects() {
         // ICSE Subjects
         subjects = [
             'English', 'Mathematics', 'Science (Physics)', 'Science (Chemistry)', 
-            'Science (Biology)', 'Social Studies', 'History & Civics', 
+            'Science (Biology)', 'Hindi' , 'History & Civics', 
             'Geography', 'Information Technology', 'Computer Science'
         ];
     } else if (classVal === 'Class 11' || classVal === 'Class 12') {
