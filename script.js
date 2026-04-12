@@ -513,7 +513,7 @@ function updateSubjectDropdown() {
 }
 
 // ==========================================
-// 12. AI CHAT LOGIC (Secure Backend)
+// 12. AI CHAT LOGIC (Secure Vercel Backend)
 // ==========================================
 async function sendAIMessage() {
     const inputField = document.getElementById('ai-input');
@@ -543,9 +543,10 @@ async function sendAIMessage() {
     chatBox.scrollTop = chatBox.scrollHeight;
 
     try {
-        // 3. Ask your secure Netlify backend!
-        const response = await fetch('/.netlify/functions/gemini', {
+        // 3. Ask your secure Vercel backend!
+        const response = await fetch('/api/gemini', {
             method: 'POST',
+            headers: { 'Content-Type': 'application/json' }, // Added to help Vercel read the data
             body: JSON.stringify({ prompt: userText })
         });
 
@@ -575,6 +576,8 @@ async function sendAIMessage() {
     }
 }
 
+
+    
 // ==========================================
 // 13. NOTES & Q&A FILTER LOGIC
 // ==========================================
