@@ -492,13 +492,13 @@ function updateSubjectDropdown() {
     // Load the correct subjects based on the Board selected
     if (board === 'ICSE') {
         subjects = [
-            'English', 'Mathematics', 'Science (Physics)', 'Science (Chemistry)', 
+            'English Language', 'English Literature ', 'Mathematics', 'Science (Physics)', 'Science (Chemistry)', 
             'Science (Biology)', 'Hindi' , 'History & Civics', 
-            'Geography', 'Information Technology', 'Computer Science'
+            'Geography', 'Computer Science'
         ];
     } else if (board === 'ISC') {
         subjects = [
-            'English', 'Physics', 'Chemistry', 'Mathematics', 'Biology', 
+            'English Language', 'English Literature' 'Hindi' , 'Physics', 'Chemistry', 'Mathematics', 'Biology', 
             'Computer Science', 'Accounts', 'Business Studies', 'Economics', 'History'
         ];
     }
@@ -650,14 +650,14 @@ function updateFilterSubjects() {
     if (classVal === 'Class 9' || classVal === 'Class 10') {
         // ICSE Subjects
         subjects = [
-            'English', 'Mathematics', 'Science (Physics)', 'Science (Chemistry)', 
+            'English Language', 'English Literature' , 'Mathematics', 'Science (Physics)', 'Science (Chemistry)', 
             'Science (Biology)', 'Hindi' , 'History & Civics', 
-            'Geography', 'Information Technology', 'Computer Science'
+            'Geography', 'Computer Science'
         ];
     } else if (classVal === 'Class 11' || classVal === 'Class 12') {
         // ISC Subjects
         subjects = [
-            'English', 'Physics', 'Chemistry', 'Mathematics', 'Biology', 
+            'English Language', 'English Literature', 'Hindi' , 'Physics', 'Chemistry', 'Mathematics', 'Biology', 
             'Computer Science', 'Accounts', 'Business Studies', 'Economics', 'History'
         ];
     }
