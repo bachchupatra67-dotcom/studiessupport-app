@@ -498,7 +498,7 @@ function updateSubjectDropdown() {
         ];
     } else if (board === 'ISC') {
         subjects = [
-            'English Language', 'English Literature' 'Hindi' , 'Physics', 'Chemistry', 'Mathematics', 'Biology', 
+            'English Language', 'English Literature', 'Hindi' , 'Physics', 'Chemistry', 'Mathematics', 'Biology', 
             'Computer Science', 'Accounts', 'Business Studies', 'Economics', 'History'
         ];
     }
