@@ -3,7 +3,39 @@
 // ==========================================
 let pageHistory = [];
 let currentPage = 'home';
+let myBackpack = JSON.parse(localStorage.getItem('studyBackpack')) || [];
+const generateCardHTML = (item) => {
+            let linkBtn = item.file_url ? `<a href="${item.file_url}" target="_blank" style="display: inline-block; background: #2563eb; color: #ffffff; padding: 10px 20px; border-radius: 10px; text-decoration: none; font-size: 14px; font-weight: 700; margin-top: 12px;">Download PDF</a>` : '';
+            
+            let formattedText = item.content_text ? item.content_text.replace(/\*\*(.*?)\*\*/g, '<strong style="color: #0f172a; font-weight: 900;">$1</strong>') : '';
+            let textNotes = formattedText ? `<div style="background: #f8fafc; padding: 12px; border-radius: 8px; font-size: 14px; color: #334155; margin-top: 12px; white-space: pre-wrap;">${formattedText}</div>` : '';
 
+            // 🌟 PRO UPGRADE: Bookmarks & WhatsApp
+            const isSaved = myBackpack.includes(item.id);
+            const bookmarkColor = isSaved ? '#f59e0b' : '#94a3b8';
+            const bookmarkFill = isSaved ? '#f59e0b' : 'none';
+            
+            const shareText = encodeURIComponent(`Hey! I found free notes for ${item.class_level} ${item.subject}: https://studiessupport.vercel.app`);
+
+            return `
+                <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 16px; padding: 20px; box-shadow: 0 4px 6px rgba(0,0,0,0.02); margin-bottom: 16px;">
+                    <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                        <h4 style="color: #0f172a; font-size: 16px; font-weight: 800; margin: 0 0 4px 0;">${item.chapter}</h4>
+                        <button onclick="toggleBookmark(${item.id})" style="background: none; border: none; cursor: pointer; padding: 0;">
+                            <i data-lucide="bookmark" style="color: ${bookmarkColor}; width: 24px; height: 24px;" fill="${bookmarkFill}"></i>
+                        </button>
+                    </div>
+                    <span style="background: #eff6ff; color: #2563eb; padding: 4px 8px; border-radius: 6px; font-size: 11px; font-weight: 800; display: inline-block; margin-bottom: 8px;">${item.content_type}</span>
+                    <p style="color: #64748b; font-size: 13px; margin: 0;">${item.class_level} • ${item.subject}</p>
+                    ${textNotes}
+                    <div style="display: flex; gap: 12px; align-items: center; flex-wrap: wrap;">
+                        ${linkBtn}
+                        <a href="https://wa.me/?text=${shareText}" target="_blank" style="display: inline-flex; align-items: center; gap: 6px; background: #25D366; color: #ffffff; padding: 10px 16px; border-radius: 10px; text-decoration: none; font-size: 14px; font-weight: 700; margin-top: 12px;">
+                            <i data-lucide="message-circle" style="width: 18px; height: 18px;"></i> Share
+                        </a>
+                    </div>
+                </div>`;
+        };
 function navigateTo(pageName, isBack = false) {
     // SECURITY GUARD: Check VIP pass
     if (pageName === 'admin') {
@@ -103,7 +135,7 @@ async function loginAdmin() {
     const email = document.getElementById('admin-email').value.trim();
     const password = document.getElementById('admin-password').value.trim();
     const btn = document.querySelector('button[onclick="loginAdmin()"]');
-    
+
     if (!email || !password) {
         alert("Please enter both email and password.");
         return;
@@ -226,7 +258,7 @@ async function handleMaterialUpload(event) {
 
     const btn = event.target.querySelector('button[type="submit"]');
     const originalText = btn.innerText;
-    
+
     // Change button text based on what we are doing
     btn.innerText = editingMaterialId ? "Updating... ⏳" : "Saving... ⏳";
     btn.disabled = true;
@@ -292,7 +324,7 @@ async function handleMaterialUpload(event) {
         event.target.reset();
         document.getElementById('file-name-display').innerText = 'Click to upload or drag & drop';
         document.getElementById('file-name-display').style.color = '#334155';
-        
+
         fetchAndDisplayMaterials();
 
     } catch (error) {
@@ -323,16 +355,16 @@ function handleLogoUpload(event) {
 
 function applyLogo(logoUrl) {
     if (!logoUrl) return;
-    
+
     // Find the logo image tag
     const logoElements = document.querySelectorAll('.site-logo');
-    
+
     // Show the image
     logoElements.forEach(img => {
         img.src = logoUrl;
         img.style.display = 'block'; 
     });
-    
+
     // 🌟 Notice: We completely removed the code that hides the title text!
 }
 
@@ -352,24 +384,24 @@ function editMaterial(id) {
 
     const form = document.getElementById('upload-form');
     const selects = form.querySelectorAll('select');
-    
+
     // Set the Board first
     selects[0].value = item.board; 
-    
+
     // 🌟 THE MAGIC: Load the correct subjects based on the Board!
     updateSubjectDropdown(); 
-    
+
     // Now set the rest of the form
     selects[1].value = item.subject;
     selects[2].value = item.class_level;
     selects[3].value = item.content_type;
-    
+
     form.querySelector('input[type="text"]').value = item.chapter || "";
     form.querySelector('textarea').value = item.content_text || "";
 
     // Change the button so you know you are editing
     form.querySelector('button[type="submit"]').innerText = "Update Material";
-    
+
     const fileDisplay = document.getElementById('file-name-display');
     if (item.file_url) {
         fileDisplay.innerText = "Current file attached. Click to replace (optional)";
@@ -384,7 +416,7 @@ function editMaterial(id) {
 // 🌟 BONUS: Delete Function!
 async function deleteMaterial(id) {
     if (!confirm("Are you sure you want to completely delete this?")) return;
-    
+
     try {
         const { error } = await supabaseClient.from('study_materials').delete().eq('id', id);
         if (error) throw error;
@@ -414,7 +446,7 @@ async function fetchAndDisplayMaterials() {
                 adminContainer.innerHTML = '';
                 data.forEach(item => {
                     let linkHtml = item.file_url ? `<a href="${item.file_url}" target="_blank" style="background: #eff6ff; color: #2563eb; padding: 6px 12px; border-radius: 8px; text-decoration: none; font-size: 12px; font-weight: 700;">View</a>` : '';
-                    
+
                     // Add the Edit & Delete Buttons!
                     let editBtn = `<button onclick="editMaterial(${item.id})" style="background: #fff7ed; color: #ea580c; border: 1px solid #fed7aa; padding: 6px 12px; border-radius: 8px; font-size: 12px; font-weight: 700; cursor: pointer; margin-right: 8px;">Edit</button>`;
                     let deleteBtn = `<button onclick="deleteMaterial(${item.id})" style="background: #fef2f2; color: #dc2626; border: 1px solid #fecaca; padding: 6px 12px; border-radius: 8px; font-size: 12px; font-weight: 700; cursor: pointer; margin-right: 8px;">Delete</button>`;
@@ -437,45 +469,83 @@ async function fetchAndDisplayMaterials() {
 }
 
 function renderStudentMaterials() {
-    function drawCards(container, materials) {
+    function drawCards(container, materials, boardType) {
         if (materials.length === 0) {
             container.innerHTML = `<p style="text-align: center; color: #94a3b8; font-size: 15px;">No content added yet for this subject.</p>`;
             return;
         }
+        
         container.innerHTML = '';
-        materials.forEach(item => {
-            let linkBtn = item.file_url ? `<a href="${item.file_url}" target="_blank" style="display: inline-block; background: #2563eb; color: #ffffff; padding: 10px 20px; border-radius: 10px; text-decoration: none; font-size: 14px; font-weight: 700; margin-top: 12px;">Download PDF</a>` : '';
-            let textNotes = item.content_text ? `<div style="background: #f8fafc; padding: 12px; border-radius: 8px; font-size: 14px; color: #334155; margin-top: 12px; white-space: pre-wrap;">${item.content_text}</div>` : '';
 
-            container.innerHTML += `
-                <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 16px; padding: 20px; box-shadow: 0 4px 6px rgba(0,0,0,0.02); margin-bottom: 16px;">
-                    <div style="display: flex; justify-content: space-between; align-items: flex-start;">
-                        <h4 style="color: #0f172a; font-size: 16px; font-weight: 800; margin: 0 0 4px 0;">${item.chapter}</h4>
-                        <span style="background: #eff6ff; color: #2563eb; padding: 4px 8px; border-radius: 6px; font-size: 11px; font-weight: 800;">${item.content_type}</span>
-                    </div>
-                    <p style="color: #64748b; font-size: 13px; margin: 0;">${item.class_level} • ${item.subject}</p>
-                    ${textNotes}
-                    ${linkBtn}
-                </div>`;
-        });
+        const topClass = boardType === 'ICSE' ? 'Class 10' : 'Class 12';
+        const bottomClass = boardType === 'ICSE' ? 'Class 9' : 'Class 11';
+
+        const topMaterials = materials.filter(item => item.class_level === topClass);
+        const bottomMaterials = materials.filter(item => item.class_level === bottomClass);
+        const otherMaterials = materials.filter(item => item.class_level !== topClass && item.class_level !== bottomClass);
+
+                
+
+
+        if (topMaterials.length > 0) {
+            container.innerHTML += `<div style="margin-bottom: 16px; display: inline-flex; align-items: center; gap: 8px; background: #fee2e2; color: #991b1b; padding: 8px 16px; border-radius: 12px; font-weight: 800; font-size: 14px;"><i data-lucide="flame" style="width: 18px; height: 18px;"></i> ${topClass} (Board Exams)</div>`;
+            topMaterials.forEach(item => { container.innerHTML += generateCardHTML(item); });
+        }
+
+        if (bottomMaterials.length > 0) {
+            container.innerHTML += `<div style="margin-top: 24px; margin-bottom: 16px; display: inline-flex; align-items: center; gap: 8px; background: #f1f5f9; color: #475569; padding: 8px 16px; border-radius: 12px; font-weight: 800; font-size: 14px;"><i data-lucide="book" style="width: 18px; height: 18px;"></i> ${bottomClass}</div>`;
+            bottomMaterials.forEach(item => { container.innerHTML += generateCardHTML(item); });
+        }
+
+        if (otherMaterials.length > 0) {
+            otherMaterials.forEach(item => { container.innerHTML += generateCardHTML(item); });
+        }
+        
+        if (window.lucide) lucide.createIcons();
     }
 
+    // --- ICSE SECTION ---
     const icseContainer = document.getElementById('icse-materials-container');
     const pageNotes = document.getElementById('page-notes');
     if (icseContainer && pageNotes && pageNotes.classList.contains('active')) {
-        const title = document.getElementById('dynamic-icse-title').innerText;
-        const filtered = allStudyMaterials.filter(item => item.board === 'ICSE' && item.subject && title.includes(item.subject));
-        drawCards(icseContainer, filtered);
+        const title = document.getElementById('dynamic-icse-title').innerText.trim();
+        const filterElement = document.getElementById('icse-class-filter');
+        const classFilter = filterElement ? filterElement.value : 'all';
+
+        // 🌟 .trim() fixes the Ghost Space bug instantly!
+        let filtered = allStudyMaterials.filter(item => 
+            item.board === 'ICSE' && item.subject && item.subject.trim() === title
+        );
+
+        // 🌟 Apply the Dropdown Filter
+        if (classFilter !== 'all') {
+            filtered = filtered.filter(item => item.class_level === classFilter);
+        }
+
+        drawCards(icseContainer, filtered, 'ICSE');
     }
 
+    // --- ISC SECTION ---
     const iscContainer = document.getElementById('isc-materials-container');
     const pageNotesIsc = document.getElementById('page-notes-isc');
     if (iscContainer && pageNotesIsc && pageNotesIsc.classList.contains('active')) {
-        const title = document.getElementById('dynamic-isc-title').innerText;
-        const filtered = allStudyMaterials.filter(item => item.board === 'ISC' && item.subject && title.includes(item.subject));
-        drawCards(iscContainer, filtered);
+        const title = document.getElementById('dynamic-isc-title').innerText.trim();
+        const filterElement = document.getElementById('isc-class-filter');
+        const classFilter = filterElement ? filterElement.value : 'all';
+
+        let filtered = allStudyMaterials.filter(item => 
+            item.board === 'ISC' && item.subject && item.subject.trim() === title
+        );
+
+        if (classFilter !== 'all') {
+            filtered = filtered.filter(item => item.class_level === classFilter);
+        }
+
+        drawCards(iscContainer, filtered, 'ISC');
     }
 }
+
+
 
 // ==========================================
 // 11. DYNAMIC DROPDOWNS (BOARD -> SUBJECT)
@@ -577,7 +647,7 @@ async function sendAIMessage() {
 }
 
 
-    
+
 // ==========================================
 // 13. NOTES & Q&A FILTER LOGIC
 // ==========================================
@@ -672,4 +742,108 @@ function updateFilterSubjects() {
         option.innerText = sub;
         subjectSelect.appendChild(option);
     });
+}
+
+// ==========================================
+// 14. TEXTBOOK SOLUTIONS & SKELETONS
+// ==========================================
+
+// 🌟 PRO UPGRADE: Shows "Ghost" cards while loading data
+function showSkeletons(containerId) {
+    const container = document.getElementById(containerId);
+    if (!container) return;
+    container.innerHTML = '';
+    for (let i = 0; i < 3; i++) {
+        container.innerHTML += `
+            <div class="skeleton-box" style="height: 160px; margin-bottom: 16px; border-radius: 16px; opacity: 0.6;"></div>
+        `;
+    }
+}
+
+function updateSolFilterSubjects() {
+    const classVal = document.getElementById('sol-filter-class').value;
+    const subjectSelect = document.getElementById('sol-filter-subject');
+    subjectSelect.innerHTML = '<option value="">Select Subject</option>';
+    let subjects = [];
+    if (classVal === 'Class 9' || classVal === 'Class 10') {
+        subjects = ['English Language', 'English Literature', 'Mathematics', 'Science (Physics)', 'Science (Chemistry)', 'Science (Biology)', 'Hindi', 'History & Civics', 'Geography', 'Computer Science'];
+    } else if (classVal === 'Class 11' || classVal === 'Class 12') {
+        subjects = ['English Language', 'English Literature', 'Hindi', 'Physics', 'Chemistry', 'Mathematics', 'Biology', 'Computer Science', 'Accounts', 'Business Studies', 'Economics', 'History'];
+    }
+    subjects.forEach(sub => {
+        const option = document.createElement('option');
+        option.value = sub;
+        option.innerText = sub;
+        subjectSelect.appendChild(option);
+    });
+}
+
+async function applySolutionsFilter() {
+    const classVal = document.getElementById('sol-filter-class').value;
+    const subjectVal = document.getElementById('sol-filter-subject').value;
+    const container = document.getElementById('solutions-materials-container');
+
+    if (!classVal || !subjectVal) {
+        alert("Please select both a class and a subject!");
+        return;
+    }
+
+    // 1. Show the Shimmer boxes immediately
+    showSkeletons('solutions-materials-container');
+
+    // 2. Wait 500ms (half a second) so the user sees the professional loading effect
+    setTimeout(() => {
+        // 3. Filter the data (using .trim() to avoid the "space" bug)
+        const filtered = allStudyMaterials.filter(item => {
+            if (!item.class_level || !item.subject || item.content_type !== 'Textbook Solutions') return false;
+            return item.class_level.trim() === classVal.trim() && item.subject.trim() === subjectVal.trim();
+        });
+
+        if (filtered.length === 0) {
+            container.innerHTML = `<p style="text-align: center; color: #64748b; padding: 40px;">No solutions found for this subject yet.</p>`;
+            return;
+        }
+
+        // 4. Draw the actual cards
+        container.innerHTML = '';
+        filtered.forEach(item => {
+            container.innerHTML += generateCardHTML(item); 
+        });
+
+        // 5. Refresh icons
+        if (window.lucide) lucide.createIcons();
+    }, 500);
+}
+
+// ==========================================
+// 15. THE BACKPACK ENGINE
+// ==========================================
+function toggleBookmark(itemId) {
+    // Force ID to a number to avoid string/number mixup bugs
+    const id = Number(itemId);
+    if (myBackpack.includes(id)) {
+        myBackpack = myBackpack.filter(bid => bid !== id);
+    } else {
+        myBackpack.push(id);
+    }
+    localStorage.setItem('studyBackpack', JSON.stringify(myBackpack));
+    renderStudentMaterials();
+    if (currentPage === 'backpack') renderBackpack();
+}
+
+function renderBackpack() {
+    const container = document.getElementById('backpack-materials-container');
+    if (!container) return;
+    
+    if (myBackpack.length === 0) {
+        container.innerHTML = `<div style="text-align: center; padding: 40px; color: #94a3b8; border: 1px dashed #cbd5e1; border-radius: 20px;">Your backpack is empty.</div>`;
+        return;
+    }
+
+    const savedItems = allStudyMaterials.filter(item => myBackpack.includes(Number(item.id)));
+    container.innerHTML = '';
+    savedItems.forEach(item => {
+        container.innerHTML += generateCardHTML(item);
+    });
+    if (window.lucide) lucide.createIcons();
 }
