@@ -4,7 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>StudiesSupport – ICSE & ISC Study Made Simple</title>
-    
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-1234567890"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-1234567890');
+    </script>
+
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7260463027910159" crossorigin="anonymous"></script>
 
     <script src="https://cdn.tailwindcss.com"></script>
@@ -15,13 +23,13 @@
         #login-modal.hidden {
             display: none !important;
         }
-        
+
         /* Fixes Focus Outline Error */
-        button:focus, select:focus, input:focus {
+        button:focus, select:focus, input:focus, textarea:focus {
             outline: 2px solid #2563eb !important;
             outline-offset: 2px;
         }
-        
+
         /* Shimmer Animation */
         @keyframes shimmer {
             0% { background-position: -1000px 0; }
@@ -53,11 +61,11 @@
                 <div style="display: flex; flex-direction: column; gap: 16px;">
                     <div>
                         <label style="display: block; color: #475569; font-size: 13px; font-weight: 600; margin-bottom: 6px;">Email Address</label>
-                        <input type="email" id="admin-email" placeholder="admin@example.com" style="width: 100%; padding: 14px 16px; border-radius: 12px; border: 1px solid #e2e8f0; background: #f8fafc; outline: none; font-size: 15px;">
+                        <input type="email" id="admin-email" aria-label="Admin Email" placeholder="admin@example.com" style="width: 100%; padding: 14px 16px; border-radius: 12px; border: 1px solid #e2e8f0; background: #f8fafc; font-size: 15px;">
                     </div>
                     <div>
                         <label style="display: block; color: #475569; font-size: 13px; font-weight: 600; margin-bottom: 6px;">Password</label>
-                        <input type="password" id="admin-password" placeholder="••••••••" style="width: 100%; padding: 14px 16px; border-radius: 12px; border: 1px solid #e2e8f0; background: #f8fafc; outline: none; font-size: 15px;">
+                        <input type="password" id="admin-password" aria-label="Admin Password" placeholder="••••••••" style="width: 100%; padding: 14px 16px; border-radius: 12px; border: 1px solid #e2e8f0; background: #f8fafc; font-size: 15px;">
                     </div>
 
                     <button onclick="loginAdmin()" style="width: 100%; background: #2563eb; color: white; border: none; padding: 14px; border-radius: 12px; font-size: 15px; font-weight: 700; cursor: pointer; margin-top: 8px;">Login to Dashboard</button>
@@ -104,7 +112,7 @@
                 <span class="nav-link cursor-pointer py-3 text-slate-600 font-medium text-[15px] block" style="padding-left: 24px; text-align: left;" onclick="navigateTo('privacy')">Privacy Policy</span>
                 <span class="nav-link cursor-pointer py-3 text-slate-600 font-medium text-[15px] block" style="padding-left: 24px; text-align: left;" onclick="navigateTo('terms')">Terms</span>
                 <span class="nav-link cursor-pointer py-3 text-slate-600 font-medium text-[15px] block" style="padding-left: 24px; text-align: left;" onclick="navigateTo('disclaimer')">Disclaimer</span>
-            
+
                 <div style="padding: 0 24px; margin-top: 8px; box-sizing: border-box; width: 100%;">
                     <button class="w-full bg-[#f1f5f9] hover:bg-[#e2e8f0] text-[#0f172a] font-bold py-3 rounded-xl flex items-center justify-center gap-2 transition text-[14px]" onclick="showLoginModal()">
                         <i data-lucide="settings" class="w-4 h-4"></i> Admin Panel
@@ -323,7 +331,7 @@
     </div>
     <div style="display: flex; align-items: center; gap: 6px; background: #f8fafc; border: 1px solid #e2e8f0; padding: 8px 14px; border-radius: 12px;">
         <i data-lucide="filter" style="width: 16px; height: 16px; color: #64748b;"></i>
-        <select id="icse-class-filter" aria-label="Filter by Class" onchange="renderStudentMaterials()" style="background: transparent; border: none; font-size: 13px; font-weight: 700; color: #334155; outline: none; cursor: pointer; -webkit-appearance: none; -moz-appearance: none; appearance: none;">
+        <select id="icse-class-filter" aria-label="Filter by Class" onchange="renderStudentMaterials()" style="background: transparent; border: none; font-size: 13px; font-weight: 700; color: #334155; cursor: pointer; -webkit-appearance: none; -moz-appearance: none; appearance: none;">
             <option value="all">All Classes</option>
             <option value="Class 10">Class 10 Only</option>
             <option value="Class 9">Class 9 Only</option>
@@ -420,7 +428,7 @@
     </div>
     <div style="display: flex; align-items: center; gap: 6px; background: #f8fafc; border: 1px solid #e2e8f0; padding: 8px 14px; border-radius: 12px;">
         <i data-lucide="filter" style="width: 16px; height: 16px; color: #64748b;"></i>
-        <select id="isc-class-filter" aria-label="Filter by Class" onchange="renderStudentMaterials()" style="background: transparent; border: none; font-size: 13px; font-weight: 700; color: #334155; outline: none; cursor: pointer; -webkit-appearance: none; -moz-appearance: none; appearance: none;">
+        <select id="isc-class-filter" aria-label="Filter by Class" onchange="renderStudentMaterials()" style="background: transparent; border: none; font-size: 13px; font-weight: 700; color: #334155; cursor: pointer; -webkit-appearance: none; -moz-appearance: none; appearance: none;">
             <option value="all">All Classes</option>
             <option value="Class 12">Class 12 Only</option>
             <option value="Class 11">Class 11 Only</option>
@@ -460,7 +468,7 @@
 
             <div style="margin-bottom: 16px;">
                 <label style="display: block; color: #475569; font-size: 13px; font-weight: 600; margin-bottom: 8px;">Select Class</label>
-                <select id="filter-class" aria-label="Select Class" onchange="updateFilterSubjects()" style="width: 100%; padding: 14px; border-radius: 12px; border: 1px solid #e2e8f0; background: #f8fafc; outline: none; font-size: 15px;">
+                <select id="filter-class" aria-label="Select Class" onchange="updateFilterSubjects()" style="width: 100%; padding: 14px; border-radius: 12px; border: 1px solid #e2e8f0; background: #f8fafc; font-size: 15px;">
                     <option value="">Select Class</option>
                     <option value="Class 9">ICSE - Class 9</option>
                     <option value="Class 10">ICSE - Class 10</option>
@@ -471,7 +479,7 @@
 
             <div style="margin-bottom: 16px;">
                 <label style="display: block; color: #475569; font-size: 13px; font-weight: 600; margin-bottom: 8px;">Select Subject</label>
-                <select id="filter-subject" aria-label="Select Subject" style="width: 100%; padding: 14px; border-radius: 12px; border: 1px solid #e2e8f0; background: #f8fafc; outline: none; font-size: 15px;">
+                <select id="filter-subject" aria-label="Select Subject" style="width: 100%; padding: 14px; border-radius: 12px; border: 1px solid #e2e8f0; background: #f8fafc; font-size: 15px;">
                     <option value="">Select Class First</option>
                 </select>
             </div>
@@ -506,7 +514,7 @@
 
 <main id="page-solutions" style="display: none; background-color: #ffffff; padding: 24px 20px 60px 20px;">
     <div style="max-width: 800px; margin: 0 auto;">
-        
+
         <div style="border: 2px dashed #cbd5e1; border-radius: 12px; padding: 15px; text-align: center; color: #94a3b8; font-size: 13px; font-weight: 500; margin-bottom: 40px; background-color: #f8fafc;">
             Ad Space – Top Banner
         </div>
@@ -519,7 +527,7 @@
         <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 24px; padding: 20px; box-shadow: 0 4px 6px rgba(0,0,0,0.02); margin-bottom: 24px;">
             <div style="margin-bottom: 16px;">
                 <label style="display: block; color: #475569; font-size: 13px; font-weight: 600; margin-bottom: 8px;">Select Class</label>
-                <select id="sol-filter-class" aria-label="Select Class for Solutions" onchange="updateSolFilterSubjects()" style="width: 100%; padding: 14px; border-radius: 12px; border: 1px solid #e2e8f0; background: #f8fafc; outline: none; font-size: 15px;">
+                <select id="sol-filter-class" aria-label="Select Class for Solutions" onchange="updateSolFilterSubjects()" style="width: 100%; padding: 14px; border-radius: 12px; border: 1px solid #e2e8f0; background: #f8fafc; font-size: 15px;">
                     <option value="">Select Class</option>
                     <option value="Class 9">ICSE - Class 9</option>
                     <option value="Class 10">ICSE - Class 10</option>
@@ -530,7 +538,7 @@
 
             <div style="margin-bottom: 16px;">
                 <label style="display: block; color: #475569; font-size: 13px; font-weight: 600; margin-bottom: 8px;">Select Subject</label>
-                <select id="sol-filter-subject" aria-label="Select Subject for Solutions" style="width: 100%; padding: 14px; border-radius: 12px; border: 1px solid #e2e8f0; background: #f8fafc; outline: none; font-size: 15px;">
+                <select id="sol-filter-subject" aria-label="Select Subject for Solutions" style="width: 100%; padding: 14px; border-radius: 12px; border: 1px solid #e2e8f0; background: #f8fafc; font-size: 15px;">
                     <option value="">Select Class First</option>
                 </select>
             </div>
@@ -654,17 +662,17 @@
             <form onsubmit="event.preventDefault(); alert('Message feature coming soon!');" style="display: flex; flex-direction: column; gap: 16px;">
                 <div>
                     <label style="display: block; color: #64748b; font-size: 13px; font-weight: 600; margin-bottom: 8px;">Name</label>
-                    <input type="text" placeholder="" style="width: 100%; padding: 16px; border-radius: 16px; border: 1px solid #e2e8f0; background-color: #ffffff; color: #0f172a; font-size: 15px; outline: none; box-sizing: border-box;">
+                    <input type="text" aria-label="Your Name" placeholder="" style="width: 100%; padding: 16px; border-radius: 16px; border: 1px solid #e2e8f0; background-color: #ffffff; color: #0f172a; font-size: 15px; box-sizing: border-box;">
                 </div>
 
                 <div>
                     <label style="display: block; color: #64748b; font-size: 13px; font-weight: 600; margin-bottom: 8px;">Email</label>
-                    <input type="email" placeholder="" style="width: 100%; padding: 16px; border-radius: 16px; border: 1px solid #e2e8f0; background-color: #ffffff; color: #0f172a; font-size: 15px; outline: none; box-sizing: border-box;">
+                    <input type="email" aria-label="Your Email" placeholder="" style="width: 100%; padding: 16px; border-radius: 16px; border: 1px solid #e2e8f0; background-color: #ffffff; color: #0f172a; font-size: 15px; box-sizing: border-box;">
                 </div>
 
                 <div>
                     <label style="display: block; color: #64748b; font-size: 13px; font-weight: 600; margin-bottom: 8px;">Message</label>
-                    <textarea placeholder="" style="width: 100%; padding: 16px; border-radius: 16px; border: 1px solid #e2e8f0; background-color: #ffffff; color: #0f172a; font-size: 15px; outline: none; resize: none; height: 120px; box-sizing: border-box;"></textarea>
+                    <textarea aria-label="Your Message" placeholder="" style="width: 100%; padding: 16px; border-radius: 16px; border: 1px solid #e2e8f0; background-color: #ffffff; color: #0f172a; font-size: 15px; resize: none; height: 120px; box-sizing: border-box;"></textarea>
                 </div>
 
                 <button type="submit" aria-label="Send Message Form" style="margin-top: 8px; width: 100%; padding: 16px; background-color: #2563eb; color: #ffffff; font-size: 15px; font-weight: 800; border: none; border-radius: 16px; cursor: pointer; box-shadow: 0 4px 15px rgba(37, 99, 235, 0.2);">
@@ -772,7 +780,7 @@
             <div style="display: flex; gap: 12px;">
                 <label style="position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; background-color: #eff6ff; color: #2563eb; border-radius: 16px; padding: 12px 20px; font-size: 13px; font-weight: 700; cursor: pointer; gap: 6px;">
                     <i data-lucide="image" style="width: 18px; height: 18px;"></i> Upload Logo
-                    <input type="file" id="logo-upload" accept="*/*" style="opacity: 0; position: absolute; width: 1px; height: 1px; z-index: -1;" onchange="handleLogoUpload(event)">
+                    <input type="file" id="logo-upload" aria-label="Upload Site Logo" accept="*/*" style="opacity: 0; position: absolute; width: 1px; height: 1px; z-index: -1;" onchange="handleLogoUpload(event)">
                 </label>
 
 
@@ -789,7 +797,7 @@
 
                 <div>
                     <label style="display: block; color: #64748b; font-size: 13px; font-weight: 600; margin-bottom: 8px;">Board</label>
-                    <select id="admin-board-select" aria-label="Select Board" onchange="updateSubjectDropdown()" style="width: 100%; padding: 16px; border-radius: 12px; border: 1px solid #e2e8f0; background-color: #f8fafc; color: #475569; font-size: 15px; outline: none;">
+                    <select id="admin-board-select" aria-label="Select Board" onchange="updateSubjectDropdown()" style="width: 100%; padding: 16px; border-radius: 12px; border: 1px solid #e2e8f0; background-color: #f8fafc; color: #475569; font-size: 15px;">
                         <option value="">Select Board</option>
                         <option value="ICSE">ICSE</option>
                         <option value="ISC">ISC</option>
@@ -798,7 +806,7 @@
 
                 <div>
                     <label style="display: block; color: #64748b; font-size: 13px; font-weight: 600; margin-bottom: 8px;">Subject</label>
-                    <select id="admin-subject-select" aria-label="Select Subject" style="width: 100%; padding: 16px; border-radius: 12px; border: 1px solid #e2e8f0; background-color: #f8fafc; color: #475569; font-size: 15px; outline: none;">
+                    <select id="admin-subject-select" aria-label="Select Subject" style="width: 100%; padding: 16px; border-radius: 12px; border: 1px solid #e2e8f0; background-color: #f8fafc; color: #475569; font-size: 15px;">
                         <option value="">Select Board First</option>
                     </select>
                 </div>
@@ -806,7 +814,7 @@
 
                 <div>
                     <label style="display: block; color: #64748b; font-size: 13px; font-weight: 600; margin-bottom: 8px;">Class</label>
-                    <select aria-label="Select Class" style="width: 100%; padding: 16px; border-radius: 12px; border: 1px solid #e2e8f0; background-color: #f8fafc; color: #475569; font-size: 15px; outline: none;">
+                    <select aria-label="Select Class" style="width: 100%; padding: 16px; border-radius: 12px; border: 1px solid #e2e8f0; background-color: #f8fafc; color: #475569; font-size: 15px;">
                         <option>Select Class</option>
                         <option>Class 9</option>
                         <option>Class 10</option>
@@ -817,12 +825,12 @@
 
                 <div>
                     <label style="display: block; color: #64748b; font-size: 13px; font-weight: 600; margin-bottom: 8px;">Chapter / Topic</label>
-                    <input type="text" placeholder="e.g., Chapter 1: Atoms & Molecules" aria-label="Chapter Input" style="width: 100%; padding: 16px; border-radius: 12px; border: 1px solid #e2e8f0; background-color: #ffffff; color: #0f172a; font-size: 15px; outline: none; box-sizing: border-box;">
+                    <input type="text" placeholder="e.g., Chapter 1: Atoms & Molecules" aria-label="Chapter Input" style="width: 100%; padding: 16px; border-radius: 12px; border: 1px solid #e2e8f0; background-color: #ffffff; color: #0f172a; font-size: 15px; box-sizing: border-box;">
                 </div>
 
                 <div>
                     <label style="display: block; color: #64748b; font-size: 13px; font-weight: 600; margin-bottom: 8px;">Content Type</label>
-                    <select aria-label="Select Content Type" style="width: 100%; padding: 16px; border-radius: 12px; border: 1px solid #e2e8f0; background-color: #f8fafc; color: #475569; font-size: 15px; outline: none;">
+                    <select aria-label="Select Content Type" style="width: 100%; padding: 16px; border-radius: 12px; border: 1px solid #e2e8f0; background-color: #f8fafc; color: #475569; font-size: 15px;">
                         <option>Select Type</option>
                         <option>PDF Document</option>
                         <option>Text Notes</option>
@@ -833,7 +841,7 @@
 
                 <div>
                     <label style="display: block; color: #64748b; font-size: 13px; font-weight: 600; margin-bottom: 8px;">Content / Text</label>
-                    <textarea aria-label="Content Text Input" placeholder="Paste or type your content here..." style="width: 100%; padding: 16px; border-radius: 12px; border: 1px solid #e2e8f0; background-color: #ffffff; color: #0f172a; font-size: 15px; outline: none; resize: none; height: 120px; box-sizing: border-box;"></textarea>
+                    <textarea aria-label="Content Text Input" placeholder="Paste or type your content here..." style="width: 100%; padding: 16px; border-radius: 12px; border: 1px solid #e2e8f0; background-color: #ffffff; color: #0f172a; font-size: 15px; resize: none; height: 120px; box-sizing: border-box;"></textarea>
                 </div>
 
                 <div>
@@ -930,11 +938,11 @@
             <div style="display: flex; align-items: center; gap: 8px; background: #f8fafc; border-top: 1px solid #e2e8f0; padding: 12px; margin: 0;">
                 <label for="ai-camera" style="cursor: pointer; padding: 8px; color: #64748b;" aria-label="Upload Image">
                     <i data-lucide="camera" style="width: 20px; height: 20px;"></i>
-                    <input type="file" id="ai-camera" accept="image/*" capture="environment" style="display: none;" onchange="handleAICamera(event)">
+                    <input type="file" id="ai-camera" aria-label="AI Camera Upload" accept="image/*" capture="environment" style="display: none;" onchange="handleAICamera(event)">
                 </label>
-                
-                <input id="ai-input" type="text" placeholder="Ask anything..." style="flex: 1; border: 1px solid #cbd5e1; padding: 14px 16px; border-radius: 16px; background: transparent; outline: none; font-size: 14px; color: #0f172a;">
-                
+
+                <input id="ai-input" aria-label="AI Chat Input" type="text" placeholder="Ask anything..." style="flex: 1; border: 1px solid #cbd5e1; padding: 14px 16px; border-radius: 16px; background: transparent; font-size: 14px; color: #0f172a;">
+
                 <button onclick="sendAIMessage()" aria-label="Send Message" style="background: #9333ea; color: white; border: none; width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: background 0.2s;">
                     <i data-lucide="send" style="width: 18px; height: 18px;"></i>
                 </button>
