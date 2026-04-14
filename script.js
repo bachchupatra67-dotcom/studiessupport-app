@@ -73,8 +73,11 @@ function navigateTo(pageName, isBack = false) {
         targetPage.classList.add('active');
     }
 
-    if (typeof renderStudentMaterials === 'function') {
-        renderStudentMaterials();
+    // 🌟 THE FIX: Tell the app to draw the Backpack when we open it!
+    if (pageName === 'backpack') {
+        if (typeof renderBackpack === 'function') renderBackpack();
+    } else {
+        if (typeof renderStudentMaterials === 'function') renderStudentMaterials();
     }
 
     const mobileMenu = document.getElementById('mobile-menu');
