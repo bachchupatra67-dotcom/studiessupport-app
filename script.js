@@ -11,8 +11,8 @@ const generateCardHTML = (item) => {
     let formattedText = item.content_text ? item.content_text.replace(/\*\*(.*?)\*\*/g, '<strong style="color: #0f172a; font-weight: 900;">$1</strong>') : '';
     let textNotes = formattedText ? `<div style="background: #f8fafc; padding: 12px; border-radius: 8px; font-size: 14px; color: #334155; margin-top: 12px; white-space: pre-wrap;">${formattedText}</div>` : '';
 
-    // 🌟 PRO UPGRADE: Bookmarks & WhatsApp
-    const isSaved = myBackpack.includes(String(item.id));
+    // 🌟 THE BACKPACK FIX: Safe string comparison
+    const isSaved = myBackpack.some(savedId => String(savedId) === String(item.id));
     const bookmarkColor = isSaved ? '#f59e0b' : '#94a3b8';
     const bookmarkFill = isSaved ? '#f59e0b' : 'none';
 
@@ -22,7 +22,7 @@ const generateCardHTML = (item) => {
         <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 16px; padding: 20px; box-shadow: 0 4px 6px rgba(0,0,0,0.02); margin-bottom: 16px;">
             <div style="display: flex; justify-content: space-between; align-items: flex-start;">
                 <h4 style="color: #0f172a; font-size: 16px; font-weight: 800; margin: 0 0 4px 0;">${item.chapter}</h4>
-                <button onclick="toggleBookmark(${item.id})" style="background: none; border: none; cursor: pointer; padding: 0;">
+                <button onclick="toggleBookmark('${item.id}')" style="background: none; border: none; cursor: pointer; padding: 0;">
                     <i data-lucide="bookmark" style="color: ${bookmarkColor}; width: 24px; height: 24px;" fill="${bookmarkFill}"></i>
                 </button>
             </div>
@@ -648,7 +648,7 @@ function applyNotesFilter() {
     filtered.forEach(item => {
         container.innerHTML += generateCardHTML(item);
     });
-    
+
     if (window.lucide) lucide.createIcons();
 }
 
@@ -749,11 +749,16 @@ async function applySolutionsFilter() {
 // ==========================================
 function toggleBookmark(itemId) {
     const id = String(itemId);
-    if (myBackpack.includes(id)) {
-        myBackpack = myBackpack.filter(bid => bid !== id);
+    
+    // 🌟 Safe String check
+    const exists = myBackpack.some(savedId => String(savedId) === id);
+    
+    if (exists) {
+        myBackpack = myBackpack.filter(savedId => String(savedId) !== id); // Remove
     } else {
-        myBackpack.push(id);
+        myBackpack.push(id); // Add
     }
+    
     localStorage.setItem('studyBackpack', JSON.stringify(myBackpack));
     renderStudentMaterials();
     if (currentPage === 'backpack') renderBackpack();
@@ -768,7 +773,11 @@ function renderBackpack() {
         return;
     }
 
-    const savedItems = allStudyMaterials.filter(item => myBackpack.includes(String(item.id)));
+    // 🌟 Safely filter using the String Match trick
+    const savedItems = allStudyMaterials.filter(item => 
+        myBackpack.some(savedId => String(savedId) === String(item.id))
+    );
+    
     container.innerHTML = '';
     savedItems.forEach(item => {
         container.innerHTML += generateCardHTML(item);
