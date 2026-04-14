@@ -12,7 +12,7 @@ const generateCardHTML = (item) => {
     let textNotes = formattedText ? `<div style="background: #f8fafc; padding: 12px; border-radius: 8px; font-size: 14px; color: #334155; margin-top: 12px; white-space: pre-wrap;">${formattedText}</div>` : '';
 
     // 🌟 PRO UPGRADE: Bookmarks & WhatsApp
-    const isSaved = myBackpack.includes(item.id);
+    const isSaved = myBackpack.includes(String(item.id));
     const bookmarkColor = isSaved ? '#f59e0b' : '#94a3b8';
     const bookmarkFill = isSaved ? '#f59e0b' : 'none';
 
@@ -748,7 +748,7 @@ async function applySolutionsFilter() {
 // 15. THE BACKPACK ENGINE
 // ==========================================
 function toggleBookmark(itemId) {
-    const id = Number(itemId);
+    const id = String(itemId);
     if (myBackpack.includes(id)) {
         myBackpack = myBackpack.filter(bid => bid !== id);
     } else {
@@ -768,7 +768,7 @@ function renderBackpack() {
         return;
     }
 
-    const savedItems = allStudyMaterials.filter(item => myBackpack.includes(Number(item.id)));
+    const savedItems = allStudyMaterials.filter(item => myBackpack.includes(String(item.id)));
     container.innerHTML = '';
     savedItems.forEach(item => {
         container.innerHTML += generateCardHTML(item);
