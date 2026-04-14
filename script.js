@@ -542,7 +542,7 @@ async function handleAICamera(event) {
     const chatBox = document.getElementById('chat-box');
     chatBox.innerHTML += `<div style="align-self: flex-start; background: #f1f5f9; padding: 10px 14px; border-radius: 12px; font-size: 12px; color: #64748b;">📷 Analyzing image...</div>`;
     chatBox.scrollTop = chatBox.scrollHeight;
-    
+
     const reader = new FileReader();
     reader.onload = async function(e) {
         const base64Image = e.target.result.split(',')[1];
@@ -577,7 +577,7 @@ async function sendAIMessage(imageData = null, isImage = false) {
 
     try {
         const payload = isImage ? { image: imageData, prompt: userText || "Solve this step by step." } : { prompt: userText };
-        
+
         const response = await fetch('/api/gemini', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -643,23 +643,15 @@ function applyNotesFilter() {
         return;
     }
 
+    // 🌟 SMART DRAW: Now uses the global card generator so Bold text works!
     container.innerHTML = '';
     filtered.forEach(item => {
-        let linkBtn = item.file_url ? `<a href="${item.file_url}" target="_blank" style="display: inline-block; background: #10b981; color: #ffffff; padding: 10px 20px; border-radius: 10px; text-decoration: none; font-size: 14px; font-weight: 700; margin-top: 12px;">Download PDF</a>` : '';
-        let textNotes = item.content_text ? `<div style="background: #f8fafc; padding: 12px; border-radius: 8px; font-size: 14px; color: #334155; margin-top: 12px; white-space: pre-wrap;">${item.content_text}</div>` : '';
-
-        container.innerHTML += `
-            <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 16px; padding: 20px; box-shadow: 0 4px 6px rgba(0,0,0,0.02); margin-bottom: 16px; text-align: left;">
-                <div style="display: flex; justify-content: space-between; align-items: flex-start;">
-                    <h4 style="color: #0f172a; font-size: 16px; font-weight: 800; margin: 0 0 4px 0;">${item.chapter}</h4>
-                    <span style="background: #ecfdf5; color: #10b981; padding: 4px 8px; border-radius: 6px; font-size: 11px; font-weight: 800;">${item.content_type}</span>
-                </div>
-                <p style="color: #64748b; font-size: 13px; margin: 0;">${item.board} • ${item.class_level} • ${item.subject}</p>
-                ${textNotes}
-                ${linkBtn}
-            </div>`;
+        container.innerHTML += generateCardHTML(item);
     });
+    
+    if (window.lucide) lucide.createIcons();
 }
+
 
 function updateFilterSubjects() {
     const classVal = document.getElementById('filter-class').value;
