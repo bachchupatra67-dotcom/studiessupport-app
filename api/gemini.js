@@ -1,4 +1,8 @@
+// 🌟 THE FIX: Tell Vercel to wait up to 60 seconds for the AI instead of 10!
+export const maxDuration = 60; 
+
 export default async function handler(req, res) {
+    // Only allow POST requests
     if (req.method !== 'POST') {
         return res.status(405).json({ error: 'Method not allowed' });
     }
