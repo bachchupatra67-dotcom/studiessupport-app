@@ -11,7 +11,6 @@ const generateCardHTML = (item) => {
     let formattedText = item.content_text ? item.content_text.replace(/\*\*(.*?)\*\*/g, '<strong style="color: #0f172a; font-weight: 900;">$1</strong>') : '';
     let textNotes = formattedText ? `<div style="background: #f8fafc; padding: 12px; border-radius: 8px; font-size: 14px; color: #334155; margin-top: 12px; white-space: pre-wrap;">${formattedText}</div>` : '';
 
-    // Subchapter label (if it exists)
     let subchapterBadge = item.subchapter ? `<span style="background: #fef3c7; color: #d97706; padding: 4px 8px; border-radius: 6px; font-size: 11px; font-weight: 800; display: inline-block; margin-bottom: 8px; margin-left: 6px;">${item.subchapter}</span>` : '';
 
     const isSaved = myBackpack.some(savedId => String(savedId) === String(item.id));
@@ -136,6 +135,47 @@ try {
     }
 } catch (error) { console.error("Supabase load error:", error); }
 
+// ==========================================
+// 🌟 NEW: ADMIN SUBJECT & FILTER LOGIC
+// ==========================================
+function updateSubjectDropdown() {
+    const board = document.getElementById('admin-board-select').value;
+    const subjectSelect = document.getElementById('admin-subject-select');
+    
+    let subjects = [];
+    if (board === 'ICSE') {
+        subjects = ['English Language', 'English Literature', 'Mathematics', 'Science (Physics)', 'Science (Chemistry)', 'Science (Biology)', 'Hindi', 'History & Civics', 'Geography', 'Computer Science'];
+    } else if (board === 'ISC') {
+        subjects = ['English Language', 'English Literature', 'Hindi', 'Physics', 'Chemistry', 'Mathematics', 'Biology', 'Computer Science', 'Accounts', 'Business Studies', 'Economics', 'History'];
+    }
+
+    subjectSelect.innerHTML = '<option value="">Select Subject</option>';
+    subjects.forEach(sub => {
+        subjectSelect.innerHTML += `<option value="${sub}">${sub}</option>`;
+    });
+    
+    // Add the "New Subject" Button
+    if (board) {
+        subjectSelect.innerHTML += `<option value="CUSTOM_NEW" style="font-weight:bold; color:#2563eb;">+ Add New Subject...</option>`;
+    }
+    
+    toggleCustomSubject(); 
+}
+
+function toggleCustomSubject() {
+    const select = document.getElementById('admin-subject-select');
+    const customInput = document.getElementById('admin-custom-subject');
+    
+    if (select.value === 'CUSTOM_NEW') {
+        customInput.style.display = 'block';
+        customInput.required = true;
+    } else {
+        customInput.style.display = 'none';
+        customInput.required = false;
+        customInput.value = '';
+    }
+}
+
 async function handleMaterialUpload(event) {
     event.preventDefault();
     if (!supabaseClient) { alert("Upload system unavailable."); return; }
@@ -144,8 +184,12 @@ async function handleMaterialUpload(event) {
     const classValue = document.getElementById('admin-class-select').value;
     const typeValue = document.getElementById('admin-type-select').value;
     
-    // Custom Inputs
-    const subjectValue = document.getElementById('admin-subject-input').value.trim();
+    // 🌟 Check if they picked standard subject or typed a custom one
+    let subjectValue = document.getElementById('admin-subject-select').value;
+    if (subjectValue === 'CUSTOM_NEW') {
+        subjectValue = document.getElementById('admin-custom-subject').value.trim();
+    }
+    
     const chapterValue = document.getElementById('admin-chapter-input').value.trim();
     const subchapterValue = document.getElementById('admin-subchapter-input').value.trim();
     const textContent = document.getElementById('admin-text-input').value;
@@ -191,6 +235,7 @@ async function handleMaterialUpload(event) {
         }
 
         editingMaterialId = null; event.target.reset();
+        toggleCustomSubject(); // Hide custom box on reset
         document.getElementById('file-name-display').innerText = 'Click to upload or drag & drop';
         document.getElementById('file-name-display').style.color = '#334155';
         fetchAndDisplayMaterials();
@@ -221,9 +266,23 @@ function editMaterial(id) {
     editingMaterialId = item.id; 
 
     document.getElementById('admin-board-select').value = item.board || '';
+    updateSubjectDropdown(); // Set standard options based on board
+    
+    // Check if the item's subject exists in the dropdown
+    const select = document.getElementById('admin-subject-select');
+    const options = Array.from(select.options).map(opt => opt.value);
+    
+    if (options.includes(item.subject)) {
+        select.value = item.subject;
+    } else {
+        // It's a custom subject! Select "Add New" and fill the hidden box
+        select.value = 'CUSTOM_NEW';
+        toggleCustomSubject();
+        document.getElementById('admin-custom-subject').value = item.subject || '';
+    }
+
     document.getElementById('admin-class-select').value = item.class_level || '';
     document.getElementById('admin-type-select').value = item.content_type || '';
-    document.getElementById('admin-subject-input').value = item.subject || '';
     document.getElementById('admin-chapter-input').value = item.chapter || '';
     document.getElementById('admin-subchapter-input').value = item.subchapter || '';
     document.getElementById('admin-text-input').value = item.content_text || '';
@@ -252,36 +311,61 @@ async function fetchAndDisplayMaterials() {
         if (error) throw error;
         allStudyMaterials = data;
 
-        const adminContainer = document.getElementById('admin-materials-container');
-        if (adminContainer) {
-            if (data.length === 0) adminContainer.innerHTML = `<p style="text-align: center; color: #94a3b8; font-size: 14px; margin: 40px 0;">No content added yet.</p>`;
-            else {
-                adminContainer.innerHTML = '';
-                data.forEach(item => {
-                    let linkHtml = item.file_url ? `<a href="${item.file_url}" target="_blank" style="background: #eff6ff; color: #2563eb; padding: 6px 12px; border-radius: 8px; text-decoration: none; font-size: 12px; font-weight: 700;">View</a>` : '';
-                    let editBtn = `<button onclick="editMaterial(${item.id})" style="background: #fff7ed; color: #ea580c; border: 1px solid #fed7aa; padding: 6px 12px; border-radius: 8px; font-size: 12px; font-weight: 700; cursor: pointer; margin-right: 8px;">Edit</button>`;
-                    let deleteBtn = `<button onclick="deleteMaterial(${item.id})" style="background: #fef2f2; color: #dc2626; border: 1px solid #fecaca; padding: 6px 12px; border-radius: 8px; font-size: 12px; font-weight: 700; cursor: pointer; margin-right: 8px;">Delete</button>`;
-                    adminContainer.innerHTML += `
-                        <div style="background: white; border: 1px solid #e2e8f0; border-radius: 16px; padding: 16px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; flex-wrap: wrap; gap: 12px;">
-                            <div>
-                                <h4 style="color: #0f172a; font-size: 15px; font-weight: 700; margin: 0 0 4px 0;">${item.chapter} ${item.subchapter ? `(${item.subchapter})` : ''}</h4>
-                                <p style="color: #64748b; font-size: 12px; margin: 0;">${item.board} • ${item.class_level} • ${item.subject}</p>
-                            </div>
-                            <div style="display: flex;">${deleteBtn}${editBtn}${linkHtml}</div>
-                        </div>`;
-                });
-            }
+        // 🌟 Populate Admin Subject Filter Dropdown
+        const adminSubFilter = document.getElementById('admin-filter-subject');
+        if (adminSubFilter) {
+            const uniqueSubjects = [...new Set(data.map(m => m.subject).filter(Boolean))].sort();
+            adminSubFilter.innerHTML = '<option value="">All Subjects</option>' + uniqueSubjects.map(s => `<option value="${s}">${s}</option>`).join('');
         }
+
+        renderAdminMaterials(); // Draw the admin list
         renderStudentMaterials();
         updateDynamicFilters('qa');
         updateDynamicFilters('sol');
         updateAdminDatalists();
+        
+        if (currentPage === 'backpack') {
+            renderBackpack();
+        }
+
     } catch (error) { console.error("Error fetching materials:", error); }
 }
 
-// ==========================================
-// 🌟 NEW: DYNAMIC FILTERS ENGINE
-// ==========================================
+// 🌟 NEW: RENDER ADMIN MATERIALS WITH FILTERS
+function renderAdminMaterials() {
+    const container = document.getElementById('admin-materials-container');
+    if (!container) return;
+
+    const classFilter = document.getElementById('admin-filter-class')?.value || '';
+    const subFilter = document.getElementById('admin-filter-subject')?.value || '';
+
+    let filtered = allStudyMaterials;
+    if (classFilter) filtered = filtered.filter(m => m.class_level === classFilter);
+    if (subFilter) filtered = filtered.filter(m => m.subject === subFilter);
+
+    if (filtered.length === 0) {
+        container.innerHTML = `<p style="text-align: center; color: #94a3b8; font-size: 14px; margin: 40px 0;">No materials found.</p>`;
+        return;
+    }
+
+    container.innerHTML = '';
+    filtered.forEach(item => {
+        let linkHtml = item.file_url ? `<a href="${item.file_url}" target="_blank" style="background: #eff6ff; color: #2563eb; padding: 6px 12px; border-radius: 8px; text-decoration: none; font-size: 12px; font-weight: 700;">View</a>` : '';
+        let editBtn = `<button onclick="editMaterial(${item.id})" style="background: #fff7ed; color: #ea580c; border: 1px solid #fed7aa; padding: 6px 12px; border-radius: 8px; font-size: 12px; font-weight: 700; cursor: pointer; margin-right: 8px;">Edit</button>`;
+        let deleteBtn = `<button onclick="deleteMaterial(${item.id})" style="background: #fef2f2; color: #dc2626; border: 1px solid #fecaca; padding: 6px 12px; border-radius: 8px; font-size: 12px; font-weight: 700; cursor: pointer; margin-right: 8px;">Delete</button>`;
+        
+        container.innerHTML += `
+            <div style="background: white; border: 1px solid #e2e8f0; border-radius: 16px; padding: 16px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; flex-wrap: wrap; gap: 12px;">
+                <div>
+                    <h4 style="color: #0f172a; font-size: 15px; font-weight: 700; margin: 0 0 4px 0;">${item.chapter || 'Untitled'} ${item.subchapter ? `(${item.subchapter})` : ''}</h4>
+                    <p style="color: #64748b; font-size: 12px; margin: 0;">${item.board} • ${item.class_level} • <span style="font-weight:600;">${item.subject}</span></p>
+                </div>
+                <div style="display: flex;">${deleteBtn}${editBtn}${linkHtml}</div>
+            </div>`;
+    });
+}
+
+
 function updateDynamicFilters(pagePrefix) {
     const classSelect = document.getElementById(`${pagePrefix}-filter-class`);
     const subjectSelect = document.getElementById(`${pagePrefix}-filter-subject`);
@@ -296,20 +380,17 @@ function updateDynamicFilters(pagePrefix) {
     const classVal = classSelect.value;
     if (classVal) validMaterials = validMaterials.filter(m => m.class_level === classVal);
 
-    // 1. Fill Subjects
     const currentSub = subjectSelect.value;
     const subjects = [...new Set(validMaterials.map(m => m.subject).filter(Boolean))];
     subjectSelect.innerHTML = '<option value="">All Subjects</option>' + subjects.map(s => `<option value="${s}">${s}</option>`).join('');
     if (subjects.includes(currentSub)) subjectSelect.value = currentSub;
 
-    // 2. Fill Chapters based on Subject
     if (subjectSelect.value) validMaterials = validMaterials.filter(m => m.subject === subjectSelect.value);
     const currentChap = chapterSelect.value;
     const chapters = [...new Set(validMaterials.map(m => m.chapter).filter(Boolean))];
     chapterSelect.innerHTML = '<option value="">All Chapters</option>' + chapters.map(c => `<option value="${c}">${c}</option>`).join('');
     if (chapters.includes(currentChap)) chapterSelect.value = currentChap;
 
-    // 3. Fill Subchapters based on Chapter
     if (chapterSelect.value) validMaterials = validMaterials.filter(m => m.chapter === chapterSelect.value);
     const currentSubchap = subchapterSelect.value;
     const subchapters = [...new Set(validMaterials.map(m => m.subchapter).filter(Boolean))];
@@ -335,7 +416,6 @@ function applyDynamicFilter(pagePrefix, containerId) {
     const subchapterVal = document.getElementById(`${pagePrefix}-filter-subchapter`).value;
     const container = document.getElementById(containerId);
 
-    // If it's the Solutions page, show shimmer first
     if(pagePrefix === 'sol') showSkeletons(containerId);
 
     setTimeout(() => {
@@ -358,7 +438,6 @@ function applyDynamicFilter(pagePrefix, containerId) {
     }, pagePrefix === 'sol' ? 500 : 0);
 }
 
-// Helper for Solutions Shimmer
 function showSkeletons(containerId) {
     const container = document.getElementById(containerId);
     if (!container) return;
@@ -366,7 +445,6 @@ function showSkeletons(containerId) {
     for (let i = 0; i < 3; i++) container.innerHTML += `<div class="skeleton-box" style="height: 160px; margin-bottom: 16px; border-radius: 16px; opacity: 0.6;"></div>`;
 }
 
-// Draw ICSE/ISC Class Pages
 function renderStudentMaterials() {
     function drawCards(container, materials, boardType) {
         if (materials.length === 0) {
@@ -415,26 +493,34 @@ function renderStudentMaterials() {
 async function handleAICamera(event) {
     const file = event.target.files[0];
     if (!file) return;
+
+    if (file.size > 4 * 1024 * 1024) {
+        alert("File is too large! Please select a file smaller than 4MB.");
+        return;
+    }
+
     const chatBox = document.getElementById('chat-box');
-    chatBox.innerHTML += `<div style="align-self: flex-start; background: #f1f5f9; padding: 10px 14px; border-radius: 12px; font-size: 12px; color: #64748b;">📷 Analyzing image...</div>`;
+    let fileIcon = file.type.includes('pdf') ? '📄' : (file.type.includes('text') ? '📝' : '📷');
+    
+    chatBox.innerHTML += `<div style="align-self: flex-start; background: #f1f5f9; padding: 10px 14px; border-radius: 12px; font-size: 12px; color: #64748b;">${fileIcon} Analyzing ${file.name}...</div>`;
     chatBox.scrollTop = chatBox.scrollHeight;
 
     const reader = new FileReader();
     reader.onload = async function(e) {
-        const base64Image = e.target.result.split(',')[1];
-        await sendAIMessage(base64Image, true);
+        const base64Data = e.target.result.split(',')[1];
+        await sendAIMessage(base64Data, file.type);
     };
     reader.readAsDataURL(file);
 }
 
-async function sendAIMessage(imageData = null, isImage = false) {
+async function sendAIMessage(fileData = null, mimeType = null) {
     const inputField = document.getElementById('ai-input');
     const chatBox = document.getElementById('chat-box');
     const userText = inputField ? inputField.value.trim() : '';
 
-    if (!userText && !isImage) return;
+    if (!userText && !fileData) return;
 
-    if (!isImage) {
+    if (!fileData) {
         chatBox.innerHTML += `<div style="align-self: flex-end; background: #9333ea; color: white; padding: 14px 18px; border-radius: 20px; border-bottom-right-radius: 4px; max-width: 85%; box-shadow: 0 2px 4px rgba(0,0,0,0.1);"><p style="margin: 0; font-size: 14px; line-height: 1.5;">${userText}</p></div>`;
         inputField.value = '';
     }
@@ -444,8 +530,16 @@ async function sendAIMessage(imageData = null, isImage = false) {
     chatBox.scrollTop = chatBox.scrollHeight;
 
     try {
-        const payload = isImage ? { image: imageData, prompt: userText || "Solve this step by step." } : { prompt: userText };
-        const response = await fetch('/api/gemini', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+        const payload = fileData 
+            ? { fileData: fileData, mimeType: mimeType, prompt: userText || "Please read this file and explain it simply." } 
+            : { prompt: userText };
+
+        const response = await fetch('/api/gemini', { 
+            method: 'POST', 
+            headers: { 'Content-Type': 'application/json' }, 
+            body: JSON.stringify(payload) 
+        });
+        
         if (!response.ok) throw new Error("Backend connection failed");
 
         const data = await response.json();
