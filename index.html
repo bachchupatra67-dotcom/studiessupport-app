@@ -63,7 +63,7 @@
             </a>
             <button id="mobile-menu-btn" aria-label="Open Menu" class="md:hidden p-2 rounded-lg flex items-center justify-center" style="position: absolute !important; right: 0px !important; top: 50% !important; transform: translateY(-50%) !important; background-color: #f8fafc !important; border: 1px solid #e2e8f0 !important; color: #0f172a !important; z-index: 999 !important;" onclick="toggleMobileMenu()"><i data-lucide="menu" class="w-6 h-6"></i></button>
         </div>
-        
+
         <div id="mobile-menu" class="bg-white shadow-md border-t border-slate-100 absolute w-full left-0" style="display: none; top: 100%; z-index: 40;">
             <div class="flex flex-col pt-2 pb-6">
                 <span class="nav-link cursor-pointer py-3 text-slate-600 font-medium text-[15px] block" style="padding-left: 24px; text-align: left;" onclick="navigateTo('home')">Home</span>
@@ -122,7 +122,7 @@
                     </div>
                 </div>
             </section>
-            
+
             <div class="max-w-6xl mx-auto px-4 py-4">
                 <div style="background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; min-height: 60px; display: flex; align-items: center; justify-content: center; margin-bottom: 24px;">
                     <span style="color: #94a3b8; font-size: 10px; letter-spacing: 1px; text-transform: uppercase;">Advertisement</span>
@@ -313,7 +313,7 @@
                 </div>
 
                 <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 24px; padding: 20px; box-shadow: 0 4px 6px rgba(0,0,0,0.02); margin-bottom: 24px;">
-                    
+
                     <div style="margin-bottom: 16px;">
                         <label style="display: block; color: #475569; font-size: 13px; font-weight: 600; margin-bottom: 8px;">Class</label>
                         <select id="qa-filter-class" aria-label="Select Class" onchange="updateDynamicFilters('qa')" style="width: 100%; padding: 14px; border-radius: 12px; border: 1px solid #e2e8f0; background: #f8fafc; font-size: 15px;">
@@ -380,7 +380,7 @@
                 </div>
 
                 <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 24px; padding: 20px; box-shadow: 0 4px 6px rgba(0,0,0,0.02); margin-bottom: 24px;">
-                    
+
                     <div style="margin-bottom: 16px;">
                         <label style="display: block; color: #475569; font-size: 13px; font-weight: 600; margin-bottom: 8px;">Class</label>
                         <select id="sol-filter-class" aria-label="Select Class" onchange="updateDynamicFilters('sol')" style="width: 100%; padding: 14px; border-radius: 12px; border: 1px solid #e2e8f0; background: #f8fafc; font-size: 15px;">
@@ -496,7 +496,8 @@
                     <form id="upload-form" onsubmit="handleMaterialUpload(event)" style="display: flex; flex-direction: column; gap: 20px;">
                         <div>
                             <label style="display: block; color: #64748b; font-size: 13px; font-weight: 600; margin-bottom: 8px;">Board</label>
-                            <select id="admin-board-select" aria-label="Select Board" style="width: 100%; padding: 16px; border-radius: 12px; border: 1px solid #e2e8f0; background-color: #f8fafc; font-size: 15px; outline: none;">
+                            <select id="admin-board-select" aria-label="Select Board" onchange="updateSubjectDropdown()" style="width: 100%; padding: 16px; border-radius: 12px; border: 1px solid #e2e8f0; background-color: #f8fafc; font-size: 15px; outline: none;">
+                                <option value="">Select Board...</option>
                                 <option value="ICSE">ICSE</option>
                                 <option value="ISC">ISC</option>
                             </select>
@@ -508,11 +509,15 @@
                                 <option value="Class 11">Class 11</option><option value="Class 12">Class 12</option>
                             </select>
                         </div>
+
                         <div>
                             <label style="display: block; color: #64748b; font-size: 13px; font-weight: 600; margin-bottom: 8px;">Subject</label>
-                            <input type="text" id="admin-subject-input" list="admin-subjects-list" placeholder="e.g., Physics" required style="width: 100%; padding: 16px; border-radius: 12px; border: 1px solid #e2e8f0; font-size: 15px; box-sizing: border-box;">
-                            <datalist id="admin-subjects-list"></datalist>
+                            <select id="admin-subject-select" aria-label="Select Subject" onchange="toggleCustomSubject()" required style="width: 100%; padding: 16px; border-radius: 12px; border: 1px solid #e2e8f0; background-color: #f8fafc; font-size: 15px; outline: none; margin-bottom: 8px;">
+                                <option value="">Select Board First</option>
+                            </select>
+                            <input type="text" id="admin-custom-subject" placeholder="Type your new subject name..." style="width: 100%; padding: 16px; border-radius: 12px; border: 1px solid #e2e8f0; font-size: 15px; box-sizing: border-box; display: none;">
                         </div>
+
                         <div>
                             <label style="display: block; color: #64748b; font-size: 13px; font-weight: 600; margin-bottom: 8px;">Chapter</label>
                             <input type="text" id="admin-chapter-input" list="admin-chapters-list" placeholder="e.g., Chapter 1" required style="width: 100%; padding: 16px; border-radius: 12px; border: 1px solid #e2e8f0; font-size: 15px; box-sizing: border-box;">
@@ -549,8 +554,24 @@
                 </div>
 
                 <div style="background-color: #f8fafc; border: 1px solid #f1f5f9; border-radius: 24px; padding: 32px 24px;">
-                    <h3 style="color: #0f172a; font-size: 18px; font-weight: 800; margin-bottom: 24px;">All Study Materials</h3>
-                    <div id="admin-materials-container" style="display: flex; flex-direction: column; gap: 12px;"></div>
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; flex-wrap: wrap; gap: 12px;">
+                        <h3 style="color: #0f172a; font-size: 18px; font-weight: 800; margin: 0;">All Study Materials</h3>
+                        
+                        <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                            <select id="admin-filter-class" onchange="renderAdminMaterials()" style="padding: 8px 12px; border-radius: 8px; border: 1px solid #cbd5e1; font-size: 13px; outline: none; background: white;">
+                                <option value="">All Classes</option>
+                                <option value="Class 9">Class 9</option><option value="Class 10">Class 10</option>
+                                <option value="Class 11">Class 11</option><option value="Class 12">Class 12</option>
+                            </select>
+                            <select id="admin-filter-subject" onchange="renderAdminMaterials()" style="padding: 8px 12px; border-radius: 8px; border: 1px solid #cbd5e1; font-size: 13px; outline: none; background: white;">
+                                <option value="">All Subjects</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div id="admin-materials-container" style="display: flex; flex-direction: column; gap: 12px;">
+                        <p style="text-align: center; color: #94a3b8; font-size: 14px; margin: 40px 0;">Loading materials...</p>
+                    </div>
                 </div>
             </div>
         </main>
@@ -567,7 +588,7 @@
                 </div>
             </div>
         </main>
-        
+
         <main id="page-terms" style="display: none; background-color: #ffffff; padding: 24px 20px 60px 20px;">
             <div style="max-width: 800px; margin: 0 auto;">
                 <h2 style="color: #0f172a; font-size: 28px; font-weight: 900; margin-bottom: 24px;">Terms &amp; Conditions</h2>
@@ -580,7 +601,7 @@
                 </div>
             </div>
         </main>
-        
+
         <main id="page-disclaimer" style="display: none; background-color: #ffffff; padding: 24px 20px 60px 20px;">
             <div style="max-width: 800px; margin: 0 auto;">
                 <h2 style="color: #0f172a; font-size: 28px; font-weight: 900; margin-bottom: 24px;">Disclaimer</h2>
@@ -616,15 +637,15 @@
 
         <footer style="background-color: #0f172a; border-top: 1px solid #1e293b; padding: 40px 24px; color: #cbd5e1; font-family: 'DM Sans', sans-serif;">
             <div style="max-width: 600px; margin: 0 auto;">
-                
+
                 <div style="background-color: #1e293b; border: 1px solid #334155; border-radius: 8px; min-height: 60px; display: flex; align-items: center; justify-content: center; margin-bottom: 30px;">
                     <span style="color: #64748b; font-size: 10px; letter-spacing: 1px; text-transform: uppercase;">Advertisement</span>
                 </div>
-                
+
                 <p style="font-size: 14px; line-height: 1.6; margin-bottom: 30px; color: #94a3b8; text-align: center;">
                     Your smart study partner for ICSE & ISC board exams. Free notes, questions, and revision materials.
                 </p>
-                
+
                 <div style="display: flex; flex-direction: column; gap: 14px; margin-bottom: 40px; text-align: center; color: #f8fafc; font-weight: 500;">
                     <span onclick="navigateTo('about')" style="cursor:pointer;" aria-label="Navigate to About">About Us</span>
                     <span onclick="navigateTo('contact')" style="cursor:pointer;" aria-label="Navigate to Contact">Contact</span>
@@ -632,16 +653,16 @@
                     <span onclick="navigateTo('terms')" style="cursor:pointer;" aria-label="Navigate to Terms">Terms & Conditions</span>
                     <span onclick="navigateTo('disclaimer')" style="cursor:pointer;" aria-label="Navigate to Disclaimer">Disclaimer</span>
                 </div>
-                
+
                 <div style="display: flex; flex-direction: column; gap: 12px; font-size: 14px; margin-bottom: 40px; text-align: center; color: #cbd5e1;">
                     <span>📧 bachchupatra67@gmail.com</span>
                     <span>📸 @studiessupport2026</span>
                     <a href="https://t.me/studiessupport2026" style="text-decoration: none; color: #60a5fa; font-weight: 600;">✈️ Telegram Channel</a>
                 </div>
-                
+
                 <div style="border-top: 1px solid #1e293b; padding-top: 24px; text-align: center; font-size: 12px; color: #64748b;">
                     © 2025 StudiesSupport. All rights reserved. Built for ICSE & ISC students.
-                    
+
                     <p style="font-size: 9px; color: #334155; text-align: center; margin-top: 16px; line-height: 1.4;">
                         Disclaimer: This website is an independent platform and is not recognized by or affiliated with the CISCE board. While every effort is made to provide correct details, students should not blindly trust the notes or textbook solutions provided. Always verify critical information with official school textbooks and teachers. Use at your own risk.
                     </p>
@@ -650,7 +671,7 @@
         </footer>
 
     </div>
-    
+
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="script.js"></script>
 </body>
