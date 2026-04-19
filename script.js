@@ -142,19 +142,22 @@ function updateSubjectDropdown() {
     const board = document.getElementById('admin-board-select').value;
     const subjectSelect = document.getElementById('admin-subject-select');
     
-    let subjects = [];
+    let standardSubjects = [];
     if (board === 'ICSE') {
-        subjects = ['English Language', 'English Literature', 'Mathematics', 'Science (Physics)', 'Science (Chemistry)', 'Science (Biology)', 'Hindi', 'History & Civics', 'Geography', 'Computer Science'];
+        standardSubjects = ['English Language', 'English Literature', 'Mathematics', 'Science (Physics)', 'Science (Chemistry)', 'Science (Biology)', 'Hindi', 'History & Civics', 'Geography', 'Computer Science'];
     } else if (board === 'ISC') {
-        subjects = ['English Language', 'English Literature', 'Hindi', 'Physics', 'Chemistry', 'Mathematics', 'Biology', 'Computer Science', 'Accounts', 'Business Studies', 'Economics', 'History'];
+        standardSubjects = ['English Language', 'English Literature', 'Hindi', 'Physics', 'Chemistry', 'Mathematics', 'Biology', 'Computer Science', 'Accounts', 'Business Studies', 'Economics', 'History'];
     }
 
+    // Combine Standard Subjects + Custom Database Subjects
+    const dbSubjects = allStudyMaterials.filter(m => m.board === board).map(m => m.subject).filter(Boolean);
+    const allSubjects = [...new Set([...standardSubjects, ...dbSubjects])].sort();
+
     subjectSelect.innerHTML = '<option value="">Select Subject</option>';
-    subjects.forEach(sub => {
+    allSubjects.forEach(sub => {
         subjectSelect.innerHTML += `<option value="${sub}">${sub}</option>`;
     });
     
-    // Add the "New Subject" Button
     if (board) {
         subjectSelect.innerHTML += `<option value="CUSTOM_NEW" style="font-weight:bold; color:#2563eb;">+ Add New Subject...</option>`;
     }
@@ -184,7 +187,6 @@ async function handleMaterialUpload(event) {
     const classValue = document.getElementById('admin-class-select').value;
     const typeValue = document.getElementById('admin-type-select').value;
     
-    // 🌟 Check if they picked standard subject or typed a custom one
     let subjectValue = document.getElementById('admin-subject-select').value;
     if (subjectValue === 'CUSTOM_NEW') {
         subjectValue = document.getElementById('admin-custom-subject').value.trim();
@@ -235,7 +237,7 @@ async function handleMaterialUpload(event) {
         }
 
         editingMaterialId = null; event.target.reset();
-        toggleCustomSubject(); // Hide custom box on reset
+        toggleCustomSubject(); 
         document.getElementById('file-name-display').innerText = 'Click to upload or drag & drop';
         document.getElementById('file-name-display').style.color = '#334155';
         fetchAndDisplayMaterials();
@@ -266,16 +268,14 @@ function editMaterial(id) {
     editingMaterialId = item.id; 
 
     document.getElementById('admin-board-select').value = item.board || '';
-    updateSubjectDropdown(); // Set standard options based on board
+    updateSubjectDropdown(); 
     
-    // Check if the item's subject exists in the dropdown
     const select = document.getElementById('admin-subject-select');
     const options = Array.from(select.options).map(opt => opt.value);
     
     if (options.includes(item.subject)) {
         select.value = item.subject;
     } else {
-        // It's a custom subject! Select "Add New" and fill the hidden box
         select.value = 'CUSTOM_NEW';
         toggleCustomSubject();
         document.getElementById('admin-custom-subject').value = item.subject || '';
@@ -311,14 +311,18 @@ async function fetchAndDisplayMaterials() {
         if (error) throw error;
         allStudyMaterials = data;
 
-        // 🌟 Populate Admin Subject Filter Dropdown
+        // 🌟 Admin Filter: Shows ALL standard and custom subjects combined
         const adminSubFilter = document.getElementById('admin-filter-subject');
         if (adminSubFilter) {
-            const uniqueSubjects = [...new Set(data.map(m => m.subject).filter(Boolean))].sort();
+            const standardICSE = ['English Language', 'English Literature', 'Mathematics', 'Science (Physics)', 'Science (Chemistry)', 'Science (Biology)', 'Hindi', 'History & Civics', 'Geography', 'Computer Science'];
+            const standardISC = ['English Language', 'English Literature', 'Hindi', 'Physics', 'Chemistry', 'Mathematics', 'Biology', 'Computer Science', 'Accounts', 'Business Studies', 'Economics', 'History'];
+            const dbSubjects = data.map(m => m.subject).filter(Boolean);
+            const uniqueSubjects = [...new Set([...standardICSE, ...standardISC, ...dbSubjects])].sort();
+            
             adminSubFilter.innerHTML = '<option value="">All Subjects</option>' + uniqueSubjects.map(s => `<option value="${s}">${s}</option>`).join('');
         }
 
-        renderAdminMaterials(); // Draw the admin list
+        renderAdminMaterials(); 
         renderStudentMaterials();
         updateDynamicFilters('qa');
         updateDynamicFilters('sol');
@@ -331,7 +335,6 @@ async function fetchAndDisplayMaterials() {
     } catch (error) { console.error("Error fetching materials:", error); }
 }
 
-// 🌟 NEW: RENDER ADMIN MATERIALS WITH FILTERS
 function renderAdminMaterials() {
     const container = document.getElementById('admin-materials-container');
     if (!container) return;
@@ -380,20 +383,33 @@ function updateDynamicFilters(pagePrefix) {
     const classVal = classSelect.value;
     if (classVal) validMaterials = validMaterials.filter(m => m.class_level === classVal);
 
+    // 🌟 Load ALL standard subjects + Database subjects
+    let standardSubjects = [];
+    if (classVal === 'Class 9' || classVal === 'Class 10') {
+        standardSubjects = ['English Language', 'English Literature', 'Mathematics', 'Science (Physics)', 'Science (Chemistry)', 'Science (Biology)', 'Hindi', 'History & Civics', 'Geography', 'Computer Science'];
+    } else if (classVal === 'Class 11' || classVal === 'Class 12') {
+        standardSubjects = ['English Language', 'English Literature', 'Hindi', 'Physics', 'Chemistry', 'Mathematics', 'Biology', 'Computer Science', 'Accounts', 'Business Studies', 'Economics', 'History'];
+    } else {
+        standardSubjects = ['English Language', 'English Literature', 'Mathematics', 'Science (Physics)', 'Science (Chemistry)', 'Science (Biology)', 'Hindi', 'History & Civics', 'Geography', 'Computer Science', 'Physics', 'Chemistry', 'Biology', 'Accounts', 'Business Studies', 'Economics', 'History'];
+    }
+
     const currentSub = subjectSelect.value;
-    const subjects = [...new Set(validMaterials.map(m => m.subject).filter(Boolean))];
+    const dbSubjects = validMaterials.map(m => m.subject).filter(Boolean);
+    const subjects = [...new Set([...standardSubjects, ...dbSubjects])].sort();
+    
     subjectSelect.innerHTML = '<option value="">All Subjects</option>' + subjects.map(s => `<option value="${s}">${s}</option>`).join('');
     if (subjects.includes(currentSub)) subjectSelect.value = currentSub;
 
+    // Chapters & Subchapters based on selection
     if (subjectSelect.value) validMaterials = validMaterials.filter(m => m.subject === subjectSelect.value);
     const currentChap = chapterSelect.value;
-    const chapters = [...new Set(validMaterials.map(m => m.chapter).filter(Boolean))];
+    const chapters = [...new Set(validMaterials.map(m => m.chapter).filter(Boolean))].sort();
     chapterSelect.innerHTML = '<option value="">All Chapters</option>' + chapters.map(c => `<option value="${c}">${c}</option>`).join('');
     if (chapters.includes(currentChap)) chapterSelect.value = currentChap;
 
     if (chapterSelect.value) validMaterials = validMaterials.filter(m => m.chapter === chapterSelect.value);
     const currentSubchap = subchapterSelect.value;
-    const subchapters = [...new Set(validMaterials.map(m => m.subchapter).filter(Boolean))];
+    const subchapters = [...new Set(validMaterials.map(m => m.subchapter).filter(Boolean))].sort();
     subchapterSelect.innerHTML = '<option value="">All Subchapters</option>' + subchapters.map(sc => `<option value="${sc}">${sc}</option>`).join('');
     if (subchapters.includes(currentSubchap)) subchapterSelect.value = currentSubchap;
 }
