@@ -33,7 +33,7 @@
     </style>
 </head>
 
-<body class="h-full bg-white text-slate-800 overflow-auto">
+ <body class="h-full bg-white text-slate-800 overflow-auto">
     <div id="login-modal" class="modal-overlay hidden" style="position: fixed; inset: 0; background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(4px); z-index: 1000; display: flex; align-items: center; justify-content: center; padding: 20px;">
         <div style="background: white; width: 100%; max-width: 400px; border-radius: 24px; overflow: hidden; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25); position: relative;">
             <button onclick="closeLoginModal()" aria-label="Close Login Modal" style="position: absolute; top: 16px; right: 16px; background: #f1f5f9; border: none; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; color: #64748b;"><i data-lucide="x" style="width: 18px; height: 18px;"></i></button>
@@ -48,45 +48,51 @@
         </div>
     </div>
 
-    <div id="theme-menu" class="hidden fixed top-16 right-4 bg-white rounded-lg shadow-lg p-2 z-50">
-        <button onclick="switchTheme('light')" class="w-full text-left px-4 py-2 hover:bg-slate-100 rounded text-sm font-medium flex items-center gap-2"><i data-lucide="sun" class="w-4 h-4"></i> Light</button> 
-        <button onclick="switchTheme('dark')" class="w-full text-left px-4 py-2 hover:bg-slate-100 rounded text-sm font-medium flex items-center gap-2"><i data-lucide="moon" class="w-4 h-4"></i> Dark</button> 
-        <button onclick="switchTheme('sepia')" class="w-full text-left px-4 py-2 hover:bg-slate-100 rounded text-sm font-medium flex items-center gap-2"><i data-lucide="palette" class="w-4 h-4"></i> Sepia</button>
-    </div>
+  <div id="theme-menu" class="hidden fixed top-16 right-4 bg-white rounded-lg shadow-lg p-2 z-50">
+      <button onclick="switchTheme('light')" class="w-full text-left px-4 py-2 hover:bg-slate-100 rounded text-sm font-medium flex items-center gap-2"><i data-lucide="sun" class="w-4 h-4"></i> Light</button> 
+      <button onclick="switchTheme('dark')" class="w-full text-left px-4 py-2 hover:bg-slate-100 rounded text-sm font-medium flex items-center gap-2"><i data-lucide="moon" class="w-4 h-4"></i> Dark</button> 
+      <button onclick="switchTheme('sepia')" class="w-full text-left px-4 py-2 hover:bg-slate-100 rounded text-sm font-medium flex items-center gap-2"><i data-lucide="palette" class="w-4 h-4"></i> Sepia</button>
+  </div>
 
-    <div id="app-wrapper" class="w-full h-full">
-        <header class="bg-white border-b border-slate-100 sticky top-0 z-50" id="navbar" style="position: relative;">
-            <div class="max-w-6xl mx-auto px-4 h-16 flex items-center" style="position: relative; width: 100%;">
-                <button id="universal-back-btn" aria-label="Go Back" onclick="goBack()" style="display: none; margin-right: 12px; color: #0f172a; background-color: #f1f5f9; border: none; padding: 6px 10px; border-radius: 8px; align-items: center; justify-content: center; cursor: pointer; height: 36px; transition: all 0.2s;"><i data-lucide="arrow-left" style="width: 18px; height: 18px;"></i></button>
-                <a href="#" onclick="navigateTo('home'); return false;" style="text-decoration: none; padding-left: 0; display: flex; align-items: center; gap: 8px;">
-                    <img src="" class="site-logo" style="display: none; height: 32px; width: auto; border-radius: 4px;" alt="Logo">
-                    <span style="font-family: 'Inter', system-ui, sans-serif; font-weight: 800; font-size: 21px; color: #0f172a; letter-spacing: -0.5px;" id="nav-title">StudiesSupport</span> 
-                </a>
-                <button id="mobile-menu-btn" aria-label="Open Menu" class="md:hidden p-2 rounded-lg flex items-center justify-center" style="position: absolute !important; right: 0px !important; top: 50% !important; transform: translateY(-50%) !important; background-color: #f8fafc !important; border: 1px solid #e2e8f0 !important; color: #0f172a !important; z-index: 999 !important;" onclick="toggleMobileMenu()"><i data-lucide="menu" class="w-6 h-6"></i></button>
-            </div>
-            <div id="mobile-menu" class="bg-white shadow-md border-t border-slate-100 absolute w-full left-0" style="display: none; top: 100%; z-index: 40;">
-                <div class="flex flex-col pt-2 pb-6">
-                    <span class="nav-link cursor-pointer py-3 text-slate-600 font-medium text-[15px] block" style="padding-left: 24px; text-align: left;" onclick="navigateTo('home')">Home</span>
-                    <span class="nav-link cursor-pointer py-3 text-slate-600 font-medium text-[15px] block" style="padding-left: 24px; text-align: left;" onclick="navigateTo('about')">About Us</span>
-                    <span class="nav-link cursor-pointer py-3 text-slate-600 font-medium text-[15px] block" style="padding-left: 24px; text-align: left;" onclick="navigateTo('icse')">ICSE (9–10)</span>
-                    <span class="nav-link cursor-pointer py-3 text-slate-600 font-medium text-[15px] block" style="padding-left: 24px; text-align: left;" onclick="navigateTo('isc')">ISC (11–12)</span>
-                    <span class="nav-link cursor-pointer py-3 text-slate-600 font-medium text-[15px] block" style="padding-left: 24px; text-align: left;" onclick="navigateTo('qa')">Notes / Q&amp;A</span>
-                    <span class="nav-link cursor-pointer py-3 text-slate-600 font-medium text-[15px] block" style="padding-left: 24px; text-align: left;" onclick="navigateTo('solutions')">Textbook Solutions</span>
-                    <span class="nav-link cursor-pointer py-3 text-slate-600 font-medium text-[15px] block" style="padding-left: 24px; text-align: left;" onclick="navigateTo('backpack')"><i data-lucide="backpack" style="display: inline-block; width: 18px; height: 18px; margin-right: 8px; vertical-align: middle; color: #f59e0b;"></i> My Backpack</span>
-                    <a href="#" class="nav-link" style="display: block; padding: 10px; text-decoration: none; color: #475569; font-weight: 600;" onclick="navigateTo('ai-helper')"><i data-lucide="bot" style="display: inline-block; width: 18px; height: 18px; margin-right: 8px; vertical-align: middle; color: #9333ea;"></i> AI Assistant</a>
-                    <span class="nav-link cursor-pointer py-3 text-slate-600 font-medium text-[15px] block" style="padding-left: 24px; text-align: left;" onclick="navigateTo('pdfs')">All PDFs</span>
-                    <span class="nav-link cursor-pointer py-3 text-slate-600 font-medium text-[15px] block" style="padding-left: 24px; text-align: left;" onclick="navigateTo('contact')">Contact</span>
-                    <div style="padding: 0 24px; margin-top: 8px; box-sizing: border-box; width: 100%;">
-                        <button class="w-full bg-[#f1f5f9] hover:bg-[#e2e8f0] text-[#0f172a] font-bold py-3 rounded-xl flex items-center justify-center gap-2 transition text-[14px]" onclick="showLoginModal()"><i data-lucide="settings" class="w-4 h-4"></i> Admin Panel</button>
-                    </div>
+  <div id="app-wrapper" class="w-full h-full">
+   <header class="bg-white border-b border-slate-100 sticky top-0 z-50" id="navbar" style="position: relative;">
+        <div class="max-w-6xl mx-auto px-4 h-16 flex items-center" style="position: relative; width: 100%;">
+            <button id="universal-back-btn" aria-label="Go Back" onclick="goBack()" style="display: none; margin-right: 12px; color: #0f172a; background-color: #f1f5f9; border: none; padding: 6px 10px; border-radius: 8px; align-items: center; justify-content: center; cursor: pointer; height: 36px; transition: all 0.2s;"><i data-lucide="arrow-left" style="width: 18px; height: 18px;"></i></button>
+            <a href="#" onclick="navigateTo('home'); return false;" style="text-decoration: none; padding-left: 0; display: flex; align-items: center; gap: 8px;">
+                <img src="" class="site-logo" style="display: none; height: 32px; width: auto; border-radius: 4px;" alt="Logo">
+                <span style="font-family: 'Inter', system-ui, sans-serif; font-weight: 800; font-size: 21px; color: #0f172a; letter-spacing: -0.5px;" id="nav-title">StudiesSupport</span> 
+            </a>
+            <button id="mobile-menu-btn" aria-label="Open Menu" class="md:hidden p-2 rounded-lg flex items-center justify-center" style="position: absolute !important; right: 0px !important; top: 50% !important; transform: translateY(-50%) !important; background-color: #f8fafc !important; border: 1px solid #e2e8f0 !important; color: #0f172a !important; z-index: 999 !important;" onclick="toggleMobileMenu()"><i data-lucide="menu" class="w-6 h-6"></i></button>
+        </div>
+        
+        <div id="mobile-menu" class="bg-white shadow-md border-t border-slate-100 absolute w-full left-0" style="display: none; top: 100%; z-index: 40;">
+            <div class="flex flex-col pt-2 pb-6">
+                <span class="nav-link cursor-pointer py-3 text-slate-600 font-medium text-[15px] block" style="padding-left: 24px; text-align: left;" onclick="navigateTo('home')">Home</span>
+                <span class="nav-link cursor-pointer py-3 text-slate-600 font-medium text-[15px] block" style="padding-left: 24px; text-align: left;" onclick="navigateTo('about')">About Us</span>
+                <span class="nav-link cursor-pointer py-3 text-slate-600 font-medium text-[15px] block" style="padding-left: 24px; text-align: left;" onclick="navigateTo('icse')">ICSE (9–10)</span>
+                <span class="nav-link cursor-pointer py-3 text-slate-600 font-medium text-[15px] block" style="padding-left: 24px; text-align: left;" onclick="navigateTo('isc')">ISC (11–12)</span>
+                <span class="nav-link cursor-pointer py-3 text-slate-600 font-medium text-[15px] block" style="padding-left: 24px; text-align: left;" onclick="navigateTo('qa')">Notes / Q&amp;A</span>
+                <span class="nav-link cursor-pointer py-3 text-slate-600 font-medium text-[15px] block" style="padding-left: 24px; text-align: left;" onclick="navigateTo('solutions')">Textbook Solutions</span>
+                <span class="nav-link cursor-pointer py-3 text-slate-600 font-medium text-[15px] block" style="padding-left: 24px; text-align: left;" onclick="navigateTo('backpack')"><i data-lucide="backpack" style="display: inline-block; width: 18px; height: 18px; margin-right: 8px; vertical-align: middle; color: #f59e0b;"></i> My Backpack</span>
+                <a href="#" class="nav-link" style="display: block; padding: 10px; text-decoration: none; color: #475569; font-weight: 600;" onclick="navigateTo('ai-helper')"><i data-lucide="bot" style="display: inline-block; width: 18px; height: 18px; margin-right: 8px; vertical-align: middle; color: #9333ea;"></i> AI Assistant</a>
+                <span class="nav-link cursor-pointer py-3 text-slate-600 font-medium text-[15px] block" style="padding-left: 24px; text-align: left;" onclick="navigateTo('pdfs')">All PDFs</span>
+                <span class="nav-link cursor-pointer py-3 text-slate-600 font-medium text-[15px] block" style="padding-left: 24px; text-align: left;" onclick="navigateTo('contact')">Contact Us</span>
+                <span class="nav-link cursor-pointer py-3 text-slate-600 font-medium text-[15px] block" style="padding-left: 24px; text-align: left;" onclick="navigateTo('privacy')">Privacy Policy</span>
+                <span class="nav-link cursor-pointer py-3 text-slate-600 font-medium text-[15px] block" style="padding-left: 24px; text-align: left;" onclick="navigateTo('terms')">Terms & Conditions</span>
+                <span class="nav-link cursor-pointer py-3 text-slate-600 font-medium text-[15px] block" style="padding-left: 24px; text-align: left;" onclick="navigateTo('disclaimer')">Disclaimer</span>
+                <div style="padding: 0 24px; margin-top: 8px; box-sizing: border-box; width: 100%;">
+                    <button class="w-full bg-[#f1f5f9] hover:bg-[#e2e8f0] text-[#0f172a] font-bold py-3 rounded-xl flex items-center justify-center gap-2 transition text-[14px]" onclick="showLoginModal()"><i data-lucide="settings" class="w-4 h-4"></i> Admin Panel</button>
                 </div>
             </div>
-        </header>
+        </div>
+   </header>
 
         <main id="page-home" class="page active fade-in">
             <section style="background: linear-gradient(135deg, #f0f9ff 0%, #fffbeb 50%, #ffffff 100%); padding: 24px 20px 80px 20px; text-align: center;">
                 <div style="max-width: 800px; margin: 0 auto;">
-                    <div style="border: 2px dashed #cbd5e1; border-radius: 12px; padding: 15px; text-align: center; color: #94a3b8; font-size: 13px; font-weight: 500; margin-bottom: 40px; background-color: #f8fafc;">Ad Space – Top Banner</div>
+                    <div style="background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; min-height: 60px; display: flex; align-items: center; justify-content: center; margin-bottom: 30px;">
+                        <span style="color: #94a3b8; font-size: 10px; letter-spacing: 1px; text-transform: uppercase;">Advertisement</span>
+                    </div>
                     <p style="color: #0f172a; font-size: 12px; font-weight: 800; margin-bottom: 16px;">For ICSE &amp; ISC Students</p>
                     <h1 style="color: #0f172a; font-size: 28px; font-weight: 900; line-height: 1.3; margin-bottom: 16px;">ICSE &amp; ISC Study Made Simple</h1>
                     <p style="color: #64748b; font-size: 15px; margin-bottom: 0;">Notes, Questions, and PDFs for Smart Preparation</p>
@@ -117,7 +123,13 @@
                     </div>
                 </div>
             </section>
-            <div class="max-w-6xl mx-auto px-4 py-4"><div class="ad-placeholder">Ad Space – Mid Content</div></div>
+            
+            <div class="max-w-6xl mx-auto px-4 py-4">
+                <div style="background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; min-height: 60px; display: flex; align-items: center; justify-content: center; margin-bottom: 24px;">
+                    <span style="color: #94a3b8; font-size: 10px; letter-spacing: 1px; text-transform: uppercase;">Advertisement</span>
+                </div>
+            </div>
+
             <section class="py-14 bg-white">
                 <div class="max-w-6xl mx-auto px-4">
                     <h2 class="font-heading font-bold text-2xl text-center text-dark mb-10">Popular Study Materials</h2>
@@ -151,7 +163,9 @@
 
         <main id="page-icse" style="display: none; background-color: #ffffff; padding: 24px 20px 60px 20px;">
             <div style="max-width: 800px; margin: 0 auto;">
-                <div style="border: 2px dashed #cbd5e1; border-radius: 12px; padding: 15px; text-align: center; color: #94a3b8; font-size: 13px; font-weight: 500; margin-bottom: 40px; background-color: #f8fafc;">Ad Space – Top Banner</div>
+                <div style="background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; min-height: 60px; display: flex; align-items: center; justify-content: center; margin-bottom: 24px;">
+                    <span style="color: #94a3b8; font-size: 10px; letter-spacing: 1px; text-transform: uppercase;">Advertisement</span>
+                </div>
                 <div style="text-align: center; margin-bottom: 40px;">
                     <p style="color: #475569; font-size: 12px; font-weight: 800; margin-bottom: 8px;">ICSE Board</p>
                     <h2 style="color: #0f172a; font-size: 28px; font-weight: 900; margin-bottom: 12px;">ICSE – Class 9 &amp; 10</h2>
@@ -167,7 +181,7 @@
                         <h3 style="color: #0f172a; font-size: 14px; font-weight: 800; margin-bottom: 4px;">English Literature</h3><p style="color: #cbd5e1; font-size: 12px; margin: 0;">Explore content</p>
                     </div>
                     <div onclick="document.getElementById('dynamic-icse-title').innerText='Hindi'; navigateTo('notes');" style="background-color: #ffffff; border: 1px solid #f1f5f9; border-radius: 24px; padding: 24px 12px; text-align: center; box-shadow: 0 4px 20px rgba(0,0,0,0.02); cursor: pointer;">
-                        <div style="width: 48px; height: 48px; background-color: #fdf4ff; border-radius: 14px; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px auto;"><i data-lucide="book-open" style="color: #d946ef; width: 24px; height: 24px;"></i></div>
+                        <div style="width: 48px; height: 48px; background-color: #fce7f3; border-radius: 14px; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px auto;"><i data-lucide="pen-tool" style="color: #ec4899; width: 24px; height: 24px;"></i></div>
                         <h3 style="color: #0f172a; font-size: 14px; font-weight: 800; margin-bottom: 4px;">Hindi</h3><p style="color: #cbd5e1; font-size: 12px; margin: 0;">Explore content</p>
                     </div>
                     <div onclick="document.getElementById('dynamic-icse-title').innerText='Mathematics'; navigateTo('notes');" style="background-color: #ffffff; border: 1px solid #f1f5f9; border-radius: 24px; padding: 24px 12px; text-align: center; box-shadow: 0 4px 20px rgba(0,0,0,0.02); cursor: pointer;">
@@ -176,19 +190,15 @@
                     </div>
                     <div onclick="document.getElementById('dynamic-icse-title').innerText='Science (Physics)'; navigateTo('notes');" style="background-color: #ffffff; border: 1px solid #f1f5f9; border-radius: 24px; padding: 24px 12px; text-align: center; box-shadow: 0 4px 20px rgba(0,0,0,0.02); cursor: pointer;">
                         <div style="width: 48px; height: 48px; background-color: #faf5ff; border-radius: 14px; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px auto;"><i data-lucide="atom" style="color: #a855f7; width: 24px; height: 24px;"></i></div>
-                        <h3 style="color: #0f172a; font-size: 14px; font-weight: 800; margin-bottom: 4px;">Science (Physics)</h3><p style="color: #cbd5e1; font-size: 12px; margin: 0;">Explore content</p>
+                        <h3 style="color: #0f172a; font-size: 14px; font-weight: 800; margin-bottom: 4px;">Physics</h3><p style="color: #cbd5e1; font-size: 12px; margin: 0;">Explore content</p>
                     </div>
                     <div onclick="document.getElementById('dynamic-icse-title').innerText='Science (Chemistry)'; navigateTo('notes');" style="background-color: #ffffff; border: 1px solid #f1f5f9; border-radius: 24px; padding: 24px 12px; text-align: center; box-shadow: 0 4px 20px rgba(0,0,0,0.02); cursor: pointer;">
                         <div style="width: 48px; height: 48px; background-color: #fdf4ff; border-radius: 14px; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px auto;"><i data-lucide="flask-conical" style="color: #d946ef; width: 24px; height: 24px;"></i></div>
-                        <h3 style="color: #0f172a; font-size: 14px; font-weight: 800; margin-bottom: 4px;">Science (Chemistry)</h3><p style="color: #cbd5e1; font-size: 12px; margin: 0;">Explore content</p>
+                        <h3 style="color: #0f172a; font-size: 14px; font-weight: 800; margin-bottom: 4px;">Chemistry</h3><p style="color: #cbd5e1; font-size: 12px; margin: 0;">Explore content</p>
                     </div>
                     <div onclick="document.getElementById('dynamic-icse-title').innerText='Science (Biology)'; navigateTo('notes');" style="background-color: #ffffff; border: 1px solid #f1f5f9; border-radius: 24px; padding: 24px 12px; text-align: center; box-shadow: 0 4px 20px rgba(0,0,0,0.02); cursor: pointer;">
                         <div style="width: 48px; height: 48px; background-color: #f0fdf4; border-radius: 14px; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px auto;"><i data-lucide="leaf" style="color: #22c55e; width: 24px; height: 24px;"></i></div>
-                        <h3 style="color: #0f172a; font-size: 14px; font-weight: 800; margin-bottom: 4px;">Science (Biology)</h3><p style="color: #cbd5e1; font-size: 12px; margin: 0;">Explore content</p>
-                    </div>
-                    <div onclick="document.getElementById('dynamic-icse-title').innerText='Social Studies'; navigateTo('notes');" style="background-color: #ffffff; border: 1px solid #f1f5f9; border-radius: 24px; padding: 24px 12px; text-align: center; box-shadow: 0 4px 20px rgba(0,0,0,0.02); cursor: pointer;">
-                        <div style="width: 48px; height: 48px; background-color: #fffbeb; border-radius: 14px; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px auto;"><i data-lucide="landmark" style="color: #f59e0b; width: 24px; height: 24px;"></i></div>
-                        <h3 style="color: #0f172a; font-size: 14px; font-weight: 800; margin-bottom: 4px;">Social Studies</h3><p style="color: #cbd5e1; font-size: 12px; margin: 0;">Explore content</p>
+                        <h3 style="color: #0f172a; font-size: 14px; font-weight: 800; margin-bottom: 4px;">Biology</h3><p style="color: #cbd5e1; font-size: 12px; margin: 0;">Explore content</p>
                     </div>
                     <div onclick="document.getElementById('dynamic-icse-title').innerText='History & Civics'; navigateTo('notes');" style="background-color: #ffffff; border: 1px solid #f1f5f9; border-radius: 24px; padding: 24px 12px; text-align: center; box-shadow: 0 4px 20px rgba(0,0,0,0.02); cursor: pointer;">
                         <div style="width: 48px; height: 48px; background-color: #fffbeb; border-radius: 14px; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px auto;"><i data-lucide="scroll" style="color: #f59e0b; width: 24px; height: 24px;"></i></div>
@@ -208,7 +218,9 @@
 
         <main id="page-isc" style="display: none; background-color: #ffffff; padding: 24px 20px 60px 20px;">
             <div style="max-width: 800px; margin: 0 auto;">
-                <div style="border: 2px dashed #cbd5e1; border-radius: 12px; padding: 15px; text-align: center; color: #94a3b8; font-size: 13px; font-weight: 500; margin-bottom: 40px; background-color: #f8fafc;">Ad Space – Top Banner</div>
+                <div style="background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; min-height: 60px; display: flex; align-items: center; justify-content: center; margin-bottom: 24px;">
+                    <span style="color: #94a3b8; font-size: 10px; letter-spacing: 1px; text-transform: uppercase;">Advertisement</span>
+                </div>
                 <div style="text-align: center; margin-bottom: 40px;">
                     <p style="color: #475569; font-size: 12px; font-weight: 800; margin-bottom: 8px;">ISC Board</p>
                     <h2 style="color: #0f172a; font-size: 28px; font-weight: 900; margin-bottom: 12px;">ISC – Class 11 &amp; 12</h2>
@@ -220,11 +232,11 @@
                         <h3 style="color: #0f172a; font-size: 14px; font-weight: 800; margin-bottom: 4px;">English Language</h3><p style="color: #cbd5e1; font-size: 12px; margin: 0;">Explore content</p>
                     </div>
                     <div onclick="document.getElementById('dynamic-isc-title').innerText='English Literature'; navigateTo('notes-isc');" style="background-color: #ffffff; border: 1px solid #f1f5f9; border-radius: 24px; padding: 24px 12px; text-align: center; box-shadow: 0 4px 20px rgba(0,0,0,0.02); cursor: pointer;">
-                        <div style="width: 48px; height: 48px; background-color: #eff6ff; border-radius: 14px; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px auto;"><i data-lucide="book" style="color: #3b82f6; width: 24px; height: 24px;"></i></div>
+                        <div style="width: 48px; height: 48px; background-color: #eff6ff; border-radius: 14px; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px auto;"><i data-lucide="book-open" style="color: #3b82f6; width: 24px; height: 24px;"></i></div>
                         <h3 style="color: #0f172a; font-size: 14px; font-weight: 800; margin-bottom: 4px;">English Literature</h3><p style="color: #cbd5e1; font-size: 12px; margin: 0;">Explore content</p>
                     </div>
                     <div onclick="document.getElementById('dynamic-isc-title').innerText='Hindi'; navigateTo('notes-isc');" style="background-color: #ffffff; border: 1px solid #f1f5f9; border-radius: 24px; padding: 24px 12px; text-align: center; box-shadow: 0 4px 20px rgba(0,0,0,0.02); cursor: pointer;">
-                        <div style="width: 48px; height: 48px; background-color: #eff6ff; border-radius: 14px; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px auto;"><i data-lucide="book" style="color: #3b82f6; width: 24px; height: 24px;"></i></div>
+                        <div style="width: 48px; height: 48px; background-color: #fce7f3; border-radius: 14px; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px auto;"><i data-lucide="pen-tool" style="color: #ec4899; width: 24px; height: 24px;"></i></div>
                         <h3 style="color: #0f172a; font-size: 14px; font-weight: 800; margin-bottom: 4px;">Hindi</h3><p style="color: #cbd5e1; font-size: 12px; margin: 0;">Explore content</p>
                     </div>
                     <div onclick="document.getElementById('dynamic-isc-title').innerText='Physics'; navigateTo('notes-isc');" style="background-color: #ffffff; border: 1px solid #f1f5f9; border-radius: 24px; padding: 24px 12px; text-align: center; box-shadow: 0 4px 20px rgba(0,0,0,0.02); cursor: pointer;">
@@ -289,6 +301,9 @@
 
         <main id="page-qa" style="display: none; background-color: #ffffff; padding: 24px 20px 60px 20px;">
             <div style="max-width: 800px; margin: 0 auto;">
+                <div style="background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; min-height: 60px; display: flex; align-items: center; justify-content: center; margin-bottom: 24px;">
+                    <span style="color: #94a3b8; font-size: 10px; letter-spacing: 1px; text-transform: uppercase;">Advertisement</span>
+                </div>
                 <div style="text-align: center; margin-bottom: 32px;">
                     <h2 style="color: #0f172a; font-size: 28px; font-weight: 900; margin-bottom: 8px;"> Notes &amp; Q&A</h2>
                     <p style="color: #94a3b8; font-size: 14px; line-height: 1.6;">Filter by class, subject, and chapter to find study materials.</p>
@@ -353,7 +368,9 @@
 
         <main id="page-solutions" style="display: none; background-color: #ffffff; padding: 24px 20px 60px 20px;">
             <div style="max-width: 800px; margin: 0 auto;">
-
+                <div style="background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; min-height: 60px; display: flex; align-items: center; justify-content: center; margin-bottom: 24px;">
+                    <span style="color: #94a3b8; font-size: 10px; letter-spacing: 1px; text-transform: uppercase;">Advertisement</span>
+                </div>
                 <div style="text-align: center; margin-bottom: 32px;">
                     <h2 style="color: #0f172a; font-size: 28px; font-weight: 900; margin-bottom: 8px;">Textbook Solutions</h2>
                     <p style="color: #94a3b8; font-size: 14px; line-height: 1.6;">Find step-by-step answers for your textbooks.</p>
@@ -407,7 +424,9 @@
 
         <main id="page-pdfs" style="display: none; background-color: #ffffff; padding: 24px 20px 60px 20px;">
             <div style="max-width: 600px; margin: 0 auto;">
-                <div style="border: 2px dashed #cbd5e1; border-radius: 12px; padding: 15px; text-align: center; color: #94a3b8; font-size: 13px; font-weight: 500; margin-bottom: 40px; background-color: #f8fafc;">Ad Space – Top Banner</div>
+                <div style="background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; min-height: 60px; display: flex; align-items: center; justify-content: center; margin-bottom: 24px;">
+                    <span style="color: #94a3b8; font-size: 10px; letter-spacing: 1px; text-transform: uppercase;">Advertisement</span>
+                </div>
                 <div style="text-align: center; margin-bottom: 24px;"><i data-lucide="download-cloud" style="width: 40px; height: 40px; color: #0f172a; margin: 0 auto;"></i></div>
                 <div style="text-align: center; margin-bottom: 40px;">
                     <h2 style="color: #0f172a; font-size: 28px; font-weight: 900; line-height: 1.3; margin-bottom: 16px;">Get All Study PDFs in One Place</h2>
@@ -430,6 +449,7 @@
 
                 <div style="background-color: #ffffff; border: 1px solid #f1f5f9; border-radius: 24px; padding: 32px 24px; box-shadow: 0 10px 40px rgba(0,0,0,0.03);">
                     <h3 style="color: #0f172a; font-size: 16px; font-weight: 800; margin-bottom: 24px;">Send a Message</h3>
+
                     <form action="https://formsubmit.co/bachchupatra67@gmail.com" method="POST" style="display: flex; flex-direction: column; gap: 16px;">
                         <input type="hidden" name="_captcha" value="false">
                         <input type="hidden" name="_subject" value="New Message from StudiesSupport!">
@@ -538,6 +558,10 @@
                 <h2 style="color: #0f172a; font-size: 28px; font-weight: 900; margin-bottom: 24px;">Privacy Policy</h2>
                 <div style="background-color: #ffffff; border: 1px solid #f1f5f9; border-radius: 24px; padding: 32px 24px; box-shadow: 0 10px 40px rgba(0,0,0,0.03);">
                     <p style="color: #64748b; font-size: 14px; line-height: 1.7; margin-bottom: 24px;">At StudiesSupport, we respect your privacy. This policy explains how we handle your information.</p>
+                    <h3 style="color: #334155; font-size: 16px; font-weight: 800; margin-bottom: 12px;">Information We Collect</h3>
+                    <p style="color: #64748b; font-size: 14px; line-height: 1.7; margin-bottom: 24px;">We do not collect any personal data without your explicit permission. If you contact us, we may store your name and email only to respond to your inquiry.</p>
+                    <h3 style="color: #334155; font-size: 16px; font-weight: 800; margin-bottom: 12px;">Cookies & Google AdSense</h3>
+                    <p style="color: #64748b; font-size: 14px; line-height: 1.7; margin-bottom: 24px;">We use cookies to improve your browsing experience. We also use Google AdSense to display ads. Google may use cookies and tracking technologies to serve ads based on your interests. You can manage ad preferences through your Google account settings.</p>
                 </div>
             </div>
         </main>
@@ -547,6 +571,10 @@
                 <h2 style="color: #0f172a; font-size: 28px; font-weight: 900; margin-bottom: 24px;">Terms &amp; Conditions</h2>
                 <div style="background-color: #ffffff; border: 1px solid #f1f5f9; border-radius: 24px; padding: 32px 24px; box-shadow: 0 10px 40px rgba(0,0,0,0.03);">
                     <p style="color: #64748b; font-size: 14px; line-height: 1.7; margin-bottom: 24px;">By using StudiesSupport, you agree to the following terms.</p>
+                    <h3 style="color: #334155; font-size: 16px; font-weight: 800; margin-bottom: 12px;">Educational Purpose</h3>
+                    <p style="color: #64748b; font-size: 14px; line-height: 1.7; margin-bottom: 24px;">All content on this website is provided for educational purposes only. It is intended to help ICSE and ISC students prepare for their exams.</p>
+                    <h3 style="color: #334155; font-size: 16px; font-weight: 800; margin-bottom: 12px;">No Copying</h3>
+                    <p style="color: #64748b; font-size: 14px; line-height: 1.7; margin-bottom: 24px;">You may not copy, reproduce, or redistribute our content without written permission. Sharing links to our website is encouraged.</p>
                 </div>
             </div>
         </main>
@@ -555,7 +583,12 @@
             <div style="max-width: 800px; margin: 0 auto;">
                 <h2 style="color: #0f172a; font-size: 28px; font-weight: 900; margin-bottom: 24px;">Disclaimer</h2>
                 <div style="background-color: #ffffff; border: 1px solid #f1f5f9; border-radius: 24px; padding: 32px 24px; box-shadow: 0 10px 40px rgba(0,0,0,0.03);">
-                    <p style="color: #64748b; font-size: 14px; line-height: 1.7; margin-bottom: 24px;">All content on StudiesSupport is created for educational and informational purposes only.</p>
+                    <h3 style="color: #334155; font-size: 16px; font-weight: 800; margin-bottom: 12px;">Not Board Recognized</h3>
+                    <p style="color: #64748b; font-size: 14px; line-height: 1.7; margin-bottom: 24px;">StudiesSupport is an independent platform and is <strong>not recognized by or affiliated with the CISCE board</strong>. All content is created for supplementary educational purposes only.</p>
+                    <h3 style="color: #334155; font-size: 16px; font-weight: 800; margin-bottom: 12px;">Do Not Trust Blindly</h3>
+                    <p style="color: #64748b; font-size: 14px; line-height: 1.7; margin-bottom: 24px;">While we put immense effort into providing accurate notes and textbook solutions, students should not blindly trust this website. Please cross-verify all critical information, answers, and syllabus details with your official school textbooks and teachers.</p>
+                    <h3 style="color: #334155; font-size: 16px; font-weight: 800; margin-bottom: 12px;">Use at Your Own Risk</h3>
+                    <p style="color: #64748b; font-size: 14px; line-height: 1.7; margin-bottom: 24px;">You use the materials on this website at your own discretion and risk. StudiesSupport is not responsible for any outcomes related to the use of our content, including exam results.</p>
                 </div>
             </div>
         </main>
@@ -580,7 +613,33 @@
         </main>
 
         <footer style="background-color: #ffffff; border-top: 1px solid #e2e8f0; padding: 40px 24px; color: #64748b; font-family: 'DM Sans', sans-serif;">
-            <div style="text-align: center; font-size: 12px; color: #94a3b8;">© 2025 StudiesSupport.</div>
+            <div style="max-width: 600px; margin: 0 auto;">
+                <div style="background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; min-height: 60px; display: flex; align-items: center; justify-content: center; margin-bottom: 30px;">
+                    <span style="color: #94a3b8; font-size: 10px; letter-spacing: 1px; text-transform: uppercase;">Advertisement</span>
+                </div>
+                <p style="font-size: 14px; line-height: 1.6; margin-bottom: 30px; color: #94a3b8; text-align: center;">
+                    Your smart study partner for ICSE & ISC board exams. Free notes, questions, and revision materials.
+                </p>
+                <div style="display: flex; flex-direction: column; gap: 12px; margin-bottom: 40px; text-align: center;">
+                    <span onclick="navigateTo('about')" style="cursor:pointer;" aria-label="Navigate to About">About Us</span>
+                    <span onclick="navigateTo('contact')" style="cursor:pointer;" aria-label="Navigate to Contact">Contact</span>
+                    <span onclick="navigateTo('privacy')" style="cursor:pointer;" aria-label="Navigate to Privacy Policy">Privacy Policy</span>
+                    <span onclick="navigateTo('terms')" style="cursor:pointer;" aria-label="Navigate to Terms">Terms & Conditions</span>
+                    <span onclick="navigateTo('disclaimer')" style="cursor:pointer;" aria-label="Navigate to Disclaimer">Disclaimer</span>
+                </div>
+                <div style="display: flex; flex-direction: column; gap: 10px; font-size: 14px; margin-bottom: 40px; text-align: center;">
+                    <span>📧 bachchupatra67@gmail.com</span>
+                    <span>📸 @studiessupport2026</span>
+                    <a href="https://t.me/studiessupport2026" style="text-decoration: none; color: #3b82f6;">✈️ Telegram Channel</a>
+                </div>
+                <div style="border-top: 1px solid #f1f5f9; padding-top: 24px; text-align: center; font-size: 12px; color: #94a3b8;">
+                    © 2025 StudiesSupport. All rights reserved. Built for ICSE & ISC students.
+                    
+                    <p style="font-size: 9px; color: #cbd5e1; text-align: center; margin-top: 16px; line-height: 1.4;">
+                        Disclaimer: This website is an independent platform and is not recognized by or affiliated with the CISCE board. While every effort is made to provide correct details, students should not blindly trust the notes or textbook solutions provided. Always verify critical information with official school textbooks and teachers. Use at your own risk.
+                    </p>
+                </div>
+            </div>
         </footer>
 
     </div>
