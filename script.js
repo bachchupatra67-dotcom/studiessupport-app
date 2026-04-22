@@ -13,6 +13,9 @@ const generateCardHTML = (item) => {
 
     let subchapterBadge = item.subchapter ? `<span style="background: #fef3c7; color: #d97706; padding: 4px 8px; border-radius: 6px; font-size: 11px; font-weight: 800; display: inline-block; margin-bottom: 8px; margin-left: 6px;">${item.subchapter}</span>` : '';
 
+    // 🌟 NEW: Draw the textbook name if you typed one!
+    let textbookDisplay = item.textbook ? `<div style="color: #64748b; font-size: 12px; margin-top: 6px; display: flex; align-items: center; gap: 4px;"><i data-lucide="book-open" style="width: 14px; height: 14px;"></i> ${item.textbook}</div>` : '';
+
     const isSaved = myBackpack.some(savedId => String(savedId) === String(item.id));
     const bookmarkColor = isSaved ? '#f59e0b' : '#94a3b8';
     const bookmarkFill = isSaved ? '#f59e0b' : 'none';
@@ -30,6 +33,7 @@ const generateCardHTML = (item) => {
             <span style="background: #eff6ff; color: #2563eb; padding: 4px 8px; border-radius: 6px; font-size: 11px; font-weight: 800; display: inline-block; margin-bottom: 8px;">${item.content_type}</span>
             ${subchapterBadge}
             <p style="color: #64748b; font-size: 13px; margin: 0;">${item.class_level} • ${item.subject}</p>
+            ${textbookDisplay}
             ${textNotes}
             <div style="display: flex; gap: 12px; align-items: center; flex-wrap: wrap;">
                 ${linkBtn}
@@ -135,50 +139,10 @@ try {
     }
 } catch (error) { console.error("Supabase load error:", error); }
 
+
 // ==========================================
-// 🌟 NEW: ADMIN SUBJECT & FILTER LOGIC
+// 8. SUPABASE UPLOAD LOGIC
 // ==========================================
-function updateSubjectDropdown() {
-    const board = document.getElementById('admin-board-select').value;
-    const subjectSelect = document.getElementById('admin-subject-select');
-    
-    let standardSubjects = [];
-    if (board === 'ICSE') {
-        standardSubjects = ['English Language', 'English Literature', 'Mathematics', 'Science (Physics)', 'Science (Chemistry)', 'Science (Biology)', 'Hindi', 'History & Civics', 'Geography', 'Computer Science'];
-    } else if (board === 'ISC') {
-        standardSubjects = ['English Language', 'English Literature', 'Hindi', 'Physics', 'Chemistry', 'Mathematics', 'Biology', 'Computer Science', 'Accounts', 'Business Studies', 'Economics', 'History'];
-    }
-
-    // Combine Standard Subjects + Custom Database Subjects
-    const dbSubjects = allStudyMaterials.filter(m => m.board === board).map(m => m.subject).filter(Boolean);
-    const allSubjects = [...new Set([...standardSubjects, ...dbSubjects])].sort();
-
-    subjectSelect.innerHTML = '<option value="">Select Subject</option>';
-    allSubjects.forEach(sub => {
-        subjectSelect.innerHTML += `<option value="${sub}">${sub}</option>`;
-    });
-    
-    if (board) {
-        subjectSelect.innerHTML += `<option value="CUSTOM_NEW" style="font-weight:bold; color:#2563eb;">+ Add New Subject...</option>`;
-    }
-    
-    toggleCustomSubject(); 
-}
-
-function toggleCustomSubject() {
-    const select = document.getElementById('admin-subject-select');
-    const customInput = document.getElementById('admin-custom-subject');
-    
-    if (select.value === 'CUSTOM_NEW') {
-        customInput.style.display = 'block';
-        customInput.required = true;
-    } else {
-        customInput.style.display = 'none';
-        customInput.required = false;
-        customInput.value = '';
-    }
-}
-
 async function handleMaterialUpload(event) {
     event.preventDefault();
     if (!supabaseClient) { alert("Upload system unavailable."); return; }
@@ -186,15 +150,13 @@ async function handleMaterialUpload(event) {
     const boardValue = document.getElementById('admin-board-select').value;
     const classValue = document.getElementById('admin-class-select').value;
     const typeValue = document.getElementById('admin-type-select').value;
-    
-    let subjectValue = document.getElementById('admin-subject-select').value;
-    if (subjectValue === 'CUSTOM_NEW') {
-        subjectValue = document.getElementById('admin-custom-subject').value.trim();
-    }
-    
+    const subjectValue = document.getElementById('admin-subject-input').value.trim();
     const chapterValue = document.getElementById('admin-chapter-input').value.trim();
     const subchapterValue = document.getElementById('admin-subchapter-input').value.trim();
     const textContent = document.getElementById('admin-text-input').value;
+    
+    // 🌟 NEW: Get Textbook Name
+    const textbookValue = document.getElementById('admin-textbook-input').value.trim();
 
     const fileInput = document.getElementById('file-upload');
     const file = fileInput.files[0];
@@ -223,9 +185,15 @@ async function handleMaterialUpload(event) {
         }
 
         const uploadData = {
-            board: boardValue, subject: subjectValue, class_level: classValue,
-            chapter: chapterValue, subchapter: subchapterValue, content_type: typeValue,
-            content_text: textContent, file_url: finalFileUrl
+            board: boardValue, 
+            subject: subjectValue, 
+            class_level: classValue,
+            chapter: chapterValue, 
+            subchapter: subchapterValue, 
+            textbook: textbookValue, // 🌟 Save it to DB!
+            content_type: typeValue,
+            content_text: textContent, 
+            file_url: finalFileUrl
         };
 
         if (editingMaterialId) {
@@ -237,7 +205,6 @@ async function handleMaterialUpload(event) {
         }
 
         editingMaterialId = null; event.target.reset();
-        toggleCustomSubject(); 
         document.getElementById('file-name-display').innerText = 'Click to upload or drag & drop';
         document.getElementById('file-name-display').style.color = '#334155';
         fetchAndDisplayMaterials();
@@ -268,23 +235,16 @@ function editMaterial(id) {
     editingMaterialId = item.id; 
 
     document.getElementById('admin-board-select').value = item.board || '';
-    updateSubjectDropdown(); 
-    
-    const select = document.getElementById('admin-subject-select');
-    const options = Array.from(select.options).map(opt => opt.value);
-    
-    if (options.includes(item.subject)) {
-        select.value = item.subject;
-    } else {
-        select.value = 'CUSTOM_NEW';
-        toggleCustomSubject();
-        document.getElementById('admin-custom-subject').value = item.subject || '';
-    }
-
     document.getElementById('admin-class-select').value = item.class_level || '';
     document.getElementById('admin-type-select').value = item.content_type || '';
+    document.getElementById('admin-subject-input').value = item.subject || '';
     document.getElementById('admin-chapter-input').value = item.chapter || '';
     document.getElementById('admin-subchapter-input').value = item.subchapter || '';
+    
+    // 🌟 Load existing textbook name
+    const textbookInput = document.getElementById('admin-textbook-input');
+    if(textbookInput) textbookInput.value = item.textbook || '';
+    
     document.getElementById('admin-text-input').value = item.content_text || '';
 
     document.querySelector('#upload-form button[type="submit"]').innerText = "Update Material";
@@ -311,14 +271,9 @@ async function fetchAndDisplayMaterials() {
         if (error) throw error;
         allStudyMaterials = data;
 
-        // 🌟 Admin Filter: Shows ALL standard and custom subjects combined
         const adminSubFilter = document.getElementById('admin-filter-subject');
         if (adminSubFilter) {
-            const standardICSE = ['English Language', 'English Literature', 'Mathematics', 'Science (Physics)', 'Science (Chemistry)', 'Science (Biology)', 'Hindi', 'History & Civics', 'Geography', 'Computer Science'];
-            const standardISC = ['English Language', 'English Literature', 'Hindi', 'Physics', 'Chemistry', 'Mathematics', 'Biology', 'Computer Science', 'Accounts', 'Business Studies', 'Economics', 'History'];
-            const dbSubjects = data.map(m => m.subject).filter(Boolean);
-            const uniqueSubjects = [...new Set([...standardICSE, ...standardISC, ...dbSubjects])].sort();
-            
+            const uniqueSubjects = [...new Set(data.map(m => m.subject).filter(Boolean))].sort();
             adminSubFilter.innerHTML = '<option value="">All Subjects</option>' + uniqueSubjects.map(s => `<option value="${s}">${s}</option>`).join('');
         }
 
@@ -383,7 +338,6 @@ function updateDynamicFilters(pagePrefix) {
     const classVal = classSelect.value;
     if (classVal) validMaterials = validMaterials.filter(m => m.class_level === classVal);
 
-    // 🌟 Load ALL standard subjects + Database subjects
     let standardSubjects = [];
     if (classVal === 'Class 9' || classVal === 'Class 10') {
         standardSubjects = ['English Language', 'English Literature', 'Mathematics', 'Science (Physics)', 'Science (Chemistry)', 'Science (Biology)', 'Hindi', 'History & Civics', 'Geography', 'Computer Science'];
@@ -400,7 +354,6 @@ function updateDynamicFilters(pagePrefix) {
     subjectSelect.innerHTML = '<option value="">All Subjects</option>' + subjects.map(s => `<option value="${s}">${s}</option>`).join('');
     if (subjects.includes(currentSub)) subjectSelect.value = currentSub;
 
-    // Chapters & Subchapters based on selection
     if (subjectSelect.value) validMaterials = validMaterials.filter(m => m.subject === subjectSelect.value);
     const currentChap = chapterSelect.value;
     const chapters = [...new Set(validMaterials.map(m => m.chapter).filter(Boolean))].sort();
