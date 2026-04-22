@@ -493,64 +493,66 @@
                 <div style="background-color: #ffffff; border: 1px solid #f1f5f9; border-radius: 24px; padding: 32px 24px; box-shadow: 0 10px 40px rgba(0,0,0,0.03); margin-bottom: 32px;">
                     <h3 style="color: #0f172a; font-size: 18px; font-weight: 800; margin-bottom: 24px;">Add New Study Material</h3>
 
-                    <form id="upload-form" onsubmit="handleMaterialUpload(event)" style="display: flex; flex-direction: column; gap: 20px;">
-                        <div>
-                            <label style="display: block; color: #64748b; font-size: 13px; font-weight: 600; margin-bottom: 8px;">Board</label>
-                            <select id="admin-board-select" aria-label="Select Board" onchange="updateSubjectDropdown()" style="width: 100%; padding: 16px; border-radius: 12px; border: 1px solid #e2e8f0; background-color: #f8fafc; font-size: 15px; outline: none;">
-                                <option value="">Select Board...</option>
-                                <option value="ICSE">ICSE</option>
-                                <option value="ISC">ISC</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label style="display: block; color: #64748b; font-size: 13px; font-weight: 600; margin-bottom: 8px;">Class</label>
-                            <select id="admin-class-select" aria-label="Select Class" style="width: 100%; padding: 16px; border-radius: 12px; border: 1px solid #e2e8f0; background-color: #f8fafc; font-size: 15px; outline: none;">
-                                <option value="Class 9">Class 9</option><option value="Class 10">Class 10</option>
-                                <option value="Class 11">Class 11</option><option value="Class 12">Class 12</option>
-                            </select>
-                        </div>
+                               <form id="upload-form" onsubmit="handleMaterialUpload(event)" style="display: flex; flex-direction: column; gap: 20px;">
+                <div>
+                    <label style="display: block; color: #64748b; font-size: 13px; font-weight: 600; margin-bottom: 8px;">Board</label>
+                    <select id="admin-board-select" aria-label="Select Board" style="width: 100%; padding: 16px; border-radius: 12px; border: 1px solid #e2e8f0; background-color: #f8fafc; font-size: 15px; outline: none;">
+                        <option value="ICSE">ICSE</option>
+                        <option value="ISC">ISC</option>
+                    </select>
+                </div>
+                <div>
+                    <label style="display: block; color: #64748b; font-size: 13px; font-weight: 600; margin-bottom: 8px;">Class</label>
+                    <select id="admin-class-select" aria-label="Select Class" style="width: 100%; padding: 16px; border-radius: 12px; border: 1px solid #e2e8f0; background-color: #f8fafc; font-size: 15px; outline: none;">
+                        <option value="Class 9">Class 9</option><option value="Class 10">Class 10</option>
+                        <option value="Class 11">Class 11</option><option value="Class 12">Class 12</option>
+                    </select>
+                </div>
+                <div>
+                    <label style="display: block; color: #64748b; font-size: 13px; font-weight: 600; margin-bottom: 8px;">Subject</label>
+                    <input type="text" id="admin-subject-input" list="admin-subjects-list" placeholder="e.g., Physics" required style="width: 100%; padding: 16px; border-radius: 12px; border: 1px solid #e2e8f0; font-size: 15px; box-sizing: border-box;">
+                    <datalist id="admin-subjects-list"></datalist>
+                </div>
+                <div>
+                    <label style="display: block; color: #64748b; font-size: 13px; font-weight: 600; margin-bottom: 8px;">Chapter</label>
+                    <input type="text" id="admin-chapter-input" list="admin-chapters-list" placeholder="e.g., Chapter 1" required style="width: 100%; padding: 16px; border-radius: 12px; border: 1px solid #e2e8f0; font-size: 15px; box-sizing: border-box;">
+                    <datalist id="admin-chapters-list"></datalist>
+                </div>
+                <div>
+                    <label style="display: block; color: #64748b; font-size: 13px; font-weight: 600; margin-bottom: 8px;">Subchapter (Optional)</label>
+                    <input type="text" id="admin-subchapter-input" list="admin-subchapters-list" placeholder="e.g., Force and Motion" style="width: 100%; padding: 16px; border-radius: 12px; border: 1px solid #e2e8f0; font-size: 15px; box-sizing: border-box;">
+                    <datalist id="admin-subchapters-list"></datalist>
+                </div>
 
-                        <div>
-                            <label style="display: block; color: #64748b; font-size: 13px; font-weight: 600; margin-bottom: 8px;">Subject</label>
-                            <select id="admin-subject-select" aria-label="Select Subject" onchange="toggleCustomSubject()" required style="width: 100%; padding: 16px; border-radius: 12px; border: 1px solid #e2e8f0; background-color: #f8fafc; font-size: 15px; outline: none; margin-bottom: 8px;">
-                                <option value="">Select Board First</option>
-                            </select>
-                            <input type="text" id="admin-custom-subject" placeholder="Type your new subject name..." style="width: 100%; padding: 16px; border-radius: 12px; border: 1px solid #e2e8f0; font-size: 15px; box-sizing: border-box; display: none;">
-                        </div>
+                <div>
+                    <label style="display: block; color: #64748b; font-size: 13px; font-weight: 600; margin-bottom: 8px;">Textbook Name (Optional)</label>
+                    <input type="text" id="admin-textbook-input" placeholder="e.g., Concise Physics Class 10" style="width: 100%; padding: 16px; border-radius: 12px; border: 1px solid #e2e8f0; font-size: 15px; box-sizing: border-box;">
+                </div>
 
-                        <div>
-                            <label style="display: block; color: #64748b; font-size: 13px; font-weight: 600; margin-bottom: 8px;">Chapter</label>
-                            <input type="text" id="admin-chapter-input" list="admin-chapters-list" placeholder="e.g., Chapter 1" required style="width: 100%; padding: 16px; border-radius: 12px; border: 1px solid #e2e8f0; font-size: 15px; box-sizing: border-box;">
-                            <datalist id="admin-chapters-list"></datalist>
-                        </div>
-                        <div>
-                            <label style="display: block; color: #64748b; font-size: 13px; font-weight: 600; margin-bottom: 8px;">Subchapter (Optional)</label>
-                            <input type="text" id="admin-subchapter-input" list="admin-subchapters-list" placeholder="e.g., Force and Motion" style="width: 100%; padding: 16px; border-radius: 12px; border: 1px solid #e2e8f0; font-size: 15px; box-sizing: border-box;">
-                            <datalist id="admin-subchapters-list"></datalist>
-                        </div>
-                        <div>
-                            <label style="display: block; color: #64748b; font-size: 13px; font-weight: 600; margin-bottom: 8px;">Content Type</label>
-                            <select id="admin-type-select" aria-label="Select Content Type" style="width: 100%; padding: 16px; border-radius: 12px; border: 1px solid #e2e8f0; background-color: #f8fafc; font-size: 15px; outline: none;">
-                                <option value="PDF Document">PDF Document</option>
-                                <option value="Text Notes">Text Notes</option>
-                                <option value="Important Questions">Important Questions</option>
-                                <option value="Textbook Solutions">Textbook Solutions</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label style="display: block; color: #64748b; font-size: 13px; font-weight: 600; margin-bottom: 8px;">Content / Text</label>
-                            <textarea id="admin-text-input" aria-label="Content Text Input" placeholder="Paste or type your content here..." style="width: 100%; padding: 16px; border-radius: 12px; border: 1px solid #e2e8f0; font-size: 15px; resize: none; height: 120px; box-sizing: border-box;"></textarea>
-                        </div>
-                        <div>
-                            <label style="display: block; color: #64748b; font-size: 13px; font-weight: 600; margin-bottom: 8px;">Attach File (PDF/DOC/Image)</label>
-                            <label for="file-upload" style="border: 2px dashed #cbd5e1; border-radius: 16px; padding: 32px 20px; text-align: center; background-color: #ffffff; cursor: pointer; display: block;">
-                                <i data-lucide="upload" style="color: #64748b; width: 24px; height: 24px; margin-bottom: 12px; margin-left: auto; margin-right: auto; display: block;"></i>
-                                <p id="file-name-display" style="color: #334155; font-size: 14px; font-weight: 600; margin: 0 0 4px 0;">Click to select file</p>
-                            </label>
-                            <input id="file-upload" aria-label="File Upload Input" type="file" accept="*/*" style="opacity: 0; position: absolute; width: 1px; height: 1px; z-index: -1;" onchange="document.getElementById('file-name-display').innerText = this.files[0] ? this.files[0].name : 'Click to upload'; document.getElementById('file-name-display').style.color = '#2563eb';">
-                        </div>
-                        <button type="submit" aria-label="Upload Material" style="padding: 16px 32px; background-color: #2563eb; color: #ffffff; font-size: 15px; font-weight: 800; border: none; border-radius: 16px; cursor: pointer;">Upload Material</button>
-                    </form>
+                <div>
+                    <label style="display: block; color: #64748b; font-size: 13px; font-weight: 600; margin-bottom: 8px;">Content Type</label>
+                    <select id="admin-type-select" aria-label="Select Content Type" style="width: 100%; padding: 16px; border-radius: 12px; border: 1px solid #e2e8f0; background-color: #f8fafc; font-size: 15px; outline: none;">
+                        <option value="PDF Document">PDF Document</option>
+                        <option value="Text Notes">Text Notes</option>
+                        <option value="Important Questions">Important Questions</option>
+                        <option value="Textbook Solutions">Textbook Solutions</option>
+                    </select>
+                </div>
+                <div>
+                    <label style="display: block; color: #64748b; font-size: 13px; font-weight: 600; margin-bottom: 8px;">Content / Text</label>
+                    <textarea id="admin-text-input" aria-label="Content Text Input" placeholder="Paste or type your content here..." style="width: 100%; padding: 16px; border-radius: 12px; border: 1px solid #e2e8f0; font-size: 15px; resize: none; height: 120px; box-sizing: border-box;"></textarea>
+                </div>
+                <div>
+                    <label style="display: block; color: #64748b; font-size: 13px; font-weight: 600; margin-bottom: 8px;">Attach File (PDF/DOC/Image)</label>
+                    <label for="file-upload" style="border: 2px dashed #cbd5e1; border-radius: 16px; padding: 32px 20px; text-align: center; background-color: #ffffff; cursor: pointer; display: block;">
+                        <i data-lucide="upload" style="color: #64748b; width: 24px; height: 24px; margin-bottom: 12px; margin-left: auto; margin-right: auto; display: block;"></i>
+                        <p id="file-name-display" style="color: #334155; font-size: 14px; font-weight: 600; margin: 0 0 4px 0;">Click to select file</p>
+                    </label>
+                    <input id="file-upload" aria-label="File Upload Input" type="file" accept="*/*" style="opacity: 0; position: absolute; width: 1px; height: 1px; z-index: -1;" onchange="document.getElementById('file-name-display').innerText = this.files[0] ? this.files[0].name : 'Click to upload'; document.getElementById('file-name-display').style.color = '#2563eb';">
+                </div>
+                <button type="submit" aria-label="Upload Material" style="padding: 16px 32px; background-color: #2563eb; color: #ffffff; font-size: 15px; font-weight: 800; border: none; border-radius: 16px; cursor: pointer;">Upload Material</button>
+            </form>
+
                 </div>
 
                 <div style="background-color: #f8fafc; border: 1px solid #f1f5f9; border-radius: 24px; padding: 32px 24px;">
@@ -637,15 +639,15 @@
 
                                 <footer style="background-color: #0f172a; border-top: 1px solid #1e293b; padding: 40px 24px; color: #cbd5e1; font-family: 'DM Sans', sans-serif;">
             <div style="max-width: 600px; margin: 0 auto;">
-                
+
                 <div style="background-color: #1e293b; border: 1px solid #334155; border-radius: 8px; min-height: 60px; display: flex; align-items: center; justify-content: center; margin-bottom: 30px;">
                     <span style="color: #64748b; font-size: 10px; letter-spacing: 1px; text-transform: uppercase;">Advertisement</span>
                 </div>
-                
+
                 <p style="font-size: 14px; line-height: 1.6; margin-bottom: 30px; color: #94a3b8; text-align: center;">
                     Your smart study partner for ICSE & ISC board exams. Free notes, questions, and revision materials.
                 </p>
-                
+
                 <div style="display: flex; flex-direction: column; gap: 14px; margin-bottom: 40px; text-align: center; color: #f8fafc; font-weight: 500;">
                     <span onclick="navigateTo('about')" style="cursor:pointer;" aria-label="Navigate to About">About Us</span>
                     <span onclick="navigateTo('contact')" style="cursor:pointer;" aria-label="Navigate to Contact">Contact</span>
@@ -653,7 +655,7 @@
                     <span onclick="navigateTo('terms')" style="cursor:pointer;" aria-label="Navigate to Terms">Terms & Conditions</span>
                     <span onclick="navigateTo('disclaimer')" style="cursor:pointer;" aria-label="Navigate to Disclaimer">Disclaimer</span>
                 </div>
-                
+
                 <div style="display: flex; flex-direction: column; gap: 12px; font-size: 14px; margin-bottom: 40px; align-items: center; color: #cbd5e1;">
                     <span style="display: flex; align-items: center; gap: 8px;">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"></rect><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path></svg>
@@ -668,10 +670,10 @@
                         @studiessupport2026
                     </a>
                 </div>
-                
+
                 <div style="border-top: 1px solid #1e293b; padding-top: 24px; text-align: center; font-size: 12px; color: #64748b;">
                     © 2025 StudiesSupport. All rights reserved. Built for ICSE & ISC students.
-                    
+
                     <p style="font-size: 9px; color: #334155; text-align: center; margin-top: 16px; line-height: 1.4;">
                         Disclaimer: This website is an independent platform and is not recognized by or affiliated with the CISCE board. While every effort is made to provide correct details, students should not blindly trust the notes or textbook solutions provided. Always verify critical information with official school textbooks and teachers. Use at your own risk.
                     </p>
