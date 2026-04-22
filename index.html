@@ -493,26 +493,32 @@
                 <div style="background-color: #ffffff; border: 1px solid #f1f5f9; border-radius: 24px; padding: 32px 24px; box-shadow: 0 10px 40px rgba(0,0,0,0.03); margin-bottom: 32px;">
                     <h3 style="color: #0f172a; font-size: 18px; font-weight: 800; margin-bottom: 24px;">Add New Study Material</h3>
 
-                               <form id="upload-form" onsubmit="handleMaterialUpload(event)" style="display: flex; flex-direction: column; gap: 20px;">
+                <form id="upload-form" onsubmit="handleMaterialUpload(event)" style="display: flex; flex-direction: column; gap: 20px;">
                 <div>
                     <label style="display: block; color: #64748b; font-size: 13px; font-weight: 600; margin-bottom: 8px;">Board</label>
-                    <select id="admin-board-select" aria-label="Select Board" style="width: 100%; padding: 16px; border-radius: 12px; border: 1px solid #e2e8f0; background-color: #f8fafc; font-size: 15px; outline: none;">
+                    <select id="admin-board-select" aria-label="Select Board" onchange="updateSubjectDropdown()" required style="width: 100%; padding: 16px; border-radius: 12px; border: 1px solid #e2e8f0; background-color: #f8fafc; font-size: 15px; outline: none;">
+                        <option value="">Select Board...</option>
                         <option value="ICSE">ICSE</option>
                         <option value="ISC">ISC</option>
                     </select>
                 </div>
                 <div>
                     <label style="display: block; color: #64748b; font-size: 13px; font-weight: 600; margin-bottom: 8px;">Class</label>
-                    <select id="admin-class-select" aria-label="Select Class" style="width: 100%; padding: 16px; border-radius: 12px; border: 1px solid #e2e8f0; background-color: #f8fafc; font-size: 15px; outline: none;">
+                    <select id="admin-class-select" aria-label="Select Class" required style="width: 100%; padding: 16px; border-radius: 12px; border: 1px solid #e2e8f0; background-color: #f8fafc; font-size: 15px; outline: none;">
+                        <option value="">Select Class...</option>
                         <option value="Class 9">Class 9</option><option value="Class 10">Class 10</option>
                         <option value="Class 11">Class 11</option><option value="Class 12">Class 12</option>
                     </select>
                 </div>
+
                 <div>
                     <label style="display: block; color: #64748b; font-size: 13px; font-weight: 600; margin-bottom: 8px;">Subject</label>
-                    <input type="text" id="admin-subject-input" list="admin-subjects-list" placeholder="e.g., Physics" required style="width: 100%; padding: 16px; border-radius: 12px; border: 1px solid #e2e8f0; font-size: 15px; box-sizing: border-box;">
-                    <datalist id="admin-subjects-list"></datalist>
+                    <select id="admin-subject-select" aria-label="Select Subject" onchange="toggleCustomSubject()" required style="width: 100%; padding: 16px; border-radius: 12px; border: 1px solid #e2e8f0; background-color: #f8fafc; font-size: 15px; outline: none; margin-bottom: 8px;">
+                        <option value="">Select Board First</option>
+                    </select>
+                    <input type="text" id="admin-custom-subject" placeholder="Type your new subject name..." style="width: 100%; padding: 16px; border-radius: 12px; border: 1px solid #e2e8f0; font-size: 15px; box-sizing: border-box; display: none;">
                 </div>
+
                 <div>
                     <label style="display: block; color: #64748b; font-size: 13px; font-weight: 600; margin-bottom: 8px;">Chapter</label>
                     <input type="text" id="admin-chapter-input" list="admin-chapters-list" placeholder="e.g., Chapter 1" required style="width: 100%; padding: 16px; border-radius: 12px; border: 1px solid #e2e8f0; font-size: 15px; box-sizing: border-box;">
@@ -531,7 +537,8 @@
 
                 <div>
                     <label style="display: block; color: #64748b; font-size: 13px; font-weight: 600; margin-bottom: 8px;">Content Type</label>
-                    <select id="admin-type-select" aria-label="Select Content Type" style="width: 100%; padding: 16px; border-radius: 12px; border: 1px solid #e2e8f0; background-color: #f8fafc; font-size: 15px; outline: none;">
+                    <select id="admin-type-select" aria-label="Select Content Type" required style="width: 100%; padding: 16px; border-radius: 12px; border: 1px solid #e2e8f0; background-color: #f8fafc; font-size: 15px; outline: none;">
+                        <option value="">Select Type...</option>
                         <option value="PDF Document">PDF Document</option>
                         <option value="Text Notes">Text Notes</option>
                         <option value="Important Questions">Important Questions</option>
