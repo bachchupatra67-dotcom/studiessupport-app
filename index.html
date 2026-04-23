@@ -31,6 +31,14 @@
             width: 100%;
         }
     </style>
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>
+      window.MathJax = {
+        tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] }
+      };
+    </script>
+
 </head>
 
  <body class="h-full bg-white text-slate-800 overflow-auto">
@@ -494,7 +502,7 @@
                     <h3 style="color: #0f172a; font-size: 18px; font-weight: 800; margin-bottom: 24px;">Add New Study Material</h3>
 
          <form id="upload-form" onsubmit="handleMaterialUpload(event)" style="display: flex; flex-direction: column; gap: 20px;">
-                
+
                 <div>
                     <label style="display: block; color: #64748b; font-size: 13px; font-weight: 600; margin-bottom: 8px;">Board</label>
                     <select id="admin-board-select" aria-label="Select Board" onchange="updateSubjectDropdown()" required style="width: 100%; padding: 16px; border-radius: 12px; border: 1px solid #e2e8f0; background-color: #f8fafc; font-size: 15px; outline: none;">
@@ -503,7 +511,7 @@
                         <option value="ISC">ISC</option>
                     </select>
                 </div>
-                
+
                 <div>
                     <label style="display: block; color: #64748b; font-size: 13px; font-weight: 600; margin-bottom: 8px;">Class</label>
                     <select id="admin-class-select" aria-label="Select Class" required style="width: 100%; padding: 16px; border-radius: 12px; border: 1px solid #e2e8f0; background-color: #f8fafc; font-size: 15px; outline: none;">
@@ -548,6 +556,16 @@
                     </select>
                 </div>
                 <div>
+                                  <div style="display: flex; align-items: center; gap: 8px; margin-bottom: -10px;">
+                    <input type="checkbox" id="admin-bulk-checkbox" style="width: 18px; height: 18px; accent-color: #2563eb;">
+                    <label for="admin-bulk-checkbox" style="color: #0f172a; font-size: 14px; font-weight: 700;">Bulk Split (Auto-separates Q.1, Q.2, etc.)</label>
+                </div>
+                
+                <div>
+                    <label style="display: block; color: #64748b; font-size: 13px; font-weight: 600; margin-bottom: 8px;">Content / Text</label>
+                    <textarea id="admin-text-input" aria-label="Content Text Input" placeholder="Paste or type your content here..." style="width: 100%; padding: 16px; border-radius: 12px; border: 1px solid #e2e8f0; font-size: 15px; resize: none; height: 120px; box-sizing: border-box;"></textarea>
+                </div>
+
                     <label style="display: block; color: #64748b; font-size: 13px; font-weight: 600; margin-bottom: 8px;">Content / Text</label>
                     <textarea id="admin-text-input" aria-label="Content Text Input" placeholder="Paste or type your content here..." style="width: 100%; padding: 16px; border-radius: 12px; border: 1px solid #e2e8f0; font-size: 15px; resize: none; height: 120px; box-sizing: border-box;"></textarea>
                 </div>
