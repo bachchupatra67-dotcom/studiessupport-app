@@ -5,11 +5,18 @@ let pageHistory = [];
 let currentPage = 'home';
 let myBackpack = JSON.parse(localStorage.getItem('studyBackpack')) || [];
 
+// 🌟 MATH RENDER TRIGGER
+function renderMath() {
+    if (window.MathJax) {
+        setTimeout(() => MathJax.typesetPromise(), 100);
+    }
+}
+
 const generateCardHTML = (item) => {
     let linkBtn = item.file_url ? `<a href="${item.file_url}" target="_blank" style="display: inline-block; background: #2563eb; color: #ffffff; padding: 10px 20px; border-radius: 10px; text-decoration: none; font-size: 14px; font-weight: 700; margin-top: 12px;">Download PDF</a>` : '';
 
     let formattedText = item.content_text ? item.content_text.replace(/\*\*(.*?)\*\*/g, '<strong style="color: #0f172a; font-weight: 900;">$1</strong>') : '';
-    let textNotes = formattedText ? `<div style="background: #f8fafc; padding: 12px; border-radius: 8px; font-size: 14px; color: #334155; margin-top: 12px; white-space: pre-wrap;">${formattedText}</div>` : '';
+    let textNotes = formattedText ? `<div style="background: #f8fafc; padding: 12px; border-radius: 8px; font-size: 14px; color: #334155; margin-top: 12px; white-space: pre-wrap; overflow-x: auto;">${formattedText}</div>` : '';
 
     let subchapterBadge = item.subchapter ? `<span style="background: #fef3c7; color: #d97706; padding: 4px 8px; border-radius: 6px; font-size: 11px; font-weight: 800; display: inline-block; margin-bottom: 8px; margin-left: 6px;">${item.subchapter}</span>` : '';
 
@@ -138,9 +145,6 @@ try {
     }
 } catch (error) { console.error("Supabase load error:", error); }
 
-// ==========================================
-// 🌟 NEW: ADMIN SUBJECT & FILTER LOGIC
-// ==========================================
 function updateSubjectDropdown() {
     const board = document.getElementById('admin-board-select').value;
     const subjectSelect = document.getElementById('admin-subject-select');
@@ -182,7 +186,7 @@ function toggleCustomSubject() {
 }
 
 // ==========================================
-// 8. SUPABASE UPLOAD LOGIC
+// 8. SUPABASE UPLOAD & SMART BULK SPLITTER
 // ==========================================
 async function handleMaterialUpload(event) {
     event.preventDefault();
@@ -202,6 +206,7 @@ async function handleMaterialUpload(event) {
     const textbookValue = document.getElementById('admin-textbook-input').value.trim();
     const textContent = document.getElementById('admin-text-input').value;
 
+    const isBulk = document.getElementById('admin-bulk-checkbox')?.checked;
     const fileInput = document.getElementById('file-upload');
     const file = fileInput.files[0];
 
@@ -228,18 +233,36 @@ async function handleMaterialUpload(event) {
             finalFileUrl = supabaseClient.storage.from('study-materials').getPublicUrl(safeFileName).data.publicUrl;
         }
 
-        const uploadData = {
-            board: boardValue, subject: subjectValue, class_level: classValue,
-            chapter: chapterValue, subchapter: subchapterValue, textbook: textbookValue, content_type: typeValue,
-            content_text: textContent, file_url: finalFileUrl
-        };
+        // 🌟 THE SMART BULK SPLITTER
+        if (isBulk && textContent && !editingMaterialId) {
+            // Slices the text every time it sees "Q.1", "Q 2", "Question 3", etc.
+            const blocks = textContent.split(/(?=Q\.?\s*\d+|Question\s*\d+)/i).filter(t => t.trim() !== "");
+            
+            const uploadPromises = blocks.map(block => {
+                return supabaseClient.from('study_materials').insert([{
+                    board: boardValue, subject: subjectValue, class_level: classValue,
+                    chapter: chapterValue, subchapter: subchapterValue, textbook: textbookValue, 
+                    content_type: typeValue, content_text: block.trim(), file_url: finalFileUrl
+                }]);
+            });
 
-        if (editingMaterialId) {
-            const { error } = await supabaseClient.from('study_materials').update(uploadData).eq('id', editingMaterialId);
-            if (error) throw error; alert("Success! Material updated.");
+            await Promise.all(uploadPromises);
+            alert(`Success! Auto-separated and saved ${blocks.length} questions.`);
         } else {
-            const { error } = await supabaseClient.from('study_materials').insert([uploadData]);
-            if (error) throw error; alert("Success! Material saved.");
+            // Normal Single Upload
+            const uploadData = {
+                board: boardValue, subject: subjectValue, class_level: classValue,
+                chapter: chapterValue, subchapter: subchapterValue, textbook: textbookValue, content_type: typeValue,
+                content_text: textContent, file_url: finalFileUrl
+            };
+
+            if (editingMaterialId) {
+                const { error } = await supabaseClient.from('study_materials').update(uploadData).eq('id', editingMaterialId);
+                if (error) throw error; alert("Success! Material updated.");
+            } else {
+                const { error } = await supabaseClient.from('study_materials').insert([uploadData]);
+                if (error) throw error; alert("Success! Material saved.");
+            }
         }
 
         editingMaterialId = null; event.target.reset();
@@ -373,8 +396,8 @@ function renderAdminMaterials() {
                 <div style="display: flex;">${deleteBtn}${editBtn}${linkHtml}</div>
             </div>`;
     });
+    renderMath(); // Ask MathJax to draw physics formulas
 }
-
 
 function updateDynamicFilters(pagePrefix) {
     const classSelect = document.getElementById(`${pagePrefix}-filter-class`);
@@ -456,6 +479,7 @@ function applyDynamicFilter(pagePrefix, containerId) {
         container.innerHTML = '';
         filtered.forEach(item => { container.innerHTML += generateCardHTML(item); });
         if (window.lucide) lucide.createIcons();
+        renderMath(); // 🌟 Tell MathJax to draw physics formulas
     }, pagePrefix === 'sol' ? 500 : 0);
 }
 
@@ -505,8 +529,9 @@ function renderStudentMaterials() {
         const title = document.getElementById('dynamic-isc-title').innerText.trim();
         drawCards(iscContainer, allStudyMaterials.filter(item => item.board === 'ISC' && item.subject === title), 'ISC');
     }
+    
+    renderMath(); // 🌟 Tell MathJax to draw physics formulas
 }
-
 
 // ==========================================
 // 12. AI CHAT LOGIC
@@ -570,6 +595,7 @@ async function sendAIMessage(fileData = null, mimeType = null) {
         let formattedReply = aiReply ? aiReply.replace(/\*\*(.*?)\*\*/g, '<strong style="color: #0f172a; font-weight: 900;">$1</strong>') : '';
         chatBox.innerHTML += `<div style="align-self: flex-start; background: #ffffff; border: 1px solid #e2e8f0; padding: 14px 18px; border-radius: 20px; border-bottom-left-radius: 4px; max-width: 85%; box-shadow: 0 2px 4px rgba(0,0,0,0.02);"><p style="margin: 0; font-size: 14px; color: #334155; line-height: 1.5; white-space: pre-wrap;">${formattedReply}</p></div>`;
         chatBox.scrollTop = chatBox.scrollHeight;
+        renderMath(); // 🌟 Tell MathJax to draw physics formulas in the AI chat!
     } catch (error) {
         console.error("AI Error:", error);
         const typingBubble = document.getElementById(typingId);
@@ -603,4 +629,5 @@ function renderBackpack() {
     container.innerHTML = '';
     savedItems.forEach(item => { container.innerHTML += generateCardHTML(item); });
     if (window.lucide) lucide.createIcons();
+    renderMath(); // 🌟 Tell MathJax to draw physics formulas in the Backpack
 }
