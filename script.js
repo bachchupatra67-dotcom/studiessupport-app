@@ -7,9 +7,7 @@ let myBackpack = JSON.parse(localStorage.getItem('studyBackpack')) || [];
 
 function renderMath() {
     if (window.MathJax) {
-        setTimeout(() => {
-            MathJax.typesetPromise().catch((err) => console.log('MathJax error:', err));
-        }, 100);
+        setTimeout(() => { MathJax.typesetPromise().catch((err) => console.log('MathJax error:', err)); }, 100);
     }
 }
 
@@ -18,17 +16,15 @@ const generateCardHTML = (item) => {
 
     let formattedText = item.content_text || '';
     
-    // 🌟 ROBUST MATH AUTO-CORRECTOR (Fixes Gemini's raw LaTeX)
-    formattedText = formattedText.replace(/\\times/g, ' × ');
-    formattedText = formattedText.replace(/\\div/g, ' ÷ ');
-    formattedText = formattedText.replace(/\\rightarrow/g, ' → ');
-    formattedText = formattedText.replace(/\\Rightarrow/g, ' ⇒ ');
+    // 🌟 ROBUST MATH AUTO-CORRECTOR 
+    formattedText = formattedText.replace(/\\\\times|\\times/g, ' × ');
+    formattedText = formattedText.replace(/\\\\div|\\div/g, ' ÷ ');
+    formattedText = formattedText.replace(/\\\\rightarrow|\\rightarrow/g, ' → ');
+    formattedText = formattedText.replace(/\\\\Rightarrow|\\Rightarrow/g, ' ⇒ ');
     
-    // Fixes Subscripts (e.g., W_1 becomes W₁) and Superscripts (e.g., x^2)
     formattedText = formattedText.replace(/([a-zA-Z])_([0-9a-zA-Z]+)/g, '$1<sub>$2</sub>');
     formattedText = formattedText.replace(/([a-zA-Z0-9])\^([0-9a-zA-Z]+)/g, '$1<sup>$2</sup>');
     
-    // Fixes Bolding
     formattedText = formattedText.replace(/\*\*(.*?)\*\*/g, '<strong style="color: #0f172a; font-weight: 900;">$1</strong>');
     
     let textNotes = formattedText ? `<div style="background: #f8fafc; padding: 12px; border-radius: 8px; font-size: 14px; color: #334155; margin-top: 12px; white-space: pre-wrap; overflow-x: auto; font-family: sans-serif; line-height: 1.6;">${formattedText}</div>` : '';
@@ -98,7 +94,7 @@ try {
         const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd5Y21tZGxrcHB5YXZ3a3FkeHltIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU2NjE3NTgsImV4cCI6MjA5MTIzNzc1OH0.REcaVfmLe6SKMrPcvo13lq90CH762AaOhNOOwRgYNSc';
         supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
     }
-} catch (error) { console.error("Supabase load error:", error); }
+} catch (error) { console.error("Supabase error:", error); }
 
 function initApp() {
     navigateTo('home'); applyLogo(localStorage.getItem('customSiteLogo')); fetchAndDisplayMaterials();
@@ -182,12 +178,13 @@ async function handleMaterialUpload(event) {
         }
 
         if (isBulk && textContent && !editingMaterialId) {
-            const blocks = textContent.split(/(?=Q\.?\s*\d+|Question\s*\d+)/i).filter(t => t.trim() !== "");
+            // 🌟 FIXED BULK SPLITTER: Handles Gemini's bold stars, spaces, etc.
+            const blocks = textContent.split(/(?=(?:\*\*|\s)*(?:Q|Question)\.?\s*\d+)/i).filter(t => t.trim() !== "");
             const uploadPromises = blocks.map(block => supabaseClient.from('study_materials').insert([{
                 board: boardValue, subject: subjectValue, class_level: classValue, chapter: chapterValue, subchapter: subchapterValue, textbook: textbookValue, content_type: typeValue, content_text: block.trim(), file_url: finalFileUrl
             }]));
             await Promise.all(uploadPromises);
-            alert(`Success! Auto-separated and saved ${blocks.length} questions.`);
+            alert(`Success! Saved ${blocks.length} individual questions.`);
         } else {
             const uploadData = { board: boardValue, subject: subjectValue, class_level: classValue, chapter: chapterValue, subchapter: subchapterValue, textbook: textbookValue, content_type: typeValue, content_text: textContent, file_url: finalFileUrl };
             if (editingMaterialId) await supabaseClient.from('study_materials').update(uploadData).eq('id', editingMaterialId);
@@ -224,13 +221,8 @@ function editMaterial(id) {
     const select = document.getElementById('admin-subject-select');
     const options = Array.from(select.options).map(opt => opt.value);
     
-    if (options.includes(item.subject)) {
-        select.value = item.subject;
-    } else {
-        select.value = 'CUSTOM_NEW';
-        toggleCustomSubject();
-        document.getElementById('admin-custom-subject').value = item.subject || '';
-    }
+    if (options.includes(item.subject)) { select.value = item.subject; } 
+    else { select.value = 'CUSTOM_NEW'; toggleCustomSubject(); document.getElementById('admin-custom-subject').value = item.subject || ''; }
 
     document.getElementById('admin-class-select').value = item.class_level || '';
     document.getElementById('admin-type-select').value = item.content_type || '';
@@ -284,7 +276,7 @@ function updateAdminDatalists() {
 
 
 // ==========================================
-// 4. 🌟 PREMIUM SOLUTIONS UI (WITH WORKING TABS)
+// 4. KNOWLEDGEBOAT SOLUTIONS UI LOGIC
 // ==========================================
 let currentSolutionChapter = '';
 let activeSolTab = 'exercise';
@@ -346,16 +338,12 @@ function openSolutionsModal(chapterName) {
     const classVal = document.getElementById('sol-filter-class').value;
     const subjectVal = document.getElementById('sol-filter-subject').value;
     
-    // Find all subchapters (Exercises) for this chapter
     const subchapters = [...new Set(allStudyMaterials.filter(m => 
-        m.content_type === 'Textbook Solutions' && 
-        m.class_level === classVal && 
-        m.subject === subjectVal && 
-        m.chapter === currentSolutionChapter
+        m.content_type === 'Textbook Solutions' && m.class_level === classVal && m.subject === subjectVal && m.chapter === currentSolutionChapter
     ).map(m => m.subchapter).filter(Boolean))].sort();
 
     activeSolSubchapter = subchapters.length > 0 ? subchapters[0] : '';
-    activeSolQuestion = 'all'; // Reset question filter
+    activeSolQuestion = 'all'; 
 
     document.getElementById('solutions-modal').style.display = 'flex';
     renderSolutionsModalContent();
@@ -371,7 +359,6 @@ function renderSolutionsModalContent() {
     const tabQ = document.getElementById('tab-questions');
     const listContainer = document.getElementById('solutions-exercise-list');
 
-    // Tab Styling
     if (activeSolTab === 'exercise') {
         tabEx.style.color = '#0f8368'; tabEx.style.borderBottom = '2px solid #0f8368'; tabEx.style.background = 'white'; tabEx.style.fontWeight = '800';
         tabQ.style.color = '#64748b'; tabQ.style.borderBottom = 'none'; tabQ.style.background = 'transparent'; tabQ.style.fontWeight = '600';
@@ -384,14 +371,10 @@ function renderSolutionsModalContent() {
     const subjectVal = document.getElementById('sol-filter-subject').value;
     
     let chapterMaterials = allStudyMaterials.filter(m => 
-        m.content_type === 'Textbook Solutions' && 
-        m.class_level === classVal && 
-        m.subject === subjectVal && 
-        m.chapter === currentSolutionChapter
+        m.content_type === 'Textbook Solutions' && m.class_level === classVal && m.subject === subjectVal && m.chapter === currentSolutionChapter
     );
 
     if (activeSolTab === 'exercise') {
-        // Draw Subchapters
         const subchapters = [...new Set(chapterMaterials.map(m => m.subchapter).filter(Boolean))].sort();
         if (subchapters.length === 0) {
             listContainer.innerHTML = '<p style="padding: 20px; color:#64748b; font-size: 14px; text-align: center;">No specific exercises categorized. Just click APPLY.</p>';
@@ -404,15 +387,12 @@ function renderSolutionsModalContent() {
             `).join('');
         }
     } else {
-        // 🌟 Draw Individual Questions!
-        if (activeSolSubchapter) {
-            chapterMaterials = chapterMaterials.filter(m => m.subchapter === activeSolSubchapter);
-        }
+        if (activeSolSubchapter) chapterMaterials = chapterMaterials.filter(m => m.subchapter === activeSolSubchapter);
 
-        // Extract Q.1, Q.2 from the text
+        // 🌟 FIXED: Find questions accurately even if bolded by Gemini
         let questions = chapterMaterials.map(m => {
-            const match = (m.content_text || '').match(/^(Q\.?\s*\d+|Question\s*\d+)/i);
-            return match ? match[0].trim() : 'Unnumbered';
+            const match = (m.content_text || '').match(/(?:\*\*|\s)*(Q\.?\s*\d+|Question\s*\d+)/i);
+            return match ? match[1].trim().toUpperCase() : 'Unnumbered';
         });
         questions = [...new Set(questions)].filter(q => q !== 'Unnumbered');
 
@@ -452,19 +432,16 @@ function applySolutionsFilter() {
     const subjectVal = document.getElementById('sol-filter-subject').value;
 
     let filtered = allStudyMaterials.filter(m => 
-        m.content_type === 'Textbook Solutions' && 
-        m.class_level === classVal && 
-        m.subject === subjectVal && 
-        m.chapter === currentSolutionChapter
+        m.content_type === 'Textbook Solutions' && m.class_level === classVal && m.subject === subjectVal && m.chapter === currentSolutionChapter
     );
 
-    if (activeSolSubchapter) { 
-        filtered = filtered.filter(m => m.subchapter === activeSolSubchapter); 
-    }
+    if (activeSolSubchapter) filtered = filtered.filter(m => m.subchapter === activeSolSubchapter); 
     
-    // Filter down to the exact specific question if selected
     if (activeSolQuestion !== 'all') {
-        filtered = filtered.filter(m => (m.content_text || '').startsWith(activeSolQuestion));
+        filtered = filtered.filter(m => {
+            const cleanText = (m.content_text || '').replace(/\*\*/g, '').trim();
+            return cleanText.toUpperCase().startsWith(activeSolQuestion);
+        });
     }
 
     container.innerHTML += `<button onclick="renderSolutionsChapters()" style="background: #f1f5f9; border: none; padding: 10px 16px; border-radius: 10px; display: inline-flex; align-items: center; gap: 8px; font-weight: 700; color: #334155; cursor: pointer; align-self: flex-start; margin-bottom: 8px;"><i data-lucide="arrow-left" style="width: 16px; height: 16px;"></i> Back to Chapters</button>`;
@@ -475,22 +452,17 @@ function applySolutionsFilter() {
     
     container.innerHTML += `<h3 style="font-size: 18px; font-weight: 800; color: #0f172a; margin-bottom: 8px;">${headerTitle}</h3>`;
 
-    if (filtered.length === 0) {
-        container.innerHTML += `<div style="text-align: center; padding: 40px;"><p style="color: #64748b; font-size: 15px; font-weight: 600;">No materials found.</p></div>`;
-    } else {
-        filtered.forEach(item => { container.innerHTML += generateCardHTML(item); });
-    }
+    if (filtered.length === 0) container.innerHTML += `<div style="text-align: center; padding: 40px;"><p style="color: #64748b; font-size: 15px; font-weight: 600;">No materials found.</p></div>`;
+    else filtered.forEach(item => { container.innerHTML += generateCardHTML(item); });
+    
     if (window.lucide) lucide.createIcons();
     renderMath();
 }
 
-
-// Draw ICSE/ISC Cards
 function renderStudentMaterials() {
     function drawCards(container, materials, boardType) {
         if (materials.length === 0) return container.innerHTML = `<p style="text-align: center; color: #94a3b8;">No content added yet.</p>`;
         container.innerHTML = '';
-        
         const topClass = boardType === 'ICSE' ? 'Class 10' : 'Class 12';
         const bottomClass = boardType === 'ICSE' ? 'Class 9' : 'Class 11';
 
@@ -522,9 +494,6 @@ function renderStudentMaterials() {
     renderMath();
 }
 
-// ==========================================
-// 12. AI CHAT LOGIC
-// ==========================================
 async function handleAICamera(event) {
     const file = event.target.files[0];
     if (!file) return;
@@ -557,8 +526,7 @@ async function sendAIMessage(fileData = null, mimeType = null) {
         let aiReply = data.candidates[0].content.parts[0].text;
         document.getElementById(typingId)?.remove();
         
-        // Math Auto-Corrector for AI chat!
-        aiReply = aiReply.replace(/\\times/g, ' × ').replace(/\\div/g, ' ÷ ').replace(/\\rightarrow/g, ' → ');
+        aiReply = aiReply.replace(/\\\\times|\\times/g, ' × ').replace(/\\\\div|\\div/g, ' ÷ ').replace(/\\\\rightarrow|\\rightarrow/g, ' → ');
         aiReply = aiReply.replace(/([a-zA-Z])_([0-9a-zA-Z]+)/g, '$1<sub>$2</sub>');
         aiReply = aiReply.replace(/([a-zA-Z0-9])\^([0-9a-zA-Z]+)/g, '$1<sup>$2</sup>');
         aiReply = aiReply.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
@@ -575,7 +543,6 @@ function toggleBookmark(itemId) {
     localStorage.setItem('studyBackpack', JSON.stringify(myBackpack));
     renderStudentMaterials(); if (currentPage === 'backpack') renderBackpack();
 }
-
 function renderBackpack() {
     const container = document.getElementById('backpack-materials-container');
     if (!container) return;
