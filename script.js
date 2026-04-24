@@ -18,12 +18,12 @@ const generateCardHTML = (item) => {
     let linkBtn = item.file_url ? `<a href="${item.file_url}" target="_blank" style="display: inline-block; background: #2563eb; color: #ffffff; padding: 10px 20px; border-radius: 10px; text-decoration: none; font-size: 14px; font-weight: 700; margin-top: 12px;">Download PDF</a>` : '';
 
     let formattedText = item.content_text || '';
-    
+
     // 🌟 AUTO-CORRECT RAW MATH SYMBOLS (Fixes Gemini's LaTeX formatting)
     formattedText = formattedText.replace(/\\times/g, ' × ');
     formattedText = formattedText.replace(/\\div/g, ' ÷ ');
     formattedText = formattedText.replace(/\*\*(.*?)\*\*/g, '<strong style="color: #0f172a; font-weight: 900;">$1</strong>');
-    
+
     let textNotes = formattedText ? `<div style="background: #f8fafc; padding: 12px; border-radius: 8px; font-size: 14px; color: #334155; margin-top: 12px; white-space: pre-wrap; overflow-x: auto; font-family: sans-serif;">${formattedText}</div>` : '';
 
     let subchapterBadge = item.subchapter ? `<span style="background: #fef3c7; color: #d97706; padding: 4px 8px; border-radius: 6px; font-size: 11px; font-weight: 800; display: inline-block; margin-bottom: 8px; margin-left: 6px;">${item.subchapter}</span>` : '';
@@ -64,7 +64,7 @@ function navigateTo(pageName, isBack = false) {
             return;
         }
     }
-    
+
     if (!isBack && currentPage !== pageName) { 
         pageHistory.push(currentPage); 
     }
@@ -125,7 +125,7 @@ async function showLoginModal() {
         navigateTo('admin');
         return;
     }
-    
+
     // 🌟 NEW: Ask Supabase if the user's session is still active
     if (supabaseClient) {
         const { data } = await supabaseClient.auth.getSession();
@@ -135,7 +135,7 @@ async function showLoginModal() {
             return;
         }
     }
-    
+
     document.getElementById('login-modal')?.classList.remove('hidden'); 
 }
 
@@ -149,7 +149,7 @@ async function loginAdmin() {
         alert("Database connection missing!"); 
         return; 
     }
-    
+
     const email = document.getElementById('admin-email').value.trim();
     const password = document.getElementById('admin-password').value.trim();
     const btn = document.querySelector('button[onclick="loginAdmin()"]');
@@ -162,7 +162,7 @@ async function loginAdmin() {
     const originalText = btn.innerText; 
     btn.innerText = "Verifying..."; 
     btn.disabled = true;
-    
+
     try {
         const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password });
         if (error) throw error;
@@ -218,7 +218,7 @@ try {
 function updateSubjectDropdown() {
     const board = document.getElementById('admin-board-select').value;
     const subjectSelect = document.getElementById('admin-subject-select');
-    
+
     let standardSubjects = [];
     if (board === 'ICSE') {
         standardSubjects = ['English Language', 'English Literature', 'Mathematics', 'Science (Physics)', 'Science (Chemistry)', 'Science (Biology)', 'Hindi', 'History & Civics', 'Geography', 'Computer Science'];
@@ -233,18 +233,18 @@ function updateSubjectDropdown() {
     allSubjects.forEach(sub => {
         subjectSelect.innerHTML += `<option value="${sub}">${sub}</option>`;
     });
-    
+
     if (board) {
         subjectSelect.innerHTML += `<option value="CUSTOM_NEW" style="font-weight:bold; color:#2563eb;">+ Add New Subject...</option>`;
     }
-    
+
     toggleCustomSubject(); 
 }
 
 function toggleCustomSubject() {
     const select = document.getElementById('admin-subject-select');
     const customInput = document.getElementById('admin-custom-subject');
-    
+
     if (select.value === 'CUSTOM_NEW') {
         customInput.style.display = 'block';
         customInput.required = true;
@@ -258,116 +258,23 @@ function toggleCustomSubject() {
 // ==========================================
 // 3. ADMIN UPLOAD & SMART BULK SPLITTER
 // ==========================================
-async function handleMaterialUpload(event) {
-    event.preventDefault();
-    if (!supabaseClient) { 
-        alert("Upload system unavailable."); 
-        return; 
-    }
-
-    const boardValue = document.getElementById('admin-board-select').value;
-    const classValue = document.getElementById('admin-class-select').value;
-    const typeValue = document.getElementById('admin-type-select').value;
-    
-    let subjectValue = document.getElementById('admin-subject-select').value;
-    if (subjectValue === 'CUSTOM_NEW') {
-        subjectValue = document.getElementById('admin-custom-subject').value.trim();
-    }
-    
-    const chapterValue = document.getElementById('admin-chapter-input').value.trim();
-    const subchapterValue = document.getElementById('admin-subchapter-input').value.trim();
-    const textbookValue = document.getElementById('admin-textbook-input').value.trim();
-    const textContent = document.getElementById('admin-text-input').value;
-
-    const isBulk = document.getElementById('admin-bulk-checkbox')?.checked;
-    
-    const fileInput = document.getElementById('file-upload');
-    const file = fileInput.files[0];
-
-    if (!file && textContent.trim() === "" && !editingMaterialId) {
-        alert("Please add text content or a file!"); 
-        return;
-    }
-
-    const btn = event.target.querySelector('button[type="submit"]');
-    const originalText = btn.innerText;
-    btn.innerText = editingMaterialId ? "Updating... ⏳" : "Saving... ⏳";
-    btn.disabled = true;
-
-    try {
-        let finalFileUrl = "";
-        if (editingMaterialId) {
-            const existingItem = allStudyMaterials.find(m => m.id === editingMaterialId);
-            finalFileUrl = existingItem ? existingItem.file_url : "";
-        }
-
-        if (file) {
-            const safeFileName = `${Date.now()}-${Math.random().toString(36).substring(2)}.${file.name.split('.').pop()}`;
-            const { error: uploadError } = await supabaseClient.storage.from('study-materials').upload(safeFileName, await file.arrayBuffer(), { contentType: file.type });
-            if (uploadError) throw uploadError;
-            finalFileUrl = supabaseClient.storage.from('study-materials').getPublicUrl(safeFileName).data.publicUrl;
-        }
-
-        // 🌟 SMART BULK SPLITTER
-        if (isBulk && textContent && !editingMaterialId) {
-            // Slices the text every time it sees "Q.1", "Q 2", "Question 3", etc.
-            const blocks = textContent.split(/(?=Q\.?\s*\d+|Question\s*\d+)/i).filter(t => t.trim() !== "");
-            
-            const uploadPromises = blocks.map(block => {
-                return supabaseClient.from('study_materials').insert([{
-                    board: boardValue, 
-                    subject: subjectValue, 
-                    class_level: classValue,
-                    chapter: chapterValue, 
-                    subchapter: subchapterValue, 
-                    textbook: textbookValue, 
-                    content_type: typeValue, 
-                    content_text: block.trim(), 
-                    file_url: finalFileUrl
-                }]);
-            });
-
-            await Promise.all(uploadPromises);
-            alert(`Success! Auto-separated and saved ${blocks.length} questions.`);
-        } else {
-            // Normal Single Upload
-            const uploadData = {
-                board: boardValue, 
-                subject: subjectValue, 
-                class_level: classValue,
-                chapter: chapterValue, 
-                subchapter: subchapterValue, 
-                textbook: textbookValue, 
-                content_type: typeValue,
-                content_text: textContent, 
-                file_url: finalFileUrl
-            };
-
-            if (editingMaterialId) {
-                const { error } = await supabaseClient.from('study_materials').update(uploadData).eq('id', editingMaterialId);
-                if (error) throw error; 
-                alert("Success! Material updated.");
-            } else {
-                const { error } = await supabaseClient.from('study_materials').insert([uploadData]);
-                if (error) throw error; 
-                alert("Success! Material saved.");
-            }
-        }
-
+        // Reset everything after successful upload/edit
         editingMaterialId = null; 
-        event.target.reset();
+        event.target.reset(); 
         toggleCustomSubject(); 
-        document.getElementById('file-name-display').innerText = 'Click to upload or drag & drop';
-        document.getElementById('file-name-display').style.color = '#334155';
+        
+        // 🌟 SHOW BULK CHECKBOX AGAIN FOR NEW UPLOADS
+        const bulkCheckbox = document.getElementById('admin-bulk-checkbox');
+        if (bulkCheckbox && bulkCheckbox.parentElement) {
+            bulkCheckbox.parentElement.style.display = 'flex';
+        }
+        
         fetchAndDisplayMaterials();
 
-    } catch (error) { 
-        alert("Action failed. Error: " + error.message); 
-    } finally { 
-        btn.innerText = "Upload Material"; 
-        btn.disabled = false; 
-    }
+    } catch (error) { alert("Error: " + error.message); } 
+    finally { btn.innerText = "Upload Material"; btn.disabled = false; }
 }
+
 
 function handleLogoUpload(event) {
     const file = event.target.files[0]; 
@@ -400,32 +307,28 @@ function editMaterial(id) {
     const select = document.getElementById('admin-subject-select');
     const options = Array.from(select.options).map(opt => opt.value);
     
-    if (options.includes(item.subject)) {
-        select.value = item.subject;
-    } else {
-        select.value = 'CUSTOM_NEW';
-        toggleCustomSubject();
-        document.getElementById('admin-custom-subject').value = item.subject || '';
-    }
+    if (options.includes(item.subject)) { select.value = item.subject; } 
+    else { select.value = 'CUSTOM_NEW'; toggleCustomSubject(); document.getElementById('admin-custom-subject').value = item.subject || ''; }
 
     document.getElementById('admin-class-select').value = item.class_level || '';
     document.getElementById('admin-type-select').value = item.content_type || '';
     document.getElementById('admin-chapter-input').value = item.chapter || '';
     document.getElementById('admin-subchapter-input').value = item.subchapter || '';
-    
     const textbookInput = document.getElementById('admin-textbook-input');
     if(textbookInput) textbookInput.value = item.textbook || '';
-    
     document.getElementById('admin-text-input').value = item.content_text || '';
 
     document.querySelector('#upload-form button[type="submit"]').innerText = "Update Material";
-    if (item.file_url) {
-        const fileDisplay = document.getElementById('file-name-display');
-        fileDisplay.innerText = "Current file attached. Click to replace (optional)";
-        fileDisplay.style.color = '#ea580c';
+    
+    // 🌟 HIDE BULK CHECKBOX DURING EDITS SO IT DOESNT CONFUSE YOU
+    const bulkCheckbox = document.getElementById('admin-bulk-checkbox');
+    if (bulkCheckbox && bulkCheckbox.parentElement) {
+        bulkCheckbox.parentElement.style.display = 'none';
     }
+    
     window.scrollTo({ top: 0, behavior: 'smooth' });
 }
+
 
 async function deleteMaterial(id) {
     if (!confirm("Are you sure you want to completely delete this?")) return;
@@ -452,7 +355,7 @@ async function fetchAndDisplayMaterials() {
             const standardISC = ['English Language', 'English Literature', 'Hindi', 'Physics', 'Chemistry', 'Mathematics', 'Biology', 'Computer Science', 'Accounts', 'Business Studies', 'Economics', 'History'];
             const dbSubjects = data.map(m => m.subject).filter(Boolean);
             const uniqueSubjects = [...new Set([...standardICSE, ...standardISC, ...dbSubjects])].sort();
-            
+
             adminSubFilter.innerHTML = '<option value="">All Subjects</option>' + uniqueSubjects.map(s => `<option value="${s}">${s}</option>`).join('');
         }
 
@@ -461,7 +364,7 @@ async function fetchAndDisplayMaterials() {
         updateDynamicFilters('qa');
         updateSolutionsSubjectDropdown();
         updateAdminDatalists();
-        
+
         if (currentPage === 'backpack') {
             renderBackpack();
         }
@@ -492,7 +395,7 @@ function renderAdminMaterials() {
         let linkHtml = item.file_url ? `<a href="${item.file_url}" target="_blank" style="background: #eff6ff; color: #2563eb; padding: 6px 12px; border-radius: 8px; text-decoration: none; font-size: 12px; font-weight: 700;">View</a>` : '';
         let editBtn = `<button onclick="editMaterial(${item.id})" style="background: #fff7ed; color: #ea580c; border: 1px solid #fed7aa; padding: 6px 12px; border-radius: 8px; font-size: 12px; font-weight: 700; cursor: pointer; margin-right: 8px;">Edit</button>`;
         let deleteBtn = `<button onclick="deleteMaterial(${item.id})" style="background: #fef2f2; color: #dc2626; border: 1px solid #fecaca; padding: 6px 12px; border-radius: 8px; font-size: 12px; font-weight: 700; cursor: pointer; margin-right: 8px;">Delete</button>`;
-        
+
         container.innerHTML += `
             <div style="background: white; border: 1px solid #e2e8f0; border-radius: 16px; padding: 16px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; flex-wrap: wrap; gap: 12px;">
                 <div>
@@ -502,7 +405,7 @@ function renderAdminMaterials() {
                 <div style="display: flex;">${deleteBtn}${editBtn}${linkHtml}</div>
             </div>`;
     });
-    
+
     renderMath(); 
 }
 
@@ -514,7 +417,7 @@ let currentSolutionChapter = '';
 function updateSolutionsSubjectDropdown() {
     const classSelect = document.getElementById('sol-filter-class');
     const subjectSelect = document.getElementById('sol-filter-subject');
-    
+
     if (!classSelect || !subjectSelect) return;
 
     let validMaterials = allStudyMaterials.filter(m => m.content_type === 'Textbook Solutions');
@@ -524,12 +427,12 @@ function updateSolutionsSubjectDropdown() {
 
     const currentSub = subjectSelect.value;
     const subjects = [...new Set(validMaterials.map(m => m.subject).filter(Boolean))].sort();
-    
+
     subjectSelect.innerHTML = '<option value="">Select Subject...</option>';
     subjects.forEach(s => {
         subjectSelect.innerHTML += `<option value="${s}">${s}</option>`;
     });
-    
+
     if (subjects.includes(currentSub)) {
         subjectSelect.value = currentSub;
     }
@@ -537,12 +440,12 @@ function updateSolutionsSubjectDropdown() {
 
 function renderSolutionsChapters() {
     updateSolutionsSubjectDropdown();
-    
+
     const classVal = document.getElementById('sol-filter-class').value;
     const subjectVal = document.getElementById('sol-filter-subject').value;
     const chapterList = document.getElementById('solutions-chapter-list');
     const cardsContainer = document.getElementById('solutions-materials-container');
-    
+
     cardsContainer.style.display = 'none';
     chapterList.style.display = 'flex';
 
@@ -559,7 +462,7 @@ function renderSolutionsChapters() {
         m.class_level === classVal && 
         m.subject === subjectVal
     );
-    
+
     const chapters = [...new Set(filtered.map(m => m.chapter).filter(Boolean))];
 
     if (chapters.length === 0) {
@@ -585,10 +488,10 @@ function openSolutionsModal(chapterName) {
     currentSolutionChapter = chapterName;
     const modal = document.getElementById('solutions-modal');
     const exerciseList = document.getElementById('solutions-exercise-list');
-    
+
     const classVal = document.getElementById('sol-filter-class').value;
     const subjectVal = document.getElementById('sol-filter-subject').value;
-    
+
     const subchapters = [...new Set(allStudyMaterials.filter(m => 
         m.content_type === 'Textbook Solutions' && 
         m.class_level === classVal && 
@@ -610,7 +513,7 @@ function openSolutionsModal(chapterName) {
             `;
         });
     }
-    
+
     modal.style.display = 'flex';
 }
 
@@ -622,11 +525,11 @@ function applySolutionsFilter() {
     closeSolutionsModal();
     const chapterList = document.getElementById('solutions-chapter-list');
     const container = document.getElementById('solutions-materials-container');
-    
+
     chapterList.style.display = 'none';
     container.style.display = 'flex';
     container.innerHTML = '';
-    
+
     const classVal = document.getElementById('sol-filter-class').value;
     const subjectVal = document.getElementById('sol-filter-subject').value;
     const selectedRadio = document.querySelector('input[name="sol-exercise-radio"]:checked');
@@ -653,7 +556,7 @@ function applySolutionsFilter() {
             container.innerHTML += generateCardHTML(item); 
         });
     }
-    
+
     if (window.lucide) lucide.createIcons();
     renderMath();
 }
@@ -666,7 +569,7 @@ function updateDynamicFilters(pagePrefix) {
     const subjectSelect = document.getElementById(`${pagePrefix}-filter-subject`);
     const chapterSelect = document.getElementById(`${pagePrefix}-filter-chapter`);
     const subchapterSelect = document.getElementById(`${pagePrefix}-filter-subchapter`);
-    
+
     if(!classSelect || !subjectSelect || !chapterSelect || !subchapterSelect) return;
 
     let validMaterials = allStudyMaterials;
@@ -687,7 +590,7 @@ function updateDynamicFilters(pagePrefix) {
     const currentSub = subjectSelect.value;
     const dbSubjects = validMaterials.map(m => m.subject).filter(Boolean);
     const subjects = [...new Set([...standardSubjects, ...dbSubjects])].sort();
-    
+
     subjectSelect.innerHTML = '<option value="">All Subjects</option>';
     subjects.forEach(s => {
         subjectSelect.innerHTML += `<option value="${s}">${s}</option>`;
@@ -697,7 +600,7 @@ function updateDynamicFilters(pagePrefix) {
     if (subjectSelect.value) {
         validMaterials = validMaterials.filter(m => m.subject === subjectSelect.value);
     }
-    
+
     const currentChap = chapterSelect.value;
     const chapters = [...new Set(validMaterials.map(m => m.chapter).filter(Boolean))].sort();
     chapterSelect.innerHTML = '<option value="">All Chapters</option>';
@@ -709,7 +612,7 @@ function updateDynamicFilters(pagePrefix) {
     if (chapterSelect.value) {
         validMaterials = validMaterials.filter(m => m.chapter === chapterSelect.value);
     }
-    
+
     const currentSubchap = subchapterSelect.value;
     const subchapters = [...new Set(validMaterials.map(m => m.subchapter).filter(Boolean))].sort();
     subchapterSelect.innerHTML = '<option value="">All Subchapters</option>';
@@ -723,16 +626,16 @@ function updateAdminDatalists() {
     const subjects = [...new Set(allStudyMaterials.map(m => m.subject).filter(Boolean))];
     const chapters = [...new Set(allStudyMaterials.map(m => m.chapter).filter(Boolean))];
     const subchapters = [...new Set(allStudyMaterials.map(m => m.subchapter).filter(Boolean))];
-    
+
     const adminSubjectsList = document.getElementById('admin-subjects-list');
     if (adminSubjectsList) adminSubjectsList.remove(); 
-    
+
     const chapterList = document.getElementById('admin-chapters-list');
     if (chapterList) {
         chapterList.innerHTML = '';
         chapters.forEach(c => { chapterList.innerHTML += `<option value="${c}">`; });
     }
-    
+
     const subchapterList = document.getElementById('admin-subchapters-list');
     if (subchapterList) {
         subchapterList.innerHTML = '';
@@ -773,7 +676,7 @@ function applyDynamicFilter(pagePrefix, containerId) {
         filtered.forEach(item => { 
             container.innerHTML += generateCardHTML(item); 
         });
-        
+
         if (window.lucide) lucide.createIcons();
         renderMath(); 
     }, pagePrefix === 'sol' ? 500 : 0);
@@ -794,7 +697,7 @@ function renderStudentMaterials() {
             container.innerHTML = `<p style="text-align: center; color: #94a3b8; font-size: 15px;">No content added yet for this subject.</p>`;
             return;
         }
-        
+
         container.innerHTML = '';
         const topClass = boardType === 'ICSE' ? 'Class 10' : 'Class 12';
         const bottomClass = boardType === 'ICSE' ? 'Class 9' : 'Class 11';
@@ -807,16 +710,16 @@ function renderStudentMaterials() {
             container.innerHTML += `<div style="margin-bottom: 16px; display: inline-flex; align-items: center; gap: 8px; background: #fee2e2; color: #991b1b; padding: 8px 16px; border-radius: 12px; font-weight: 800; font-size: 14px;"><i data-lucide="flame" style="width: 18px; height: 18px;"></i> ${topClass} (Board Exams)</div>`;
             topMaterials.forEach(item => { container.innerHTML += generateCardHTML(item); });
         }
-        
+
         if (bottomMaterials.length > 0) {
             container.innerHTML += `<div style="margin-top: 24px; margin-bottom: 16px; display: inline-flex; align-items: center; gap: 8px; background: #f1f5f9; color: #475569; padding: 8px 16px; border-radius: 12px; font-weight: 800; font-size: 14px;"><i data-lucide="book" style="width: 18px; height: 18px;"></i> ${bottomClass}</div>`;
             bottomMaterials.forEach(item => { container.innerHTML += generateCardHTML(item); });
         }
-        
+
         if (otherMaterials.length > 0) {
             otherMaterials.forEach(item => { container.innerHTML += generateCardHTML(item); });
         }
-        
+
         if (window.lucide) lucide.createIcons();
     }
 
@@ -849,7 +752,7 @@ async function handleAICamera(event) {
 
     const chatBox = document.getElementById('chat-box');
     let fileIcon = file.type.includes('pdf') ? '📄' : (file.type.includes('text') ? '📝' : '📷');
-    
+
     chatBox.innerHTML += `
         <div style="align-self: flex-start; background: #f1f5f9; padding: 10px 14px; border-radius: 12px; font-size: 12px; color: #64748b;">
             ${fileIcon} Analyzing ${file.name}...
@@ -904,7 +807,7 @@ async function sendAIMessage(fileData = null, mimeType = null) {
         document.getElementById(typingId)?.remove();
 
         let formattedReply = aiReply ? aiReply.replace(/\*\*(.*?)\*\*/g, '<strong style="color: #0f172a; font-weight: 900;">$1</strong>') : '';
-        
+
         chatBox.innerHTML += `
             <div style="align-self: flex-start; background: #ffffff; border: 1px solid #e2e8f0; padding: 14px 18px; border-radius: 20px; border-bottom-left-radius: 4px; max-width: 85%; box-shadow: 0 2px 4px rgba(0,0,0,0.02);">
                 <p style="margin: 0; font-size: 14px; color: #334155; line-height: 1.5; white-space: pre-wrap;">${formattedReply}</p>
@@ -926,13 +829,13 @@ async function sendAIMessage(fileData = null, mimeType = null) {
 function toggleBookmark(itemId) {
     const id = String(itemId);
     const exists = myBackpack.some(savedId => String(savedId) === id);
-    
+
     if (exists) { 
         myBackpack = myBackpack.filter(savedId => String(savedId) !== id); 
     } else { 
         myBackpack.push(id); 
     }
-    
+
     localStorage.setItem('studyBackpack', JSON.stringify(myBackpack));
     renderStudentMaterials();
     if (currentPage === 'backpack') renderBackpack();
@@ -952,11 +855,11 @@ function renderBackpack() {
 
     const savedItems = allStudyMaterials.filter(item => myBackpack.some(savedId => String(savedId) === String(item.id)));
     container.innerHTML = '';
-    
+
     savedItems.forEach(item => { 
         container.innerHTML += generateCardHTML(item); 
     });
-    
+
     if (window.lucide) lucide.createIcons();
     renderMath(); 
 }
