@@ -510,8 +510,7 @@
                 <div style="background-color: #ffffff; border: 1px solid #f1f5f9; border-radius: 24px; padding: 32px 24px; box-shadow: 0 10px 40px rgba(0,0,0,0.03); margin-bottom: 32px;">
                     <h3 style="color: #0f172a; font-size: 18px; font-weight: 800; margin-bottom: 24px;">Add New Study Material</h3>
 
-         <form id="upload-form" onsubmit="handleMaterialUpload(event)" style="display: flex; flex-direction: column; gap: 20px;">
-
+                <form id="upload-form" onsubmit="handleMaterialUpload(event)" style="display: flex; flex-direction: column; gap: 20px;">
                 <div>
                     <label style="display: block; color: #64748b; font-size: 13px; font-weight: 600; margin-bottom: 8px;">Board</label>
                     <select id="admin-board-select" aria-label="Select Board" onchange="updateSubjectDropdown()" required style="width: 100%; padding: 16px; border-radius: 12px; border: 1px solid #e2e8f0; background-color: #f8fafc; font-size: 15px; outline: none;">
@@ -520,7 +519,6 @@
                         <option value="ISC">ISC</option>
                     </select>
                 </div>
-
                 <div>
                     <label style="display: block; color: #64748b; font-size: 13px; font-weight: 600; margin-bottom: 8px;">Class</label>
                     <select id="admin-class-select" aria-label="Select Class" required style="width: 100%; padding: 16px; border-radius: 12px; border: 1px solid #e2e8f0; background-color: #f8fafc; font-size: 15px; outline: none;">
@@ -540,12 +538,12 @@
 
                 <div>
                     <label style="display: block; color: #64748b; font-size: 13px; font-weight: 600; margin-bottom: 8px;">Chapter</label>
-                    <input type="text" id="admin-chapter-input" list="admin-chapters-list" placeholder="e.g., Chapter 1 (Type to create new!)" required style="width: 100%; padding: 16px; border-radius: 12px; border: 1px solid #e2e8f0; font-size: 15px; box-sizing: border-box;">
+                    <input type="text" id="admin-chapter-input" list="admin-chapters-list" placeholder="e.g., Chapter 1" required style="width: 100%; padding: 16px; border-radius: 12px; border: 1px solid #e2e8f0; font-size: 15px; box-sizing: border-box;">
                     <datalist id="admin-chapters-list"></datalist>
                 </div>
                 <div>
                     <label style="display: block; color: #64748b; font-size: 13px; font-weight: 600; margin-bottom: 8px;">Subchapter (Optional)</label>
-                    <input type="text" id="admin-subchapter-input" list="admin-subchapters-list" placeholder="e.g., Force and Motion" style="width: 100%; padding: 16px; border-radius: 12px; border: 1px solid #e2e8f0; font-size: 15px; box-sizing: border-box;">
+                    <input type="text" id="admin-subchapter-input" list="admin-subchapters-list" placeholder="e.g., Exercise 1(A)" style="width: 100%; padding: 16px; border-radius: 12px; border: 1px solid #e2e8f0; font-size: 15px; box-sizing: border-box;">
                     <datalist id="admin-subchapters-list"></datalist>
                 </div>
 
@@ -564,20 +562,17 @@
                         <option value="Textbook Solutions">Textbook Solutions</option>
                     </select>
                 </div>
-                <div>
-                                  <div style="display: flex; align-items: center; gap: 8px; margin-bottom: -10px;">
-                    <input type="checkbox" id="admin-bulk-checkbox" style="width: 18px; height: 18px; accent-color: #2563eb;">
-                    <label for="admin-bulk-checkbox" style="color: #0f172a; font-size: 14px; font-weight: 700;">Bulk Split (Auto-separates Q.1, Q.2, etc.)</label>
-                </div>
                 
-                <div>
-                    <label style="display: block; color: #64748b; font-size: 13px; font-weight: 600; margin-bottom: 8px;">Content / Text</label>
-                    <textarea id="admin-text-input" aria-label="Content Text Input" placeholder="Paste or type your content here..." style="width: 100%; padding: 16px; border-radius: 12px; border: 1px solid #e2e8f0; font-size: 15px; resize: none; height: 120px; box-sizing: border-box;"></textarea>
+                <div style="display: flex; align-items: center; gap: 10px; padding: 14px; background: #eff6ff; border-radius: 12px; border: 1px solid #bfdbfe; margin-top: 8px;">
+                    <input type="checkbox" id="admin-bulk-checkbox" style="width: 20px; height: 20px; accent-color: #2563eb; cursor: pointer;">
+                    <label for="admin-bulk-checkbox" style="color: #1e3a8a; font-size: 14px; font-weight: 800; cursor: pointer; margin: 0;">Bulk Split (Auto-separates Q.1, Q.2, etc.)</label>
                 </div>
 
+                <div>
                     <label style="display: block; color: #64748b; font-size: 13px; font-weight: 600; margin-bottom: 8px;">Content / Text</label>
-                    <textarea id="admin-text-input" aria-label="Content Text Input" placeholder="Paste or type your content here..." style="width: 100%; padding: 16px; border-radius: 12px; border: 1px solid #e2e8f0; font-size: 15px; resize: none; height: 120px; box-sizing: border-box;"></textarea>
+                    <textarea id="admin-text-input" aria-label="Content Text Input" placeholder="Paste all your questions here..." style="width: 100%; padding: 16px; border-radius: 12px; border: 1px solid #e2e8f0; font-size: 15px; resize: vertical; min-height: 180px; box-sizing: border-box;"></textarea>
                 </div>
+                
                 <div>
                     <label style="display: block; color: #64748b; font-size: 13px; font-weight: 600; margin-bottom: 8px;">Attach File (PDF/DOC/Image)</label>
                     <label for="file-upload" style="border: 2px dashed #cbd5e1; border-radius: 16px; padding: 32px 20px; text-align: center; background-color: #ffffff; cursor: pointer; display: block;">
@@ -588,6 +583,7 @@
                 </div>
                 <button type="submit" aria-label="Upload Material" style="padding: 16px 32px; background-color: #2563eb; color: #ffffff; font-size: 15px; font-weight: 800; border: none; border-radius: 16px; cursor: pointer;">Upload Material</button>
             </form>
+
 
                 </div>
 
