@@ -23,9 +23,7 @@
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>
-      window.MathJax = {
-        tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] }
-      };
+      window.MathJax = { tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] } };
     </script>
 
     <style>
@@ -128,7 +126,7 @@
                     </div>
                 </div>
             </section>
-
+            
             <div class="max-w-6xl mx-auto px-4 py-4">
                 <div class="dynamic-ad-slot" data-slot="slot-home" style="background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; height: 90px; display: flex; align-items: center; justify-content: center; margin-bottom: 24px;">
                     <span style="color: #94a3b8; font-size: 10px; letter-spacing: 1px; text-transform: uppercase;">Advertisement</span>
@@ -179,7 +177,7 @@
                 </div>
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 40px;">
                     <div onclick="document.getElementById('dynamic-icse-title').innerText='English Language'; navigateTo('notes');" style="background-color: #ffffff; border: 1px solid #f1f5f9; border-radius: 24px; padding: 24px 12px; text-align: center; box-shadow: 0 4px 20px rgba(0,0,0,0.02); cursor: pointer;"><div style="width: 48px; height: 48px; background-color: #eff6ff; border-radius: 14px; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px auto;"><i data-lucide="book" style="color: #3b82f6; width: 24px; height: 24px;"></i></div><h3 style="color: #0f172a; font-size: 14px; font-weight: 800; margin-bottom: 4px;">English Language</h3></div>
-                    <div onclick="document.getElementById('dynamic-icse-title').innerText='English Literature'; navigateTo('notes');" style="background-color: #ffffff; border: 1px solid #f1f5f9; border-radius: 24px; padding: 24px 12px; text-align: center; box-shadow: 0 4px 20px rgba(0,0,0,0.02); cursor: pointer;"><div style="width: 48px; height: 48px; background-color: #eff6ff; border-radius: 14px; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px auto;"><i data-lucide="book-open" style="color: #3b82f6; width: 24px; height: 24px;"></i></div><h3 style="color: #0f172a; font-size: 14px; font-weight: 800; margin-bottom: 4px;">English Literature</h3></div>
+                    <div onclick="document.getElementById('dynamic-icse-title').innerText='English Literature'; navigateTo('notes');" style="background-color: #ffffff; border: 1px solid #f1f5f9; border-radius: 24px; padding: 24px 12px; text-align: center; box-shadow: 0 4px 20px rgba(0,0,0,0.02); cursor: pointer;"><div style="width: 48px; height: 48px; background-color: #fdf4ff; border-radius: 14px; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px auto;"><i data-lucide="book-open" style="color: #d946ef; width: 24px; height: 24px;"></i></div><h3 style="color: #0f172a; font-size: 14px; font-weight: 800; margin-bottom: 4px;">English Literature</h3></div>
                     <div onclick="document.getElementById('dynamic-icse-title').innerText='Hindi'; navigateTo('notes');" style="background-color: #ffffff; border: 1px solid #f1f5f9; border-radius: 24px; padding: 24px 12px; text-align: center; box-shadow: 0 4px 20px rgba(0,0,0,0.02); cursor: pointer;"><div style="width: 48px; height: 48px; background-color: #fce7f3; border-radius: 14px; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px auto;"><i data-lucide="pen-tool" style="color: #ec4899; width: 24px; height: 24px;"></i></div><h3 style="color: #0f172a; font-size: 14px; font-weight: 800; margin-bottom: 4px;">Hindi</h3></div>
                     <div onclick="document.getElementById('dynamic-icse-title').innerText='Mathematics'; navigateTo('notes');" style="background-color: #ffffff; border: 1px solid #f1f5f9; border-radius: 24px; padding: 24px 12px; text-align: center; box-shadow: 0 4px 20px rgba(0,0,0,0.02); cursor: pointer;"><div style="width: 48px; height: 48px; background-color: #fff7ed; border-radius: 14px; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px auto;"><i data-lucide="calculator" style="color: #f97316; width: 24px; height: 24px;"></i></div><h3 style="color: #0f172a; font-size: 14px; font-weight: 800; margin-bottom: 4px;">Mathematics</h3></div>
                     <div onclick="document.getElementById('dynamic-icse-title').innerText='Science (Physics)'; navigateTo('notes');" style="background-color: #ffffff; border: 1px solid #f1f5f9; border-radius: 24px; padding: 24px 12px; text-align: center; box-shadow: 0 4px 20px rgba(0,0,0,0.02); cursor: pointer;"><div style="width: 48px; height: 48px; background-color: #faf5ff; border-radius: 14px; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px auto;"><i data-lucide="atom" style="color: #a855f7; width: 24px; height: 24px;"></i></div><h3 style="color: #0f172a; font-size: 14px; font-weight: 800; margin-bottom: 4px;">Science (Physics)</h3></div>
@@ -298,6 +296,19 @@
             </div>
         </main>
 
+        <main id="page-backpack" style="display: none; background-color: #ffffff; padding: 24px 20px 60px 20px;">
+            <div style="max-width: 800px; margin: 0 auto;">
+                <div class="dynamic-ad-slot" data-slot="slot-content" style="background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; height: 90px; display: flex; align-items: center; justify-content: center; margin-bottom: 24px;">
+                    <span style="color: #94a3b8; font-size: 10px; letter-spacing: 1px; text-transform: uppercase;">Advertisement</span>
+                </div>
+                <div style="text-align: center; margin-bottom: 32px;">
+                    <h2 style="color: #0f172a; font-size: 28px; font-weight: 900; margin-bottom: 8px;">My Backpack</h2>
+                    <p style="color: #94a3b8; font-size: 14px; line-height: 1.6;">Your saved study materials for quick access.</p>
+                </div>
+                <div id="backpack-materials-container"></div>
+            </div>
+        </main>
+
         <main id="page-solutions" style="display: none; background-color: #ffffff; padding: 24px 20px 60px 20px;">
             <div style="max-width: 800px; margin: 0 auto;">
                 <div class="dynamic-ad-slot" data-slot="slot-content" style="background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; height: 90px; display: flex; align-items: center; justify-content: center; margin-bottom: 24px;">
@@ -348,19 +359,6 @@
                         </div>
                     </div>
                 </div>
-            </div>
-        </main>
-
-        <main id="page-backpack" style="display: none; background-color: #ffffff; padding: 24px 20px 60px 20px;">
-            <div style="max-width: 800px; margin: 0 auto;">
-                <div class="dynamic-ad-slot" data-slot="slot-content" style="background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; height: 90px; display: flex; align-items: center; justify-content: center; margin-bottom: 24px;">
-                    <span style="color: #94a3b8; font-size: 10px; letter-spacing: 1px; text-transform: uppercase;">Advertisement</span>
-                </div>
-                <div style="text-align: center; margin-bottom: 32px;">
-                    <h2 style="color: #0f172a; font-size: 28px; font-weight: 900; margin-bottom: 8px;">My Backpack</h2>
-                    <p style="color: #94a3b8; font-size: 14px; line-height: 1.6;">Your saved study materials for quick access.</p>
-                </div>
-                <div id="backpack-materials-container"></div>
             </div>
         </main>
 
@@ -566,6 +564,7 @@
                 </div>
             </div>
         </main>
+        
         <main id="page-terms" style="display: none; background-color: #ffffff; padding: 24px 20px 60px 20px;">
             <div style="max-width: 800px; margin: 0 auto;">
                 <h2 style="color: #0f172a; font-size: 28px; font-weight: 900; margin-bottom: 24px;">Terms &amp; Conditions</h2>
@@ -574,6 +573,7 @@
                 </div>
             </div>
         </main>
+        
         <main id="page-disclaimer" style="display: none; background-color: #ffffff; padding: 24px 20px 60px 20px;">
             <div style="max-width: 800px; margin: 0 auto;">
                 <h2 style="color: #0f172a; font-size: 28px; font-weight: 900; margin-bottom: 24px;">Disclaimer</h2>
@@ -625,7 +625,42 @@
     
     <script>
 // ==========================================
-// 1. SMART ON-THE-FLY SPLITTER ENGINE
+// 1. GLOBALS & SUPABASE INIT
+// ==========================================
+let pageHistory = [];
+let currentPage = 'home';
+let myBackpack = JSON.parse(localStorage.getItem('studyBackpack')) || [];
+let supabaseClient = null;
+let editingMaterialId = null;
+let allStudyMaterials = [];
+let allAdBanners = [];
+
+try {
+    if (typeof supabase !== 'undefined') {
+        const supabaseUrl = 'https://gycmmdlkppyavwkqdxym.supabase.co';
+        const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd5Y21tZGxrcHB5YXZ3a3FkeHltIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU2NjE3NTgsImV4cCI6MjA5MTIzNzc1OH0.REcaVfmLe6SKMrPcvo13lq90CH762AaOhNOOwRgYNSc';
+        supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
+    }
+} catch (error) { console.error("Supabase error:", error); }
+
+// ==========================================
+// 2. WAKE UP THE WEBSITE (BUG FIXED)
+// ==========================================
+function initApp() {
+    navigateTo('home'); 
+    try { fetchAndDisplayMaterials(); } catch(e) { console.error(e); }
+    if (window.lucide) { lucide.createIcons(); }
+}
+
+// 🌟 THE FIX: This forces the site to load properly, completely avoiding the blank screen bug.
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initApp);
+} else {
+    initApp();
+}
+
+// ==========================================
+// 3. SMART ON-THE-FLY SPLITTER ENGINE
 // ==========================================
 function splitContentIntoBlocks(materials) {
     let splitMaterials = [];
@@ -647,12 +682,8 @@ function splitContentIntoBlocks(materials) {
 }
 
 // ==========================================
-// 2. NAVIGATION & RENDERING
+// 4. NAVIGATION & RENDERING
 // ==========================================
-let pageHistory = [];
-let currentPage = 'home';
-let myBackpack = JSON.parse(localStorage.getItem('studyBackpack')) || [];
-
 function renderMath() {
     if (window.MathJax) {
         setTimeout(() => { MathJax.typesetPromise().catch((err) => console.log('MathJax error:', err)); }, 100);
@@ -682,7 +713,7 @@ const generateCardHTML = (item) => {
     formattedText = formattedText.replace(/([a-zA-Z])_([0-9a-zA-Z]+)/g, '$1<sub>$2</sub>');
     formattedText = formattedText.replace(/([a-zA-Z0-9])\^([0-9a-zA-Z]+)/g, '$1<sup>$2</sup>');
     
-    // Fixes Bolding across multiple lines
+    // 🌟 FIXED BOLDING (works across line breaks)
     formattedText = formattedText.replace(/\*\*([\s\S]*?)\*\*/g, '<strong style="color: #0f172a; font-weight: 900;">$1</strong>');
     formattedText = formattedText.replace(/\*\*/g, '');
     
@@ -751,37 +782,7 @@ async function showLoginModal() {
 function closeLoginModal() { document.getElementById('login-modal')?.classList.add('hidden'); }
 
 // ==========================================
-// 3. SUPABASE INITIALIZATION
-// ==========================================
-let supabaseClient = null;
-let editingMaterialId = null;
-let allStudyMaterials = [];
-let allAdBanners = []; // 🌟 Store Ads separately!
-
-try {
-    if (typeof supabase !== 'undefined') {
-        const supabaseUrl = 'https://gycmmdlkppyavwkqdxym.supabase.co';
-        const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd5Y21tZGxrcHB5YXZ3a3FkeHltIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU2NjE3NTgsImV4cCI6MjA5MTIzNzc1OH0.REcaVfmLe6SKMrPcvo13lq90CH762AaOhNOOwRgYNSc';
-        supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
-    }
-} catch (error) { console.error("Supabase error:", error); }
-
-function initApp() {
-    navigateTo('home'); 
-    applyLogo(localStorage.getItem('customSiteLogo')); 
-    try { fetchAndDisplayMaterials(); } catch(e) {}
-    if (window.lucide) { lucide.createIcons(); }
-}
-
-// 🌟 FIXED WAKE-UP TRIGGER
-if (document.readyState === 'loading') { 
-    document.addEventListener('DOMContentLoaded', initApp); 
-} else { 
-    initApp(); 
-}
-
-// ==========================================
-// 4. ADMIN PANEL (ADS & MATERIALS)
+// 5. ADMIN PANEL & UPLOADS
 // ==========================================
 async function loginAdmin() {
     const email = document.getElementById('admin-email').value.trim();
@@ -801,7 +802,6 @@ async function logoutAdmin() {
     alert("Logged out successfully."); navigateTo('home');
 }
 
-// 🌟 AFFILIATE AD UPLOAD LOGIC
 async function handleAdUpload(event) {
     event.preventDefault();
     if (!supabaseClient) return alert("System unavailable.");
@@ -817,11 +817,8 @@ async function handleAdUpload(event) {
     btn.innerText = "Saving Ad... ⏳"; btn.disabled = true;
 
     try {
-        // Remove old ad
         await supabaseClient.from('study_materials').delete().eq('content_type', 'Ad Banner').eq('chapter', slot);
-
         let finalImageUrl = imageUrlInput;
-
         if (file) {
             const safeFileName = `ad-${Date.now()}.${file.name.split('.').pop()}`;
             const { error: uploadError } = await supabaseClient.storage.from('study-materials').upload(safeFileName, await file.arrayBuffer(), { contentType: file.type });
@@ -833,7 +830,6 @@ async function handleAdUpload(event) {
             board: 'SYSTEM', subject: 'AD', class_level: 'ALL',
             chapter: slot, content_type: 'Ad Banner', content_text: link, file_url: finalImageUrl
         };
-        
         await supabaseClient.from('study_materials').insert([uploadData]);
         alert("Ad Banner successfully saved!");
         event.target.reset();
@@ -843,14 +839,11 @@ async function handleAdUpload(event) {
     finally { btn.innerText = "Save Ad Banner"; btn.disabled = false; }
 }
 
-// 🌟 THE AD RENDERER
 function renderAds() {
     const defaultAdHtml = `<span style="color: #94a3b8; font-size: 10px; letter-spacing: 1px; text-transform: uppercase;">Advertisement</span>`;
-    
     document.querySelectorAll('.dynamic-ad-slot').forEach(el => {
         const slotName = el.getAttribute('data-slot');
         const adData = allAdBanners.find(m => m.chapter === slotName);
-        
         if (adData && adData.file_url) {
             el.innerHTML = `<a href="${adData.content_text}" target="_blank" style="display:block; width:100%; height:100%;"><img src="${adData.file_url}" alt="Ad"></a>`;
             el.style.padding = "0";
@@ -1082,7 +1075,7 @@ function updateAdminDatalists() {
 
 
 // ==========================================
-// 5. 🌟 PREMIUM KNOWLEDGEBOAT SOLUTIONS UI 
+// 6. 🌟 SOLUTIONS PAGE LOGIC
 // ==========================================
 let currentSolutionChapter = '';
 let activeSolTab = 'exercise';
@@ -1306,7 +1299,7 @@ function applySolutionsFilter() {
 }
 
 // ==========================================
-// 6. NOTES PAGE FILTERS & RENDERING
+// 7. NOTES PAGE FILTERS & RENDERING
 // ==========================================
 function updateDynamicFilters(pagePrefix) {
     const classSelect = document.getElementById(`${pagePrefix}-filter-class`);
@@ -1318,7 +1311,6 @@ function updateDynamicFilters(pagePrefix) {
 
     let validMaterials = allStudyMaterials;
     
-    // 🌟 STRICT EXCLUSION
     if(pagePrefix === 'sol') {
         validMaterials = validMaterials.filter(m => m.content_type === 'Textbook Solutions');
     } else if(pagePrefix === 'qa') {
@@ -1342,33 +1334,23 @@ function updateDynamicFilters(pagePrefix) {
     const subjects = [...new Set([...standardSubjects, ...dbSubjects])].sort();
     
     subjectSelect.innerHTML = '<option value="">All Subjects</option>';
-    subjects.forEach(s => {
-        subjectSelect.innerHTML += `<option value="${s}">${s}</option>`;
-    });
+    subjects.forEach(s => { subjectSelect.innerHTML += `<option value="${s}">${s}</option>`; });
     if (subjects.includes(currentSub)) subjectSelect.value = currentSub;
 
-    if (subjectSelect.value) {
-        validMaterials = validMaterials.filter(m => m.subject === subjectSelect.value);
-    }
+    if (subjectSelect.value) { validMaterials = validMaterials.filter(m => m.subject === subjectSelect.value); }
     
     const currentChap = chapterSelect.value;
     const chapters = [...new Set(validMaterials.map(m => m.chapter).filter(Boolean))].sort();
     chapterSelect.innerHTML = '<option value="">All Chapters</option>';
-    chapters.forEach(c => {
-        chapterSelect.innerHTML += `<option value="${c}">${c}</option>`;
-    });
+    chapters.forEach(c => { chapterSelect.innerHTML += `<option value="${c}">${c}</option>`; });
     if (chapters.includes(currentChap)) chapterSelect.value = currentChap;
 
-    if (chapterSelect.value) {
-        validMaterials = validMaterials.filter(m => m.chapter === chapterSelect.value);
-    }
+    if (chapterSelect.value) { validMaterials = validMaterials.filter(m => m.chapter === chapterSelect.value); }
     
     const currentSubchap = subchapterSelect.value;
     const subchapters = [...new Set(validMaterials.map(m => m.subchapter).filter(Boolean))].sort();
     subchapterSelect.innerHTML = '<option value="">All Subchapters</option>';
-    subchapters.forEach(sc => {
-        subchapterSelect.innerHTML += `<option value="${sc}">${sc}</option>`;
-    });
+    subchapters.forEach(sc => { subchapterSelect.innerHTML += `<option value="${sc}">${sc}</option>`; });
     if (subchapters.includes(currentSubchap)) subchapterSelect.value = currentSubchap;
 }
 
@@ -1396,21 +1378,13 @@ function applyDynamicFilter(pagePrefix, containerId) {
         if (subchapterVal) filtered = filtered.filter(m => m.subchapter === subchapterVal);
 
         if (filtered.length === 0) {
-            container.innerHTML = `
-                <div style="text-align: center; padding: 40px;">
-                    <p style="color: #64748b; font-size: 15px; font-weight: 600;">No materials found.</p>
-                </div>`;
+            container.innerHTML = `<div style="text-align: center; padding: 40px;"><p style="color: #64748b; font-size: 15px; font-weight: 600;">No materials found.</p></div>`;
             return;
         }
 
         container.innerHTML = '';
-        
         const splitFiltered = splitContentIntoBlocks(filtered);
-        
-        splitFiltered.forEach(item => { 
-            container.innerHTML += generateCardHTML(item); 
-        });
-        
+        splitFiltered.forEach(item => { container.innerHTML += generateCardHTML(item); });
         if (window.lucide) { lucide.createIcons(); }
         renderMath(); 
     }, pagePrefix === 'sol' ? 500 : 0);
@@ -1475,7 +1449,7 @@ function renderStudentMaterials() {
 }
 
 // ==========================================
-// 7. AI CHAT LOGIC
+// 8. AI CHAT LOGIC
 // ==========================================
 async function handleAICamera(event) {
     const file = event.target.files[0];
@@ -1566,7 +1540,7 @@ async function sendAIMessage(fileData = null, mimeType = null) {
 }
 
 // ==========================================
-// 8. THE BACKPACK ENGINE
+// 9. THE BACKPACK ENGINE
 // ==========================================
 function toggleBookmark(itemId) {
     const id = String(itemId);
