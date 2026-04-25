@@ -127,7 +127,7 @@
                     </div>
                 </div>
             </section>
-            
+
             <div class="max-w-6xl mx-auto px-4 py-4">
                 <div class="dynamic-ad-slot" data-slot="slot-home" style="background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; height: 90px; display: flex; align-items: center; justify-content: center; margin-bottom: 24px;">
                     <span style="color: #94a3b8; font-size: 10px; letter-spacing: 1px; text-transform: uppercase;">Advertisement</span>
@@ -826,7 +826,7 @@ async function handleAdUpload(event) {
     btn.innerText = "Saving Ad... ⏳"; btn.disabled = true;
 
     try {
-        await supabaseClient.from('study_materials').delete().eq('subject', 'SYSTEM_AD').eq('chapter', slot);
+        await supabaseClient.from('study_materials').delete().eq('subchapter', 'SYSTEM_AD').eq('chapter', slot);
 
         for(let i = 0; i < Math.min(files.length, 3); i++) {
             const file = files[i];
@@ -839,9 +839,11 @@ async function handleAdUpload(event) {
 
         const uploadData = {
             board: 'ICSE', 
-            subject: 'SYSTEM_AD', 
+            subject: 'Mathematics', 
             class_level: 'Class 10',
             chapter: slot, 
+            subchapter: 'SYSTEM_AD',
+            textbook: 'AD_BANNER',
             content_type: 'Text Notes', 
             content_text: link, 
             file_url: uploadedUrls.join(',')
@@ -1033,8 +1035,8 @@ async function fetchAndDisplayMaterials() {
         const { data, error } = await supabaseClient.from('study_materials').select('*').order('created_at', { ascending: false });
         if (error) throw error;
         
-        allAdBanners = data.filter(m => m.subject === 'SYSTEM_AD');
-        allStudyMaterials = data.filter(m => m.subject !== 'SYSTEM_AD');
+        allAdBanners = data.filter(m => m.subchapter === 'SYSTEM_AD');
+        allStudyMaterials = data.filter(m => m.subchapter !== 'SYSTEM_AD');
         
         renderAds(); 
         renderAdminMaterials(); 
@@ -1333,7 +1335,6 @@ function updateDynamicFilters(pagePrefix) {
 
     let validMaterials = allStudyMaterials;
     
-    // 🌟 STRICT EXCLUSION: Textbook Solutions ONLY on Solutions Page!
     if(pagePrefix === 'sol') {
         validMaterials = validMaterials.filter(m => m.content_type === 'Textbook Solutions');
     } else if(pagePrefix === 'qa') {
