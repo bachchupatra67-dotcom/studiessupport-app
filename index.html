@@ -13,8 +13,6 @@
       gtag('config', 'G-1234567890');
     </script>
 
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7260463027910159" crossorigin="anonymous"></script>
-
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
 
@@ -35,6 +33,8 @@
         .sol-radio-container { display: flex; align-items: center; gap: 12px; padding: 16px 20px; cursor: pointer; transition: background 0.2s; }
         .sol-radio-container:hover { background: #f8fafc; }
         .sol-radio-input { width: 18px; height: 18px; accent-color: #0f8368; cursor: pointer; }
+        .dynamic-ad-slot { transition: all 0.3s ease; }
+        .dynamic-ad-slot img { width: 100%; height: 100%; object-fit: cover; display: block; border-radius: 8px; }
     </style>
 </head>
 
@@ -90,9 +90,10 @@
         <main id="page-home" class="page active fade-in">
             <section style="background: linear-gradient(135deg, #f0f9ff 0%, #fffbeb 50%, #ffffff 100%); padding: 24px 20px 80px 20px; text-align: center;">
                 <div style="max-width: 800px; margin: 0 auto;">
-                    <div style="background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; min-height: 60px; display: flex; align-items: center; justify-content: center; margin-bottom: 30px;">
+                    <div class="dynamic-ad-slot" data-slot="slot-home" style="background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; height: 90px; display: flex; align-items: center; justify-content: center; margin-bottom: 30px;">
                         <span style="color: #94a3b8; font-size: 10px; letter-spacing: 1px; text-transform: uppercase;">Advertisement</span>
                     </div>
+
                     <p style="color: #0f172a; font-size: 12px; font-weight: 800; margin-bottom: 16px;">For ICSE &amp; ISC Students</p>
                     <h1 style="color: #0f172a; font-size: 28px; font-weight: 900; line-height: 1.3; margin-bottom: 16px;">ICSE &amp; ISC Study Made Simple</h1>
                     <p style="color: #64748b; font-size: 15px; margin-bottom: 0;">Notes, Questions, and PDFs for Smart Preparation</p>
@@ -123,9 +124,13 @@
                     </div>
                 </div>
             </section>
+
             <div class="max-w-6xl mx-auto px-4 py-4">
-                <div style="background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; min-height: 60px; display: flex; align-items: center; justify-content: center; margin-bottom: 24px;"><span style="color: #94a3b8; font-size: 10px; letter-spacing: 1px; text-transform: uppercase;">Advertisement</span></div>
+                <div class="dynamic-ad-slot" data-slot="slot-home" style="background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; height: 90px; display: flex; align-items: center; justify-content: center; margin-bottom: 24px;">
+                    <span style="color: #94a3b8; font-size: 10px; letter-spacing: 1px; text-transform: uppercase;">Advertisement</span>
+                </div>
             </div>
+
             <section class="py-14 bg-white">
                 <div class="max-w-6xl mx-auto px-4">
                     <h2 class="font-heading font-bold text-2xl text-center text-dark mb-10">Popular Study Materials</h2>
@@ -159,9 +164,10 @@
 
         <main id="page-icse" style="display: none; background-color: #ffffff; padding: 24px 20px 60px 20px;">
             <div style="max-width: 800px; margin: 0 auto;">
-                <div style="background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; min-height: 60px; display: flex; align-items: center; justify-content: center; margin-bottom: 24px;">
+                <div class="dynamic-ad-slot" data-slot="slot-boards" style="background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; height: 90px; display: flex; align-items: center; justify-content: center; margin-bottom: 24px;">
                     <span style="color: #94a3b8; font-size: 10px; letter-spacing: 1px; text-transform: uppercase;">Advertisement</span>
                 </div>
+                
                 <div style="text-align: center; margin-bottom: 40px;">
                     <p style="color: #475569; font-size: 12px; font-weight: 800; margin-bottom: 8px;">ICSE Board</p>
                     <h2 style="color: #0f172a; font-size: 28px; font-weight: 900; margin-bottom: 12px;">ICSE – Class 9 &amp; 10</h2>
@@ -185,9 +191,10 @@
 
         <main id="page-isc" style="display: none; background-color: #ffffff; padding: 24px 20px 60px 20px;">
             <div style="max-width: 800px; margin: 0 auto;">
-                <div style="background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; min-height: 60px; display: flex; align-items: center; justify-content: center; margin-bottom: 24px;">
+                <div class="dynamic-ad-slot" data-slot="slot-boards" style="background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; height: 90px; display: flex; align-items: center; justify-content: center; margin-bottom: 24px;">
                     <span style="color: #94a3b8; font-size: 10px; letter-spacing: 1px; text-transform: uppercase;">Advertisement</span>
                 </div>
+                
                 <div style="text-align: center; margin-bottom: 40px;">
                     <p style="color: #475569; font-size: 12px; font-weight: 800; margin-bottom: 8px;">ISC Board</p>
                     <h2 style="color: #0f172a; font-size: 28px; font-weight: 900; margin-bottom: 12px;">ISC – Class 11 &amp; 12</h2>
@@ -212,6 +219,9 @@
 
         <main id="page-notes" style="display: none; background-color: #ffffff; padding: 24px 20px 60px 20px;">
             <div style="max-width: 800px; margin: 0 auto;">
+                <div class="dynamic-ad-slot" data-slot="slot-content" style="background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; height: 90px; display: flex; align-items: center; justify-content: center; margin-bottom: 24px;">
+                    <span style="color: #94a3b8; font-size: 10px; letter-spacing: 1px; text-transform: uppercase;">Advertisement</span>
+                </div>
                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
                     <div onclick="navigateTo('icse')" aria-label="Go Back" role="button" style="cursor: pointer; color: #334155; font-size: 14px; font-weight: 700; display: flex; align-items: center; gap: 6px;"><i data-lucide="arrow-left" style="width: 16px; height: 16px;"></i> Back</div>
                 </div>
@@ -222,6 +232,9 @@
 
         <main id="page-notes-isc" style="display: none; background-color: #ffffff; padding: 24px 20px 60px 20px;">
             <div style="max-width: 800px; margin: 0 auto;">
+                <div class="dynamic-ad-slot" data-slot="slot-content" style="background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; height: 90px; display: flex; align-items: center; justify-content: center; margin-bottom: 24px;">
+                    <span style="color: #94a3b8; font-size: 10px; letter-spacing: 1px; text-transform: uppercase;">Advertisement</span>
+                </div>
                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
                     <div onclick="navigateTo('isc')" aria-label="Go Back" role="button" style="cursor: pointer; color: #334155; font-size: 14px; font-weight: 700; display: flex; align-items: center; gap: 6px;"><i data-lucide="arrow-left" style="width: 16px; height: 16px;"></i> Back</div>
                 </div>
@@ -232,7 +245,7 @@
 
         <main id="page-qa" style="display: none; background-color: #ffffff; padding: 24px 20px 60px 20px;">
             <div style="max-width: 800px; margin: 0 auto;">
-                <div style="background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; min-height: 60px; display: flex; align-items: center; justify-content: center; margin-bottom: 24px;">
+                <div class="dynamic-ad-slot" data-slot="slot-content" style="background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; height: 90px; display: flex; align-items: center; justify-content: center; margin-bottom: 24px;">
                     <span style="color: #94a3b8; font-size: 10px; letter-spacing: 1px; text-transform: uppercase;">Advertisement</span>
                 </div>
                 <div style="text-align: center; margin-bottom: 32px;">
@@ -281,19 +294,9 @@
             </div>
         </main>
 
-        <main id="page-backpack" style="display: none; background-color: #ffffff; padding: 24px 20px 60px 20px;">
-            <div style="max-width: 800px; margin: 0 auto;">
-                <div style="text-align: center; margin-bottom: 32px;">
-                    <h2 style="color: #0f172a; font-size: 28px; font-weight: 900; margin-bottom: 8px;">My Backpack</h2>
-                    <p style="color: #94a3b8; font-size: 14px; line-height: 1.6;">Your saved study materials for quick access.</p>
-                </div>
-                <div id="backpack-materials-container"></div>
-            </div>
-        </main>
-
         <main id="page-solutions" style="display: none; background-color: #ffffff; padding: 24px 20px 60px 20px;">
             <div style="max-width: 800px; margin: 0 auto;">
-                <div style="background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; min-height: 60px; display: flex; align-items: center; justify-content: center; margin-bottom: 24px;">
+                <div class="dynamic-ad-slot" data-slot="slot-content" style="background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; height: 90px; display: flex; align-items: center; justify-content: center; margin-bottom: 24px;">
                     <span style="color: #94a3b8; font-size: 10px; letter-spacing: 1px; text-transform: uppercase;">Advertisement</span>
                 </div>
                 
@@ -344,9 +347,22 @@
             </div>
         </main>
 
+        <main id="page-backpack" style="display: none; background-color: #ffffff; padding: 24px 20px 60px 20px;">
+            <div style="max-width: 800px; margin: 0 auto;">
+                <div class="dynamic-ad-slot" data-slot="slot-content" style="background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; height: 90px; display: flex; align-items: center; justify-content: center; margin-bottom: 24px;">
+                    <span style="color: #94a3b8; font-size: 10px; letter-spacing: 1px; text-transform: uppercase;">Advertisement</span>
+                </div>
+                <div style="text-align: center; margin-bottom: 32px;">
+                    <h2 style="color: #0f172a; font-size: 28px; font-weight: 900; margin-bottom: 8px;">My Backpack</h2>
+                    <p style="color: #94a3b8; font-size: 14px; line-height: 1.6;">Your saved study materials for quick access.</p>
+                </div>
+                <div id="backpack-materials-container"></div>
+            </div>
+        </main>
+
         <main id="page-pdfs" style="display: none; background-color: #ffffff; padding: 24px 20px 60px 20px;">
             <div style="max-width: 600px; margin: 0 auto;">
-                <div style="background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; min-height: 60px; display: flex; align-items: center; justify-content: center; margin-bottom: 24px;">
+                <div class="dynamic-ad-slot" data-slot="slot-extras" style="background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; height: 90px; display: flex; align-items: center; justify-content: center; margin-bottom: 24px;">
                     <span style="color: #94a3b8; font-size: 10px; letter-spacing: 1px; text-transform: uppercase;">Advertisement</span>
                 </div>
                 <div style="text-align: center; margin-bottom: 24px;"><i data-lucide="download-cloud" style="width: 40px; height: 40px; color: #0f172a; margin: 0 auto;"></i></div>
@@ -365,35 +381,6 @@
             </div>
         </main>
 
-        <main id="page-contact" style="display: none; background-color: #ffffff; padding: 24px 20px 60px 20px;">
-            <div style="max-width: 800px; margin: 0 auto;">
-                <h2 style="color: #0f172a; font-size: 28px; font-weight: 900; margin-bottom: 24px;">Contact Us</h2>
-                <div style="background-color: #ffffff; border: 1px solid #f1f5f9; border-radius: 24px; padding: 32px 24px; box-shadow: 0 10px 40px rgba(0,0,0,0.03);">
-                    <h3 style="color: #0f172a; font-size: 16px; font-weight: 800; margin-bottom: 24px;">Send a Message</h3>
-                    <form action="https://formsubmit.co/bachchupatra67@gmail.com" method="POST" style="display: flex; flex-direction: column; gap: 16px;">
-                        <input type="hidden" name="_captcha" value="false">
-                        <input type="hidden" name="_subject" value="New Message from StudiesSupport!">
-                        <input type="hidden" name="_template" value="table">
-                        <div>
-                            <label style="display: block; color: #64748b; font-size: 13px; font-weight: 600; margin-bottom: 8px;">Name</label>
-                            <input type="text" name="Name" aria-label="Your Name" required placeholder="Your Name" style="width: 100%; padding: 16px; border-radius: 16px; border: 1px solid #e2e8f0; background-color: #ffffff; color: #0f172a; font-size: 15px; box-sizing: border-box;">
-                        </div>
-                        <div>
-                            <label style="display: block; color: #64748b; font-size: 13px; font-weight: 600; margin-bottom: 8px;">Email</label>
-                            <input type="email" name="Email" aria-label="Your Email" required placeholder="Your Email Address" style="width: 100%; padding: 16px; border-radius: 16px; border: 1px solid #e2e8f0; background-color: #ffffff; color: #0f172a; font-size: 15px; box-sizing: border-box;">
-                        </div>
-                        <div>
-                            <label style="display: block; color: #64748b; font-size: 13px; font-weight: 600; margin-bottom: 8px;">Message</label>
-                            <textarea name="Message" aria-label="Your Message" required placeholder="How can we help?" style="width: 100%; padding: 16px; border-radius: 16px; border: 1px solid #e2e8f0; background-color: #ffffff; color: #0f172a; font-size: 15px; resize: none; height: 120px; box-sizing: border-box;"></textarea>
-                        </div>
-                        <button type="submit" aria-label="Send Message Form" style="margin-top: 8px; width: 100%; padding: 16px; background-color: #2563eb; color: #ffffff; font-size: 15px; font-weight: 800; border: none; border-radius: 16px; cursor: pointer; box-shadow: 0 4px 15px rgba(37, 99, 235, 0.2);">
-                            Send Message
-                        </button>
-                    </form>
-                </div>
-            </div>
-        </main>
-
         <main id="page-admin" style="display: none; background-color: #ffffff; padding: 24px 20px 60px 20px;">
             <div style="max-width: 800px; margin: 0 auto;">
                 <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 32px; flex-wrap: wrap; gap: 16px;">
@@ -404,6 +391,35 @@
                     <div style="display: flex; gap: 12px;">
                         <button onclick="logoutAdmin()" aria-label="Logout Admin" style="display: flex; flex-direction: column; align-items: center; justify-content: center; background-color: #fef2f2; color: #dc2626; border: none; border-radius: 16px; padding: 12px 20px; font-size: 13px; font-weight: 700; cursor: pointer; gap: 6px;"><i data-lucide="log-out" style="width: 18px; height: 18px;"></i> Logout</button>
                     </div>
+                </div>
+
+                <div style="background-color: #ffffff; border: 1px solid #f1f5f9; border-radius: 24px; padding: 32px 24px; box-shadow: 0 10px 40px rgba(0,0,0,0.03); margin-bottom: 32px;">
+                    <h3 style="color: #0f172a; font-size: 18px; font-weight: 800; margin-bottom: 24px;">Manage Affiliate Ad Banners</h3>
+                    <form id="ad-upload-form" onsubmit="handleAdUpload(event)" style="display: flex; flex-direction: column; gap: 20px;">
+                        <div>
+                            <label style="display: block; color: #64748b; font-size: 13px; font-weight: 600; margin-bottom: 8px;">Select Banner Location</label>
+                            <select id="ad-slot-select" required style="width: 100%; padding: 16px; border-radius: 12px; border: 1px solid #e2e8f0; background-color: #f8fafc; font-size: 15px; outline: none;">
+                                <option value="">Choose where to show the ad...</option>
+                                <option value="slot-home">Home Page</option>
+                                <option value="slot-boards">ICSE & ISC Subject Pages</option>
+                                <option value="slot-content">Notes, Q&A, Solutions & Backpack</option>
+                                <option value="slot-extras">PDFs Page</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label style="display: block; color: #64748b; font-size: 13px; font-weight: 600; margin-bottom: 8px;">Affiliate Link (URL)</label>
+                            <input type="url" id="ad-link-input" placeholder="https://amazon.in/..." required style="width: 100%; padding: 16px; border-radius: 12px; border: 1px solid #e2e8f0; font-size: 15px; box-sizing: border-box;">
+                        </div>
+                        <div>
+                            <label style="display: block; color: #64748b; font-size: 13px; font-weight: 600; margin-bottom: 8px;">Ad Image (Horizontal Banner looks best)</label>
+                            <label for="ad-file-upload" style="border: 2px dashed #cbd5e1; border-radius: 16px; padding: 32px 20px; text-align: center; background-color: #ffffff; cursor: pointer; display: block;">
+                                <i data-lucide="image" style="color: #64748b; width: 24px; height: 24px; margin-bottom: 12px; margin-left: auto; margin-right: auto; display: block;"></i>
+                                <p id="ad-file-name-display" style="color: #334155; font-size: 14px; font-weight: 600; margin: 0 0 4px 0;">Click to upload ad image</p>
+                            </label>
+                            <input id="ad-file-upload" type="file" accept="image/*" required style="opacity: 0; position: absolute; width: 1px; height: 1px; z-index: -1;" onchange="document.getElementById('ad-file-name-display').innerText = this.files[0] ? this.files[0].name : 'Click to upload ad image'; document.getElementById('ad-file-name-display').style.color = '#2563eb';">
+                        </div>
+                        <button type="submit" style="padding: 16px 32px; background-color: #f59e0b; color: #ffffff; font-size: 15px; font-weight: 800; border: none; border-radius: 16px; cursor: pointer;">Save Ad Banner</button>
+                    </form>
                 </div>
 
                 <div style="background-color: #ffffff; border: 1px solid #f1f5f9; border-radius: 24px; padding: 32px 24px; box-shadow: 0 10px 40px rgba(0,0,0,0.03); margin-bottom: 32px;">
@@ -426,7 +442,6 @@
                                 <option value="Class 11">Class 11</option><option value="Class 12">Class 12</option>
                             </select>
                         </div>
-
                         <div>
                             <label style="display: block; color: #64748b; font-size: 13px; font-weight: 600; margin-bottom: 8px;">Subject</label>
                             <select id="admin-subject-select" aria-label="Select Subject" onchange="toggleCustomSubject()" required style="width: 100%; padding: 16px; border-radius: 12px; border: 1px solid #e2e8f0; background-color: #f8fafc; font-size: 15px; outline: none; margin-bottom: 8px;">
@@ -434,7 +449,6 @@
                             </select>
                             <input type="text" id="admin-custom-subject" placeholder="Type your new subject name..." style="width: 100%; padding: 16px; border-radius: 12px; border: 1px solid #e2e8f0; font-size: 15px; box-sizing: border-box; display: none;">
                         </div>
-
                         <div>
                             <label style="display: block; color: #64748b; font-size: 13px; font-weight: 600; margin-bottom: 8px;">Chapter</label>
                             <input type="text" id="admin-chapter-input" list="admin-chapters-list" placeholder="e.g., Chapter 1" required style="width: 100%; padding: 16px; border-radius: 12px; border: 1px solid #e2e8f0; font-size: 15px; box-sizing: border-box;">
@@ -445,12 +459,10 @@
                             <input type="text" id="admin-subchapter-input" list="admin-subchapters-list" placeholder="e.g., Exercise 1(A)" style="width: 100%; padding: 16px; border-radius: 12px; border: 1px solid #e2e8f0; font-size: 15px; box-sizing: border-box;">
                             <datalist id="admin-subchapters-list"></datalist>
                         </div>
-
                         <div>
                             <label style="display: block; color: #64748b; font-size: 13px; font-weight: 600; margin-bottom: 8px;">Textbook Name (Optional)</label>
                             <input type="text" id="admin-textbook-input" placeholder="e.g., Concise Physics Class 10" style="width: 100%; padding: 16px; border-radius: 12px; border: 1px solid #e2e8f0; font-size: 15px; box-sizing: border-box;">
                         </div>
-
                         <div>
                             <label style="display: block; color: #64748b; font-size: 13px; font-weight: 600; margin-bottom: 8px;">Content Type</label>
                             <select id="admin-type-select" aria-label="Select Content Type" required style="width: 100%; padding: 16px; border-radius: 12px; border: 1px solid #e2e8f0; background-color: #f8fafc; font-size: 15px; outline: none;">
@@ -519,7 +531,6 @@
                 </div>
             </div>
         </main>
-        
         <main id="page-terms" style="display: none; background-color: #ffffff; padding: 24px 20px 60px 20px;">
             <div style="max-width: 800px; margin: 0 auto;">
                 <h2 style="color: #0f172a; font-size: 28px; font-weight: 900; margin-bottom: 24px;">Terms &amp; Conditions</h2>
@@ -528,7 +539,6 @@
                 </div>
             </div>
         </main>
-        
         <main id="page-disclaimer" style="display: none; background-color: #ffffff; padding: 24px 20px 60px 20px;">
             <div style="max-width: 800px; margin: 0 auto;">
                 <h2 style="color: #0f172a; font-size: 28px; font-weight: 900; margin-bottom: 24px;">Disclaimer</h2>
@@ -559,9 +569,6 @@
 
         <footer style="background-color: #0f172a; border-top: 1px solid #1e293b; padding: 40px 24px; color: #cbd5e1; font-family: 'DM Sans', sans-serif;">
             <div style="max-width: 600px; margin: 0 auto;">
-                <div style="background-color: #1e293b; border: 1px solid #334155; border-radius: 8px; min-height: 60px; display: flex; align-items: center; justify-content: center; margin-bottom: 30px;">
-                    <span style="color: #64748b; font-size: 10px; letter-spacing: 1px; text-transform: uppercase;">Advertisement</span>
-                </div>
                 <p style="font-size: 14px; line-height: 1.6; margin-bottom: 30px; color: #94a3b8; text-align: center;">
                     Your smart study partner for ICSE & ISC board exams. Free notes, questions, and revision materials.
                 </p>
@@ -572,15 +579,8 @@
                     <span onclick="navigateTo('terms')" style="cursor:pointer;" aria-label="Navigate to Terms">Terms & Conditions</span>
                     <span onclick="navigateTo('disclaimer')" style="cursor:pointer;" aria-label="Navigate to Disclaimer">Disclaimer</span>
                 </div>
-                <div style="display: flex; flex-direction: column; gap: 12px; font-size: 14px; margin-bottom: 40px; align-items: center; color: #cbd5e1;">
-                    <span style="display: flex; align-items: center; gap: 8px;">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"></rect><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path></svg>
-                        bachchupatra67@gmail.com
-                    </span>
-                    <a href="https://t.me/studiessupport2026" style="display: flex; align-items: center; gap: 8px; text-decoration: none; color: #60a5fa; font-weight: 600;">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#60a5fa" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m22 2-7 20-4-9-9-4Z"></path><path d="M22 2 11 13"></path></svg>
-                        @studiessupport2026
-                    </a>
+                <div style="border-top: 1px solid #1e293b; padding-top: 24px; text-align: center; font-size: 12px; color: #64748b;">
+                    © 2025 StudiesSupport. All rights reserved. Built for ICSE & ISC students.
                 </div>
             </div>
         </footer>
@@ -596,14 +596,11 @@ function splitContentIntoBlocks(materials) {
     let splitMaterials = [];
     materials.forEach(m => {
         let rawText = m.content_text || '';
-        // Look for the invisible tag!
         if (rawText.includes('[SPLIT_ENABLED]')) {
             rawText = rawText.replace(/\[SPLIT_ENABLED\]/g, '').trim();
-            // 🌟 BLANK SPLIT PREVENTER: Splits it, trims it, and instantly deletes tiny accidental blank lines (< 3 characters)
             let blocks = rawText.split(/(?=(?:\*\*|__|\s)*(?:Q\.?|Question|Ques)\s*\d+)/i)
                                 .map(t => t.trim())
                                 .filter(t => t.length > 3); 
-                                
             if (blocks.length === 0) blocks = [rawText]; 
             blocks.forEach(b => { splitMaterials.push({ ...m, content_text: b }); });
         } else {
@@ -721,6 +718,7 @@ function closeLoginModal() { document.getElementById('login-modal')?.classList.a
 let supabaseClient = null;
 let editingMaterialId = null;
 let allStudyMaterials = [];
+let allAdBanners = []; // 🌟 Store Ads separately!
 
 try {
     if (typeof supabase !== 'undefined') {
@@ -733,14 +731,15 @@ try {
 function initApp() {
     navigateTo('home'); 
     applyLogo(localStorage.getItem('customSiteLogo')); 
-    fetchAndDisplayMaterials().finally(() => {
-        if (window.lucide) { lucide.createIcons(); }
-    });
+    try { fetchAndDisplayMaterials(); } catch(e) {}
+    if (window.lucide) { lucide.createIcons(); }
 }
-window.addEventListener('load', initApp);
+
+if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', initApp); } 
+else { initApp(); }
 
 // ==========================================
-// 4. ADMIN PANEL LOGIC
+// 4. ADMIN PANEL (ADS & MATERIALS)
 // ==========================================
 async function loginAdmin() {
     const email = document.getElementById('admin-email').value.trim();
@@ -758,6 +757,65 @@ async function logoutAdmin() {
     if (supabaseClient) await supabaseClient.auth.signOut();
     localStorage.removeItem('isAdminLoggedIn');
     alert("Logged out successfully."); navigateTo('home');
+}
+
+// 🌟 NEW: AFFILIATE AD UPLOAD LOGIC
+async function handleAdUpload(event) {
+    event.preventDefault();
+    if (!supabaseClient) return alert("System unavailable.");
+    
+    const slot = document.getElementById('ad-slot-select').value;
+    const link = document.getElementById('ad-link-input').value;
+    const file = document.getElementById('ad-file-upload').files[0];
+    const btn = event.target.querySelector('button[type="submit"]');
+    
+    if(!file) return alert("Please upload an ad banner image.");
+    
+    btn.innerText = "Saving Ad... ⏳"; btn.disabled = true;
+
+    try {
+        // Remove old ad from this exact slot to prevent duplicates
+        await supabaseClient.from('study_materials').delete().eq('content_type', 'Ad Banner').eq('chapter', slot);
+
+        // Upload the new image
+        const safeFileName = `ad-${Date.now()}.${file.name.split('.').pop()}`;
+        const { error: uploadError } = await supabaseClient.storage.from('study-materials').upload(safeFileName, await file.arrayBuffer(), { contentType: file.type });
+        if (uploadError) throw uploadError;
+        const fileUrl = supabaseClient.storage.from('study-materials').getPublicUrl(safeFileName).data.publicUrl;
+
+        // Save into DB under the disguise of 'Ad Banner'
+        const uploadData = {
+            board: 'SYSTEM', subject: 'AD', class_level: 'ALL',
+            chapter: slot, content_type: 'Ad Banner', content_text: link, file_url: fileUrl
+        };
+        
+        await supabaseClient.from('study_materials').insert([uploadData]);
+        alert("Ad Banner successfully saved!");
+        event.target.reset();
+        document.getElementById('ad-file-name-display').innerText = 'Click to upload ad image';
+        fetchAndDisplayMaterials();
+    } catch (err) { alert("Error: " + err.message); }
+    finally { btn.innerText = "Save Ad Banner"; btn.disabled = false; }
+}
+
+// 🌟 THE AD RENDERER
+function renderAds() {
+    const defaultAdHtml = `<span style="color: #94a3b8; font-size: 10px; letter-spacing: 1px; text-transform: uppercase;">Advertisement</span>`;
+    
+    document.querySelectorAll('.dynamic-ad-slot').forEach(el => {
+        const slotName = el.getAttribute('data-slot');
+        const adData = allAdBanners.find(m => m.chapter === slotName);
+        
+        if (adData && adData.file_url) {
+            el.innerHTML = `<a href="${adData.content_text}" target="_blank" style="display:block; width:100%; height:100%;"><img src="${adData.file_url}" alt="Ad"></a>`;
+            el.style.padding = "0";
+            el.style.border = "none";
+        } else {
+            el.innerHTML = defaultAdHtml;
+            el.style.padding = "";
+            el.style.border = "1px solid #e2e8f0";
+        }
+    });
 }
 
 function updateSubjectDropdown() {
@@ -843,33 +901,17 @@ async function handleMaterialUpload(event) {
     finally { btn.innerText = "Upload Material"; btn.disabled = false; }
 }
 
-function handleLogoUpload(event) {
-    const file = event.target.files[0]; if (!file) return;
-    const reader = new FileReader();
-    reader.onload = e => { localStorage.setItem('customSiteLogo', e.target.result); applyLogo(e.target.result); };
-    reader.readAsDataURL(file);
-}
-function applyLogo(logoUrl) { if (logoUrl) document.querySelectorAll('.site-logo').forEach(img => { img.src = logoUrl; img.style.display = 'block'; }); }
-
 async function deleteMaterial(id) {
     if (!confirm("Are you sure you want to delete this single item?")) return;
     await supabaseClient.from('study_materials').delete().eq('id', id); 
     fetchAndDisplayMaterials(); 
 }
 
-// 🌟 NEW: THE BULK DELETE FUNCTION!
 async function deleteSelectedMaterials() {
     const checkboxes = document.querySelectorAll('.admin-item-checkbox:checked');
     const idsToDelete = Array.from(checkboxes).map(cb => cb.value);
-    
-    if (idsToDelete.length === 0) {
-        alert("Please select at least one item to delete.");
-        return;
-    }
-
-    if (!confirm(`Are you sure you want to delete ${idsToDelete.length} item(s)? This cannot be undone.`)) {
-        return;
-    }
+    if (idsToDelete.length === 0) return alert("Please select at least one item to delete.");
+    if (!confirm(`Delete ${idsToDelete.length} item(s)? This cannot be undone.`)) return;
 
     const btn = document.getElementById('bulk-delete-btn');
     const oldText = btn.innerHTML;
@@ -881,22 +923,14 @@ async function deleteSelectedMaterials() {
         if (error) throw error;
         alert(`Successfully deleted ${idsToDelete.length} items!`);
         fetchAndDisplayMaterials();
-    } catch (error) {
-        alert("Failed to delete: " + error.message);
-    } finally {
-        btn.innerHTML = oldText;
-        btn.disabled = false;
-        btn.style.display = 'none'; // Hide it again
-        if (window.lucide) lucide.createIcons();
-    }
+    } catch (error) { alert("Failed to delete: " + error.message); } 
+    finally { btn.innerHTML = oldText; btn.disabled = false; btn.style.display = 'none'; if (window.lucide) lucide.createIcons(); }
 }
 
 function toggleBulkDeleteBtn() {
     const checkboxes = document.querySelectorAll('.admin-item-checkbox:checked');
     const btn = document.getElementById('bulk-delete-btn');
-    if(btn) {
-        btn.style.display = checkboxes.length > 0 ? 'flex' : 'none';
-    }
+    if(btn) btn.style.display = checkboxes.length > 0 ? 'flex' : 'none';
 }
 
 function editMaterial(id) {
@@ -938,8 +972,16 @@ async function fetchAndDisplayMaterials() {
     try {
         const { data, error } = await supabaseClient.from('study_materials').select('*').order('created_at', { ascending: false });
         if (error) throw error;
-        allStudyMaterials = data;
-        renderAdminMaterials(); renderStudentMaterials(); updateAdminDatalists(); updateSolutionsSubjectDropdown();
+        
+        // 🌟 SEPARATE ADS FROM NORMAL CONTENT
+        allAdBanners = data.filter(m => m.content_type === 'Ad Banner');
+        allStudyMaterials = data.filter(m => m.content_type !== 'Ad Banner');
+        
+        renderAds(); // Draw the ads!
+        renderAdminMaterials(); 
+        renderStudentMaterials(); 
+        updateAdminDatalists(); 
+        updateSolutionsSubjectDropdown();
         if (currentPage === 'backpack') renderBackpack();
     } catch (error) { console.error(error); }
 }
@@ -950,12 +992,12 @@ function renderAdminMaterials() {
     const classFilter = document.getElementById('admin-filter-class')?.value || '';
     const subFilter = document.getElementById('admin-filter-subject')?.value || '';
 
-    let filtered = allStudyMaterials;
+    let filtered = allStudyMaterials; // Ads are already hidden from this list
     if (classFilter) filtered = filtered.filter(m => m.class_level === classFilter);
     if (subFilter) filtered = filtered.filter(m => m.subject === subFilter);
     
     const btn = document.getElementById('bulk-delete-btn');
-    if (btn) btn.style.display = 'none'; // reset button
+    if (btn) btn.style.display = 'none'; 
 
     if (filtered.length === 0) {
         container.innerHTML = `<p style="text-align: center; margin:40px 0; color: #64748b;">No materials found.</p>`;
@@ -969,14 +1011,12 @@ function renderAdminMaterials() {
         return `
         <div style="background: white; border: 1px solid #e2e8f0; border-radius: 16px; padding: 16px; margin-bottom: 12px; display: flex; align-items: flex-start; gap: 12px;">
             <input type="checkbox" class="admin-item-checkbox" value="${item.id}" onchange="toggleBulkDeleteBtn()" style="width: 20px; height: 20px; margin-top: 4px; accent-color: #ef4444; cursor: pointer;">
-            
             <div style="flex: 1;">
                 <h4 style="font-size: 15px; font-weight: 700; margin: 0; color: #0f172a; display: flex; align-items: center; flex-wrap: wrap;">
                     ${item.chapter} ${item.subchapter ? `(${item.subchapter})` : ''} ${splitBadge}
                 </h4>
                 <p style="font-size: 12px; color: #64748b; margin: 4px 0;">${item.class_level} • ${item.subject} • ${item.content_type}</p>
             </div>
-            
             <div style="display:flex; align-items: flex-start; flex-direction: column; gap: 8px;">
                 <button onclick="editMaterial(${item.id})" style="background:#fff7ed; color:#ea580c; border:1px solid #fed7aa; padding:6px 12px; border-radius:8px; font-weight:700; cursor: pointer; width: 100%;">Edit</button>
                 <button onclick="deleteMaterial(${item.id})" style="background:#fef2f2; color:red; border:1px solid #fecaca; padding:6px 12px; border-radius:8px; font-weight:700; cursor: pointer; width: 100%;">Delete</button>
@@ -995,7 +1035,6 @@ function updateAdminDatalists() {
     chapList.innerHTML = [...new Set(allStudyMaterials.map(m => m.chapter).filter(Boolean))].map(c => `<option value="${c}">`).join('');
     subChapList.innerHTML = [...new Set(allStudyMaterials.map(m => m.subchapter).filter(Boolean))].map(sc => `<option value="${sc}">`).join('');
 }
-
 
 // ==========================================
 // 5. 🌟 PREMIUM KNOWLEDGEBOAT SOLUTIONS UI 
@@ -1189,7 +1228,6 @@ function applySolutionsFilter() {
         filtered.forEach(item => { container.innerHTML += generateCardHTML(item); });
     }
 
-    // 🌟 PREV/NEXT PAGINATION ENGINE
     if (activeSolQuestion !== 'all') {
         let rawNumbers = splitMaterials.map(m => {
             const match = (m.content_text || '').match(/(?:\*\*|\s)*(?:Q\.?|Question|Ques)\s*(\d+)/i);
@@ -1321,8 +1359,6 @@ function applyDynamicFilter(pagePrefix, containerId) {
         }
 
         container.innerHTML = '';
-        
-        // Split them on the fly!
         const splitFiltered = splitContentIntoBlocks(filtered);
         
         splitFiltered.forEach(item => { 
@@ -1354,7 +1390,6 @@ function renderStudentMaterials() {
         const topClass = boardType === 'ICSE' ? 'Class 10' : 'Class 12';
         const bottomClass = boardType === 'ICSE' ? 'Class 9' : 'Class 11';
 
-        // Split them on the fly!
         const splitMaterials = splitContentIntoBlocks(materials);
 
         const topMaterials = splitMaterials.filter(item => item.class_level === topClass);
@@ -1381,14 +1416,12 @@ function renderStudentMaterials() {
     const icseContainer = document.getElementById('icse-materials-container');
     if (icseContainer && document.getElementById('page-notes').classList.contains('active')) {
         const title = document.getElementById('dynamic-icse-title').innerText.trim();
-        // 🌟 STRICT EXCLUSION: Blocks Solutions from the regular Notes page
         drawCards(icseContainer, allStudyMaterials.filter(item => item.board === 'ICSE' && item.subject === title && item.content_type !== 'Textbook Solutions'), 'ICSE');
     }
 
     const iscContainer = document.getElementById('isc-materials-container');
     if (iscContainer && document.getElementById('page-notes-isc').classList.contains('active')) {
         const title = document.getElementById('dynamic-isc-title').innerText.trim();
-        // 🌟 STRICT EXCLUSION: Blocks Solutions from the regular Notes page
         drawCards(iscContainer, allStudyMaterials.filter(item => item.board === 'ISC' && item.subject === title && item.content_type !== 'Textbook Solutions'), 'ISC');
     }
 
