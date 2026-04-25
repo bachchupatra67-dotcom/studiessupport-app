@@ -127,12 +127,6 @@
                 </div>
             </section>
             
-            <div class="max-w-6xl mx-auto px-4 py-4">
-                <div class="dynamic-ad-slot" data-slot="slot-home" style="background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; height: 90px; display: flex; align-items: center; justify-content: center; margin-bottom: 24px;">
-                    <span style="color: #94a3b8; font-size: 10px; letter-spacing: 1px; text-transform: uppercase;">Advertisement</span>
-                </div>
-            </div>
-
             <section class="py-14 bg-white">
                 <div class="max-w-6xl mx-auto px-4">
                     <h2 class="font-heading font-bold text-2xl text-center text-dark mb-10">Popular Study Materials</h2>
@@ -604,6 +598,9 @@
 
         <footer style="background-color: #0f172a; border-top: 1px solid #1e293b; padding: 40px 24px; color: #cbd5e1; font-family: 'DM Sans', sans-serif;">
             <div style="max-width: 600px; margin: 0 auto;">
+                <div style="background-color: #1e293b; border: 1px solid #334155; border-radius: 8px; min-height: 60px; display: flex; align-items: center; justify-content: center; margin-bottom: 30px;">
+                    <span style="color: #64748b; font-size: 10px; letter-spacing: 1px; text-transform: uppercase;">Advertisement</span>
+                </div>
                 <p style="font-size: 14px; line-height: 1.6; margin-bottom: 30px; color: #94a3b8; text-align: center;">
                     Your smart study partner for ICSE & ISC board exams. Free notes, questions, and revision materials.
                 </p>
@@ -644,7 +641,7 @@ try {
 } catch (error) { console.error("Supabase error:", error); }
 
 // ==========================================
-// 2. WAKE UP THE WEBSITE (BUG FIXED)
+// 2. WAKE UP THE WEBSITE
 // ==========================================
 function initApp() {
     navigateTo('home'); 
@@ -652,7 +649,6 @@ function initApp() {
     if (window.lucide) { lucide.createIcons(); }
 }
 
-// 🌟 THE FIX: This forces the site to load properly, completely avoiding the blank screen bug.
 if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', initApp);
 } else {
@@ -668,7 +664,6 @@ function splitContentIntoBlocks(materials) {
         let rawText = m.content_text || '';
         if (rawText.includes('[SPLIT_ENABLED]')) {
             rawText = rawText.replace(/\[SPLIT_ENABLED\]/g, '').trim();
-            // 🌟 BLANK SPLIT PREVENTER
             let blocks = rawText.split(/(?=(?:\*\*|__|\s)*(?:Q\.?|Question|Ques)\s*\d+)/i)
                                 .map(t => t.trim())
                                 .filter(t => t.length > 3); 
@@ -695,7 +690,7 @@ const generateCardHTML = (item) => {
 
     let formattedText = item.content_text || '';
     
-    // 🌟 ROBUST MATH AUTO-CORRECTOR 
+    // 1. Math formatting
     formattedText = formattedText.replace(/\\\\times|\\times/g, ' × ');
     formattedText = formattedText.replace(/\\\\div|\\div/g, ' ÷ ');
     formattedText = formattedText.replace(/\\\\rightarrow|\\rightarrow/g, ' → ');
@@ -713,9 +708,15 @@ const generateCardHTML = (item) => {
     formattedText = formattedText.replace(/([a-zA-Z])_([0-9a-zA-Z]+)/g, '$1<sub>$2</sub>');
     formattedText = formattedText.replace(/([a-zA-Z0-9])\^([0-9a-zA-Z]+)/g, '$1<sup>$2</sup>');
     
-    // 🌟 FIXED BOLDING (works across line breaks)
+    // 2. Bold formatting (if AI did it right)
     formattedText = formattedText.replace(/\*\*([\s\S]*?)\*\*/g, '<strong style="color: #0f172a; font-weight: 900;">$1</strong>');
     formattedText = formattedText.replace(/\*\*/g, '');
+    
+    // 3. 🌟 AUTO-BOLDER (If AI forgot the stars, automatically bold the "Q.29" part!)
+    formattedText = formattedText.replace(/(^|\n|\s*)((?:Q\.?|Question|Ques)\s*\d+[\s\S]*?)(?=\n\s*Ans\.?|\n\s*Answer\.?|$)/i, function(match, p1, p2) {
+        if (p2.includes('<strong')) return match; // Skip if already bolded
+        return `${p1}<strong style="color: #0f172a; font-weight: 900;">${p2.trim()}</strong>`;
+    });
     
     let textNotes = formattedText ? `<div style="background: #f8fafc; padding: 12px; border-radius: 8px; font-size: 14px; color: #334155; margin-top: 12px; white-space: pre-wrap; overflow-x: auto; font-family: sans-serif; line-height: 1.6;">${formattedText}</div>` : '';
 
