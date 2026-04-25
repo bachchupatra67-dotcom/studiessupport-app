@@ -7,12 +7,12 @@
 
     <meta name="google-adsense-account" content="ca-pub-9469645405774202">
 
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-FG1793LN3N"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-E42K6E1ZG9"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-      gtag('config', 'G-FG1793LN3N');
+      gtag('config', 'G-E42K6E1ZG9');
     </script>
 
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9469645405774202" crossorigin="anonymous"></script>
@@ -127,9 +127,13 @@
                     </div>
                 </div>
             </section>
+            
             <div class="max-w-6xl mx-auto px-4 py-4">
-                <div class="dynamic-ad-slot" data-slot="slot-home" style="background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; height: 90px; display: flex; align-items: center; justify-content: center; margin-bottom: 24px;"><span style="color: #94a3b8; font-size: 10px; letter-spacing: 1px; text-transform: uppercase;">Advertisement</span></div>
+                <div class="dynamic-ad-slot" data-slot="slot-home" style="background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; height: 90px; display: flex; align-items: center; justify-content: center; margin-bottom: 24px;">
+                    <span style="color: #94a3b8; font-size: 10px; letter-spacing: 1px; text-transform: uppercase;">Advertisement</span>
+                </div>
             </div>
+
             <section class="py-14 bg-white">
                 <div class="max-w-6xl mx-auto px-4">
                     <h2 class="font-heading font-bold text-2xl text-center text-dark mb-10">Popular Study Materials</h2>
@@ -1329,6 +1333,7 @@ function updateDynamicFilters(pagePrefix) {
 
     let validMaterials = allStudyMaterials;
     
+    // 🌟 STRICT EXCLUSION: Textbook Solutions ONLY on Solutions Page!
     if(pagePrefix === 'sol') {
         validMaterials = validMaterials.filter(m => m.content_type === 'Textbook Solutions');
     } else if(pagePrefix === 'qa') {
