@@ -128,7 +128,13 @@
                     </div>
                 </div>
             </section>
-            
+
+            <div class="max-w-6xl mx-auto px-4 py-4">
+                <div class="dynamic-ad-slot" data-slot="slot-home" style="background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; height: 90px; display: flex; align-items: center; justify-content: center; margin-bottom: 24px;">
+                    <span style="color: #94a3b8; font-size: 10px; letter-spacing: 1px; text-transform: uppercase;">Advertisement</span>
+                </div>
+            </div>
+
             <section class="py-14 bg-white">
                 <div class="max-w-6xl mx-auto px-4">
                     <h2 class="font-heading font-bold text-2xl text-center text-dark mb-10">Popular Study Materials</h2>
@@ -173,7 +179,7 @@
                 </div>
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 40px;">
                     <div onclick="document.getElementById('dynamic-icse-title').innerText='English Language'; navigateTo('notes');" style="background-color: #ffffff; border: 1px solid #f1f5f9; border-radius: 24px; padding: 24px 12px; text-align: center; box-shadow: 0 4px 20px rgba(0,0,0,0.02); cursor: pointer;"><div style="width: 48px; height: 48px; background-color: #eff6ff; border-radius: 14px; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px auto;"><i data-lucide="book" style="color: #3b82f6; width: 24px; height: 24px;"></i></div><h3 style="color: #0f172a; font-size: 14px; font-weight: 800; margin-bottom: 4px;">English Language</h3></div>
-                    <div onclick="document.getElementById('dynamic-icse-title').innerText='English Literature'; navigateTo('notes');" style="background-color: #ffffff; border: 1px solid #f1f5f9; border-radius: 24px; padding: 24px 12px; text-align: center; box-shadow: 0 4px 20px rgba(0,0,0,0.02); cursor: pointer;"><div style="width: 48px; height: 48px; background-color: #fdf4ff; border-radius: 14px; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px auto;"><i data-lucide="book-open" style="color: #d946ef; width: 24px; height: 24px;"></i></div><h3 style="color: #0f172a; font-size: 14px; font-weight: 800; margin-bottom: 4px;">English Literature</h3></div>
+                    <div onclick="document.getElementById('dynamic-icse-title').innerText='English Literature'; navigateTo('notes');" style="background-color: #ffffff; border: 1px solid #f1f5f9; border-radius: 24px; padding: 24px 12px; text-align: center; box-shadow: 0 4px 20px rgba(0,0,0,0.02); cursor: pointer;"><div style="width: 48px; height: 48px; background-color: #eff6ff; border-radius: 14px; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px auto;"><i data-lucide="book-open" style="color: #3b82f6; width: 24px; height: 24px;"></i></div><h3 style="color: #0f172a; font-size: 14px; font-weight: 800; margin-bottom: 4px;">English Literature</h3></div>
                     <div onclick="document.getElementById('dynamic-icse-title').innerText='Hindi'; navigateTo('notes');" style="background-color: #ffffff; border: 1px solid #f1f5f9; border-radius: 24px; padding: 24px 12px; text-align: center; box-shadow: 0 4px 20px rgba(0,0,0,0.02); cursor: pointer;"><div style="width: 48px; height: 48px; background-color: #fce7f3; border-radius: 14px; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px auto;"><i data-lucide="pen-tool" style="color: #ec4899; width: 24px; height: 24px;"></i></div><h3 style="color: #0f172a; font-size: 14px; font-weight: 800; margin-bottom: 4px;">Hindi</h3></div>
                     <div onclick="document.getElementById('dynamic-icse-title').innerText='Mathematics'; navigateTo('notes');" style="background-color: #ffffff; border: 1px solid #f1f5f9; border-radius: 24px; padding: 24px 12px; text-align: center; box-shadow: 0 4px 20px rgba(0,0,0,0.02); cursor: pointer;"><div style="width: 48px; height: 48px; background-color: #fff7ed; border-radius: 14px; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px auto;"><i data-lucide="calculator" style="color: #f97316; width: 24px; height: 24px;"></i></div><h3 style="color: #0f172a; font-size: 14px; font-weight: 800; margin-bottom: 4px;">Mathematics</h3></div>
                     <div onclick="document.getElementById('dynamic-icse-title').innerText='Science (Physics)'; navigateTo('notes');" style="background-color: #ffffff; border: 1px solid #f1f5f9; border-radius: 24px; padding: 24px 12px; text-align: center; box-shadow: 0 4px 20px rgba(0,0,0,0.02); cursor: pointer;"><div style="width: 48px; height: 48px; background-color: #faf5ff; border-radius: 14px; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px auto;"><i data-lucide="atom" style="color: #a855f7; width: 24px; height: 24px;"></i></div><h3 style="color: #0f172a; font-size: 14px; font-weight: 800; margin-bottom: 4px;">Science (Physics)</h3></div>
@@ -379,6 +385,35 @@
             </div>
         </main>
 
+        <main id="page-contact" style="display: none; background-color: #ffffff; padding: 24px 20px 60px 20px;">
+            <div style="max-width: 800px; margin: 0 auto;">
+                <h2 style="color: #0f172a; font-size: 28px; font-weight: 900; margin-bottom: 24px;">Contact Us</h2>
+                <div style="background-color: #ffffff; border: 1px solid #f1f5f9; border-radius: 24px; padding: 32px 24px; box-shadow: 0 10px 40px rgba(0,0,0,0.03);">
+                    <h3 style="color: #0f172a; font-size: 16px; font-weight: 800; margin-bottom: 24px;">Send a Message</h3>
+                    <form action="https://formsubmit.co/bachchupatra67@gmail.com" method="POST" style="display: flex; flex-direction: column; gap: 16px;">
+                        <input type="hidden" name="_captcha" value="false">
+                        <input type="hidden" name="_subject" value="New Message from StudiesSupport!">
+                        <input type="hidden" name="_template" value="table">
+                        <div>
+                            <label style="display: block; color: #64748b; font-size: 13px; font-weight: 600; margin-bottom: 8px;">Name</label>
+                            <input type="text" name="Name" aria-label="Your Name" required placeholder="Your Name" style="width: 100%; padding: 16px; border-radius: 16px; border: 1px solid #e2e8f0; background-color: #ffffff; color: #0f172a; font-size: 15px; box-sizing: border-box;">
+                        </div>
+                        <div>
+                            <label style="display: block; color: #64748b; font-size: 13px; font-weight: 600; margin-bottom: 8px;">Email</label>
+                            <input type="email" name="Email" aria-label="Your Email" required placeholder="Your Email Address" style="width: 100%; padding: 16px; border-radius: 16px; border: 1px solid #e2e8f0; background-color: #ffffff; color: #0f172a; font-size: 15px; box-sizing: border-box;">
+                        </div>
+                        <div>
+                            <label style="display: block; color: #64748b; font-size: 13px; font-weight: 600; margin-bottom: 8px;">Message</label>
+                            <textarea name="Message" aria-label="Your Message" required placeholder="How can we help?" style="width: 100%; padding: 16px; border-radius: 16px; border: 1px solid #e2e8f0; background-color: #ffffff; color: #0f172a; font-size: 15px; resize: none; height: 120px; box-sizing: border-box;"></textarea>
+                        </div>
+                        <button type="submit" aria-label="Send Message Form" style="margin-top: 8px; width: 100%; padding: 16px; background-color: #2563eb; color: #ffffff; font-size: 15px; font-weight: 800; border: none; border-radius: 16px; cursor: pointer; box-shadow: 0 4px 15px rgba(37, 99, 235, 0.2);">
+                            Send Message
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </main>
+
         <main id="page-admin" style="display: none; background-color: #ffffff; padding: 24px 20px 60px 20px;">
             <div style="max-width: 800px; margin: 0 auto;">
                 <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 32px; flex-wrap: wrap; gap: 16px;">
@@ -476,14 +511,17 @@
                                 <option value="Textbook Solutions">Textbook Solutions</option>
                             </select>
                         </div>
+
                         <div style="display: flex; align-items: center; gap: 10px; padding: 14px; background: #f0fdf4; border-radius: 12px; border: 1px solid #bbf7d0; margin-top: 8px;">
                             <input type="checkbox" id="admin-split-flag" style="width: 20px; height: 20px; accent-color: #16a34a; cursor: pointer;">
                             <label for="admin-split-flag" style="color: #166534; font-size: 14px; font-weight: 800; cursor: pointer; margin: 0;">Enable Auto-Split for Students (Cuts Q1, Q2 into pages)</label>
                         </div>
+
                         <div>
                             <label style="display: block; color: #64748b; font-size: 13px; font-weight: 600; margin-bottom: 8px;">Content / Text</label>
                             <textarea id="admin-text-input" aria-label="Content Text Input" placeholder="Paste all your questions here as one block..." style="width: 100%; padding: 16px; border-radius: 12px; border: 1px solid #e2e8f0; font-size: 15px; resize: vertical; min-height: 180px; box-sizing: border-box;"></textarea>
                         </div>
+                        
                         <div>
                             <label style="display: block; color: #64748b; font-size: 13px; font-weight: 600; margin-bottom: 8px;">Attach File (PDF/DOC/Image)</label>
                             <label for="file-upload" style="border: 2px dashed #cbd5e1; border-radius: 16px; padding: 32px 20px; text-align: center; background-color: #ffffff; cursor: pointer; display: block;">
@@ -520,6 +558,50 @@
             </div>
         </main>
 
+        <main id="page-privacy" style="display: none; background-color: #ffffff; padding: 24px 20px 60px 20px;">
+            <div style="max-width: 800px; margin: 0 auto;">
+                <h2 style="color: #0f172a; font-size: 28px; font-weight: 900; margin-bottom: 24px;">Privacy Policy</h2>
+                <div style="background-color: #ffffff; border: 1px solid #f1f5f9; border-radius: 24px; padding: 32px 24px; box-shadow: 0 10px 40px rgba(0,0,0,0.03);">
+                    <p style="color: #64748b; font-size: 14px; line-height: 1.7; margin-bottom: 24px;">At StudiesSupport, we respect your privacy. This policy explains how we handle your information.</p>
+                </div>
+            </div>
+        </main>
+        <main id="page-terms" style="display: none; background-color: #ffffff; padding: 24px 20px 60px 20px;">
+            <div style="max-width: 800px; margin: 0 auto;">
+                <h2 style="color: #0f172a; font-size: 28px; font-weight: 900; margin-bottom: 24px;">Terms &amp; Conditions</h2>
+                <div style="background-color: #ffffff; border: 1px solid #f1f5f9; border-radius: 24px; padding: 32px 24px; box-shadow: 0 10px 40px rgba(0,0,0,0.03);">
+                    <p style="color: #64748b; font-size: 14px; line-height: 1.7; margin-bottom: 24px;">By using StudiesSupport, you agree to the following terms.</p>
+                </div>
+            </div>
+        </main>
+        <main id="page-disclaimer" style="display: none; background-color: #ffffff; padding: 24px 20px 60px 20px;">
+            <div style="max-width: 800px; margin: 0 auto;">
+                <h2 style="color: #0f172a; font-size: 28px; font-weight: 900; margin-bottom: 24px;">Disclaimer</h2>
+                <div style="background-color: #ffffff; border: 1px solid #f1f5f9; border-radius: 24px; padding: 32px 24px; box-shadow: 0 10px 40px rgba(0,0,0,0.03);">
+                    <p style="color: #64748b; font-size: 14px; line-height: 1.7; margin-bottom: 24px;">StudiesSupport is an independent platform and is <strong>not recognized by or affiliated with the CISCE board</strong>.</p>
+                </div>
+            </div>
+        </main>
+
+        <main id="page-ai-helper" class="page" style="display: none; padding: 20px; max-width: 600px; margin: 0 auto; padding-top: 40px;">
+            <div style="text-align: center; margin-bottom: 24px;">
+                <h2 style="color: #0f172a; font-size: 24px; font-weight: 800; margin: 0;">AI Study Partner</h2>
+            </div>
+            <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 24px; height: 55vh; display: flex; flex-direction: column; overflow: hidden; box-shadow: 0 10px 25px rgba(0,0,0,0.05);">
+                <div id="chat-box" style="flex: 1; padding: 20px; overflow-y: auto; display: flex; flex-direction: column; gap: 16px; background: #f8fafc;">
+                    <div style="align-self: flex-start; background: #ffffff; border: 1px solid #e2e8f0; padding: 14px 18px; border-radius: 20px; border-bottom-left-radius: 4px; max-width: 85%;"><p style="margin: 0; font-size: 14px; color: #334155;">Hello! I am your AI study assistant. Ask me any study question!</p></div>
+                </div>
+                <div style="display: flex; align-items: center; gap: 8px; background: #f8fafc; border-top: 1px solid #e2e8f0; padding: 12px; margin: 0;">
+                    <label for="ai-camera" style="cursor: pointer; padding: 8px; color: #64748b;" aria-label="Use Camera">
+                        <i data-lucide="camera" style="width: 20px; height: 20px;"></i>
+                        <input type="file" id="ai-camera" aria-label="AI Camera Upload" accept="image/*" capture="environment" style="display: none;" onchange="handleAICamera(event)">
+                    </label>
+                    <input id="ai-input" aria-label="AI Chat Input" type="text" placeholder="Ask anything..." style="flex: 1; border: 1px solid #cbd5e1; padding: 14px 16px; border-radius: 16px; background: transparent; font-size: 14px;">
+                    <button onclick="sendAIMessage()" aria-label="Send Message" style="background: #9333ea; color: white; border: none; width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; cursor: pointer;"><i data-lucide="send" style="width: 18px; height: 18px;"></i></button>
+                </div>
+            </div>
+        </main>
+
         <footer style="background-color: #0f172a; border-top: 1px solid #1e293b; padding: 40px 24px; color: #cbd5e1; font-family: 'DM Sans', sans-serif;">
             <div style="max-width: 600px; margin: 0 auto;">
                 <p style="font-size: 14px; line-height: 1.6; margin-bottom: 30px; color: #94a3b8; text-align: center;">
@@ -551,6 +633,7 @@ function splitContentIntoBlocks(materials) {
         let rawText = m.content_text || '';
         if (rawText.includes('[SPLIT_ENABLED]')) {
             rawText = rawText.replace(/\[SPLIT_ENABLED\]/g, '').trim();
+            // 🌟 BLANK SPLIT PREVENTER
             let blocks = rawText.split(/(?=(?:\*\*|__|\s)*(?:Q\.?|Question|Ques)\s*\d+)/i)
                                 .map(t => t.trim())
                                 .filter(t => t.length > 3); 
@@ -581,6 +664,7 @@ const generateCardHTML = (item) => {
 
     let formattedText = item.content_text || '';
     
+    // 🌟 ROBUST MATH AUTO-CORRECTOR 
     formattedText = formattedText.replace(/\\\\times|\\times/g, ' × ');
     formattedText = formattedText.replace(/\\\\div|\\div/g, ' ÷ ');
     formattedText = formattedText.replace(/\\\\rightarrow|\\rightarrow/g, ' → ');
@@ -598,7 +682,8 @@ const generateCardHTML = (item) => {
     formattedText = formattedText.replace(/([a-zA-Z])_([0-9a-zA-Z]+)/g, '$1<sub>$2</sub>');
     formattedText = formattedText.replace(/([a-zA-Z0-9])\^([0-9a-zA-Z]+)/g, '$1<sup>$2</sup>');
     
-    formattedText = formattedText.replace(/\*\*(.*?)\*\*/g, '<strong style="color: #0f172a; font-weight: 900;">$1</strong>');
+    // Fixes Bolding across multiple lines
+    formattedText = formattedText.replace(/\*\*([\s\S]*?)\*\*/g, '<strong style="color: #0f172a; font-weight: 900;">$1</strong>');
     formattedText = formattedText.replace(/\*\*/g, '');
     
     let textNotes = formattedText ? `<div style="background: #f8fafc; padding: 12px; border-radius: 8px; font-size: 14px; color: #334155; margin-top: 12px; white-space: pre-wrap; overflow-x: auto; font-family: sans-serif; line-height: 1.6;">${formattedText}</div>` : '';
@@ -688,8 +773,12 @@ function initApp() {
     if (window.lucide) { lucide.createIcons(); }
 }
 
-if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', initApp); } 
-else { initApp(); }
+// 🌟 FIXED WAKE-UP TRIGGER
+if (document.readyState === 'loading') { 
+    document.addEventListener('DOMContentLoaded', initApp); 
+} else { 
+    initApp(); 
+}
 
 // ==========================================
 // 4. ADMIN PANEL (ADS & MATERIALS)
@@ -712,7 +801,7 @@ async function logoutAdmin() {
     alert("Logged out successfully."); navigateTo('home');
 }
 
-// 🌟 NEW: AFFILIATE AD UPLOAD LOGIC
+// 🌟 AFFILIATE AD UPLOAD LOGIC
 async function handleAdUpload(event) {
     event.preventDefault();
     if (!supabaseClient) return alert("System unavailable.");
@@ -728,11 +817,11 @@ async function handleAdUpload(event) {
     btn.innerText = "Saving Ad... ⏳"; btn.disabled = true;
 
     try {
+        // Remove old ad
         await supabaseClient.from('study_materials').delete().eq('content_type', 'Ad Banner').eq('chapter', slot);
 
         let finalImageUrl = imageUrlInput;
 
-        // If they uploaded a file instead of pasting a URL
         if (file) {
             const safeFileName = `ad-${Date.now()}.${file.name.split('.').pop()}`;
             const { error: uploadError } = await supabaseClient.storage.from('study-materials').upload(safeFileName, await file.arrayBuffer(), { contentType: file.type });
@@ -748,7 +837,7 @@ async function handleAdUpload(event) {
         await supabaseClient.from('study_materials').insert([uploadData]);
         alert("Ad Banner successfully saved!");
         event.target.reset();
-        document.getElementById('ad-file-name-display').innerText = 'Or click to upload file';
+        document.getElementById('ad-file-name-display').innerText = 'Click to upload file instead';
         fetchAndDisplayMaterials();
     } catch (err) { alert("Error: " + err.message); }
     finally { btn.innerText = "Save Ad Banner"; btn.disabled = false; }
@@ -1184,6 +1273,7 @@ function applySolutionsFilter() {
         filtered.forEach(item => { container.innerHTML += generateCardHTML(item); });
     }
 
+    // 🌟 PREV/NEXT PAGINATION ENGINE
     if (activeSolQuestion !== 'all') {
         let rawNumbers = splitMaterials.map(m => {
             const match = (m.content_text || '').match(/(?:\*\*|\s)*(?:Q\.?|Question|Ques)\s*(\d+)/i);
@@ -1228,6 +1318,7 @@ function updateDynamicFilters(pagePrefix) {
 
     let validMaterials = allStudyMaterials;
     
+    // 🌟 STRICT EXCLUSION
     if(pagePrefix === 'sol') {
         validMaterials = validMaterials.filter(m => m.content_type === 'Textbook Solutions');
     } else if(pagePrefix === 'qa') {
@@ -1251,23 +1342,33 @@ function updateDynamicFilters(pagePrefix) {
     const subjects = [...new Set([...standardSubjects, ...dbSubjects])].sort();
     
     subjectSelect.innerHTML = '<option value="">All Subjects</option>';
-    subjects.forEach(s => { subjectSelect.innerHTML += `<option value="${s}">${s}</option>`; });
+    subjects.forEach(s => {
+        subjectSelect.innerHTML += `<option value="${s}">${s}</option>`;
+    });
     if (subjects.includes(currentSub)) subjectSelect.value = currentSub;
 
-    if (subjectSelect.value) { validMaterials = validMaterials.filter(m => m.subject === subjectSelect.value); }
+    if (subjectSelect.value) {
+        validMaterials = validMaterials.filter(m => m.subject === subjectSelect.value);
+    }
     
     const currentChap = chapterSelect.value;
     const chapters = [...new Set(validMaterials.map(m => m.chapter).filter(Boolean))].sort();
     chapterSelect.innerHTML = '<option value="">All Chapters</option>';
-    chapters.forEach(c => { chapterSelect.innerHTML += `<option value="${c}">${c}</option>`; });
+    chapters.forEach(c => {
+        chapterSelect.innerHTML += `<option value="${c}">${c}</option>`;
+    });
     if (chapters.includes(currentChap)) chapterSelect.value = currentChap;
 
-    if (chapterSelect.value) { validMaterials = validMaterials.filter(m => m.chapter === chapterSelect.value); }
+    if (chapterSelect.value) {
+        validMaterials = validMaterials.filter(m => m.chapter === chapterSelect.value);
+    }
     
     const currentSubchap = subchapterSelect.value;
     const subchapters = [...new Set(validMaterials.map(m => m.subchapter).filter(Boolean))].sort();
     subchapterSelect.innerHTML = '<option value="">All Subchapters</option>';
-    subchapters.forEach(sc => { subchapterSelect.innerHTML += `<option value="${sc}">${sc}</option>`; });
+    subchapters.forEach(sc => {
+        subchapterSelect.innerHTML += `<option value="${sc}">${sc}</option>`;
+    });
     if (subchapters.includes(currentSubchap)) subchapterSelect.value = currentSubchap;
 }
 
@@ -1295,13 +1396,21 @@ function applyDynamicFilter(pagePrefix, containerId) {
         if (subchapterVal) filtered = filtered.filter(m => m.subchapter === subchapterVal);
 
         if (filtered.length === 0) {
-            container.innerHTML = `<div style="text-align: center; padding: 40px;"><p style="color: #64748b; font-size: 15px; font-weight: 600;">No materials found.</p></div>`;
+            container.innerHTML = `
+                <div style="text-align: center; padding: 40px;">
+                    <p style="color: #64748b; font-size: 15px; font-weight: 600;">No materials found.</p>
+                </div>`;
             return;
         }
 
         container.innerHTML = '';
+        
         const splitFiltered = splitContentIntoBlocks(filtered);
-        splitFiltered.forEach(item => { container.innerHTML += generateCardHTML(item); });
+        
+        splitFiltered.forEach(item => { 
+            container.innerHTML += generateCardHTML(item); 
+        });
+        
         if (window.lucide) { lucide.createIcons(); }
         renderMath(); 
     }, pagePrefix === 'sol' ? 500 : 0);
