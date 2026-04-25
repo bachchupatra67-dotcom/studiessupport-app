@@ -21,9 +21,7 @@
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>
-      window.MathJax = {
-        tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] }
-      };
+      window.MathJax = { tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] } };
     </script>
 
     <style>
@@ -615,6 +613,7 @@ function splitContentIntoBlocks(materials) {
     let splitMaterials = [];
     materials.forEach(m => {
         let rawText = m.content_text || '';
+        // Look for the invisible tag!
         if (rawText.includes('[SPLIT_ENABLED]')) {
             rawText = rawText.replace(/\[SPLIT_ENABLED\]/g, '').trim();
             let blocks = rawText.split(/(?=(?:\*\*|__|\s)*(?:Q\.?|Question|Ques)\s*\d+)/i).filter(t => t.trim() !== "");
@@ -748,11 +747,21 @@ try {
 function initApp() {
     navigateTo('home'); 
     applyLogo(localStorage.getItem('customSiteLogo')); 
-    fetchAndDisplayMaterials().finally(() => {
-        if (window.lucide) { lucide.createIcons(); }
-    });
+    
+    // 🌟 FIXED WAKE-UP SEQUENCE: Won't crash menu if database is blocked!
+    try {
+        fetchAndDisplayMaterials();
+    } catch(e) {}
+    
+    if (window.lucide) { lucide.createIcons(); }
 }
-window.addEventListener('load', initApp);
+
+// 🌟 QUICK-START TRIGGER: Doesn't wait for Google Ads to load!
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initApp);
+} else {
+    initApp();
+}
 
 // ==========================================
 // 4. ADMIN PANEL LOGIC
@@ -833,7 +842,7 @@ async function handleMaterialUpload(event) {
             finalFileUrl = supabaseClient.storage.from('study-materials').getPublicUrl(safeFileName).data.publicUrl;
         }
 
-        // 🌟 INJECT SPLIT TAG IF SELECTED
+        // 🌟 INJECT INVISIBLE SPLIT TAG INTO DATABASE IF CHECKED
         if (enableSplit && !textContent.includes('[SPLIT_ENABLED]')) {
             textContent += '\n[SPLIT_ENABLED]';
         } else if (!enableSplit) {
@@ -935,14 +944,12 @@ function renderAdminMaterials() {
     container.innerHTML = filtered.map(item => {
         let isSplit = (item.content_text || '').includes('[SPLIT_ENABLED]');
         let splitBadge = isSplit ? `<span style="background: #dcfce7; color: #166534; padding: 2px 8px; border-radius: 6px; font-size: 10px; font-weight: 800; margin-left: 8px;">Auto-Split ON</span>` : '';
-        let cleanText = (item.content_text || '').replace(/\[SPLIT_ENABLED\]/g, '').replace(/\*\*/g, '').substring(0, 60) + '...';
-
+        
         return `
         <div style="background: white; border: 1px solid #e2e8f0; border-radius: 16px; padding: 16px; margin-bottom: 12px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px;">
             <div style="flex: 1;">
                 <h4 style="font-size: 15px; font-weight: 700; margin: 0; color: #0f172a;">${item.chapter} ${item.subchapter ? `(${item.subchapter})` : ''} ${splitBadge}</h4>
                 <p style="font-size: 12px; color: #64748b; margin: 4px 0;">${item.class_level} • ${item.subject} • ${item.content_type}</p>
-                <p style="font-size: 12px; color: #94a3b8; margin: 0; font-style: italic;">"${cleanText}"</p>
             </div>
             <div style="display:flex; align-items: flex-start;">
                 <button onclick="deleteMaterial(${item.id})" style="background:#fef2f2; color:red; border:1px solid #fecaca; padding:6px 12px; border-radius:8px; font-weight:700; margin-right:8px; cursor: pointer;">Delete</button>
@@ -1142,4 +1149,358 @@ function applySolutionsFilter() {
         });
     }
 
-    container.innerHTML += `<button onclick="renderSolutionsChapters()" style="background: #f1f5f9; border: none; padding: 10px 16px; border-radius:
+    container.innerHTML += `<button onclick="renderSolutionsChapters()" style="background: #f1f5f9; border: none; padding: 10px 16px; border-radius: 10px; display: inline-flex; align-items: center; gap: 8px; font-weight: 700; color: #334155; cursor: pointer; align-self: flex-start; margin-bottom: 8px;"><i data-lucide="arrow-left" style="width: 16px; height: 16px;"></i> Back to Chapters</button>`;
+    
+    let headerTitle = `${currentSolutionChapter}`;
+    if (activeSolSubchapter) headerTitle += ` — ${activeSolSubchapter}`;
+    if (activeSolQuestion !== 'all') headerTitle += ` (Q.${activeSolQuestion})`;
+    
+    container.innerHTML += `<h3 style="font-size: 18px; font-weight: 800; color: #0f172a; margin-bottom: 8px;">${headerTitle}</h3>`;
+
+    if (filtered.length === 0) {
+        container.innerHTML += `<div style="text-align: center; padding: 40px;"><p style="color: #64748b; font-size: 15px; font-weight: 600;">No materials found.</p></div>`;
+    } else {
+        filtered.forEach(item => { container.innerHTML += generateCardHTML(item); });
+    }
+
+    // 🌟 PREV/NEXT PAGINATION ENGINE
+    if (activeSolQuestion !== 'all') {
+        let rawNumbers = splitMaterials.map(m => {
+            const match = (m.content_text || '').match(/(?:\*\*|\s)*(?:Q\.?|Question|Ques)\s*(\d+)/i);
+            return match ? parseInt(match[1]) : null;
+        }).filter(n => n !== null);
+        
+        let uniqueNumbers = [...new Set(rawNumbers)].sort((a,b) => a - b);
+        let currentIndex = uniqueNumbers.indexOf(parseInt(activeSolQuestion));
+
+        let paginationHTML = `<div style="display: flex; justify-content: space-between; margin-top: 16px; padding-top: 16px; border-top: 1px solid #e2e8f0;">`;
+
+        if (currentIndex > 0) {
+            let prevQ = uniqueNumbers[currentIndex - 1];
+            paginationHTML += `<button onclick="activeSolQuestion='${prevQ}'; applySolutionsFilter(); window.scrollTo(0,0);" style="background: #f1f5f9; color: #334155; padding: 10px 16px; border-radius: 10px; font-weight: 700; border: none; cursor: pointer; display: flex; align-items: center; gap: 6px;"><i data-lucide="chevron-left" style="width:16px;height:16px;"></i> Prev (Q.${prevQ})</button>`;
+        } else {
+            paginationHTML += `<div></div>`;
+        }
+
+        if (currentIndex !== -1 && currentIndex < uniqueNumbers.length - 1) {
+            let nextQ = uniqueNumbers[currentIndex + 1];
+            paginationHTML += `<button onclick="activeSolQuestion='${nextQ}'; applySolutionsFilter(); window.scrollTo(0,0);" style="background: #2563eb; color: #ffffff; padding: 10px 16px; border-radius: 10px; font-weight: 700; border: none; cursor: pointer; display: flex; align-items: center; gap: 6px;">Next (Q.${nextQ}) <i data-lucide="chevron-right" style="width:16px;height:16px;"></i></button>`;
+        }
+
+        paginationHTML += `</div>`;
+        container.innerHTML += paginationHTML;
+    }
+    
+    if (window.lucide) { lucide.createIcons(); }
+    renderMath();
+}
+
+// ==========================================
+// 6. NOTES PAGE FILTERS & RENDERING
+// ==========================================
+function updateDynamicFilters(pagePrefix) {
+    const classSelect = document.getElementById(`${pagePrefix}-filter-class`);
+    const subjectSelect = document.getElementById(`${pagePrefix}-filter-subject`);
+    const chapterSelect = document.getElementById(`${pagePrefix}-filter-chapter`);
+    const subchapterSelect = document.getElementById(`${pagePrefix}-filter-subchapter`);
+    
+    if(!classSelect || !subjectSelect || !chapterSelect || !subchapterSelect) return;
+
+    let validMaterials = allStudyMaterials;
+    
+    // 🌟 STRICT EXCLUSION: Textbook Solutions ONLY on Solutions Page!
+    if(pagePrefix === 'sol') {
+        validMaterials = validMaterials.filter(m => m.content_type === 'Textbook Solutions');
+    } else if(pagePrefix === 'qa') {
+        validMaterials = validMaterials.filter(m => m.content_type !== 'Textbook Solutions');
+    }
+
+    const classVal = classSelect.value;
+    if (classVal) validMaterials = validMaterials.filter(m => m.class_level === classVal);
+
+    let standardSubjects = [];
+    if (classVal === 'Class 9' || classVal === 'Class 10') {
+        standardSubjects = ['English Language', 'English Literature', 'Mathematics', 'Science (Physics)', 'Science (Chemistry)', 'Science (Biology)', 'Hindi', 'History & Civics', 'Geography', 'Computer Science'];
+    } else if (classVal === 'Class 11' || classVal === 'Class 12') {
+        standardSubjects = ['English Language', 'English Literature', 'Hindi', 'Physics', 'Chemistry', 'Mathematics', 'Biology', 'Computer Science', 'Accounts', 'Business Studies', 'Economics', 'History'];
+    } else {
+        standardSubjects = ['English Language', 'English Literature', 'Mathematics', 'Science (Physics)', 'Science (Chemistry)', 'Science (Biology)', 'Hindi', 'History & Civics', 'Geography', 'Computer Science', 'Physics', 'Chemistry', 'Biology', 'Accounts', 'Business Studies', 'Economics', 'History'];
+    }
+
+    const currentSub = subjectSelect.value;
+    const dbSubjects = validMaterials.map(m => m.subject).filter(Boolean);
+    const subjects = [...new Set([...standardSubjects, ...dbSubjects])].sort();
+    
+    subjectSelect.innerHTML = '<option value="">All Subjects</option>';
+    subjects.forEach(s => {
+        subjectSelect.innerHTML += `<option value="${s}">${s}</option>`;
+    });
+    if (subjects.includes(currentSub)) subjectSelect.value = currentSub;
+
+    if (subjectSelect.value) {
+        validMaterials = validMaterials.filter(m => m.subject === subjectSelect.value);
+    }
+    
+    const currentChap = chapterSelect.value;
+    const chapters = [...new Set(validMaterials.map(m => m.chapter).filter(Boolean))].sort();
+    chapterSelect.innerHTML = '<option value="">All Chapters</option>';
+    chapters.forEach(c => {
+        chapterSelect.innerHTML += `<option value="${c}">${c}</option>`;
+    });
+    if (chapters.includes(currentChap)) chapterSelect.value = currentChap;
+
+    if (chapterSelect.value) {
+        validMaterials = validMaterials.filter(m => m.chapter === chapterSelect.value);
+    }
+    
+    const currentSubchap = subchapterSelect.value;
+    const subchapters = [...new Set(validMaterials.map(m => m.subchapter).filter(Boolean))].sort();
+    subchapterSelect.innerHTML = '<option value="">All Subchapters</option>';
+    subchapters.forEach(sc => {
+        subchapterSelect.innerHTML += `<option value="${sc}">${sc}</option>`;
+    });
+    if (subchapters.includes(currentSubchap)) subchapterSelect.value = currentSubchap;
+}
+
+function applyDynamicFilter(pagePrefix, containerId) {
+    const classVal = document.getElementById(`${pagePrefix}-filter-class`).value;
+    const subjectVal = document.getElementById(`${pagePrefix}-filter-subject`).value;
+    const chapterVal = document.getElementById(`${pagePrefix}-filter-chapter`).value;
+    const subchapterVal = document.getElementById(`${pagePrefix}-filter-subchapter`).value;
+    const container = document.getElementById(containerId);
+
+    if(pagePrefix === 'sol') showSkeletons(containerId);
+
+    setTimeout(() => {
+        let filtered = allStudyMaterials;
+        
+        // 🌟 STRICT EXCLUSION: Textbook Solutions ONLY on Solutions Page!
+        if(pagePrefix === 'sol') {
+            filtered = filtered.filter(m => m.content_type === 'Textbook Solutions');
+        } else if(pagePrefix === 'qa') {
+            filtered = filtered.filter(m => m.content_type !== 'Textbook Solutions');
+        }
+
+        if (classVal) filtered = filtered.filter(m => m.class_level === classVal);
+        if (subjectVal) filtered = filtered.filter(m => m.subject === subjectVal);
+        if (chapterVal) filtered = filtered.filter(m => m.chapter === chapterVal);
+        if (subchapterVal) filtered = filtered.filter(m => m.subchapter === subchapterVal);
+
+        if (filtered.length === 0) {
+            container.innerHTML = `
+                <div style="text-align: center; padding: 40px;">
+                    <p style="color: #64748b; font-size: 15px; font-weight: 600;">No materials found.</p>
+                </div>`;
+            return;
+        }
+
+        container.innerHTML = '';
+        
+        const splitFiltered = splitContentIntoBlocks(filtered);
+        
+        splitFiltered.forEach(item => { 
+            container.innerHTML += generateCardHTML(item); 
+        });
+        
+        if (window.lucide) { lucide.createIcons(); }
+        renderMath(); 
+    }, pagePrefix === 'sol' ? 500 : 0);
+}
+
+function showSkeletons(containerId) {
+    const container = document.getElementById(containerId);
+    if (!container) return;
+    container.innerHTML = '';
+    for (let i = 0; i < 3; i++) {
+        container.innerHTML += `<div class="skeleton-box" style="height: 160px; margin-bottom: 16px; border-radius: 16px; opacity: 0.6;"></div>`;
+    }
+}
+
+function renderStudentMaterials() {
+    function drawCards(container, materials, boardType) {
+        if (materials.length === 0) {
+            container.innerHTML = `<p style="text-align: center; color: #94a3b8; font-size: 15px;">No content added yet for this subject.</p>`;
+            return;
+        }
+        
+        container.innerHTML = '';
+        const topClass = boardType === 'ICSE' ? 'Class 10' : 'Class 12';
+        const bottomClass = boardType === 'ICSE' ? 'Class 9' : 'Class 11';
+
+        const splitMaterials = splitContentIntoBlocks(materials);
+
+        const topMaterials = splitMaterials.filter(item => item.class_level === topClass);
+        const bottomMaterials = splitMaterials.filter(item => item.class_level === bottomClass);
+        const otherMaterials = splitMaterials.filter(item => item.class_level !== topClass && item.class_level !== bottomClass);
+
+        if (topMaterials.length > 0) {
+            container.innerHTML += `<div style="margin-bottom: 16px; display: inline-flex; align-items: center; gap: 8px; background: #fee2e2; color: #991b1b; padding: 8px 16px; border-radius: 12px; font-weight: 800; font-size: 14px;"><i data-lucide="flame" style="width: 18px; height: 18px;"></i> ${topClass} (Board Exams)</div>`;
+            topMaterials.forEach(item => { container.innerHTML += generateCardHTML(item); });
+        }
+        
+        if (bottomMaterials.length > 0) {
+            container.innerHTML += `<div style="margin-top: 24px; margin-bottom: 16px; display: inline-flex; align-items: center; gap: 8px; background: #f1f5f9; color: #475569; padding: 8px 16px; border-radius: 12px; font-weight: 800; font-size: 14px;"><i data-lucide="book" style="width: 18px; height: 18px;"></i> ${bottomClass}</div>`;
+            bottomMaterials.forEach(item => { container.innerHTML += generateCardHTML(item); });
+        }
+        
+        if (otherMaterials.length > 0) {
+            otherMaterials.forEach(item => { container.innerHTML += generateCardHTML(item); });
+        }
+        
+        if (window.lucide) { lucide.createIcons(); }
+    }
+
+    const icseContainer = document.getElementById('icse-materials-container');
+    if (icseContainer && document.getElementById('page-notes').classList.contains('active')) {
+        const title = document.getElementById('dynamic-icse-title').innerText.trim();
+        // 🌟 STRICT EXCLUSION: Blocks Solutions from the regular Notes page
+        drawCards(icseContainer, allStudyMaterials.filter(item => item.board === 'ICSE' && item.subject === title && item.content_type !== 'Textbook Solutions'), 'ICSE');
+    }
+
+    const iscContainer = document.getElementById('isc-materials-container');
+    if (iscContainer && document.getElementById('page-notes-isc').classList.contains('active')) {
+        const title = document.getElementById('dynamic-isc-title').innerText.trim();
+        // 🌟 STRICT EXCLUSION: Blocks Solutions from the regular Notes page
+        drawCards(iscContainer, allStudyMaterials.filter(item => item.board === 'ISC' && item.subject === title && item.content_type !== 'Textbook Solutions'), 'ISC');
+    }
+
+    renderMath(); 
+}
+
+// ==========================================
+// 7. AI CHAT LOGIC
+// ==========================================
+async function handleAICamera(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    if (file.size > 4 * 1024 * 1024) {
+        alert("File is too large! Please select a file smaller than 4MB.");
+        return;
+    }
+
+    const chatBox = document.getElementById('chat-box');
+    let fileIcon = file.type.includes('pdf') ? '📄' : (file.type.includes('text') ? '📝' : '📷');
+    
+    chatBox.innerHTML += `
+        <div style="align-self: flex-start; background: #f1f5f9; padding: 10px 14px; border-radius: 12px; font-size: 12px; color: #64748b;">
+            ${fileIcon} Analyzing ${file.name}...
+        </div>`;
+    chatBox.scrollTop = chatBox.scrollHeight;
+
+    const reader = new FileReader();
+    reader.onload = async function(e) {
+        const base64Data = e.target.result.split(',')[1];
+        await sendAIMessage(base64Data, file.type);
+    };
+    reader.readAsDataURL(file);
+}
+
+async function sendAIMessage(fileData = null, mimeType = null) {
+    const inputField = document.getElementById('ai-input');
+    const chatBox = document.getElementById('chat-box');
+    const userText = inputField ? inputField.value.trim() : '';
+
+    if (!userText && !fileData) return;
+
+    if (!fileData) {
+        chatBox.innerHTML += `
+            <div style="align-self: flex-end; background: #9333ea; color: white; padding: 14px 18px; border-radius: 20px; border-bottom-right-radius: 4px; max-width: 85%; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                <p style="margin: 0; font-size: 14px; line-height: 1.5;">${userText}</p>
+            </div>`;
+        inputField.value = '';
+    }
+
+    const typingId = "typing-" + Date.now();
+    chatBox.innerHTML += `
+        <div id="${typingId}" style="align-self: flex-start; background: #ffffff; border: 1px solid #e2e8f0; padding: 14px 18px; border-radius: 20px; border-bottom-left-radius: 4px; max-width: 85%;">
+            <p style="margin: 0; font-size: 14px; color: #94a3b8;">AI is processing...</p>
+        </div>`;
+    chatBox.scrollTop = chatBox.scrollHeight;
+
+    try {
+        const payload = fileData 
+            ? { fileData: fileData, mimeType: mimeType, prompt: userText || "Please read this file and explain it simply." } 
+            : { prompt: userText };
+
+        const response = await fetch('/api/gemini', { 
+            method: 'POST', 
+            headers: { 'Content-Type': 'application/json' }, 
+            body: JSON.stringify(payload) 
+        });
+
+        if (!response.ok) throw new Error("Backend connection failed");
+
+        const data = await response.json();
+        let aiReply = data.candidates[0].content.parts[0].text;
+        document.getElementById(typingId)?.remove();
+
+        aiReply = aiReply.replace(/\\\\times|\\times/g, ' × ');
+        aiReply = aiReply.replace(/\\\\div|\\div/g, ' ÷ ');
+        aiReply = aiReply.replace(/\\\\rightarrow|\\rightarrow/g, ' → ');
+        aiReply = aiReply.replace(/\\\\text{([^}]+)}|\\text{([^}]+)}/g, '$1$2');
+        aiReply = aiReply.replace(/([a-zA-Z])_([0-9a-zA-Z]+)/g, '$1<sub>$2</sub>');
+        aiReply = aiReply.replace(/([a-zA-Z0-9])\^([0-9a-zA-Z]+)/g, '$1<sup>$2</sup>');
+        aiReply = aiReply.replace(/\*\*(.*?)\*\*/g, '<strong style="color: #0f172a; font-weight: 900;">$1</strong>');
+        
+        chatBox.innerHTML += `
+            <div style="align-self: flex-start; background: #ffffff; border: 1px solid #e2e8f0; padding: 14px 18px; border-radius: 20px; border-bottom-left-radius: 4px; max-width: 85%; box-shadow: 0 2px 4px rgba(0,0,0,0.02);">
+                <p style="margin: 0; font-size: 14px; color: #334155; line-height: 1.5; white-space: pre-wrap;">${aiReply}</p>
+            </div>`;
+        chatBox.scrollTop = chatBox.scrollHeight;
+        renderMath(); 
+    } catch (error) {
+        console.error("AI Error:", error);
+        const typingBubble = document.getElementById(typingId);
+        if (typingBubble) {
+            typingBubble.innerHTML = `<p style="margin: 0; font-size: 14px; color: #ef4444;">Sorry, connection failed! Make sure Vercel backend is updated.</p>`;
+        }
+    }
+}
+
+// ==========================================
+// 8. THE BACKPACK ENGINE
+// ==========================================
+function toggleBookmark(itemId) {
+    const id = String(itemId);
+    const exists = myBackpack.some(savedId => String(savedId) === id);
+    
+    if (exists) { 
+        myBackpack = myBackpack.filter(savedId => String(savedId) !== id); 
+    } else { 
+        myBackpack.push(id); 
+    }
+    
+    localStorage.setItem('studyBackpack', JSON.stringify(myBackpack));
+    renderStudentMaterials();
+    if (currentPage === 'backpack') renderBackpack();
+}
+
+function renderBackpack() {
+    const container = document.getElementById('backpack-materials-container');
+    if (!container) return;
+
+    if (myBackpack.length === 0) {
+        container.innerHTML = `
+            <div style="text-align: center; padding: 40px; color: #94a3b8; border: 1px dashed #cbd5e1; border-radius: 20px;">
+                Your backpack is empty.
+            </div>`;
+        return;
+    }
+
+    const savedItems = allStudyMaterials.filter(item => myBackpack.some(savedId => String(savedId) === String(item.id)));
+    container.innerHTML = '';
+    
+    const splitSavedItems = splitContentIntoBlocks(savedItems);
+
+    splitSavedItems.forEach(item => { 
+        container.innerHTML += generateCardHTML(item); 
+    });
+    
+    if (window.lucide) { lucide.createIcons(); }
+    renderMath(); 
+}
+    </script>
+
+</body>
+</html>
