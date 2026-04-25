@@ -127,7 +127,9 @@
                     </div>
                 </div>
             </section>
-
+            <div class="max-w-6xl mx-auto px-4 py-4">
+                <div class="dynamic-ad-slot" data-slot="slot-home" style="background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; height: 90px; display: flex; align-items: center; justify-content: center; margin-bottom: 24px;"><span style="color: #94a3b8; font-size: 10px; letter-spacing: 1px; text-transform: uppercase;">Advertisement</span></div>
+            </div>
             <section class="py-14 bg-white">
                 <div class="max-w-6xl mx-auto px-4">
                     <h2 class="font-heading font-bold text-2xl text-center text-dark mb-10">Popular Study Materials</h2>
@@ -559,6 +561,7 @@
                 </div>
             </div>
         </main>
+        
         <main id="page-terms" style="display: none; background-color: #ffffff; padding: 24px 20px 60px 20px;">
             <div style="max-width: 800px; margin: 0 auto;">
                 <h2 style="color: #0f172a; font-size: 28px; font-weight: 900; margin-bottom: 24px;">Terms &amp; Conditions</h2>
@@ -567,6 +570,7 @@
                 </div>
             </div>
         </main>
+        
         <main id="page-disclaimer" style="display: none; background-color: #ffffff; padding: 24px 20px 60px 20px;">
             <div style="max-width: 800px; margin: 0 auto;">
                 <h2 style="color: #0f172a; font-size: 28px; font-weight: 900; margin-bottom: 24px;">Disclaimer</h2>
@@ -637,7 +641,7 @@ try {
 } catch (error) { console.error("Supabase error:", error); }
 
 // ==========================================
-// 2. WAKE UP THE WEBSITE (FIXED TIMING)
+// 2. WAKE UP THE WEBSITE
 // ==========================================
 function initApp() {
     navigateTo('home'); 
@@ -706,7 +710,6 @@ const generateCardHTML = (item) => {
     formattedText = formattedText.replace(/\*\*([\s\S]*?)\*\*/g, '<strong style="color: #0f172a; font-weight: 900;">$1</strong>');
     formattedText = formattedText.replace(/\*\*/g, '');
     
-    // 🌟 AUTO-BOLDER for missed questions
     formattedText = formattedText.replace(/(^|\n|\s*)((?:Q\.?|Question|Ques)\s*\d+[\s\S]*?)(?=\n\s*Ans\.?|\n\s*Answer\.?|$)/i, function(match, p1, p2) {
         if (p2.includes('<strong')) return match; 
         return `${p1}<strong style="color: #0f172a; font-weight: 900;">${p2.trim()}</strong>`;
@@ -797,20 +800,15 @@ async function logoutAdmin() {
     alert("Logged out successfully."); navigateTo('home');
 }
 
-// 🌟 MULTI-IMAGE AD UPLOAD LOGIC
 async function handleAdUpload(event) {
     event.preventDefault();
     if (!supabaseClient) return alert("System unavailable.");
     
     const slot = document.getElementById('ad-slot-select').value;
     const link = document.getElementById('ad-link-input').value;
-    
-    // Grab URLs
     const url1 = document.getElementById('ad-img-1').value.trim();
     const url2 = document.getElementById('ad-img-2').value.trim();
     const url3 = document.getElementById('ad-img-3').value.trim();
-    
-    // Grab Files
     const files = document.getElementById('ad-file-upload').files;
     
     let uploadedUrls = [];
@@ -824,10 +822,8 @@ async function handleAdUpload(event) {
     btn.innerText = "Saving Ad... ⏳"; btn.disabled = true;
 
     try {
-        // Remove old ad
-        await supabaseClient.from('study_materials').delete().eq('content_type', 'Ad Banner').eq('chapter', slot);
+        await supabaseClient.from('study_materials').delete().eq('subject', 'SYSTEM_AD').eq('chapter', slot);
 
-        // Upload any new files (Max 3)
         for(let i = 0; i < Math.min(files.length, 3); i++) {
             const file = files[i];
             const safeFileName = `ad-${Date.now()}-${i}.${file.name.split('.').pop()}`;
@@ -835,17 +831,21 @@ async function handleAdUpload(event) {
             if (uploadError) throw uploadError;
             uploadedUrls.push(supabaseClient.storage.from('study-materials').getPublicUrl(safeFileName).data.publicUrl);
         }
-
-        // Limit to max 3 images total
         uploadedUrls = uploadedUrls.slice(0, 3);
 
-        // 🌟 BYPASS RLS: Disguise as normal data!
         const uploadData = {
-            board: 'ICSE', subject: 'Ad Banner', class_level: 'Class 10',
-            chapter: slot, content_type: 'Ad Banner', content_text: link, file_url: uploadedUrls.join(',')
+            board: 'ICSE', 
+            subject: 'SYSTEM_AD', 
+            class_level: 'Class 10',
+            chapter: slot, 
+            content_type: 'Text Notes', 
+            content_text: link, 
+            file_url: uploadedUrls.join(',')
         };
         
-        await supabaseClient.from('study_materials').insert([uploadData]);
+        const { error: insertError } = await supabaseClient.from('study_materials').insert([uploadData]);
+        if(insertError) throw insertError;
+        
         alert("Ad Banner successfully saved!");
         event.target.reset();
         document.getElementById('ad-file-name-display').innerText = 'Click to select files (Max 3)';
@@ -854,10 +854,8 @@ async function handleAdUpload(event) {
     finally { btn.innerText = "Save Ad Banner"; btn.disabled = false; }
 }
 
-// 🌟 MULTI-IMAGE AD RENDERER
 function renderAds() {
     const defaultAdHtml = `<span style="color: #94a3b8; font-size: 10px; letter-spacing: 1px; text-transform: uppercase;">Advertisement</span>`;
-    
     document.querySelectorAll('.dynamic-ad-slot').forEach(el => {
         const slotName = el.getAttribute('data-slot');
         const adData = allAdBanners.find(m => m.chapter === slotName);
@@ -865,7 +863,6 @@ function renderAds() {
         if (adData && adData.file_url) {
             const urls = adData.file_url.split(',');
             const imagesHtml = urls.map(u => `<img src="${u}">`).join('');
-            
             el.innerHTML = `<a href="${adData.content_text}" target="_blank" class="ad-image-container">${imagesHtml}</a>`;
             el.style.padding = "0";
             el.style.border = "none";
@@ -1032,8 +1029,8 @@ async function fetchAndDisplayMaterials() {
         const { data, error } = await supabaseClient.from('study_materials').select('*').order('created_at', { ascending: false });
         if (error) throw error;
         
-        allAdBanners = data.filter(m => m.content_type === 'Ad Banner');
-        allStudyMaterials = data.filter(m => m.content_type !== 'Ad Banner');
+        allAdBanners = data.filter(m => m.subject === 'SYSTEM_AD');
+        allStudyMaterials = data.filter(m => m.subject !== 'SYSTEM_AD');
         
         renderAds(); 
         renderAdminMaterials(); 
