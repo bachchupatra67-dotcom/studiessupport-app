@@ -21,7 +21,9 @@
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>
-      window.MathJax = { tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] } };
+      window.MathJax = {
+        tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] }
+      };
     </script>
 
     <style>
@@ -486,7 +488,11 @@
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; flex-wrap: wrap; gap: 12px;">
                         <h3 style="color: #0f172a; font-size: 18px; font-weight: 800; margin: 0;">All Study Materials</h3>
                         
-                        <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                        <div style="display: flex; gap: 8px; flex-wrap: wrap; align-items: center;">
+                            <button id="bulk-delete-btn" onclick="deleteSelectedMaterials()" style="display: none; background: #ef4444; color: white; padding: 8px 12px; border-radius: 8px; border: none; font-size: 13px; font-weight: 700; cursor: pointer; align-items: center; gap: 6px; box-shadow: 0 2px 4px rgba(239,68,68,0.2);">
+                                <i data-lucide="trash-2" style="width: 14px; height: 14px;"></i> Delete Selected
+                            </button>
+
                             <select id="admin-filter-class" onchange="renderAdminMaterials()" style="padding: 8px 12px; border-radius: 8px; border: 1px solid #cbd5e1; font-size: 13px; outline: none; background: white;">
                                 <option value="">All Classes</option>
                                 <option value="Class 9">Class 9</option><option value="Class 10">Class 10</option>
@@ -510,10 +516,6 @@
                 <h2 style="color: #0f172a; font-size: 28px; font-weight: 900; margin-bottom: 24px;">Privacy Policy</h2>
                 <div style="background-color: #ffffff; border: 1px solid #f1f5f9; border-radius: 24px; padding: 32px 24px; box-shadow: 0 10px 40px rgba(0,0,0,0.03);">
                     <p style="color: #64748b; font-size: 14px; line-height: 1.7; margin-bottom: 24px;">At StudiesSupport, we respect your privacy. This policy explains how we handle your information.</p>
-                    <h3 style="color: #334155; font-size: 16px; font-weight: 800; margin-bottom: 12px;">Information We Collect</h3>
-                    <p style="color: #64748b; font-size: 14px; line-height: 1.7; margin-bottom: 24px;">We do not collect any personal data without your explicit permission. If you contact us, we may store your name and email only to respond to your inquiry.</p>
-                    <h3 style="color: #334155; font-size: 16px; font-weight: 800; margin-bottom: 12px;">Cookies & Google AdSense</h3>
-                    <p style="color: #64748b; font-size: 14px; line-height: 1.7; margin-bottom: 24px;">We use cookies to improve your browsing experience. We also use Google AdSense to display ads. Google may use cookies and tracking technologies to serve ads based on your interests. You can manage ad preferences through your Google account settings.</p>
                 </div>
             </div>
         </main>
@@ -523,10 +525,6 @@
                 <h2 style="color: #0f172a; font-size: 28px; font-weight: 900; margin-bottom: 24px;">Terms &amp; Conditions</h2>
                 <div style="background-color: #ffffff; border: 1px solid #f1f5f9; border-radius: 24px; padding: 32px 24px; box-shadow: 0 10px 40px rgba(0,0,0,0.03);">
                     <p style="color: #64748b; font-size: 14px; line-height: 1.7; margin-bottom: 24px;">By using StudiesSupport, you agree to the following terms.</p>
-                    <h3 style="color: #334155; font-size: 16px; font-weight: 800; margin-bottom: 12px;">Educational Purpose</h3>
-                    <p style="color: #64748b; font-size: 14px; line-height: 1.7; margin-bottom: 24px;">All content on this website is provided for educational purposes only. It is intended to help ICSE and ISC students prepare for their exams.</p>
-                    <h3 style="color: #334155; font-size: 16px; font-weight: 800; margin-bottom: 12px;">No Copying</h3>
-                    <p style="color: #64748b; font-size: 14px; line-height: 1.7; margin-bottom: 24px;">You may not copy, reproduce, or redistribute our content without written permission. Sharing links to our website is encouraged.</p>
                 </div>
             </div>
         </main>
@@ -535,12 +533,7 @@
             <div style="max-width: 800px; margin: 0 auto;">
                 <h2 style="color: #0f172a; font-size: 28px; font-weight: 900; margin-bottom: 24px;">Disclaimer</h2>
                 <div style="background-color: #ffffff; border: 1px solid #f1f5f9; border-radius: 24px; padding: 32px 24px; box-shadow: 0 10px 40px rgba(0,0,0,0.03);">
-                    <h3 style="color: #334155; font-size: 16px; font-weight: 800; margin-bottom: 12px;">Not Board Recognized</h3>
-                    <p style="color: #64748b; font-size: 14px; line-height: 1.7; margin-bottom: 24px;">StudiesSupport is an independent platform and is <strong>not recognized by or affiliated with the CISCE board</strong>. All content is created for supplementary educational purposes only.</p>
-                    <h3 style="color: #334155; font-size: 16px; font-weight: 800; margin-bottom: 12px;">Do Not Trust Blindly</h3>
-                    <p style="color: #64748b; font-size: 14px; line-height: 1.7; margin-bottom: 24px;">While we put immense effort into providing accurate notes and textbook solutions, students should not blindly trust this website. Please cross-verify all critical information, answers, and syllabus details with your official school textbooks and teachers.</p>
-                    <h3 style="color: #334155; font-size: 16px; font-weight: 800; margin-bottom: 12px;">Use at Your Own Risk</h3>
-                    <p style="color: #64748b; font-size: 14px; line-height: 1.7; margin-bottom: 24px;">You use the materials on this website at your own discretion and risk. StudiesSupport is not responsible for any outcomes related to the use of our content, including exam results.</p>
+                    <p style="color: #64748b; font-size: 14px; line-height: 1.7; margin-bottom: 24px;">StudiesSupport is an independent platform and is <strong>not recognized by or affiliated with the CISCE board</strong>.</p>
                 </div>
             </div>
         </main>
@@ -584,20 +577,10 @@
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"></rect><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path></svg>
                         bachchupatra67@gmail.com
                     </span>
-                    <span style="display: flex; align-items: center; gap: 8px;">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#ec4899" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
-                        @studiessupport2026
-                    </span>
                     <a href="https://t.me/studiessupport2026" style="display: flex; align-items: center; gap: 8px; text-decoration: none; color: #60a5fa; font-weight: 600;">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#60a5fa" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m22 2-7 20-4-9-9-4Z"></path><path d="M22 2 11 13"></path></svg>
                         @studiessupport2026
                     </a>
-                </div>
-                <div style="border-top: 1px solid #1e293b; padding-top: 24px; text-align: center; font-size: 12px; color: #64748b;">
-                    © 2025 StudiesSupport. All rights reserved. Built for ICSE & ISC students.
-                    <p style="font-size: 9px; color: #334155; text-align: center; margin-top: 16px; line-height: 1.4;">
-                        Disclaimer: This website is an independent platform and is not recognized by or affiliated with the CISCE board. While every effort is made to provide correct details, students should not blindly trust the notes or textbook solutions provided. Always verify critical information with official school textbooks and teachers. Use at your own risk.
-                    </p>
                 </div>
             </div>
         </footer>
@@ -616,9 +599,13 @@ function splitContentIntoBlocks(materials) {
         // Look for the invisible tag!
         if (rawText.includes('[SPLIT_ENABLED]')) {
             rawText = rawText.replace(/\[SPLIT_ENABLED\]/g, '').trim();
-            let blocks = rawText.split(/(?=(?:\*\*|__|\s)*(?:Q\.?|Question|Ques)\s*\d+)/i).filter(t => t.trim() !== "");
+            // 🌟 BLANK SPLIT PREVENTER: Splits it, trims it, and instantly deletes tiny accidental blank lines (< 3 characters)
+            let blocks = rawText.split(/(?=(?:\*\*|__|\s)*(?:Q\.?|Question|Ques)\s*\d+)/i)
+                                .map(t => t.trim())
+                                .filter(t => t.length > 3); 
+                                
             if (blocks.length === 0) blocks = [rawText]; 
-            blocks.forEach(b => { splitMaterials.push({ ...m, content_text: b.trim() }); });
+            blocks.forEach(b => { splitMaterials.push({ ...m, content_text: b }); });
         } else {
             splitMaterials.push({ ...m, content_text: rawText.replace(/\[SPLIT_ENABLED\]/g, '') });
         }
@@ -644,7 +631,6 @@ const generateCardHTML = (item) => {
 
     let formattedText = item.content_text || '';
     
-    // 🌟 ROBUST MATH AUTO-CORRECTOR 
     formattedText = formattedText.replace(/\\\\times|\\times/g, ' × ');
     formattedText = formattedText.replace(/\\\\div|\\div/g, ' ÷ ');
     formattedText = formattedText.replace(/\\\\rightarrow|\\rightarrow/g, ' → ');
@@ -747,21 +733,11 @@ try {
 function initApp() {
     navigateTo('home'); 
     applyLogo(localStorage.getItem('customSiteLogo')); 
-    
-    // 🌟 FIXED WAKE-UP SEQUENCE: Won't crash menu if database is blocked!
-    try {
-        fetchAndDisplayMaterials();
-    } catch(e) {}
-    
-    if (window.lucide) { lucide.createIcons(); }
+    fetchAndDisplayMaterials().finally(() => {
+        if (window.lucide) { lucide.createIcons(); }
+    });
 }
-
-// 🌟 QUICK-START TRIGGER: Doesn't wait for Google Ads to load!
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initApp);
-} else {
-    initApp();
-}
+window.addEventListener('load', initApp);
 
 // ==========================================
 // 4. ADMIN PANEL LOGIC
@@ -842,7 +818,6 @@ async function handleMaterialUpload(event) {
             finalFileUrl = supabaseClient.storage.from('study-materials').getPublicUrl(safeFileName).data.publicUrl;
         }
 
-        // 🌟 INJECT INVISIBLE SPLIT TAG INTO DATABASE IF CHECKED
         if (enableSplit && !textContent.includes('[SPLIT_ENABLED]')) {
             textContent += '\n[SPLIT_ENABLED]';
         } else if (!enableSplit) {
@@ -877,8 +852,51 @@ function handleLogoUpload(event) {
 function applyLogo(logoUrl) { if (logoUrl) document.querySelectorAll('.site-logo').forEach(img => { img.src = logoUrl; img.style.display = 'block'; }); }
 
 async function deleteMaterial(id) {
-    if (!confirm("Delete this?")) return;
-    await supabaseClient.from('study_materials').delete().eq('id', id); fetchAndDisplayMaterials(); 
+    if (!confirm("Are you sure you want to delete this single item?")) return;
+    await supabaseClient.from('study_materials').delete().eq('id', id); 
+    fetchAndDisplayMaterials(); 
+}
+
+// 🌟 NEW: THE BULK DELETE FUNCTION!
+async function deleteSelectedMaterials() {
+    const checkboxes = document.querySelectorAll('.admin-item-checkbox:checked');
+    const idsToDelete = Array.from(checkboxes).map(cb => cb.value);
+    
+    if (idsToDelete.length === 0) {
+        alert("Please select at least one item to delete.");
+        return;
+    }
+
+    if (!confirm(`Are you sure you want to delete ${idsToDelete.length} item(s)? This cannot be undone.`)) {
+        return;
+    }
+
+    const btn = document.getElementById('bulk-delete-btn');
+    const oldText = btn.innerHTML;
+    btn.innerHTML = `<i data-lucide="trash-2" style="width: 14px; height: 14px;"></i> Deleting...`;
+    btn.disabled = true;
+
+    try {
+        const { error } = await supabaseClient.from('study_materials').delete().in('id', idsToDelete);
+        if (error) throw error;
+        alert(`Successfully deleted ${idsToDelete.length} items!`);
+        fetchAndDisplayMaterials();
+    } catch (error) {
+        alert("Failed to delete: " + error.message);
+    } finally {
+        btn.innerHTML = oldText;
+        btn.disabled = false;
+        btn.style.display = 'none'; // Hide it again
+        if (window.lucide) lucide.createIcons();
+    }
+}
+
+function toggleBulkDeleteBtn() {
+    const checkboxes = document.querySelectorAll('.admin-item-checkbox:checked');
+    const btn = document.getElementById('bulk-delete-btn');
+    if(btn) {
+        btn.style.display = checkboxes.length > 0 ? 'flex' : 'none';
+    }
 }
 
 function editMaterial(id) {
@@ -935,6 +953,9 @@ function renderAdminMaterials() {
     let filtered = allStudyMaterials;
     if (classFilter) filtered = filtered.filter(m => m.class_level === classFilter);
     if (subFilter) filtered = filtered.filter(m => m.subject === subFilter);
+    
+    const btn = document.getElementById('bulk-delete-btn');
+    if (btn) btn.style.display = 'none'; // reset button
 
     if (filtered.length === 0) {
         container.innerHTML = `<p style="text-align: center; margin:40px 0; color: #64748b;">No materials found.</p>`;
@@ -943,17 +964,22 @@ function renderAdminMaterials() {
 
     container.innerHTML = filtered.map(item => {
         let isSplit = (item.content_text || '').includes('[SPLIT_ENABLED]');
-        let splitBadge = isSplit ? `<span style="background: #dcfce7; color: #166534; padding: 2px 8px; border-radius: 6px; font-size: 10px; font-weight: 800; margin-left: 8px;">Auto-Split ON</span>` : '';
+        let splitBadge = isSplit ? `<span style="background: #dcfce7; color: #166534; padding: 2px 8px; border-radius: 6px; font-size: 10px; font-weight: 800; margin-left: 8px; display: inline-block;">Auto-Split ON</span>` : '';
         
         return `
-        <div style="background: white; border: 1px solid #e2e8f0; border-radius: 16px; padding: 16px; margin-bottom: 12px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px;">
+        <div style="background: white; border: 1px solid #e2e8f0; border-radius: 16px; padding: 16px; margin-bottom: 12px; display: flex; align-items: flex-start; gap: 12px;">
+            <input type="checkbox" class="admin-item-checkbox" value="${item.id}" onchange="toggleBulkDeleteBtn()" style="width: 20px; height: 20px; margin-top: 4px; accent-color: #ef4444; cursor: pointer;">
+            
             <div style="flex: 1;">
-                <h4 style="font-size: 15px; font-weight: 700; margin: 0; color: #0f172a;">${item.chapter} ${item.subchapter ? `(${item.subchapter})` : ''} ${splitBadge}</h4>
+                <h4 style="font-size: 15px; font-weight: 700; margin: 0; color: #0f172a; display: flex; align-items: center; flex-wrap: wrap;">
+                    ${item.chapter} ${item.subchapter ? `(${item.subchapter})` : ''} ${splitBadge}
+                </h4>
                 <p style="font-size: 12px; color: #64748b; margin: 4px 0;">${item.class_level} • ${item.subject} • ${item.content_type}</p>
             </div>
-            <div style="display:flex; align-items: flex-start;">
-                <button onclick="deleteMaterial(${item.id})" style="background:#fef2f2; color:red; border:1px solid #fecaca; padding:6px 12px; border-radius:8px; font-weight:700; margin-right:8px; cursor: pointer;">Delete</button>
-                <button onclick="editMaterial(${item.id})" style="background:#fff7ed; color:#ea580c; border:1px solid #fed7aa; padding:6px 12px; border-radius:8px; font-weight:700; cursor: pointer;">Edit</button>
+            
+            <div style="display:flex; align-items: flex-start; flex-direction: column; gap: 8px;">
+                <button onclick="editMaterial(${item.id})" style="background:#fff7ed; color:#ea580c; border:1px solid #fed7aa; padding:6px 12px; border-radius:8px; font-weight:700; cursor: pointer; width: 100%;">Edit</button>
+                <button onclick="deleteMaterial(${item.id})" style="background:#fef2f2; color:red; border:1px solid #fecaca; padding:6px 12px; border-radius:8px; font-weight:700; cursor: pointer; width: 100%;">Delete</button>
             </div>
         </div>`;
     }).join('');
@@ -1296,6 +1322,7 @@ function applyDynamicFilter(pagePrefix, containerId) {
 
         container.innerHTML = '';
         
+        // Split them on the fly!
         const splitFiltered = splitContentIntoBlocks(filtered);
         
         splitFiltered.forEach(item => { 
@@ -1327,6 +1354,7 @@ function renderStudentMaterials() {
         const topClass = boardType === 'ICSE' ? 'Class 10' : 'Class 12';
         const bottomClass = boardType === 'ICSE' ? 'Class 9' : 'Class 11';
 
+        // Split them on the fly!
         const splitMaterials = splitContentIntoBlocks(materials);
 
         const topMaterials = splitMaterials.filter(item => item.class_level === topClass);
