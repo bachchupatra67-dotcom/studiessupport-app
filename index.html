@@ -1,38 +1,1671 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="en" class="h-full">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Latest Newspaper | India Edition</title>
+    
+    <title>StudiesSupport – ICSE & ISC Study Made Simple | Free Notes & Solutions</title>
+    <meta name="description" content="Free ICSE and ISC study materials, chapter-wise notes, textbook solutions, important questions, and quick revision PDFs for Class 9, 10, 11, and 12 students.">
+    <meta name="keywords" content="ICSE, ISC, Class 10, Class 12, board exams, study materials, physics notes, math solutions, textbook solutions, important questions, free study app, StudiesSupport">
+    <meta name="robots" content="index, follow">
+    <meta name="author" content="StudiesSupport">
+    
+    <meta property="og:title" content="StudiesSupport – Premium ICSE & ISC Materials">
+    <meta property="og:description" content="Ace your board exams with our free notes, textbook solutions, and revision PDFs.">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="StudiesSupport">
+
+    <meta name="google-adsense-account" content="ca-pub-9469645405774202">
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-E42K6E1ZG9"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-E42K6E1ZG9');
+    </script>
+
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9469645405774202" crossorigin="anonymous"></script>
+
     <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://unpkg.com/lucide@latest"></script>
+
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>
+      window.MathJax = { tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] } };
+    </script>
+
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@900&family=Source+Serif+4:wght@400;700&display=swap');
-        body { font-family: 'Source Serif 4', serif; }
-        .newspaper-title { font-family: 'Playfair Display', serif; }
+        #login-modal.hidden { display: none !important; }
+        button:focus, select:focus, input:focus, textarea:focus { outline: 2px solid #2563eb !important; outline-offset: 2px; }
+        @keyframes shimmer { 0% { background-position: -1000px 0; } 100% { background-position: 1000px 0; } }
+        .skeleton-box { background: #f1f5f9; background-image: linear-gradient(90deg, #f1f5f9 0px, #e2e8f0 40px, #f1f5f9 80px); background-size: 1000px 100%; animation: shimmer 2s infinite linear; border-radius: 16px; width: 100%; }
+        @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
+        .sol-radio-container { display: flex; align-items: center; gap: 12px; padding: 16px 20px; cursor: pointer; transition: background 0.2s; }
+        .sol-radio-container:hover { background: #f8fafc; }
+        .sol-radio-input { width: 18px; height: 18px; accent-color: #0f8368; cursor: pointer; }
+        .dynamic-ad-slot { transition: all 0.3s ease; overflow: hidden; }
+        .ad-image-container { display: flex; width: 100%; height: 100%; }
+        .ad-image-container img { flex: 1; height: 100%; object-fit: cover; }
     </style>
 </head>
-<body class="bg-[#fcfaf5] text-stone-900">
-    <div class="bg-red-700 text-white py-2 overflow-hidden whitespace-nowrap border-b border-black">
-        <div class="inline-block animate-marquee uppercase font-bold text-sm tracking-widest">
-            Breaking: Live Updates from across Bharat • Digital India Initiative expands • Sensex reaches new highs • 
+
+<body class="h-full bg-white text-slate-800 overflow-auto">
+    
+    <div id="login-modal" class="modal-overlay hidden" style="position: fixed; inset: 0; background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(4px); z-index: 10000; display: flex; align-items: center; justify-content: center; padding: 20px;">
+        <div style="background: white; width: 100%; max-width: 400px; border-radius: 24px; overflow: hidden; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25); position: relative;">
+            <button onclick="closeLoginModal()" aria-label="Close Login Modal" style="position: absolute; top: 16px; right: 16px; background: #f1f5f9; border: none; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; color: #64748b;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></button>
+            <div style="padding: 32px 24px;">
+                <h3 style="font-size: 20px; font-weight: 800; color: #0f172a; margin: 0 0 8px 0; text-align: center;">Admin Dashboard</h3>
+                <div style="display: flex; flex-direction: column; gap: 16px;">
+                    <div><label for="admin-email" style="display: block; color: #475569; font-size: 13px; font-weight: 600; margin-bottom: 6px;">Email Address</label><input type="email" id="admin-email" aria-label="Admin Email" placeholder="admin@example.com" style="width: 100%; padding: 14px 16px; border-radius: 12px; border: 1px solid #e2e8f0; background: #f8fafc; font-size: 15px;"></div>
+                    <div><label for="admin-password" style="display: block; color: #475569; font-size: 13px; font-weight: 600; margin-bottom: 6px;">Password</label><input type="password" id="admin-password" aria-label="Admin Password" placeholder="••••••••" style="width: 100%; padding: 14px 16px; border-radius: 12px; border: 1px solid #e2e8f0; background: #f8fafc; font-size: 15px;"></div>
+                    <button onclick="loginAdmin()" style="width: 100%; background: #2563eb; color: white; border: none; padding: 14px; border-radius: 12px; font-size: 15px; font-weight: 700; cursor: pointer; margin-top: 8px;">Login to Dashboard</button>
+                </div>
+            </div>
         </div>
     </div>
 
-    <div class="max-w-6xl mx-auto px-4 py-6">
-        <header class="text-center border-b-4 border-double border-stone-800 pb-4 mb-8">
-            <h1 class="newspaper-title text-6xl md:text-8xl font-black uppercase tracking-tighter">LATEST NEWSPAPER</h1>
-            <div class="flex justify-between mt-4 font-bold text-xs uppercase border-t border-stone-300 pt-2 italic">
-                <span>New Delhi // Mumbai // Bengaluru</span>
-                <span id="current-date"></span>
-                <span>Edition: Digital India</span>
+    <div id="app-wrapper" class="w-full h-full">
+        <header class="bg-white border-b border-slate-100 sticky top-0 z-50" id="navbar" style="position: relative;">
+            <div class="max-w-6xl mx-auto px-4 h-16 flex items-center" style="position: relative; width: 100%;">
+                <button id="universal-back-btn" aria-label="Go Back" onclick="goBack()" style="display: none; margin-right: 12px; color: #0f172a; background-color: #f1f5f9; border: none; padding: 6px 10px; border-radius: 8px; align-items: center; justify-content: center; cursor: pointer; height: 36px; transition: all 0.2s;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg></button>
+                <a href="#" onclick="navigateTo('home'); return false;" style="text-decoration: none; padding-left: 0; display: flex; align-items: center; gap: 8px;">
+                    <img src="" class="site-logo" style="display: none; height: 32px; width: auto; border-radius: 4px;" alt="Logo">
+                    <span style="font-family: 'Inter', system-ui, sans-serif; font-weight: 800; font-size: 21px; color: #0f172a; letter-spacing: -0.5px;" id="nav-title">StudiesSupport</span> 
+                </a>
+                <button id="mobile-menu-btn" aria-label="Open Menu" class="md:hidden p-2 rounded-lg flex items-center justify-center" style="position: absolute !important; right: 16px !important; top: 50% !important; transform: translateY(-50%) !important; background-color: #f8fafc !important; border: 1px solid #e2e8f0 !important; color: #0f172a !important; z-index: 999 !important;" onclick="toggleMobileMenu()">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+                </button>
+            </div>
+            
+            <div id="mobile-menu" class="bg-white shadow-md border-t border-slate-100 absolute w-full left-0" style="display: none; top: 100%; z-index: 40;">
+                <div class="flex flex-col pt-2 pb-6">
+                    <span class="nav-link cursor-pointer py-3 text-slate-600 font-medium text-[15px] block" style="padding-left: 24px; text-align: left;" onclick="navigateTo('home')">Home</span>
+                    <span class="nav-link cursor-pointer py-3 text-slate-600 font-medium text-[15px] block" style="padding-left: 24px; text-align: left;" onclick="navigateTo('about')">About Us</span>
+                    <span class="nav-link cursor-pointer py-3 text-slate-600 font-medium text-[15px] block" style="padding-left: 24px; text-align: left;" onclick="navigateTo('icse')">ICSE (9–10)</span>
+                    <span class="nav-link cursor-pointer py-3 text-slate-600 font-medium text-[15px] block" style="padding-left: 24px; text-align: left;" onclick="navigateTo('isc')">ISC (11–12)</span>
+                    <span class="nav-link cursor-pointer py-3 text-slate-600 font-medium text-[15px] block" style="padding-left: 24px; text-align: left;" onclick="navigateTo('qa')">Notes / Q&amp;A</span>
+                    <span class="nav-link cursor-pointer py-3 text-slate-600 font-medium text-[15px] block" style="padding-left: 24px; text-align: left;" onclick="navigateTo('solutions')">Textbook Solutions</span>
+                    <span class="nav-link cursor-pointer py-3 text-slate-600 font-medium text-[15px] block" style="padding-left: 24px; text-align: left;" onclick="navigateTo('backpack')">My Backpack</span>
+                    <span class="nav-link cursor-pointer py-3 text-slate-600 font-medium text-[15px] block" style="padding-left: 24px; text-align: left;" onclick="navigateTo('ai-helper')">AI Assistant</span>
+                    <span class="nav-link cursor-pointer py-3 text-slate-600 font-medium text-[15px] block" style="padding-left: 24px; text-align: left;" onclick="navigateTo('pdfs')">All PDFs</span>
+                    <span class="nav-link cursor-pointer py-3 text-slate-600 font-medium text-[15px] block" style="padding-left: 24px; text-align: left;" onclick="navigateTo('contact')">Contact Us</span>
+                    <span class="nav-link cursor-pointer py-3 text-slate-600 font-medium text-[15px] block" style="padding-left: 24px; text-align: left;" onclick="navigateTo('privacy')">Privacy Policy</span>
+                    <span class="nav-link cursor-pointer py-3 text-slate-600 font-medium text-[15px] block" style="padding-left: 24px; text-align: left;" onclick="navigateTo('terms')">Terms & Conditions</span>
+                    <span class="nav-link cursor-pointer py-3 text-slate-600 font-medium text-[15px] block" style="padding-left: 24px; text-align: left;" onclick="navigateTo('disclaimer')">Disclaimer</span>
+                    <div style="padding: 0 24px; margin-top: 8px; box-sizing: border-box; width: 100%;">
+                        <button class="w-full bg-[#f1f5f9] hover:bg-[#e2e8f0] text-[#0f172a] font-bold py-3 rounded-xl flex items-center justify-center gap-2 transition text-[14px]" onclick="showLoginModal()">Admin Panel</button>
+                    </div>
+                </div>
             </div>
         </header>
 
-        <div id="news-grid" class="grid grid-cols-1 md:grid-cols-3 gap-10">
-            <div class="col-span-full text-center py-20 text-stone-400 italic">Gathering the latest headlines...</div>
-        </div>
-    </div>
+        <main id="page-home" class="page active fade-in">
+            <section style="background: linear-gradient(135deg, #f0f9ff 0%, #fffbeb 50%, #ffffff 100%); padding: 24px 20px 80px 20px; text-align: center;">
+                <div style="max-width: 800px; margin: 0 auto;">
+                    <div class="dynamic-ad-slot" data-slot="slot-home" style="background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; height: 90px; display: flex; align-items: center; justify-content: center; margin-bottom: 30px;"><span style="color: #94a3b8; font-size: 10px; letter-spacing: 1px; text-transform: uppercase;">Advertisement</span></div>
+                    <p style="color: #0f172a; font-size: 12px; font-weight: 800; margin-bottom: 16px;">For ICSE &amp; ISC Students</p>
+                    <h1 style="color: #0f172a; font-size: 28px; font-weight: 900; line-height: 1.3; margin-bottom: 16px;">ICSE &amp; ISC Study Made Simple</h1>
+                    <p style="color: #64748b; font-size: 15px; margin-bottom: 0;">Notes, Questions, and PDFs for Smart Preparation</p>
+                </div>
+                <div style="background: linear-gradient(135deg, #818cf8 0%, #c084fc 100%); padding: 3px; border-radius: 20px; max-width: 600px; margin: 0 auto 40px auto; cursor: pointer; box-shadow: 0 10px 25px rgba(139, 92, 246, 0.15);" onclick="navigateTo('ai-helper')">
+                    <div style="background: #ffffff; padding: 20px; border-radius: 17px; display: flex; align-items: center; gap: 16px;">
+                        <div style="background: #f3e8ff; padding: 14px; border-radius: 14px;"><i data-lucide="bot" style="color: #9333ea; width: 28px; height: 28px;"></i></div>
+                        <div style="flex: 1;"><h3 style="margin: 0; font-size: 18px; font-weight: 800; color: #0f172a;">AI Study Assistant</h3><p style="margin: 4px 0 0 0; font-size: 13px; color: #64748b;">Get instant answers to your study doubts.</p></div>
+                        <div style="background: #f1f5f9; padding: 8px; border-radius: 50%;"><i data-lucide="arrow-right" style="color: #64748b; width: 20px; height: 20px;"></i></div>
+                    </div>
+                </div>
+            </section>
+            <section style="padding: 40px 20px; text-align: center; background: #ffffff;">
+                <h2 style="color: #2563eb; font-size: 24px; font-weight: 800; margin-bottom: 24px;">Why Students Love Us</h2>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                    <div style="background-color: #e0f2fe; padding: 30px 12px; border-radius: 24px; display: flex; flex-direction: column; align-items: center;"><span style="font-size: 35px; margin-bottom: 10px;">📚</span><h3 style="color: #0f172a; font-size: 15px; font-weight: 800; margin-bottom: 4px;">Easy Notes</h3><p style="color: #64748b; font-size: 12px; margin: 0;">Clear, simple language</p></div>
+                    <div style="background-color: #ffedd5; padding: 30px 12px; border-radius: 24px; display: flex; flex-direction: column; align-items: center;"><span style="font-size: 35px; margin-bottom: 10px;">🎯</span><h3 style="color: #0f172a; font-size: 15px; font-weight: 800; margin-bottom: 4px;">Exam-Oriented Q&A</h3><p style="color: #64748b; font-size: 12px; margin: 0;">Focus on what matters</p></div>
+                    <div style="background-color: #dcfce7; padding: 30px 12px; border-radius: 24px; display: flex; flex-direction: column; align-items: center;"><span style="font-size: 35px; margin-bottom: 10px;">⚡</span><h3 style="color: #0f172a; font-size: 15px; font-weight: 800; margin-bottom: 4px;">Quick Revision</h3><p style="color: #64748b; font-size: 12px; margin: 0;">Last-minute prep</p></div>
+                    <div style="background-color: #fce7f3; padding: 30px 12px; border-radius: 24px; display: flex; flex-direction: column; align-items: center;"><span style="font-size: 35px; margin-bottom: 10px;">🎁</span><h3 style="color: #0f172a; font-size: 15px; font-weight: 800; margin-bottom: 4px;">100% Free</h3><p style="color: #64748b; font-size: 12px; margin: 0;">No hidden charges</p></div>
+                </div>
+            </section>
+            <section class="py-14 bg-surface">
+                <div class="max-w-6xl mx-auto px-4">
+                    <h2 class="font-heading font-bold text-2xl text-center text-dark mb-10">Choose Your Class</h2>
+                    <div style="display: flex; flex-direction: column; gap: 16px; width: 100%; max-width: 400px; margin: 0 auto;">
+                        <div onclick="navigateTo('icse')" style="background: white; border: 1px solid #f1f5f9; border-radius: 24px; padding: 50px 24px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.03); cursor: pointer;"><div style="margin-bottom: 12px;"><i data-lucide="graduation-cap" style="width: 32px; height: 32px; margin: 0 auto; color: #0f172a;"></i></div><h3 style="font-size: 20px; font-weight: 800; color: #0f172a;">ICSE</h3><p style="color: #94a3b8; font-size: 14px;">Class 9 & 10</p><span style="display: block; margin-top: 16px; color: #0f172a; font-weight: 700; font-size: 14px;">Explore →</span></div>
+                        <div onclick="navigateTo('isc')" style="background: white; border: 1px solid #f1f5f9; border-radius: 24px; padding: 50px 24px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.03); cursor: pointer;"><div style="margin-bottom: 12px;"><i data-lucide="award" style="width: 32px; height: 32px; margin: 0 auto; color: #0f172a;"></i></div><h3 style="font-size: 20px; font-weight: 800; color: #0f172a;">ISC</h3><p style="color: #94a3b8; font-size: 14px;">Class 11 & 12</p><span style="display: block; margin-top: 16px; color: #0f172a; font-weight: 700; font-size: 14px;">Explore →</span></div>
+                    </div>
+                </div>
+            </section>
+            
+            <div class="max-w-6xl mx-auto px-4 py-4">
+                <div class="dynamic-ad-slot" data-slot="slot-home" style="background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; height: 90px; display: flex; align-items: center; justify-content: center; margin-bottom: 24px;"><span style="color: #94a3b8; font-size: 10px; letter-spacing: 1px; text-transform: uppercase;">Advertisement</span></div>
+            </div>
 
-    <script src="index.js"></script>
+            <section class="py-14 bg-white">
+                <div class="max-w-6xl mx-auto px-4">
+                    <h2 class="font-heading font-bold text-2xl text-center text-dark mb-10">Popular Study Materials</h2>
+                    <div style="display: flex; flex-direction: column; gap: 12px; padding: 0 16px;">
+                        <div onclick="navigateTo('notes')" style="background: white; border: 1px solid #f1f5f9; border-radius: 20px; padding: 24px 20px; text-align: left; box-shadow: 0 4px 15px rgba(0,0,0,0.02); cursor: pointer;"><h3 style="color: #0f172a; font-size: 15px; font-weight: 700; margin-bottom: 4px;">Important Questions – ICSE</h3><p style="color: #94a3b8; font-size: 13px;">Most expected questions for Class 10 board exams.</p></div>
+                        <div onclick="navigateTo('notes')" style="background: white; border: 1px solid #f1f5f9; border-radius: 20px; padding: 24px 20px; text-align: left; box-shadow: 0 4px 15px rgba(0,0,0,0.02); cursor: pointer;"><h3 style="color: #0f172a; font-size: 15px; font-weight: 700; margin-bottom: 4px;">Chapter-wise – ISC</h3><p style="color: #94a3b8; font-size: 13px;">Well-structured for Class 11 & 12 all subjects.</p></div>
+                        <div onclick="navigateTo('pdfs')" style="background: white; border: 1px solid #f1f5f9; border-radius: 20px; padding: 24px 20px; text-align: left; box-shadow: 0 4px 15px rgba(0,0,0,0.02); cursor: pointer;"><h3 style="color: #0f172a; font-size: 15px; font-weight: 700; margin-bottom: 4px;">Last Minute Revision PDFs</h3><p style="color: #94a3b8; font-size: 13px;">Quick revision material before your exam day.</p></div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <main id="page-icse" style="display: none; background-color: #ffffff; padding: 24px 20px 60px 20px;">
+            <div style="max-width: 800px; margin: 0 auto;">
+                <div class="dynamic-ad-slot" data-slot="slot-boards" style="background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; height: 90px; display: flex; align-items: center; justify-content: center; margin-bottom: 24px;"><span style="color: #94a3b8; font-size: 10px; letter-spacing: 1px; text-transform: uppercase;">Advertisement</span></div>
+                <div style="text-align: center; margin-bottom: 40px;">
+                    <p style="color: #475569; font-size: 12px; font-weight: 800; margin-bottom: 8px;">ICSE Board</p>
+                    <h2 style="color: #0f172a; font-size: 28px; font-weight: 900; margin-bottom: 12px;">ICSE – Class 9 &amp; 10</h2>
+                    <p style="color: #94a3b8; font-size: 14px; line-height: 1.6; max-width: 400px; margin: 0 auto;">Select a subject to explore notes, questions, and revision material.</p>
+                </div>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 40px;">
+                    <div onclick="document.getElementById('dynamic-icse-title').innerText='English Language'; navigateTo('notes');" style="background-color: #ffffff; border: 1px solid #f1f5f9; border-radius: 24px; padding: 24px 12px; text-align: center; box-shadow: 0 4px 20px rgba(0,0,0,0.02); cursor: pointer;"><div style="width: 48px; height: 48px; background-color: #eff6ff; border-radius: 14px; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px auto;"><i data-lucide="book" style="color: #3b82f6; width: 24px; height: 24px;"></i></div><h3 style="color: #0f172a; font-size: 14px; font-weight: 800; margin-bottom: 4px;">English Language</h3></div>
+                    <div onclick="document.getElementById('dynamic-icse-title').innerText='English Literature'; navigateTo('notes');" style="background-color: #ffffff; border: 1px solid #f1f5f9; border-radius: 24px; padding: 24px 12px; text-align: center; box-shadow: 0 4px 20px rgba(0,0,0,0.02); cursor: pointer;"><div style="width: 48px; height: 48px; background-color: #eff6ff; border-radius: 14px; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px auto;"><i data-lucide="book-open" style="color: #3b82f6; width: 24px; height: 24px;"></i></div><h3 style="color: #0f172a; font-size: 14px; font-weight: 800; margin-bottom: 4px;">English Literature</h3></div>
+                    <div onclick="document.getElementById('dynamic-icse-title').innerText='Hindi'; navigateTo('notes');" style="background-color: #ffffff; border: 1px solid #f1f5f9; border-radius: 24px; padding: 24px 12px; text-align: center; box-shadow: 0 4px 20px rgba(0,0,0,0.02); cursor: pointer;"><div style="width: 48px; height: 48px; background-color: #fce7f3; border-radius: 14px; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px auto;"><i data-lucide="pen-tool" style="color: #ec4899; width: 24px; height: 24px;"></i></div><h3 style="color: #0f172a; font-size: 14px; font-weight: 800; margin-bottom: 4px;">Hindi</h3></div>
+                    <div onclick="document.getElementById('dynamic-icse-title').innerText='Mathematics'; navigateTo('notes');" style="background-color: #ffffff; border: 1px solid #f1f5f9; border-radius: 24px; padding: 24px 12px; text-align: center; box-shadow: 0 4px 20px rgba(0,0,0,0.02); cursor: pointer;"><div style="width: 48px; height: 48px; background-color: #fff7ed; border-radius: 14px; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px auto;"><i data-lucide="calculator" style="color: #f97316; width: 24px; height: 24px;"></i></div><h3 style="color: #0f172a; font-size: 14px; font-weight: 800; margin-bottom: 4px;">Mathematics</h3></div>
+                    <div onclick="document.getElementById('dynamic-icse-title').innerText='Science (Physics)'; navigateTo('notes');" style="background-color: #ffffff; border: 1px solid #f1f5f9; border-radius: 24px; padding: 24px 12px; text-align: center; box-shadow: 0 4px 20px rgba(0,0,0,0.02); cursor: pointer;"><div style="width: 48px; height: 48px; background-color: #faf5ff; border-radius: 14px; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px auto;"><i data-lucide="atom" style="color: #a855f7; width: 24px; height: 24px;"></i></div><h3 style="color: #0f172a; font-size: 14px; font-weight: 800; margin-bottom: 4px;">Science (Physics)</h3></div>
+                    <div onclick="document.getElementById('dynamic-icse-title').innerText='Science (Chemistry)'; navigateTo('notes');" style="background-color: #ffffff; border: 1px solid #f1f5f9; border-radius: 24px; padding: 24px 12px; text-align: center; box-shadow: 0 4px 20px rgba(0,0,0,0.02); cursor: pointer;"><div style="width: 48px; height: 48px; background-color: #fdf4ff; border-radius: 14px; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px auto;"><i data-lucide="flask-conical" style="color: #d946ef; width: 24px; height: 24px;"></i></div><h3 style="color: #0f172a; font-size: 14px; font-weight: 800; margin-bottom: 4px;">Science (Chemistry)</h3></div>
+                    <div onclick="document.getElementById('dynamic-icse-title').innerText='Science (Biology)'; navigateTo('notes');" style="background-color: #ffffff; border: 1px solid #f1f5f9; border-radius: 24px; padding: 24px 12px; text-align: center; box-shadow: 0 4px 20px rgba(0,0,0,0.02); cursor: pointer;"><div style="width: 48px; height: 48px; background-color: #f0fdf4; border-radius: 14px; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px auto;"><i data-lucide="leaf" style="color: #22c55e; width: 24px; height: 24px;"></i></div><h3 style="color: #0f172a; font-size: 14px; font-weight: 800; margin-bottom: 4px;">Science (Biology)</h3></div>
+                    <div onclick="document.getElementById('dynamic-icse-title').innerText='Social Studies'; navigateTo('notes');" style="background-color: #ffffff; border: 1px solid #f1f5f9; border-radius: 24px; padding: 24px 12px; text-align: center; box-shadow: 0 4px 20px rgba(0,0,0,0.02); cursor: pointer;"><div style="width: 48px; height: 48px; background-color: #fffbeb; border-radius: 14px; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px auto;"><i data-lucide="landmark" style="color: #f59e0b; width: 24px; height: 24px;"></i></div><h3 style="color: #0f172a; font-size: 14px; font-weight: 800; margin-bottom: 4px;">Social Studies</h3></div>
+                    <div onclick="document.getElementById('dynamic-icse-title').innerText='History & Civics'; navigateTo('notes');" style="background-color: #ffffff; border: 1px solid #f1f5f9; border-radius: 24px; padding: 24px 12px; text-align: center; box-shadow: 0 4px 20px rgba(0,0,0,0.02); cursor: pointer;"><div style="width: 48px; height: 48px; background-color: #fffbeb; border-radius: 14px; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px auto;"><i data-lucide="scroll" style="color: #f59e0b; width: 24px; height: 24px;"></i></div><h3 style="color: #0f172a; font-size: 14px; font-weight: 800; margin-bottom: 4px;">History &amp; Civics</h3></div>
+                    <div onclick="document.getElementById('dynamic-icse-title').innerText='Geography'; navigateTo('notes');" style="background-color: #ffffff; border: 1px solid #f1f5f9; border-radius: 24px; padding: 24px 12px; text-align: center; box-shadow: 0 4px 20px rgba(0,0,0,0.02); cursor: pointer;"><div style="width: 48px; height: 48px; background-color: #ecfeff; border-radius: 14px; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px auto;"><i data-lucide="globe" style="color: #06b6d4; width: 24px; height: 24px;"></i></div><h3 style="color: #0f172a; font-size: 14px; font-weight: 800; margin-bottom: 4px;">Geography</h3></div>
+                    <div onclick="document.getElementById('dynamic-icse-title').innerText='Computer Science'; navigateTo('notes');" style="background-color: #ffffff; border: 1px solid #f1f5f9; border-radius: 24px; padding: 24px 12px; text-align: center; box-shadow: 0 4px 20px rgba(0,0,0,0.02); cursor: pointer;"><div style="width: 48px; height: 48px; background-color: #fff1f2; border-radius: 14px; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px auto;"><i data-lucide="code" style="color: #f43f5e; width: 24px; height: 24px;"></i></div><h3 style="color: #0f172a; font-size: 14px; font-weight: 800; margin-bottom: 4px;">Computer Science</h3></div>
+                </div>
+            </div>
+        </main>
+
+        <main id="page-isc" style="display: none; background-color: #ffffff; padding: 24px 20px 60px 20px;">
+            <div style="max-width: 800px; margin: 0 auto;">
+                <div class="dynamic-ad-slot" data-slot="slot-boards" style="background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; height: 90px; display: flex; align-items: center; justify-content: center; margin-bottom: 24px;"><span style="color: #94a3b8; font-size: 10px; letter-spacing: 1px; text-transform: uppercase;">Advertisement</span></div>
+                <div style="text-align: center; margin-bottom: 40px;">
+                    <p style="color: #475569; font-size: 12px; font-weight: 800; margin-bottom: 8px;">ISC Board</p>
+                    <h2 style="color: #0f172a; font-size: 28px; font-weight: 900; margin-bottom: 12px;">ISC – Class 11 &amp; 12</h2>
+                    <p style="color: #94a3b8; font-size: 14px; line-height: 1.6; max-width: 400px; margin: 0 auto;">Select a subject to explore notes, questions, and revision material.</p>
+                </div>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 40px;">
+                    <div onclick="document.getElementById('dynamic-isc-title').innerText='English Language'; navigateTo('notes-isc');" style="background-color: #ffffff; border: 1px solid #f1f5f9; border-radius: 24px; padding: 24px 12px; text-align: center; box-shadow: 0 4px 20px rgba(0,0,0,0.02); cursor: pointer;"><div style="width: 48px; height: 48px; background-color: #eff6ff; border-radius: 14px; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px auto;"><i data-lucide="book" style="color: #3b82f6; width: 24px; height: 24px;"></i></div><h3 style="color: #0f172a; font-size: 14px; font-weight: 800; margin-bottom: 4px;">English Language</h3></div>
+                    <div onclick="document.getElementById('dynamic-isc-title').innerText='English Literature'; navigateTo('notes-isc');" style="background-color: #ffffff; border: 1px solid #f1f5f9; border-radius: 24px; padding: 24px 12px; text-align: center; box-shadow: 0 4px 20px rgba(0,0,0,0.02); cursor: pointer;"><div style="width: 48px; height: 48px; background-color: #eff6ff; border-radius: 14px; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px auto;"><i data-lucide="book-open" style="color: #3b82f6; width: 24px; height: 24px;"></i></div><h3 style="color: #0f172a; font-size: 14px; font-weight: 800; margin-bottom: 4px;">English Literature</h3></div>
+                    <div onclick="document.getElementById('dynamic-isc-title').innerText='Hindi'; navigateTo('notes-isc');" style="background-color: #ffffff; border: 1px solid #f1f5f9; border-radius: 24px; padding: 24px 12px; text-align: center; box-shadow: 0 4px 20px rgba(0,0,0,0.02); cursor: pointer;"><div style="width: 48px; height: 48px; background-color: #fce7f3; border-radius: 14px; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px auto;"><i data-lucide="pen-tool" style="color: #ec4899; width: 24px; height: 24px;"></i></div><h3 style="color: #0f172a; font-size: 14px; font-weight: 800; margin-bottom: 4px;">Hindi</h3></div>
+                    <div onclick="document.getElementById('dynamic-isc-title').innerText='Physics'; navigateTo('notes-isc');" style="background-color: #ffffff; border: 1px solid #f1f5f9; border-radius: 24px; padding: 24px 12px; text-align: center; box-shadow: 0 4px 20px rgba(0,0,0,0.02); cursor: pointer;"><div style="width: 48px; height: 48px; background-color: #faf5ff; border-radius: 14px; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px auto;"><i data-lucide="atom" style="color: #a855f7; width: 24px; height: 24px;"></i></div><h3 style="color: #0f172a; font-size: 14px; font-weight: 800; margin-bottom: 4px;">Physics</h3></div>
+                    <div onclick="document.getElementById('dynamic-isc-title').innerText='Chemistry'; navigateTo('notes-isc');" style="background-color: #ffffff; border: 1px solid #f1f5f9; border-radius: 24px; padding: 24px 12px; text-align: center; box-shadow: 0 4px 20px rgba(0,0,0,0.02); cursor: pointer;"><div style="width: 48px; height: 48px; background-color: #fdf4ff; border-radius: 14px; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px auto;"><i data-lucide="flask-conical" style="color: #d946ef; width: 24px; height: 24px;"></i></div><h3 style="color: #0f172a; font-size: 14px; font-weight: 800; margin-bottom: 4px;">Chemistry</h3></div>
+                    <div onclick="document.getElementById('dynamic-isc-title').innerText='Mathematics'; navigateTo('notes-isc');" style="background-color: #ffffff; border: 1px solid #f1f5f9; border-radius: 24px; padding: 24px 12px; text-align: center; box-shadow: 0 4px 20px rgba(0,0,0,0.02); cursor: pointer;"><div style="width: 48px; height: 48px; background-color: #fff7ed; border-radius: 14px; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px auto;"><i data-lucide="calculator" style="color: #f97316; width: 24px; height: 24px;"></i></div><h3 style="color: #0f172a; font-size: 14px; font-weight: 800; margin-bottom: 4px;">Mathematics</h3></div>
+                    <div onclick="document.getElementById('dynamic-isc-title').innerText='Biology'; navigateTo('notes-isc');" style="background-color: #ffffff; border: 1px solid #f1f5f9; border-radius: 24px; padding: 24px 12px; text-align: center; box-shadow: 0 4px 20px rgba(0,0,0,0.02); cursor: pointer;"><div style="width: 48px; height: 48px; background-color: #f0fdf4; border-radius: 14px; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px auto;"><i data-lucide="leaf" style="color: #22c55e; width: 24px; height: 24px;"></i></div><h3 style="color: #0f172a; font-size: 14px; font-weight: 800; margin-bottom: 4px;">Biology</h3></div>
+                    <div onclick="document.getElementById('dynamic-isc-title').innerText='Computer Science'; navigateTo('notes-isc');" style="background-color: #ffffff; border: 1px solid #f1f5f9; border-radius: 24px; padding: 24px 12px; text-align: center; box-shadow: 0 4px 20px rgba(0,0,0,0.02); cursor: pointer;"><div style="width: 48px; height: 48px; background-color: #fff1f2; border-radius: 14px; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px auto;"><i data-lucide="code" style="color: #f43f5e; width: 24px; height: 24px;"></i></div><h3 style="color: #0f172a; font-size: 14px; font-weight: 800; margin-bottom: 4px;">Computer Science</h3></div>
+                    <div onclick="document.getElementById('dynamic-isc-title').innerText='Accounts'; navigateTo('notes-isc');" style="background-color: #ffffff; border: 1px solid #f1f5f9; border-radius: 24px; padding: 24px 12px; text-align: center; box-shadow: 0 4px 20px rgba(0,0,0,0.02); cursor: pointer;"><div style="width: 48px; height: 48px; background-color: #fff1f2; border-radius: 14px; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px auto;"><i data-lucide="briefcase" style="color: #e11d48; width: 24px; height: 24px;"></i></div><h3 style="color: #0f172a; font-size: 14px; font-weight: 800; margin-bottom: 4px;">Accounts</h3></div>
+                    <div onclick="document.getElementById('dynamic-isc-title').innerText='Business Studies'; navigateTo('notes-isc');" style="background-color: #ffffff; border: 1px solid #f1f5f9; border-radius: 24px; padding: 24px 12px; text-align: center; box-shadow: 0 4px 20px rgba(0,0,0,0.02); cursor: pointer;"><div style="width: 48px; height: 48px; background-color: #fffbeb; border-radius: 14px; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px auto;"><i data-lucide="trending-up" style="color: #d97706; width: 24px; height: 24px;"></i></div><h3 style="color: #0f172a; font-size: 14px; font-weight: 800; margin-bottom: 4px;">Business Studies</h3></div>
+                    <div onclick="document.getElementById('dynamic-isc-title').innerText='Economics'; navigateTo('notes-isc');" style="background-color: #ffffff; border: 1px solid #f1f5f9; border-radius: 24px; padding: 24px 12px; text-align: center; box-shadow: 0 4px 20px rgba(0,0,0,0.02); cursor: pointer;"><div style="width: 48px; height: 48px; background-color: #fff7ed; border-radius: 14px; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px auto;"><i data-lucide="wallet" style="color: #ea580c; width: 24px; height: 24px;"></i></div><h3 style="color: #0f172a; font-size: 14px; font-weight: 800; margin-bottom: 4px;">Economics</h3></div>
+                    <div onclick="document.getElementById('dynamic-isc-title').innerText='History'; navigateTo('notes-isc');" style="background-color: #ffffff; border: 1px solid #f1f5f9; border-radius: 24px; padding: 24px 12px; text-align: center; box-shadow: 0 4px 20px rgba(0,0,0,0.02); cursor: pointer;"><div style="width: 48px; height: 48px; background-color: #ecfeff; border-radius: 14px; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px auto;"><i data-lucide="scroll" style="color: #06b6d4; width: 24px; height: 24px;"></i></div><h3 style="color: #0f172a; font-size: 14px; font-weight: 800; margin-bottom: 4px;">History</h3></div>
+                </div>
+            </div>
+        </main>
+
+        <main id="page-notes" style="display: none; background-color: #ffffff; padding: 24px 20px 60px 20px;">
+            <div style="max-width: 800px; margin: 0 auto;">
+                <div class="dynamic-ad-slot" data-slot="slot-content" style="background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; height: 90px; display: flex; align-items: center; justify-content: center; margin-bottom: 24px;"><span style="color: #94a3b8; font-size: 10px; letter-spacing: 1px; text-transform: uppercase;">Advertisement</span></div>
+               <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
+                    <div onclick="navigateTo('icse')" aria-label="Go Back" role="button" style="cursor: pointer; color: #334155; font-size: 14px; font-weight: 700; display: flex; align-items: center; gap: 6px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg> Back</div>
+                </div>
+                <h2 id="dynamic-icse-title" style="color: #0f172a; font-size: 28px; font-weight: 900; margin-bottom: 8px;">Subject</h2>
+                <div id="icse-materials-container" style="display: flex; flex-direction: column; gap: 16px; margin-bottom: 40px; margin-top: 20px;"></div>
+            </div>
+        </main>
+
+        <main id="page-notes-isc" style="display: none; background-color: #ffffff; padding: 24px 20px 60px 20px;">
+            <div style="max-width: 800px; margin: 0 auto;">
+                <div class="dynamic-ad-slot" data-slot="slot-content" style="background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; height: 90px; display: flex; align-items: center; justify-content: center; margin-bottom: 24px;"><span style="color: #94a3b8; font-size: 10px; letter-spacing: 1px; text-transform: uppercase;">Advertisement</span></div>
+               <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
+                    <div onclick="navigateTo('isc')" aria-label="Go Back" role="button" style="cursor: pointer; color: #334155; font-size: 14px; font-weight: 700; display: flex; align-items: center; gap: 6px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg> Back</div>
+                </div>
+                <h2 id="dynamic-isc-title" style="color: #0f172a; font-size: 28px; font-weight: 900; margin-bottom: 8px;">Subject</h2>
+                <div id="isc-materials-container" style="display: flex; flex-direction: column; gap: 16px; margin-bottom: 40px; margin-top: 20px;"></div>
+            </div>
+        </main>
+
+        <main id="page-qa" style="display: none; background-color: #ffffff; padding: 24px 20px 60px 20px;">
+            <div style="max-width: 800px; margin: 0 auto;">
+                <div class="dynamic-ad-slot" data-slot="slot-content" style="background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; height: 90px; display: flex; align-items: center; justify-content: center; margin-bottom: 24px;"><span style="color: #94a3b8; font-size: 10px; letter-spacing: 1px; text-transform: uppercase;">Advertisement</span></div>
+                <div style="text-align: center; margin-bottom: 32px;">
+                    <h2 style="color: #0f172a; font-size: 28px; font-weight: 900; margin-bottom: 8px;"> Notes &amp; Q&A</h2>
+                    <p style="color: #94a3b8; font-size: 14px; line-height: 1.6;">Filter by class, subject, and chapter to find study materials.</p>
+                </div>
+
+                <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 24px; padding: 20px; box-shadow: 0 4px 6px rgba(0,0,0,0.02); margin-bottom: 24px;">
+                    <div style="margin-bottom: 16px;">
+                        <label for="qa-filter-class" style="display: block; color: #475569; font-size: 13px; font-weight: 600; margin-bottom: 8px;">Class</label>
+                        <select id="qa-filter-class" aria-label="Select Class" onchange="updateDynamicFilters('qa')" style="width: 100%; padding: 14px; border-radius: 12px; border: 1px solid #e2e8f0; background: #f8fafc; font-size: 15px;">
+                            <option value="">All Classes</option>
+                            <option value="Class 9">Class 9</option>
+                            <option value="Class 10">Class 10</option>
+                            <option value="Class 11">Class 11</option>
+                            <option value="Class 12">Class 12</option>
+                        </select>
+                    </div>
+                    <div style="margin-bottom: 16px;">
+                        <label for="qa-filter-subject" style="display: block; color: #475569; font-size: 13px; font-weight: 600; margin-bottom: 8px;">Subject</label>
+                        <select id="qa-filter-subject" aria-label="Select Subject" onchange="updateDynamicFilters('qa')" style="width: 100%; padding: 14px; border-radius: 12px; border: 1px solid #e2e8f0; background: #f8fafc; font-size: 15px;">
+                            <option value="">All Subjects</option>
+                        </select>
+                    </div>
+                    <div style="margin-bottom: 16px;">
+                        <label for="qa-filter-chapter" style="display: block; color: #475569; font-size: 13px; font-weight: 600; margin-bottom: 8px;">Chapter</label>
+                        <select id="qa-filter-chapter" aria-label="Select Chapter" onchange="updateDynamicFilters('qa')" style="width: 100%; padding: 14px; border-radius: 12px; border: 1px solid #e2e8f0; background: #f8fafc; font-size: 15px;">
+                            <option value="">All Chapters</option>
+                        </select>
+                    </div>
+                    <div style="margin-bottom: 16px;">
+                        <label for="qa-filter-subchapter" style="display: block; color: #475569; font-size: 13px; font-weight: 600; margin-bottom: 8px;">Subchapter (Optional)</label>
+                        <select id="qa-filter-subchapter" aria-label="Select Subchapter" style="width: 100%; padding: 14px; border-radius: 12px; border: 1px solid #e2e8f0; background: #f8fafc; font-size: 15px;">
+                            <option value="">All Subchapters</option>
+                        </select>
+                    </div>
+                    <button onclick="applyDynamicFilter('qa', 'qa-materials-container')" aria-label="Apply Filters" style="width: 100%; background: #10b981; color: white; border: none; padding: 14px; border-radius: 12px; font-size: 15px; font-weight: 700; cursor: pointer;">Find Notes</button>
+                </div>
+
+                <div id="qa-materials-container">
+                    <div style="text-align: center; padding: 40px 20px; background-color: #f8fafc; border-radius: 24px; border: 1px dashed #cbd5e1;">
+                        <i data-lucide="search" style="color: #94a3b8; width: 32px; height: 32px; margin: 0 auto 12px auto; display: block;"></i>
+                        <p style="color: #64748b; font-size: 14px; font-weight: 500;">Select filters above to view materials.</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <main id="page-solutions" style="display: none; background-color: #ffffff; padding: 24px 20px 60px 20px;">
+            <div style="max-width: 800px; margin: 0 auto;">
+                <div class="dynamic-ad-slot" data-slot="slot-content" style="background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; height: 90px; display: flex; align-items: center; justify-content: center; margin-bottom: 24px;"><span style="color: #94a3b8; font-size: 10px; letter-spacing: 1px; text-transform: uppercase;">Advertisement</span></div>
+                
+                <div style="margin-bottom: 24px;">
+                    <h2 id="solutions-main-title" style="color: #0f172a; font-size: 24px; font-weight: 900; margin-bottom: 16px;">Textbook Solutions</h2>
+                    
+                    <div style="display: flex; gap: 12px; margin-bottom: 24px;">
+                        <select id="sol-filter-class" aria-label="Select Class" onchange="renderSolutionsChapters()" style="flex: 1; padding: 12px; border-radius: 12px; border: 1px solid #e2e8f0; background: #f8fafc; font-size: 14px; font-weight: 600; outline: none;">
+                            <option value="">Select Class...</option>
+                            <option value="Class 9">Class 9</option><option value="Class 10">Class 10</option>
+                            <option value="Class 11">Class 11</option><option value="Class 12">Class 12</option>
+                        </select>
+                        <select id="sol-filter-subject" aria-label="Select Subject" onchange="renderSolutionsChapters()" style="flex: 1; padding: 12px; border-radius: 12px; border: 1px solid #e2e8f0; background: #f8fafc; font-size: 14px; font-weight: 600; outline: none;">
+                            <option value="">Select Subject...</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div id="solutions-chapter-list" style="display: flex; flex-direction: column;">
+                    <div style="text-align: center; padding: 40px; border: 1px dashed #cbd5e1; border-radius: 16px;">
+                        <p style="color: #64748b; font-size: 14px; font-weight: 500;">Select a Class and Subject above to view chapters.</p>
+                    </div>
+                </div>
+
+                <div id="solutions-materials-container" style="display: none; flex-direction: column; gap: 16px;"></div>
+
+                <div id="solutions-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.7); z-index: 9999; align-items: flex-end; justify-content: center;">
+                    <div style="background: white; width: 100%; max-width: 800px; height: 80vh; border-radius: 24px 24px 0 0; display: flex; flex-direction: column; overflow: hidden; animation: slideUp 0.3s ease-out;">
+                        
+                        <div style="display: flex; align-items: center; padding: 16px 20px; border-bottom: 1px solid #e2e8f0;">
+                            <button onclick="closeSolutionsModal()" aria-label="Close Solutions" style="background: none; border: none; cursor: pointer; color: #475569; display: flex; align-items: center;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></button>
+                            <h3 style="flex: 1; text-align: center; font-size: 16px; font-weight: 800; color: #0f172a; margin: 0; padding-right: 24px;">Go To Question</h3>
+                        </div>
+
+                        <div style="display: flex; flex: 1; overflow: hidden;">
+                            <div style="width: 120px; background: #f8fafc; border-right: 1px solid #e2e8f0; display: flex; flex-direction: column; user-select: none; -webkit-tap-highlight-color: transparent;">
+                                <div id="tab-exercise" onclick="switchSolutionsTab('exercise')" style="padding: 16px 8px; font-size: 14px; font-weight: 800; color: #0f8368; border-bottom: 2px solid #0f8368; background: white; cursor: pointer; text-align: center;">Exercise</div>
+                                <div id="tab-questions" onclick="switchSolutionsTab('questions')" style="padding: 16px 8px; font-size: 14px; font-weight: 600; color: #64748b; cursor: pointer; text-align: center; border-bottom: none; background: transparent;">Questions</div>
+                            </div>
+                            <div id="solutions-exercise-list" style="flex: 1; overflow-y: auto; padding: 8px 0;"></div>
+                        </div>
+
+                        <div style="padding: 16px 20px; border-top: 1px solid #e2e8f0; background: white; box-shadow: 0 -4px 10px rgba(0,0,0,0.05);">
+                            <button onclick="applySolutionsFilter()" style="width: 100%; background: #65a30d; color: white; padding: 16px; border-radius: 100px; font-size: 14px; font-weight: 800; border: none; cursor: pointer; letter-spacing: 0.5px;">APPLY</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <main id="page-backpack" style="display: none; background-color: #ffffff; padding: 24px 20px 60px 20px;">
+            <div style="max-width: 800px; margin: 0 auto;">
+                <div class="dynamic-ad-slot" data-slot="slot-content" style="background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; height: 90px; display: flex; align-items: center; justify-content: center; margin-bottom: 24px;"><span style="color: #94a3b8; font-size: 10px; letter-spacing: 1px; text-transform: uppercase;">Advertisement</span></div>
+                <div style="text-align: center; margin-bottom: 32px;">
+                    <h2 style="color: #0f172a; font-size: 28px; font-weight: 900; margin-bottom: 8px;">My Backpack</h2>
+                    <p style="color: #94a3b8; font-size: 14px; line-height: 1.6;">Your saved study materials for quick access.</p>
+                </div>
+                <div id="backpack-materials-container"></div>
+            </div>
+        </main>
+
+        <main id="page-pdfs" style="display: none; background-color: #ffffff; padding: 24px 20px 60px 20px;">
+            <div style="max-width: 600px; margin: 0 auto;">
+                <div class="dynamic-ad-slot" data-slot="slot-extras" style="background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; height: 90px; display: flex; align-items: center; justify-content: center; margin-bottom: 24px;"><span style="color: #94a3b8; font-size: 10px; letter-spacing: 1px; text-transform: uppercase;">Advertisement</span></div>
+                <div style="text-align: center; margin-bottom: 24px;"><i data-lucide="download-cloud" style="width: 40px; height: 40px; color: #0f172a; margin: 0 auto;"></i></div>
+                <div style="text-align: center; margin-bottom: 40px;">
+                    <h2 style="color: #0f172a; font-size: 28px; font-weight: 900; line-height: 1.3; margin-bottom: 16px;">Get All Study PDFs in One Place</h2>
+                    <p style="color: #64748b; font-size: 15px; line-height: 1.6;">To access all notes, PDFs, and exclusive study materials, join our Telegram channel. It's free and always updated!</p>
+                </div>
+                <div style="display: flex; flex-direction: column; gap: 12px; margin-bottom: 40px;">
+                    <div style="background-color: #f0f9ff; padding: 20px 24px; border-radius: 20px; display: flex; align-items: center; gap: 16px;"><i data-lucide="file-text" style="color: #334155; width: 20px; height: 20px;"></i><span style="color: #334155; font-size: 15px; font-weight: 600;">All Chapter PDFs</span></div>
+                    <div style="background-color: #fff7ed; padding: 20px 24px; border-radius: 20px; display: flex; align-items: center; gap: 16px;"><i data-lucide="zap" style="color: #334155; width: 20px; height: 20px;"></i><span style="color: #334155; font-size: 15px; font-weight: 600;">Quick Revision Notes</span></div>
+                    <div style="background-color: #f0fdf4; padding: 20px 24px; border-radius: 20px; display: flex; align-items: center; gap: 16px;"><i data-lucide="star" style="color: #334155; width: 20px; height: 20px;"></i><span style="color: #334155; font-size: 15px; font-weight: 600;">Important Questions</span></div>
+                </div>
+                <div style="text-align: center; margin-bottom: 40px;">
+                    <a href="https://t.me/studiessupport2026" target="_blank" style="display: inline-flex; align-items: center; justify-content: center; gap: 10px; background-color: #ffffff; color: #0f172a; padding: 18px 40px; border-radius: 100px; font-size: 16px; font-weight: 800; text-decoration: none; box-shadow: 0 10px 40px rgba(0,0,0,0.08); border: 1px solid #f1f5f9; width: 100%; max-width: 300px;"><i data-lucide="send" style="color: #3b82f6; width: 20px; height: 20px;"></i> Join Telegram Channel</a>
+                </div>
+            </div>
+        </main>
+
+        <main id="page-contact" style="display: none; background-color: #ffffff; padding: 24px 20px 60px 20px;">
+            <div style="max-width: 800px; margin: 0 auto;">
+                <h2 style="color: #0f172a; font-size: 28px; font-weight: 900; margin-bottom: 24px;">Contact Us</h2>
+                
+                <div style="background-color: #ffffff; border: 1px solid #f1f5f9; border-radius: 24px; padding: 32px 24px; box-shadow: 0 10px 40px rgba(0,0,0,0.03); margin-bottom: 24px;">
+                    <h3 style="color: #0f172a; font-size: 18px; font-weight: 800; margin-bottom: 24px;">Get in Touch</h3>
+                    <div style="display: flex; flex-direction: column; gap: 20px; margin-bottom: 24px;">
+                        <div style="display: flex; align-items: center; gap: 16px;">
+                            <div style="background-color: #f1f5f9; padding: 12px; border-radius: 12px;">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: #334155;"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+                            </div>
+                            <div>
+                                <p style="color: #94a3b8; font-size: 13px; font-weight: 600; margin: 0 0 2px 0;">Email</p>
+                                <p style="color: #0f172a; font-size: 15px; font-weight: 600; margin: 0;">bachchupatra67@gmail.com</p>
+                            </div>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 16px;">
+                            <div style="background-color: #fce7f3; padding: 12px; border-radius: 12px;">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: #db2777;"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
+                            </div>
+                            <div>
+                                <p style="color: #94a3b8; font-size: 13px; font-weight: 600; margin: 0 0 2px 0;">Instagram</p>
+                                <p style="color: #0f172a; font-size: 15px; font-weight: 600; margin: 0;">@studiessupport2026</p>
+                            </div>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 16px;">
+                            <div style="background-color: #eff6ff; padding: 12px; border-radius: 12px;">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: #2563eb;"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg>
+                            </div>
+                            <div>
+                                <p style="color: #94a3b8; font-size: 13px; font-weight: 600; margin: 0 0 2px 0;">Telegram</p>
+                                <p style="color: #0f172a; font-size: 15px; font-weight: 600; margin: 0;">@studiessupport2026</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="background-color: #fffbeb; border: 1px solid #fef3c7; border-radius: 12px; padding: 16px; text-align: center;">
+                        <p style="color: #b45309; font-size: 14px; font-weight: 600; margin: 0;"><strong style="color: #92400e;">Tip:</strong> For the fastest response, contact us via Instagram!</p>
+                    </div>
+                </div>
+
+                <div style="background-color: #ffffff; border: 1px solid #f1f5f9; border-radius: 24px; padding: 32px 24px; box-shadow: 0 10px 40px rgba(0,0,0,0.03);">
+                    <h3 style="color: #0f172a; font-size: 18px; font-weight: 800; margin-bottom: 24px;">Send a Message</h3>
+                    <form action="https://formsubmit.co/bachchupatra67@gmail.com" method="POST" style="display: flex; flex-direction: column; gap: 16px;">
+                        <input type="hidden" name="_captcha" value="false">
+                        <input type="hidden" name="_subject" value="New Message from StudiesSupport!">
+                        <input type="hidden" name="_template" value="table">
+                        <div>
+                            <label for="contact-name" style="display: block; color: #64748b; font-size: 13px; font-weight: 600; margin-bottom: 8px;">Name</label>
+                            <input type="text" id="contact-name" name="Name" required placeholder="Your Name" style="width: 100%; padding: 16px; border-radius: 16px; border: 1px solid #e2e8f0; background-color: #ffffff; color: #0f172a; font-size: 15px; box-sizing: border-box;">
+                        </div>
+                        <div>
+                            <label for="contact-email" style="display: block; color: #64748b; font-size: 13px; font-weight: 600; margin-bottom: 8px;">Email</label>
+                            <input type="email" id="contact-email" name="Email" required placeholder="Your Email Address" style="width: 100%; padding: 16px; border-radius: 16px; border: 1px solid #e2e8f0; background-color: #ffffff; color: #0f172a; font-size: 15px; box-sizing: border-box;">
+                        </div>
+                        <div>
+                            <label for="contact-message" style="display: block; color: #64748b; font-size: 13px; font-weight: 600; margin-bottom: 8px;">Message</label>
+                            <textarea id="contact-message" name="Message" required placeholder="How can we help?" style="width: 100%; padding: 16px; border-radius: 16px; border: 1px solid #e2e8f0; background-color: #ffffff; color: #0f172a; font-size: 15px; resize: none; height: 120px; box-sizing: border-box;"></textarea>
+                        </div>
+                        <button type="submit" style="margin-top: 8px; width: 100%; padding: 16px; background-color: #2563eb; color: #ffffff; font-size: 15px; font-weight: 800; border: none; border-radius: 16px; cursor: pointer; box-shadow: 0 4px 15px rgba(37, 99, 235, 0.2);">
+                            Send Message
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </main>
+
+        <main id="page-privacy" style="display: none; background-color: #ffffff; padding: 24px 20px 60px 20px;">
+            <div style="max-width: 800px; margin: 0 auto;">
+                <h2 style="color: #0f172a; font-size: 28px; font-weight: 900; margin-bottom: 24px;">Privacy Policy</h2>
+                <div style="background-color: #ffffff; border: 1px solid #f1f5f9; border-radius: 24px; padding: 32px 24px; box-shadow: 0 10px 40px rgba(0,0,0,0.03);">
+                    <p style="color: #64748b; font-size: 15px; line-height: 1.7; margin-bottom: 24px;">At StudiesSupport, we respect your privacy. This policy explains how we handle your information.</p>
+                    
+                    <h3 style="color: #334155; font-size: 18px; font-weight: 800; margin-bottom: 12px;">Information We Collect</h3>
+                    <p style="color: #64748b; font-size: 15px; line-height: 1.7; margin-bottom: 24px;">We do not collect any personal data without your explicit permission. If you contact us, we may store your name and email only to respond to your inquiry.</p>
+                    
+                    <h3 style="color: #334155; font-size: 18px; font-weight: 800; margin-bottom: 12px;">Cookies</h3>
+                    <p style="color: #64748b; font-size: 15px; line-height: 1.7; margin-bottom: 24px;">We may use cookies to improve your browsing experience. These are small files stored on your device that help us understand how our website is used.</p>
+
+                    <h3 style="color: #334155; font-size: 18px; font-weight: 800; margin-bottom: 12px;">Google AdSense</h3>
+                    <p style="color: #64748b; font-size: 15px; line-height: 1.7; margin-bottom: 24px;">We use Google AdSense to display ads. Google may use cookies and tracking technologies to serve ads based on your interests. You can manage ad preferences through your Google account settings.</p>
+
+                    <h3 style="color: #334155; font-size: 18px; font-weight: 800; margin-bottom: 12px;">Your Privacy is Protected</h3>
+                    <p style="color: #64748b; font-size: 15px; line-height: 1.7; margin-bottom: 24px;">We will never sell, trade, or share your personal information with third parties for marketing purposes. Your trust matters to us.</p>
+
+                    <h3 style="color: #334155; font-size: 18px; font-weight: 800; margin-bottom: 12px;">Changes</h3>
+                    <p style="color: #64748b; font-size: 15px; line-height: 1.7; margin-bottom: 0;">We may update this policy from time to time. Changes will be posted on this page.</p>
+                    <p style="color: #94a3b8; font-size: 12px; line-height: 1.7; margin-top: 16px;">Last updated: 2025</p>
+                </div>
+            </div>
+        </main>
+        
+        <main id="page-terms" style="display: none; background-color: #ffffff; padding: 24px 20px 60px 20px;">
+            <div style="max-width: 800px; margin: 0 auto;">
+                <h2 style="color: #0f172a; font-size: 28px; font-weight: 900; margin-bottom: 24px;">Terms &amp; Conditions</h2>
+                <div style="background-color: #ffffff; border: 1px solid #f1f5f9; border-radius: 24px; padding: 32px 24px; box-shadow: 0 10px 40px rgba(0,0,0,0.03);">
+                    <p style="color: #64748b; font-size: 15px; line-height: 1.7; margin-bottom: 24px;">By using StudiesSupport, you agree to the following terms:</p>
+
+                    <h3 style="color: #334155; font-size: 18px; font-weight: 800; margin-bottom: 12px;">Educational Purpose</h3>
+                    <p style="color: #64748b; font-size: 15px; line-height: 1.7; margin-bottom: 24px;">All content on this website is provided for educational purposes only. It is intended to help ICSE and ISC students prepare for their exams.</p>
+                    
+                    <h3 style="color: #334155; font-size: 18px; font-weight: 800; margin-bottom: 12px;">No Copying</h3>
+                    <p style="color: #64748b; font-size: 15px; line-height: 1.7; margin-bottom: 24px;">You may not copy, reproduce, or redistribute our content without written permission. Sharing links to our website is encouraged.</p>
+
+                    <h3 style="color: #334155; font-size: 18px; font-weight: 800; margin-bottom: 12px;">No Misuse</h3>
+                    <p style="color: #64748b; font-size: 15px; line-height: 1.7; margin-bottom: 24px;">Do not misuse this website or its content for any unlawful or harmful purpose. We reserve the right to block access if misuse is detected.</p>
+
+                    <h3 style="color: #334155; font-size: 18px; font-weight: 800; margin-bottom: 12px;">Content Updates</h3>
+                    <p style="color: #64748b; font-size: 15px; line-height: 1.7; margin-bottom: 0;">We reserve the right to add, modify, or remove content at any time without prior notice. We strive to keep all materials accurate and up-to-date.</p>
+                    <p style="color: #94a3b8; font-size: 12px; line-height: 1.7; margin-top: 16px;">Last updated: 2025</p>
+                </div>
+            </div>
+        </main>
+        
+        <main id="page-disclaimer" style="display: none; background-color: #ffffff; padding: 24px 20px 60px 20px;">
+            <div style="max-width: 800px; margin: 0 auto;">
+                <h2 style="color: #0f172a; font-size: 28px; font-weight: 900; margin-bottom: 24px;">Disclaimer</h2>
+                <div style="background-color: #ffffff; border: 1px solid #f1f5f9; border-radius: 24px; padding: 32px 24px; box-shadow: 0 10px 40px rgba(0,0,0,0.03);">
+                    <h3 style="color: #334155; font-size: 18px; font-weight: 800; margin-bottom: 12px;">Educational Content</h3>
+                    <p style="color: #64748b; font-size: 15px; line-height: 1.7; margin-bottom: 24px;">All content on StudiesSupport is created for educational and informational purposes only. It is designed to supplement, not replace, your school curriculum and textbooks.</p>
+                    
+                    <h3 style="color: #334155; font-size: 18px; font-weight: 800; margin-bottom: 12px;">No Guarantee of Accuracy</h3>
+                    <p style="color: #64748b; font-size: 15px; line-height: 1.7; margin-bottom: 24px;">While we make every effort to ensure the accuracy of our notes and study materials, we cannot guarantee that all content is 100% error-free. Always cross-check important information with your textbooks and teachers.</p>
+
+                    <h3 style="color: #334155; font-size: 18px; font-weight: 800; margin-bottom: 12px;">Use at Your Own Risk</h3>
+                    <p style="color: #64748b; font-size: 15px; line-height: 1.7; margin-bottom: 24px;">You use the materials on this website at your own discretion and risk. StudiesSupport is not responsible for any outcomes related to the use of our content, including exam results.</p>
+                    
+                    <h3 style="color: #334155; font-size: 18px; font-weight: 800; margin-bottom: 12px;">External Links</h3>
+                    <p style="color: #64748b; font-size: 15px; line-height: 1.7; margin-bottom: 0;">Our website may contain links to external platforms (such as Telegram and Instagram). We are not responsible for the content or privacy practices of these third-party sites.</p>
+                    <p style="color: #94a3b8; font-size: 12px; line-height: 1.7; margin-top: 16px;">Last updated: 2025</p>
+                </div>
+            </div>
+        </main>
+
+        <main id="page-admin" style="display: none; background-color: #ffffff; padding: 24px 20px 60px 20px;">
+            <div style="max-width: 800px; margin: 0 auto;">
+                <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 32px; flex-wrap: wrap; gap: 16px;">
+                    <div>
+                        <h2 style="color: #0f172a; font-size: 28px; font-weight: 900; margin-bottom: 8px;">Admin Panel</h2>
+                        <p style="color: #94a3b8; font-size: 14px; line-height: 1.6;">Add, edit, and manage study content</p>
+                    </div>
+                    <div style="display: flex; gap: 12px;">
+                        <button onclick="logoutAdmin()" aria-label="Logout Admin" style="display: flex; flex-direction: column; align-items: center; justify-content: center; background-color: #fef2f2; color: #dc2626; border: none; border-radius: 16px; padding: 12px 20px; font-size: 13px; font-weight: 700; cursor: pointer; gap: 6px;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" x2="9" y1="12" y2="12"/></svg> Logout</button>
+                    </div>
+                </div>
+
+                <div style="background-color: #ffffff; border: 1px solid #f1f5f9; border-radius: 24px; padding: 32px 24px; box-shadow: 0 10px 40px rgba(0,0,0,0.03); margin-bottom: 32px;">
+                    <h3 style="color: #0f172a; font-size: 18px; font-weight: 800; margin-bottom: 24px;">Manage Affiliate Ad Banners</h3>
+                    <form id="ad-upload-form" onsubmit="handleAdUpload(event)" style="display: flex; flex-direction: column; gap: 20px;">
+                        <div>
+                            <label for="ad-slot-select" style="display: block; color: #64748b; font-size: 13px; font-weight: 600; margin-bottom: 8px;">Select Banner Location</label>
+                            <select id="ad-slot-select" required style="width: 100%; padding: 16px; border-radius: 12px; border: 1px solid #e2e8f0; background-color: #f8fafc; font-size: 15px; outline: none;">
+                                <option value="">Choose where to show the ad...</option>
+                                <option value="slot-home">Home Page</option>
+                                <option value="slot-boards">ICSE & ISC Subject Pages</option>
+                                <option value="slot-content">Notes, Q&A, Solutions & Backpack</option>
+                                <option value="slot-extras">PDFs Page</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="ad-link-input" style="display: block; color: #64748b; font-size: 13px; font-weight: 600; margin-bottom: 8px;">Affiliate Link (Where the ad goes)</label>
+                            <input type="url" id="ad-link-input" placeholder="https://amazon.in/..." required style="width: 100%; padding: 16px; border-radius: 12px; border: 1px solid #e2e8f0; font-size: 15px; box-sizing: border-box;">
+                        </div>
+                        <div>
+                            <label for="ad-image-url-input" style="display: block; color: #64748b; font-size: 13px; font-weight: 600; margin-bottom: 8px;">Option 1: Paste Image URL (Safest, Bypasses Limits)</label>
+                            <input type="url" id="ad-image-url-input" placeholder="Right-click image on Amazon -> Copy Image Address" style="width: 100%; padding: 16px; border-radius: 12px; border: 1px solid #e2e8f0; font-size: 15px; box-sizing: border-box;">
+                        </div>
+                        <div style="text-align: center; color: #94a3b8; font-weight: 600; font-size: 14px;">— OR —</div>
+                        <div>
+                            <label style="display: block; color: #64748b; font-size: 13px; font-weight: 600; margin-bottom: 8px;">Option 2: Upload File (Select 1 Ad Image)</label>
+                            <label for="ad-file-upload" style="border: 2px dashed #cbd5e1; border-radius: 16px; padding: 32px 20px; text-align: center; background-color: #ffffff; cursor: pointer; display: block;">
+                                <i data-lucide="image" style="color: #64748b; width: 24px; height: 24px; margin-bottom: 12px; margin-left: auto; margin-right: auto; display: block;"></i>
+                                <p id="ad-file-name-display" style="color: #334155; font-size: 14px; font-weight: 600; margin: 0 0 4px 0;">Click to upload ad image</p>
+                            </label>
+                            <input id="ad-file-upload" type="file" accept="image/*" style="opacity: 0; position: absolute; width: 1px; height: 1px; z-index: -1;" onchange="document.getElementById('ad-file-name-display').innerText = this.files[0] ? this.files[0].name : 'Click to upload ad image'; document.getElementById('ad-file-name-display').style.color = '#2563eb';">
+                        </div>
+                        <button type="submit" style="padding: 16px 32px; background-color: #f59e0b; color: #ffffff; font-size: 15px; font-weight: 800; border: none; border-radius: 16px; cursor: pointer;">Save Ad Banner</button>
+                    </form>
+                </div>
+
+                <div style="background-color: #ffffff; border: 1px solid #f1f5f9; border-radius: 24px; padding: 32px 24px; box-shadow: 0 10px 40px rgba(0,0,0,0.03); margin-bottom: 32px;">
+                    <h3 style="color: #0f172a; font-size: 18px; font-weight: 800; margin-bottom: 24px;">Add New Study Material</h3>
+                    <form id="upload-form" onsubmit="handleMaterialUpload(event)" style="display: flex; flex-direction: column; gap: 20px;">
+                        <div>
+                            <label for="admin-board-select" style="display: block; color: #64748b; font-size: 13px; font-weight: 600; margin-bottom: 8px;">Board</label>
+                            <select id="admin-board-select" aria-label="Select Board" onchange="updateSubjectDropdown()" required style="width: 100%; padding: 16px; border-radius: 12px; border: 1px solid #e2e8f0; background-color: #f8fafc; font-size: 15px; outline: none;">
+                                <option value="">Select Board...</option>
+                                <option value="ICSE">ICSE</option>
+                                <option value="ISC">ISC</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="admin-class-select" style="display: block; color: #64748b; font-size: 13px; font-weight: 600; margin-bottom: 8px;">Class</label>
+                            <select id="admin-class-select" aria-label="Select Class" required style="width: 100%; padding: 16px; border-radius: 12px; border: 1px solid #e2e8f0; background-color: #f8fafc; font-size: 15px; outline: none;">
+                                <option value="">Select Class...</option>
+                                <option value="Class 9">Class 9</option><option value="Class 10">Class 10</option>
+                                <option value="Class 11">Class 11</option><option value="Class 12">Class 12</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="admin-subject-select" style="display: block; color: #64748b; font-size: 13px; font-weight: 600; margin-bottom: 8px;">Subject</label>
+                            <select id="admin-subject-select" aria-label="Select Subject" onchange="toggleCustomSubject()" required style="width: 100%; padding: 16px; border-radius: 12px; border: 1px solid #e2e8f0; background-color: #f8fafc; font-size: 15px; outline: none; margin-bottom: 8px;">
+                                <option value="">Select Board First</option>
+                            </select>
+                            <input type="text" id="admin-custom-subject" placeholder="Type your new subject name..." style="width: 100%; padding: 16px; border-radius: 12px; border: 1px solid #e2e8f0; font-size: 15px; box-sizing: border-box; display: none;">
+                        </div>
+                        <div>
+                            <label for="admin-chapter-input" style="display: block; color: #64748b; font-size: 13px; font-weight: 600; margin-bottom: 8px;">Chapter</label>
+                            <input type="text" id="admin-chapter-input" list="admin-chapters-list" placeholder="e.g., Chapter 1" required style="width: 100%; padding: 16px; border-radius: 12px; border: 1px solid #e2e8f0; font-size: 15px; box-sizing: border-box;">
+                            <datalist id="admin-chapters-list"></datalist>
+                        </div>
+                        <div>
+                            <label for="admin-subchapter-input" style="display: block; color: #64748b; font-size: 13px; font-weight: 600; margin-bottom: 8px;">Subchapter (Optional)</label>
+                            <input type="text" id="admin-subchapter-input" list="admin-subchapters-list" placeholder="e.g., Exercise 1(A)" style="width: 100%; padding: 16px; border-radius: 12px; border: 1px solid #e2e8f0; font-size: 15px; box-sizing: border-box;">
+                            <datalist id="admin-subchapters-list"></datalist>
+                        </div>
+                        <div>
+                            <label for="admin-textbook-input" style="display: block; color: #64748b; font-size: 13px; font-weight: 600; margin-bottom: 8px;">Textbook Name (Optional)</label>
+                            <input type="text" id="admin-textbook-input" placeholder="e.g., Concise Physics Class 10" style="width: 100%; padding: 16px; border-radius: 12px; border: 1px solid #e2e8f0; font-size: 15px; box-sizing: border-box;">
+                        </div>
+                        <div>
+                            <label for="admin-type-select" style="display: block; color: #64748b; font-size: 13px; font-weight: 600; margin-bottom: 8px;">Content Type</label>
+                            <select id="admin-type-select" aria-label="Select Content Type" required style="width: 100%; padding: 16px; border-radius: 12px; border: 1px solid #e2e8f0; background-color: #f8fafc; font-size: 15px; outline: none;">
+                                <option value="">Select Type...</option>
+                                <option value="PDF Document">PDF Document</option>
+                                <option value="Text Notes">Text Notes</option>
+                                <option value="Important Questions">Important Questions</option>
+                                <option value="Textbook Solutions">Textbook Solutions</option>
+                            </select>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 10px; padding: 14px; background: #f0fdf4; border-radius: 12px; border: 1px solid #bbf7d0; margin-top: 8px;">
+                            <input type="checkbox" id="admin-split-flag" style="width: 20px; height: 20px; accent-color: #16a34a; cursor: pointer;">
+                            <label for="admin-split-flag" style="color: #166534; font-size: 14px; font-weight: 800; cursor: pointer; margin: 0;">Enable Auto-Split for Students (Cuts Q1, Q2 into pages)</label>
+                        </div>
+                        <div>
+                            <label for="admin-text-input" style="display: block; color: #64748b; font-size: 13px; font-weight: 600; margin-bottom: 8px;">Content / Text</label>
+                            <textarea id="admin-text-input" aria-label="Content Text Input" placeholder="Paste all your questions here as one block..." style="width: 100%; padding: 16px; border-radius: 12px; border: 1px solid #e2e8f0; font-size: 15px; resize: vertical; min-height: 180px; box-sizing: border-box;"></textarea>
+                        </div>
+                        <div>
+                            <label style="display: block; color: #64748b; font-size: 13px; font-weight: 600; margin-bottom: 8px;">Attach File (PDF/DOC/Image)</label>
+                            <label for="file-upload" style="border: 2px dashed #cbd5e1; border-radius: 16px; padding: 32px 20px; text-align: center; background-color: #ffffff; cursor: pointer; display: block;">
+                                <i data-lucide="upload" style="color: #64748b; width: 24px; height: 24px; margin-bottom: 12px; margin-left: auto; margin-right: auto; display: block;"></i>
+                                <p id="file-name-display" style="color: #334155; font-size: 14px; font-weight: 600; margin: 0 0 4px 0;">Click to select file</p>
+                            </label>
+                            <input id="file-upload" aria-label="File Upload Input" type="file" accept="*/*" style="opacity: 0; position: absolute; width: 1px; height: 1px; z-index: -1;" onchange="document.getElementById('file-name-display').innerText = this.files[0] ? this.files[0].name : 'Click to upload'; document.getElementById('file-name-display').style.color = '#2563eb';">
+                        </div>
+                        <button type="submit" aria-label="Upload Material" style="padding: 16px 32px; background-color: #2563eb; color: #ffffff; font-size: 15px; font-weight: 800; border: none; border-radius: 16px; cursor: pointer;">Upload Material</button>
+                    </form>
+                </div>
+
+                <div style="background-color: #f8fafc; border: 1px solid #f1f5f9; border-radius: 24px; padding: 32px 24px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; flex-wrap: wrap; gap: 12px;">
+                        <h3 style="color: #0f172a; font-size: 18px; font-weight: 800; margin: 0;">All Study Materials</h3>
+                        <div style="display: flex; gap: 8px; flex-wrap: wrap; align-items: center;">
+                            <button id="bulk-delete-btn" onclick="deleteSelectedMaterials()" style="display: none; background: #ef4444; color: white; padding: 8px 12px; border-radius: 8px; border: none; font-size: 13px; font-weight: 700; cursor: pointer; align-items: center; gap: 6px; box-shadow: 0 2px 4px rgba(239,68,68,0.2);">
+                                <i data-lucide="trash-2" style="width: 14px; height: 14px;"></i> Delete Selected
+                            </button>
+                            <select id="admin-filter-class" aria-label="Filter by Class" onchange="renderAdminMaterials()" style="padding: 8px 12px; border-radius: 8px; border: 1px solid #cbd5e1; font-size: 13px; outline: none; background: white;">
+                                <option value="">All Classes</option>
+                                <option value="Class 9">Class 9</option><option value="Class 10">Class 10</option>
+                                <option value="Class 11">Class 11</option><option value="Class 12">Class 12</option>
+                            </select>
+                            <select id="admin-filter-subject" aria-label="Filter by Subject" onchange="renderAdminMaterials()" style="padding: 8px 12px; border-radius: 8px; border: 1px solid #cbd5e1; font-size: 13px; outline: none; background: white;">
+                                <option value="">All Subjects</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div id="admin-materials-container" style="display: flex; flex-direction: column; gap: 12px;">
+                        <p style="text-align: center; color: #94a3b8; font-size: 14px; margin: 40px 0;">Loading materials...</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <main id="page-ai-helper" class="page" style="display: none; padding: 20px; max-width: 600px; margin: 0 auto; padding-top: 40px;">
+            <div style="text-align: center; margin-bottom: 24px;">
+                <h2 style="color: #0f172a; font-size: 24px; font-weight: 800; margin: 0;">AI Study Partner</h2>
+            </div>
+            <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 24px; height: 55vh; display: flex; flex-direction: column; overflow: hidden; box-shadow: 0 10px 25px rgba(0,0,0,0.05);">
+                <div id="chat-box" style="flex: 1; padding: 20px; overflow-y: auto; display: flex; flex-direction: column; gap: 16px; background: #f8fafc;">
+                    <div style="align-self: flex-start; background: #ffffff; border: 1px solid #e2e8f0; padding: 14px 18px; border-radius: 20px; border-bottom-left-radius: 4px; max-width: 85%;"><p style="margin: 0; font-size: 14px; color: #334155;">Hello! I am your AI study assistant. Ask me any study question!</p></div>
+                </div>
+                <div style="display: flex; align-items: center; gap: 8px; background: #f8fafc; border-top: 1px solid #e2e8f0; padding: 12px; margin: 0;">
+                    <label for="ai-camera" style="cursor: pointer; padding: 8px; color: #64748b;" aria-label="Use Camera">
+                        <i data-lucide="camera" style="width: 20px; height: 20px;"></i>
+                        <input type="file" id="ai-camera" aria-label="AI Camera Upload" accept="image/*" capture="environment" style="display: none;" onchange="handleAICamera(event)">
+                    </label>
+                    <input id="ai-input" aria-label="AI Chat Input" type="text" placeholder="Ask anything..." style="flex: 1; border: 1px solid #cbd5e1; padding: 14px 16px; border-radius: 16px; background: transparent; font-size: 14px;">
+                    <button onclick="sendAIMessage()" aria-label="Send Message" style="background: #9333ea; color: white; border: none; width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; cursor: pointer;"><i data-lucide="send" style="width: 18px; height: 18px;"></i></button>
+                </div>
+            </div>
+        </main>
+
+        <footer style="background-color: #0f172a; border-top: 1px solid #1e293b; padding: 40px 24px; color: #cbd5e1; font-family: 'DM Sans', sans-serif;">
+            <div style="max-width: 600px; margin: 0 auto;">
+                <p style="font-size: 14px; line-height: 1.6; margin-bottom: 30px; color: #94a3b8; text-align: center;">
+                    Your smart study partner for ICSE & ISC board exams. Free notes, questions, and revision materials.
+                </p>
+                <div style="display: flex; flex-direction: column; gap: 14px; margin-bottom: 40px; text-align: center; color: #f8fafc; font-weight: 500;">
+                    <span onclick="navigateTo('about')" style="cursor:pointer;" aria-label="Navigate to About">About Us</span>
+                    <span onclick="navigateTo('contact')" style="cursor:pointer;" aria-label="Navigate to Contact">Contact</span>
+                    <span onclick="navigateTo('privacy')" style="cursor:pointer;" aria-label="Navigate to Privacy Policy">Privacy Policy</span>
+                    <span onclick="navigateTo('terms')" style="cursor:pointer;" aria-label="Navigate to Terms">Terms & Conditions</span>
+                    <span onclick="navigateTo('disclaimer')" style="cursor:pointer;" aria-label="Navigate to Disclaimer">Disclaimer</span>
+                </div>
+                
+                <div style="text-align: center; color: #64748b; font-size: 11px; margin-bottom: 24px; padding-top: 20px; border-top: 1px solid #1e293b;" itemscope itemtype="http://schema.org/Organization">
+                    <span itemprop="name" style="font-weight: bold; color: #94a3b8;">StudiesSupport</span> | 
+                    <span itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
+                        <span itemprop="addressLocality">Howrah</span>, 
+                        <span itemprop="addressRegion">West Bengal</span>, 
+                        <span itemprop="addressCountry">India</span>
+                    </span> |
+                    Email: <span itemprop="email">bachchupatra67@gmail.com</span>
+                </div>
+
+                <div style="text-align: center; font-size: 12px; color: #64748b;">
+                    © 2025 StudiesSupport. All rights reserved. Built for ICSE & ISC students.
+                </div>
+            </div>
+        </footer>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    
+    <script>
+// ==========================================
+// 1. GLOBALS & SUPABASE INIT
+// ==========================================
+let pageHistory = [];
+let currentPage = 'home';
+let myBackpack = JSON.parse(localStorage.getItem('studyBackpack')) || [];
+let supabaseClient = null;
+let editingMaterialId = null;
+let allStudyMaterials = [];
+let allAdBanners = [];
+
+try {
+    if (typeof supabase !== 'undefined') {
+        const supabaseUrl = 'https://gycmmdlkppyavwkqdxym.supabase.co';
+        const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd5Y21tZGxrcHB5YXZ3a3FkeHltIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU2NjE3NTgsImV4cCI6MjA5MTIzNzc1OH0.REcaVfmLe6SKMrPcvo13lq90CH762AaOhNOOwRgYNSc';
+        supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
+    }
+} catch (error) { console.error("Supabase error:", error); }
+
+// ==========================================
+// 2. WAKE UP THE WEBSITE
+// ==========================================
+function safeCreateIcons() {
+    try {
+        if (window.lucide) lucide.createIcons();
+    } catch(e) {
+        console.warn('Lucide icon error:', e);
+    }
+}
+
+function initApp() {
+    navigateTo('home'); 
+    try { fetchAndDisplayMaterials(); } catch(e) { console.error(e); }
+    safeCreateIcons();
+}
+
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initApp);
+} else {
+    initApp();
+}
+
+// ==========================================
+// 3. SMART ON-THE-FLY SPLITTER ENGINE
+// ==========================================
+function splitContentIntoBlocks(materials) {
+    let splitMaterials = [];
+    materials.forEach(m => {
+        let rawText = m.content_text || '';
+        if (rawText.includes('[SPLIT_ENABLED]')) {
+            rawText = rawText.replace(/\[SPLIT_ENABLED\]/g, '').trim();
+            let blocks = rawText.split(/(?=(?:\*\*|__|\s)*(?:Q\.?|Question|Ques)\s*\d+)/i)
+                                .map(t => t.trim())
+                                .filter(t => t.length > 3); 
+            if (blocks.length === 0) blocks = [rawText]; 
+            blocks.forEach(b => { splitMaterials.push({ ...m, content_text: b }); });
+        } else {
+            splitMaterials.push({ ...m, content_text: rawText.replace(/\[SPLIT_ENABLED\]/g, '') });
+        }
+    });
+    return splitMaterials;
+}
+
+// ==========================================
+// 4. NAVIGATION & RENDERING
+// ==========================================
+function renderMath() {
+    if (window.MathJax) {
+        setTimeout(() => { MathJax.typesetPromise().catch((err) => console.log('MathJax error:', err)); }, 100);
+    }
+}
+
+const generateCardHTML = (item) => {
+    let linkBtn = item.file_url ? `<a href="${item.file_url}" target="_blank" style="display: inline-block; background: #2563eb; color: #ffffff; padding: 10px 20px; border-radius: 10px; text-decoration: none; font-size: 14px; font-weight: 700; margin-top: 12px;">Download PDF</a>` : '';
+
+    let formattedText = item.content_text || '';
+    
+    formattedText = formattedText.replace(/\\\\times|\\times/g, ' × ');
+    formattedText = formattedText.replace(/\\\\div|\\div/g, ' ÷ ');
+    formattedText = formattedText.replace(/\\\\rightarrow|\\rightarrow/g, ' → ');
+    formattedText = formattedText.replace(/\\\\Rightarrow|\\Rightarrow/g, ' ⇒ ');
+    
+    formattedText = formattedText.replace(/\\\\text{([^}]+)}|\\text{([^}]+)}/g, function(match, p1, p2) { return p1 || p2 || ''; });
+    
+    formattedText = formattedText.replace(/\\\\tau|\\tau/g, 'τ');
+    formattedText = formattedText.replace(/\\\\theta|\\theta/g, 'θ');
+    formattedText = formattedText.replace(/\\\\omega|\\omega/g, 'ω');
+    formattedText = formattedText.replace(/\\\\alpha|\\alpha/g, 'α');
+    formattedText = formattedText.replace(/\\\\beta|\\beta/g, 'β');
+    formattedText = formattedText.replace(/\\\\gamma|\\gamma/g, 'γ');
+    formattedText = formattedText.replace(/\\\\Delta|\\Delta|\\\\delta|\\delta/g, 'Δ');
+    
+    formattedText = formattedText.replace(/([a-zA-Z])_([0-9a-zA-Z]+)/g, '$1<sub>$2</sub>');
+    formattedText = formattedText.replace(/([a-zA-Z0-9])\^([0-9a-zA-Z]+)/g, '$1<sup>$2</sup>');
+    
+    formattedText = formattedText.replace(/\*\*([\s\S]*?)\*\*/g, '<strong style="color: #0f172a; font-weight: 900;">$1</strong>');
+    formattedText = formattedText.replace(/\*\*/g, '');
+    
+    formattedText = formattedText.replace(/(^|\n|\s*)((?:Q\.?|Question|Ques)\s*\d+[\s\S]*?)(?=\n\s*Ans\.?|\n\s*Answer\.?|$)/i, function(match, p1, p2) {
+        if (p2.includes('<strong')) return match; 
+        return `${p1}<strong style="color: #0f172a; font-weight: 900;">${p2.trim()}</strong>`;
+    });
+    
+    let textNotes = formattedText ? `<div style="background: #f8fafc; padding: 12px; border-radius: 8px; font-size: 14px; color: #334155; margin-top: 12px; white-space: pre-wrap; overflow-x: auto; font-family: sans-serif; line-height: 1.6;">${formattedText}</div>` : '';
+
+    let subchapterBadge = item.subchapter ? `<span style="background: #fef3c7; color: #d97706; padding: 4px 8px; border-radius: 6px; font-size: 11px; font-weight: 800; display: inline-block; margin-bottom: 8px; margin-left: 6px;">${item.subchapter}</span>` : '';
+    let textbookDisplay = item.textbook ? `<div style="color: #64748b; font-size: 12px; margin-top: 6px; display: flex; align-items: center; gap: 4px;"><i data-lucide="book-open" style="width: 14px; height: 14px;"></i> ${item.textbook}</div>` : '';
+
+    const isSaved = myBackpack.some(savedId => String(savedId) === String(item.id));
+    const bookmarkColor = isSaved ? '#f59e0b' : '#94a3b8';
+    const bookmarkFill = isSaved ? '#f59e0b' : 'none';
+
+    return `
+        <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 16px; padding: 20px; box-shadow: 0 4px 6px rgba(0,0,0,0.02); margin-bottom: 16px;">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                <h4 style="color: #0f172a; font-size: 16px; font-weight: 800; margin: 0 0 4px 0;">${item.chapter || 'Study Material'}</h4>
+                <button onclick="toggleBookmark('${item.id}')" aria-label="Save Bookmark" style="background: none; border: none; cursor: pointer; padding: 0;">
+                    <i data-lucide="bookmark" style="color: ${bookmarkColor}; width: 24px; height: 24px;" fill="${bookmarkFill}"></i>
+                </button>
+            </div>
+            <span style="background: #eff6ff; color: #2563eb; padding: 4px 8px; border-radius: 6px; font-size: 11px; font-weight: 800; display: inline-block; margin-bottom: 8px;">${item.content_type}</span>
+            ${subchapterBadge}
+            <p style="color: #64748b; font-size: 13px; margin: 0;">${item.class_level} • ${item.subject}</p>
+            ${textbookDisplay}
+            ${textNotes}
+            ${linkBtn}
+        </div>`;
+};
+
+function navigateTo(pageName, isBack = false) {
+    if (pageName === 'admin' && localStorage.getItem('isAdminLoggedIn') !== 'true') { showLoginModal(); return; }
+    if (!isBack && currentPage !== pageName) { pageHistory.push(currentPage); }
+    currentPage = pageName;
+
+    const backBtn = document.getElementById('universal-back-btn');
+    if (backBtn) backBtn.style.display = (pageName === 'home') ? 'none' : 'flex';
+    if (pageName === 'home') pageHistory = [];
+
+    document.querySelectorAll('main').forEach(page => { page.style.display = 'none'; page.classList.remove('active'); });
+
+    const targetPage = document.getElementById('page-' + pageName);
+    if (targetPage) { targetPage.style.display = 'block'; targetPage.classList.add('active'); }
+
+    if (pageName === 'backpack') renderBackpack();
+    else if (pageName === 'solutions') updateSolutionsSubjectDropdown();
+    else renderStudentMaterials();
+
+    const mobileMenu = document.getElementById('mobile-menu');
+    if (mobileMenu && mobileMenu.style.display === 'block') toggleMobileMenu();
+    window.scrollTo(0, 0);
+    
+    safeCreateIcons();
+}
+
+function goBack() { if (pageHistory.length > 0) { navigateTo(pageHistory.pop(), true); } else { navigateTo('home'); } }
+function toggleMobileMenu() { const menu = document.getElementById('mobile-menu'); if (menu) menu.style.display = (menu.style.display === 'block') ? 'none' : 'block'; }
+
+async function showLoginModal() { 
+    if (localStorage.getItem('isAdminLoggedIn') === 'true') { navigateTo('admin'); return; }
+    if (supabaseClient) {
+        const { data } = await supabaseClient.auth.getSession();
+        if (data && data.session) { localStorage.setItem('isAdminLoggedIn', 'true'); navigateTo('admin'); return; }
+    }
+    document.getElementById('login-modal')?.classList.remove('hidden'); 
+}
+function closeLoginModal() { document.getElementById('login-modal')?.classList.add('hidden'); }
+
+// ==========================================
+// 5. ADMIN PANEL & UPLOADS
+// ==========================================
+async function loginAdmin() {
+    const email = document.getElementById('admin-email').value.trim();
+    const password = document.getElementById('admin-password').value.trim();
+    if (!email || !password) return alert("Please enter both email and password.");
+    try {
+        const { error } = await supabaseClient.auth.signInWithPassword({ email, password });
+        if (error) throw error;
+        localStorage.setItem('isAdminLoggedIn', 'true');
+        closeLoginModal(); navigateTo('admin');
+    } catch (error) { alert("Login Failed: " + error.message); } 
+}
+
+async function logoutAdmin() {
+    if (supabaseClient) await supabaseClient.auth.signOut();
+    localStorage.removeItem('isAdminLoggedIn');
+    alert("Logged out successfully."); navigateTo('home');
+}
+
+// 🌟 FIXED RLS BYPASS FOR ADS (Deleting by ID to completely bypass RLS delete blocks)
+async function handleAdUpload(event) {
+    event.preventDefault();
+    if (!supabaseClient) return alert("System unavailable.");
+    
+    const slot = document.getElementById('ad-slot-select').value;
+    const link = document.getElementById('ad-link-input').value;
+    const imageUrlInput = document.getElementById('ad-image-url-input').value.trim();
+    const file = document.getElementById('ad-file-upload').files[0];
+    
+    if(!file && !imageUrlInput) return alert("Please provide an Image URL or upload a file.");
+    
+    const btn = event.target.querySelector('button[type="submit"]');
+    btn.innerText = "Saving Ad... ⏳"; btn.disabled = true;
+
+    try {
+        // 🌟 BYPASS: Find existing ad ID first, then delete by ID (avoids RLS blocking generic deletes)
+        const { data: existingAds } = await supabaseClient.from('study_materials').select('id').eq('subchapter', 'SYSTEM_AD_' + slot);
+        if (existingAds && existingAds.length > 0) {
+            const adIds = existingAds.map(ad => ad.id);
+            await supabaseClient.from('study_materials').delete().in('id', adIds);
+        }
+
+        let finalImageUrl = imageUrlInput;
+
+        if (file) {
+            const safeFileName = `ad-${Date.now()}.${file.name.split('.').pop()}`;
+            const { error: uploadError } = await supabaseClient.storage.from('study-materials').upload(safeFileName, await file.arrayBuffer(), { contentType: file.type });
+            if (uploadError) throw uploadError;
+            finalImageUrl = supabaseClient.storage.from('study-materials').getPublicUrl(safeFileName).data.publicUrl;
+        }
+
+        const uploadData = {
+            board: 'ICSE', 
+            subject: 'Mathematics', 
+            class_level: 'Class 10',
+            chapter: 'Chapter 1', 
+            subchapter: 'SYSTEM_AD_' + slot,
+            content_type: 'Text Notes', 
+            content_text: link, 
+            file_url: finalImageUrl
+        };
+        
+        const { error: insertError } = await supabaseClient.from('study_materials').insert([uploadData]);
+        if(insertError) throw insertError;
+        
+        alert("Ad Banner successfully saved!");
+        event.target.reset();
+        document.getElementById('ad-file-name-display').innerText = 'Click to upload ad image';
+        fetchAndDisplayMaterials();
+    } catch (err) { alert("Error: " + err.message); }
+    finally { btn.innerText = "Save Ad Banner"; btn.disabled = false; }
+}
+
+function renderAds() {
+    const defaultAdHtml = `<span style="color: #94a3b8; font-size: 10px; letter-spacing: 1px; text-transform: uppercase;">Advertisement</span>`;
+    document.querySelectorAll('.dynamic-ad-slot').forEach(el => {
+        const slotName = el.getAttribute('data-slot');
+        const adData = allAdBanners.find(m => m.subchapter === 'SYSTEM_AD_' + slotName);
+        
+        if (adData && adData.file_url) {
+            el.innerHTML = `<a href="${adData.content_text}" target="_blank" style="display:block; width:100%; height:100%;"><img src="${adData.file_url}" alt="Ad" style="width:100%; height:100%; object-fit:cover; border-radius:8px;"></a>`;
+            el.style.padding = "0";
+            el.style.border = "none";
+        } else {
+            el.innerHTML = defaultAdHtml;
+            el.style.padding = "";
+            el.style.border = "1px solid #e2e8f0";
+        }
+    });
+}
+
+function updateSubjectDropdown() {
+    const boardSelect = document.getElementById('admin-board-select');
+    if (!boardSelect) return;
+    const board = boardSelect.value;
+    const subjectSelect = document.getElementById('admin-subject-select');
+    if (!subjectSelect) return;
+    
+    let standardSubjects = board === 'ICSE' 
+        ? ['English Language', 'English Literature', 'Mathematics', 'Science (Physics)', 'Science (Chemistry)', 'Science (Biology)', 'Hindi', 'History & Civics', 'Geography', 'Computer Science']
+        : ['English Language', 'English Literature', 'Hindi', 'Physics', 'Chemistry', 'Mathematics', 'Biology', 'Computer Science', 'Accounts', 'Business Studies', 'Economics', 'History'];
+
+    const dbSubjects = allStudyMaterials.filter(m => m.board === board).map(m => m.subject).filter(Boolean);
+    const allSubjects = [...new Set([...standardSubjects, ...dbSubjects])].sort();
+
+    subjectSelect.innerHTML = '<option value="">Select Subject</option>' + allSubjects.map(sub => `<option value="${sub}">${sub}</option>`).join('');
+    if (board) subjectSelect.innerHTML += `<option value="CUSTOM_NEW" style="font-weight:bold; color:#2563eb;">+ Add New Subject...</option>`;
+    toggleCustomSubject(); 
+}
+
+function toggleCustomSubject() {
+    const select = document.getElementById('admin-subject-select');
+    const customInput = document.getElementById('admin-custom-subject');
+    if (!select || !customInput) return;
+    if (select.value === 'CUSTOM_NEW') { customInput.style.display = 'block'; customInput.required = true; } 
+    else { customInput.style.display = 'none'; customInput.required = false; customInput.value = ''; }
+}
+
+async function handleMaterialUpload(event) {
+    event.preventDefault();
+    if (!supabaseClient) return alert("Upload system unavailable.");
+
+    const boardValue = document.getElementById('admin-board-select').value;
+    const classValue = document.getElementById('admin-class-select').value;
+    const typeValue = document.getElementById('admin-type-select').value;
+    let subjectValue = document.getElementById('admin-subject-select').value;
+    if (subjectValue === 'CUSTOM_NEW') subjectValue = document.getElementById('admin-custom-subject').value.trim();
+    
+    const chapterValue = document.getElementById('admin-chapter-input').value.trim();
+    const subchapterValue = document.getElementById('admin-subchapter-input').value.trim();
+    const textbookValue = document.getElementById('admin-textbook-input').value.trim();
+    let textContent = document.getElementById('admin-text-input').value;
+    const enableSplit = document.getElementById('admin-split-flag')?.checked;
+    
+    const file = document.getElementById('file-upload').files[0];
+    if (!file && textContent.trim() === "" && !editingMaterialId) return alert("Please add text content or a file!");
+
+    const btn = event.target.querySelector('button[type="submit"]');
+    btn.innerText = "Saving... ⏳"; btn.disabled = true;
+
+    try {
+        let finalFileUrl = editingMaterialId ? (allStudyMaterials.find(m => m.id === editingMaterialId)?.file_url || "") : "";
+        if (file) {
+            const safeFileName = `${Date.now()}-${Math.random().toString(36).substring(2)}.${file.name.split('.').pop()}`;
+            const { error: uploadError } = await supabaseClient.storage.from('study-materials').upload(safeFileName, await file.arrayBuffer(), { contentType: file.type });
+            if (uploadError) throw uploadError;
+            finalFileUrl = supabaseClient.storage.from('study-materials').getPublicUrl(safeFileName).data.publicUrl;
+        }
+
+        if (enableSplit && !textContent.includes('[SPLIT_ENABLED]')) {
+            textContent += '\n[SPLIT_ENABLED]';
+        } else if (!enableSplit) {
+            textContent = textContent.replace(/\[SPLIT_ENABLED\]/g, '');
+        }
+
+        const uploadData = { 
+            board: boardValue, subject: subjectValue, class_level: classValue, 
+            chapter: chapterValue, subchapter: subchapterValue, textbook: textbookValue, 
+            content_type: typeValue, content_text: textContent, file_url: finalFileUrl 
+        };
+
+        if (editingMaterialId) {
+            await supabaseClient.from('study_materials').update(uploadData).eq('id', editingMaterialId);
+            alert("Success! Material updated.");
+        } else {
+            await supabaseClient.from('study_materials').insert([uploadData]);
+            alert("Success! Material saved.");
+        }
+
+        editingMaterialId = null; event.target.reset(); toggleCustomSubject(); fetchAndDisplayMaterials();
+    } catch (error) { alert("Error: " + error.message); } 
+    finally { btn.innerText = "Upload Material"; btn.disabled = false; }
+}
+
+async function deleteMaterial(id) {
+    if (!confirm("Are you sure you want to delete this single item?")) return;
+    await supabaseClient.from('study_materials').delete().eq('id', id); 
+    fetchAndDisplayMaterials(); 
+}
+
+async function deleteSelectedMaterials() {
+    const checkboxes = document.querySelectorAll('.admin-item-checkbox:checked');
+    const idsToDelete = Array.from(checkboxes).map(cb => cb.value);
+    if (idsToDelete.length === 0) return alert("Please select at least one item to delete.");
+    if (!confirm(`Delete ${idsToDelete.length} item(s)? This cannot be undone.`)) return;
+
+    const btn = document.getElementById('bulk-delete-btn');
+    const oldText = btn.innerHTML;
+    btn.innerHTML = `<i data-lucide="trash-2" style="width: 14px; height: 14px;"></i> Deleting...`;
+    btn.disabled = true;
+
+    try {
+        const { error } = await supabaseClient.from('study_materials').delete().in('id', idsToDelete);
+        if (error) throw error;
+        alert(`Successfully deleted ${idsToDelete.length} items!`);
+        fetchAndDisplayMaterials();
+    } catch (error) { alert("Failed to delete: " + error.message); } 
+    finally { btn.innerHTML = oldText; btn.disabled = false; btn.style.display = 'none'; safeCreateIcons(); }
+}
+
+function toggleBulkDeleteBtn() {
+    const checkboxes = document.querySelectorAll('.admin-item-checkbox:checked');
+    const btn = document.getElementById('bulk-delete-btn');
+    if(btn) btn.style.display = checkboxes.length > 0 ? 'flex' : 'none';
+}
+
+function editMaterial(id) {
+    const item = allStudyMaterials.find(m => m.id === id);
+    if (!item) return;
+    editingMaterialId = item.id; 
+
+    document.getElementById('admin-board-select').value = item.board || '';
+    updateSubjectDropdown(); 
+    
+    const select = document.getElementById('admin-subject-select');
+    const options = Array.from(select.options).map(opt => opt.value);
+    if (options.includes(item.subject)) { select.value = item.subject; } 
+    else { select.value = 'CUSTOM_NEW'; toggleCustomSubject(); document.getElementById('admin-custom-subject').value = item.subject || ''; }
+
+    document.getElementById('admin-class-select').value = item.class_level || '';
+    document.getElementById('admin-type-select').value = item.content_type || '';
+    document.getElementById('admin-chapter-input').value = item.chapter || '';
+    document.getElementById('admin-subchapter-input').value = item.subchapter || '';
+    const textbookInput = document.getElementById('admin-textbook-input');
+    if(textbookInput) textbookInput.value = item.textbook || '';
+    
+    let text = item.content_text || '';
+    const splitFlag = document.getElementById('admin-split-flag');
+    if (text.includes('[SPLIT_ENABLED]')) {
+        if (splitFlag) splitFlag.checked = true;
+        text = text.replace(/\[SPLIT_ENABLED\]/g, '').trim();
+    } else {
+        if (splitFlag) splitFlag.checked = false;
+    }
+    document.getElementById('admin-text-input').value = text;
+
+    document.querySelector('#upload-form button[type="submit"]').innerText = "Update Material";
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+async function fetchAndDisplayMaterials() {
+    if (!supabaseClient) return;
+    try {
+        const { data, error } = await supabaseClient.from('study_materials').select('*').order('created_at', { ascending: false });
+        if (error) throw error;
+        
+        // 🌟 IDENTIFY ADS BY THE FAKE SUBCHAPTER TAG
+        allAdBanners = data.filter(m => (m.subchapter || '').startsWith('SYSTEM_AD_'));
+        allStudyMaterials = data.filter(m => !(m.subchapter || '').startsWith('SYSTEM_AD_'));
+        
+        renderAds(); 
+        renderAdminMaterials(); 
+        renderStudentMaterials(); 
+        updateAdminDatalists(); 
+        updateSolutionsSubjectDropdown();
+        if (currentPage === 'backpack') renderBackpack();
+    } catch (error) { console.error(error); }
+}
+
+function renderAdminMaterials() {
+    const container = document.getElementById('admin-materials-container');
+    if (!container) return;
+    const classFilter = document.getElementById('admin-filter-class')?.value || '';
+    const subFilter = document.getElementById('admin-filter-subject')?.value || '';
+
+    let filtered = allStudyMaterials; 
+    if (classFilter) filtered = filtered.filter(m => m.class_level === classFilter);
+    if (subFilter) filtered = filtered.filter(m => m.subject === subFilter);
+    
+    const btn = document.getElementById('bulk-delete-btn');
+    if (btn) btn.style.display = 'none'; 
+
+    if (filtered.length === 0) {
+        container.innerHTML = `<p style="text-align: center; margin:40px 0; color: #64748b;">No materials found.</p>`;
+        return;
+    }
+
+    container.innerHTML = filtered.map(item => {
+        let isSplit = (item.content_text || '').includes('[SPLIT_ENABLED]');
+        let splitBadge = isSplit ? `<span style="background: #dcfce7; color: #166534; padding: 2px 8px; border-radius: 6px; font-size: 10px; font-weight: 800; margin-left: 8px; display: inline-block;">Auto-Split ON</span>` : '';
+        
+        return `
+        <div style="background: white; border: 1px solid #e2e8f0; border-radius: 16px; padding: 16px; margin-bottom: 12px; display: flex; align-items: flex-start; gap: 12px;">
+            <input type="checkbox" class="admin-item-checkbox" aria-label="Select Material" value="${item.id}" onchange="toggleBulkDeleteBtn()" style="width: 20px; height: 20px; margin-top: 4px; accent-color: #ef4444; cursor: pointer;">
+            <div style="flex: 1;">
+                <h4 style="font-size: 15px; font-weight: 700; margin: 0; color: #0f172a; display: flex; align-items: center; flex-wrap: wrap;">
+                    ${item.chapter} ${item.subchapter ? `(${item.subchapter})` : ''} ${splitBadge}
+                </h4>
+                <p style="font-size: 12px; color: #64748b; margin: 4px 0;">${item.class_level} • ${item.subject} • ${item.content_type}</p>
+            </div>
+            <div style="display:flex; align-items: flex-start; flex-direction: column; gap: 8px;">
+                <button onclick="editMaterial(${item.id})" aria-label="Edit Material" style="background:#fff7ed; color:#ea580c; border:1px solid #fed7aa; padding:6px 12px; border-radius:8px; font-weight:700; cursor: pointer; width: 100%;">Edit</button>
+                <button onclick="deleteMaterial(${item.id})" aria-label="Delete Material" style="background:#fef2f2; color:red; border:1px solid #fecaca; padding:6px 12px; border-radius:8px; font-weight:700; cursor: pointer; width: 100%;">Delete</button>
+            </div>
+        </div>`;
+    }).join('');
+    
+    renderMath();
+}
+
+function updateAdminDatalists() {
+    const chapList = document.getElementById('admin-chapters-list');
+    const subChapList = document.getElementById('admin-subchapters-list');
+    if (!chapList || !subChapList) return;
+
+    chapList.innerHTML = [...new Set(allStudyMaterials.map(m => m.chapter).filter(Boolean))].map(c => `<option value="${c}">`).join('');
+    subChapList.innerHTML = [...new Set(allStudyMaterials.map(m => m.subchapter).filter(Boolean))].map(sc => `<option value="${sc}">`).join('');
+}
+
+
+// ==========================================
+// 6. 🌟 SOLUTIONS PAGE LOGIC
+// ==========================================
+let currentSolutionChapter = '';
+let activeSolTab = 'exercise';
+let activeSolSubchapter = '';
+let activeSolQuestion = 'all';
+
+function updateSolutionsSubjectDropdown() {
+    const classSelect = document.getElementById('sol-filter-class');
+    const subjectSelect = document.getElementById('sol-filter-subject');
+    if (!classSelect || !subjectSelect) return;
+
+    let validMaterials = allStudyMaterials.filter(m => m.content_type === 'Textbook Solutions');
+    if (classSelect.value) validMaterials = validMaterials.filter(m => m.class_level === classSelect.value);
+
+    const currentSub = subjectSelect.value;
+    const subjects = [...new Set(validMaterials.map(m => m.subject).filter(Boolean))].sort();
+    subjectSelect.innerHTML = '<option value="">Select Subject...</option>' + subjects.map(s => `<option value="${s}">${s}</option>`).join('');
+    if (subjects.includes(currentSub)) subjectSelect.value = currentSub;
+}
+
+function renderSolutionsChapters() {
+    updateSolutionsSubjectDropdown();
+    
+    const classVal = document.getElementById('sol-filter-class')?.value;
+    const subjectVal = document.getElementById('sol-filter-subject')?.value;
+    const chapterList = document.getElementById('solutions-chapter-list');
+    const cardsContainer = document.getElementById('solutions-materials-container');
+    
+    if(!chapterList || !cardsContainer) return;
+
+    cardsContainer.style.display = 'none';
+    chapterList.style.display = 'flex';
+
+    if (!classVal || !subjectVal) {
+        chapterList.innerHTML = `<div style="text-align: center; padding: 40px; border: 1px dashed #cbd5e1; border-radius: 16px;"><p style="color: #64748b; font-size: 14px; font-weight: 500;">Select a Class and Subject above to view chapters.</p></div>`;
+        return;
+    }
+
+    const filtered = allStudyMaterials.filter(m => m.content_type === 'Textbook Solutions' && m.class_level === classVal && m.subject === subjectVal);
+    const chapters = [...new Set(filtered.map(m => m.chapter).filter(Boolean))];
+
+    if (chapters.length === 0) {
+        chapterList.innerHTML = `<div style="text-align: center; padding: 40px; background: #f8fafc; border-radius: 16px;"><p style="color: #64748b; font-size: 14px; font-weight: 500;">No textbook solutions found for this subject.</p></div>`;
+        return;
+    }
+
+    chapterList.innerHTML = chapters.map((chap, index) => {
+        const num = String(index + 1).padStart(2, '0');
+        return `
+        <div onclick="openSolutionsModal('${chap.replace(/'/g, "\\'")}')" style="display: flex; align-items: center; gap: 16px; padding: 20px 16px; border-bottom: 1px solid #f1f5f9; cursor: pointer; transition: background 0.2s;">
+            <span style="font-size: 16px; font-weight: 800; color: #f472b6;">${num}</span>
+            <span style="font-size: 15px; font-weight: 700; color: #334155; flex: 1;">${chap}</span>
+        </div>`;
+    }).join('');
+}
+
+function openSolutionsModal(chapterName) {
+    currentSolutionChapter = chapterName;
+    activeSolTab = 'exercise';
+    
+    const classVal = document.getElementById('sol-filter-class').value;
+    const subjectVal = document.getElementById('sol-filter-subject').value;
+    
+    const subchapters = [...new Set(allStudyMaterials.filter(m => 
+        m.content_type === 'Textbook Solutions' && m.class_level === classVal && m.subject === subjectVal && m.chapter === currentSolutionChapter
+    ).map(m => m.subchapter).filter(Boolean))].sort();
+
+    activeSolSubchapter = subchapters.length > 0 ? subchapters[0] : '';
+    activeSolQuestion = 'all'; 
+
+    document.getElementById('solutions-modal').style.display = 'flex';
+    renderSolutionsModalContent();
+}
+
+function switchSolutionsTab(tabName) {
+    activeSolTab = tabName;
+    renderSolutionsModalContent();
+}
+
+function renderSolutionsModalContent() {
+    const tabEx = document.getElementById('tab-exercise');
+    const tabQ = document.getElementById('tab-questions');
+    const listContainer = document.getElementById('solutions-exercise-list');
+
+    if (activeSolTab === 'exercise') {
+        tabEx.style.color = '#0f8368'; tabEx.style.borderBottom = '2px solid #0f8368'; tabEx.style.background = 'white'; tabEx.style.fontWeight = '800';
+        tabQ.style.color = '#64748b'; tabQ.style.borderBottom = 'none'; tabQ.style.background = 'transparent'; tabQ.style.fontWeight = '600';
+    } else {
+        tabQ.style.color = '#0f8368'; tabQ.style.borderBottom = '2px solid #0f8368'; tabQ.style.background = 'white'; tabQ.style.fontWeight = '800';
+        tabEx.style.color = '#64748b'; tabEx.style.borderBottom = 'none'; tabEx.style.background = 'transparent'; tabEx.style.fontWeight = '600';
+    }
+
+    const classVal = document.getElementById('sol-filter-class').value;
+    const subjectVal = document.getElementById('sol-filter-subject').value;
+    
+    let chapterMaterials = allStudyMaterials.filter(m => 
+        m.content_type === 'Textbook Solutions' && m.class_level === classVal && m.subject === subjectVal && m.chapter === currentSolutionChapter
+    );
+
+    if (activeSolTab === 'exercise') {
+        const subchapters = [...new Set(chapterMaterials.map(m => m.subchapter).filter(Boolean))].sort();
+        if (subchapters.length === 0) {
+            listContainer.innerHTML = '<p style="padding: 20px; color:#64748b; font-size: 14px; text-align: center;">No specific exercises categorized. Just click APPLY.</p>';
+        } else {
+            listContainer.innerHTML = subchapters.map(sc => `
+                <label class="sol-radio-container" onclick="activeSolSubchapter='${sc.replace(/'/g, "\\'")}'; activeSolQuestion='all'; renderSolutionsModalContent();">
+                    <input type="radio" name="sol-exercise-radio" aria-label="Select Subchapter" value="${sc}" ${activeSolSubchapter === sc ? 'checked' : ''} class="sol-radio-input">
+                    <span style="font-size: 14px; font-weight: 600; color: #334155;">${sc}</span>
+                </label>
+            `).join('');
+        }
+    } else {
+        if (activeSolSubchapter) chapterMaterials = chapterMaterials.filter(m => m.subchapter === activeSolSubchapter);
+
+        let splitChapMats = splitContentIntoBlocks(chapterMaterials);
+
+        let rawNumbers = splitChapMats.map(m => {
+            const match = (m.content_text || '').match(/(?:\*\*|\s)*(?:Q\.?|Question|Ques)\s*(\d+)/i);
+            return match ? parseInt(match[1]) : null;
+        }).filter(n => n !== null);
+        
+        let uniqueNumbers = [...new Set(rawNumbers)].sort((a,b) => a - b);
+
+        let html = `
+            <label class="sol-radio-container" onclick="activeSolQuestion='all'; renderSolutionsModalContent();">
+                <input type="radio" name="sol-question-radio" aria-label="Select All Questions" value="all" ${activeSolQuestion === 'all' ? 'checked' : ''} class="sol-radio-input">
+                <span style="font-size: 14px; font-weight: 600; color: #334155;">All Questions</span>
+            </label>
+        `;
+
+        if (uniqueNumbers.length === 0) {
+            html += '<p style="padding: 20px; color:#64748b; font-size: 14px; text-align:center;">Questions are not numbered in standard format (e.g., Q.1). Click APPLY to read all.</p>';
+        } else {
+            html += uniqueNumbers.map(num => `
+                <label class="sol-radio-container" onclick="activeSolQuestion='${num}'; renderSolutionsModalContent();">
+                    <input type="radio" name="sol-question-radio" aria-label="Select Question" value="${num}" ${String(activeSolQuestion) === String(num) ? 'checked' : ''} class="sol-radio-input">
+                    <span style="font-size: 14px; font-weight: 600; color: #334155;">${num}</span>
+                </label>
+            `).join('');
+        }
+        listContainer.innerHTML = html;
+    }
+}
+
+function closeSolutionsModal() { document.getElementById('solutions-modal').style.display = 'none'; }
+
+function applySolutionsFilter() {
+    closeSolutionsModal();
+    const chapterList = document.getElementById('solutions-chapter-list');
+    const container = document.getElementById('solutions-materials-container');
+    
+    chapterList.style.display = 'none';
+    container.style.display = 'flex';
+    container.innerHTML = '';
+    
+    const classVal = document.getElementById('sol-filter-class').value;
+    const subjectVal = document.getElementById('sol-filter-subject').value;
+
+    let chapterMaterials = allStudyMaterials.filter(m => 
+        m.content_type === 'Textbook Solutions' && m.class_level === classVal && m.subject === subjectVal && m.chapter === currentSolutionChapter
+    );
+    
+    if (activeSolSubchapter) {
+        chapterMaterials = chapterMaterials.filter(m => m.subchapter === activeSolSubchapter); 
+    }
+    
+    let splitMaterials = splitContentIntoBlocks(chapterMaterials);
+    let filtered = [...splitMaterials];
+
+    if (activeSolQuestion !== 'all') {
+        filtered = filtered.filter(m => {
+            const match = (m.content_text || '').match(/(?:\*\*|\s)*(?:Q\.?|Question|Ques)\s*(\d+)/i);
+            return match && String(match[1]) === String(activeSolQuestion);
+        });
+    }
+
+    container.innerHTML += `<button onclick="renderSolutionsChapters()" style="background: #f1f5f9; border: none; padding: 10px 16px; border-radius: 10px; display: inline-flex; align-items: center; gap: 8px; font-weight: 700; color: #334155; cursor: pointer; align-self: flex-start; margin-bottom: 8px;"><i data-lucide="arrow-left" style="width: 16px; height: 16px;"></i> Back to Chapters</button>`;
+    
+    let headerTitle = `${currentSolutionChapter}`;
+    if (activeSolSubchapter) headerTitle += ` — ${activeSolSubchapter}`;
+    if (activeSolQuestion !== 'all') headerTitle += ` (Q.${activeSolQuestion})`;
+    
+    container.innerHTML += `<h3 style="font-size: 18px; font-weight: 800; color: #0f172a; margin-bottom: 8px;">${headerTitle}</h3>`;
+
+    if (filtered.length === 0) {
+        container.innerHTML += `<div style="text-align: center; padding: 40px;"><p style="color: #64748b; font-size: 15px; font-weight: 600;">No materials found.</p></div>`;
+    } else {
+        filtered.forEach(item => { container.innerHTML += generateCardHTML(item); });
+    }
+
+    // 🌟 PREV/NEXT PAGINATION ENGINE
+    if (activeSolQuestion !== 'all') {
+        let rawNumbers = splitMaterials.map(m => {
+            const match = (m.content_text || '').match(/(?:\*\*|\s)*(?:Q\.?|Question|Ques)\s*(\d+)/i);
+            return match ? parseInt(match[1]) : null;
+        }).filter(n => n !== null);
+        
+        let uniqueNumbers = [...new Set(rawNumbers)].sort((a,b) => a - b);
+        let currentIndex = uniqueNumbers.indexOf(parseInt(activeSolQuestion));
+
+        let paginationHTML = `<div style="display: flex; justify-content: space-between; margin-top: 16px; padding-top: 16px; border-top: 1px solid #e2e8f0;">`;
+
+        if (currentIndex > 0) {
+            let prevQ = uniqueNumbers[currentIndex - 1];
+            paginationHTML += `<button onclick="activeSolQuestion='${prevQ}'; applySolutionsFilter(); window.scrollTo(0,0);" style="background: #f1f5f9; color: #334155; padding: 10px 16px; border-radius: 10px; font-weight: 700; border: none; cursor: pointer; display: flex; align-items: center; gap: 6px;"><i data-lucide="chevron-left" style="width:16px;height:16px;"></i> Prev (Q.${prevQ})</button>`;
+        } else {
+            paginationHTML += `<div></div>`;
+        }
+
+        if (currentIndex !== -1 && currentIndex < uniqueNumbers.length - 1) {
+            let nextQ = uniqueNumbers[currentIndex + 1];
+            paginationHTML += `<button onclick="activeSolQuestion='${nextQ}'; applySolutionsFilter(); window.scrollTo(0,0);" style="background: #2563eb; color: #ffffff; padding: 10px 16px; border-radius: 10px; font-weight: 700; border: none; cursor: pointer; display: flex; align-items: center; gap: 6px;">Next (Q.${nextQ}) <i data-lucide="chevron-right" style="width:16px;height:16px;"></i></button>`;
+        }
+
+        paginationHTML += `</div>`;
+        container.innerHTML += paginationHTML;
+    }
+    
+    safeCreateIcons();
+    renderMath();
+}
+
+// ==========================================
+// 7. NOTES PAGE FILTERS & RENDERING
+// ==========================================
+function updateDynamicFilters(pagePrefix) {
+    const classSelect = document.getElementById(`${pagePrefix}-filter-class`);
+    const subjectSelect = document.getElementById(`${pagePrefix}-filter-subject`);
+    const chapterSelect = document.getElementById(`${pagePrefix}-filter-chapter`);
+    const subchapterSelect = document.getElementById(`${pagePrefix}-filter-subchapter`);
+    
+    if(!classSelect || !subjectSelect || !chapterSelect || !subchapterSelect) return;
+
+    let validMaterials = allStudyMaterials;
+    
+    if(pagePrefix === 'sol') {
+        validMaterials = validMaterials.filter(m => m.content_type === 'Textbook Solutions');
+    } else if(pagePrefix === 'qa') {
+        validMaterials = validMaterials.filter(m => m.content_type !== 'Textbook Solutions');
+    }
+
+    const classVal = classSelect.value;
+    if (classVal) validMaterials = validMaterials.filter(m => m.class_level === classVal);
+
+    let standardSubjects = [];
+    if (classVal === 'Class 9' || classVal === 'Class 10') {
+        standardSubjects = ['English Language', 'English Literature', 'Mathematics', 'Science (Physics)', 'Science (Chemistry)', 'Science (Biology)', 'Hindi', 'History & Civics', 'Geography', 'Computer Science'];
+    } else if (classVal === 'Class 11' || classVal === 'Class 12') {
+        standardSubjects = ['English Language', 'English Literature', 'Hindi', 'Physics', 'Chemistry', 'Mathematics', 'Biology', 'Computer Science', 'Accounts', 'Business Studies', 'Economics', 'History'];
+    } else {
+        standardSubjects = ['English Language', 'English Literature', 'Mathematics', 'Science (Physics)', 'Science (Chemistry)', 'Science (Biology)', 'Hindi', 'History & Civics', 'Geography', 'Computer Science', 'Physics', 'Chemistry', 'Biology', 'Accounts', 'Business Studies', 'Economics', 'History'];
+    }
+
+    const currentSub = subjectSelect.value;
+    const dbSubjects = validMaterials.map(m => m.subject).filter(Boolean);
+    const subjects = [...new Set([...standardSubjects, ...dbSubjects])].sort();
+    
+    subjectSelect.innerHTML = '<option value="">All Subjects</option>';
+    subjects.forEach(s => { subjectSelect.innerHTML += `<option value="${s}">${s}</option>`; });
+    if (subjects.includes(currentSub)) subjectSelect.value = currentSub;
+
+    if (subjectSelect.value) { validMaterials = validMaterials.filter(m => m.subject === subjectSelect.value); }
+    
+    const currentChap = chapterSelect.value;
+    const chapters = [...new Set(validMaterials.map(m => m.chapter).filter(Boolean))].sort();
+    chapterSelect.innerHTML = '<option value="">All Chapters</option>';
+    chapters.forEach(c => { chapterSelect.innerHTML += `<option value="${c}">${c}</option>`; });
+    if (chapters.includes(currentChap)) chapterSelect.value = currentChap;
+
+    if (chapterSelect.value) { validMaterials = validMaterials.filter(m => m.chapter === chapterSelect.value); }
+    
+    const currentSubchap = subchapterSelect.value;
+    const subchapters = [...new Set(validMaterials.map(m => m.subchapter).filter(Boolean))].sort();
+    subchapterSelect.innerHTML = '<option value="">All Subchapters</option>';
+    subchapters.forEach(sc => { subchapterSelect.innerHTML += `<option value="${sc}">${sc}</option>`; });
+    if (subchapters.includes(currentSubchap)) subchapterSelect.value = currentSubchap;
+}
+
+function applyDynamicFilter(pagePrefix, containerId) {
+    const classVal = document.getElementById(`${pagePrefix}-filter-class`).value;
+    const subjectVal = document.getElementById(`${pagePrefix}-filter-subject`).value;
+    const chapterVal = document.getElementById(`${pagePrefix}-filter-chapter`).value;
+    const subchapterVal = document.getElementById(`${pagePrefix}-filter-subchapter`).value;
+    const container = document.getElementById(containerId);
+
+    if(pagePrefix === 'sol') showSkeletons(containerId);
+
+    setTimeout(() => {
+        let filtered = allStudyMaterials;
+        
+        if(pagePrefix === 'sol') {
+            filtered = filtered.filter(m => m.content_type === 'Textbook Solutions');
+        } else if(pagePrefix === 'qa') {
+            filtered = filtered.filter(m => m.content_type !== 'Textbook Solutions');
+        }
+
+        if (classVal) filtered = filtered.filter(m => m.class_level === classVal);
+        if (subjectVal) filtered = filtered.filter(m => m.subject === subjectVal);
+        if (chapterVal) filtered = filtered.filter(m => m.chapter === chapterVal);
+        if (subchapterVal) filtered = filtered.filter(m => m.subchapter === subchapterVal);
+
+        if (filtered.length === 0) {
+            container.innerHTML = `<div style="text-align: center; padding: 40px;"><p style="color: #64748b; font-size: 15px; font-weight: 600;">No materials found.</p></div>`;
+            return;
+        }
+
+        container.innerHTML = '';
+        const splitFiltered = splitContentIntoBlocks(filtered);
+        splitFiltered.forEach(item => { container.innerHTML += generateCardHTML(item); });
+        safeCreateIcons();
+        renderMath(); 
+    }, pagePrefix === 'sol' ? 500 : 0);
+}
+
+function showSkeletons(containerId) {
+    const container = document.getElementById(containerId);
+    if (!container) return;
+    container.innerHTML = '';
+    for (let i = 0; i < 3; i++) {
+        container.innerHTML += `<div class="skeleton-box" style="height: 160px; margin-bottom: 16px; border-radius: 16px; opacity: 0.6;"></div>`;
+    }
+}
+
+function renderStudentMaterials() {
+    function drawCards(container, materials, boardType) {
+        if (materials.length === 0) {
+            container.innerHTML = `<p style="text-align: center; color: #94a3b8; font-size: 15px;">No content added yet for this subject.</p>`;
+            return;
+        }
+        
+        container.innerHTML = '';
+        const topClass = boardType === 'ICSE' ? 'Class 10' : 'Class 12';
+        const bottomClass = boardType === 'ICSE' ? 'Class 9' : 'Class 11';
+
+        const splitMaterials = splitContentIntoBlocks(materials);
+
+        const topMaterials = splitMaterials.filter(item => item.class_level === topClass);
+        const bottomMaterials = splitMaterials.filter(item => item.class_level === bottomClass);
+        const otherMaterials = splitMaterials.filter(item => item.class_level !== topClass && item.class_level !== bottomClass);
+
+        if (topMaterials.length > 0) {
+            container.innerHTML += `<div style="margin-bottom: 16px; display: inline-flex; align-items: center; gap: 8px; background: #fee2e2; color: #991b1b; padding: 8px 16px; border-radius: 12px; font-weight: 800; font-size: 14px;"><i data-lucide="flame" style="width: 18px; height: 18px;"></i> ${topClass} (Board Exams)</div>`;
+            topMaterials.forEach(item => { container.innerHTML += generateCardHTML(item); });
+        }
+        
+        if (bottomMaterials.length > 0) {
+            container.innerHTML += `<div style="margin-top: 24px; margin-bottom: 16px; display: inline-flex; align-items: center; gap: 8px; background: #f1f5f9; color: #475569; padding: 8px 16px; border-radius: 12px; font-weight: 800; font-size: 14px;"><i data-lucide="book" style="width: 18px; height: 18px;"></i> ${bottomClass}</div>`;
+            bottomMaterials.forEach(item => { container.innerHTML += generateCardHTML(item); });
+        }
+        
+        if (otherMaterials.length > 0) {
+            otherMaterials.forEach(item => { container.innerHTML += generateCardHTML(item); });
+        }
+        
+        safeCreateIcons();
+    }
+
+    const icseContainer = document.getElementById('icse-materials-container');
+    if (icseContainer && document.getElementById('page-notes').classList.contains('active')) {
+        const title = document.getElementById('dynamic-icse-title').innerText.trim();
+        drawCards(icseContainer, allStudyMaterials.filter(item => item.board === 'ICSE' && item.subject === title && item.content_type !== 'Textbook Solutions'), 'ICSE');
+    }
+
+    const iscContainer = document.getElementById('isc-materials-container');
+    if (iscContainer && document.getElementById('page-notes-isc').classList.contains('active')) {
+        const title = document.getElementById('dynamic-isc-title').innerText.trim();
+        drawCards(iscContainer, allStudyMaterials.filter(item => item.board === 'ISC' && item.subject === title && item.content_type !== 'Textbook Solutions'), 'ISC');
+    }
+
+    renderMath(); 
+}
+
+// ==========================================
+// 8. AI CHAT LOGIC
+// ==========================================
+async function handleAICamera(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    if (file.size > 4 * 1024 * 1024) {
+        alert("File is too large! Please select a file smaller than 4MB.");
+        return;
+    }
+
+    const chatBox = document.getElementById('chat-box');
+    let fileIcon = file.type.includes('pdf') ? '📄' : (file.type.includes('text') ? '📝' : '📷');
+    
+    chatBox.innerHTML += `
+        <div style="align-self: flex-start; background: #f1f5f9; padding: 10px 14px; border-radius: 12px; font-size: 12px; color: #64748b;">
+            ${fileIcon} Analyzing ${file.name}...
+        </div>`;
+    chatBox.scrollTop = chatBox.scrollHeight;
+
+    const reader = new FileReader();
+    reader.onload = async function(e) {
+        const base64Data = e.target.result.split(',')[1];
+        await sendAIMessage(base64Data, file.type);
+    };
+    reader.readAsDataURL(file);
+}
+
+async function sendAIMessage(fileData = null, mimeType = null) {
+    const inputField = document.getElementById('ai-input');
+    const chatBox = document.getElementById('chat-box');
+    const userText = inputField ? inputField.value.trim() : '';
+
+    if (!userText && !fileData) return;
+
+    if (!fileData) {
+        chatBox.innerHTML += `
+            <div style="align-self: flex-end; background: #9333ea; color: white; padding: 14px 18px; border-radius: 20px; border-bottom-right-radius: 4px; max-width: 85%; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                <p style="margin: 0; font-size: 14px; line-height: 1.5;">${userText}</p>
+            </div>`;
+        inputField.value = '';
+    }
+
+    const typingId = "typing-" + Date.now();
+    chatBox.innerHTML += `
+        <div id="${typingId}" style="align-self: flex-start; background: #ffffff; border: 1px solid #e2e8f0; padding: 14px 18px; border-radius: 20px; border-bottom-left-radius: 4px; max-width: 85%;">
+            <p style="margin: 0; font-size: 14px; color: #94a3b8;">AI is processing...</p>
+        </div>`;
+    chatBox.scrollTop = chatBox.scrollHeight;
+
+    try {
+        const payload = fileData 
+            ? { fileData: fileData, mimeType: mimeType, prompt: userText || "Please read this file and explain it simply." } 
+            : { prompt: userText };
+
+        const response = await fetch('/api/gemini', { 
+            method: 'POST', 
+            headers: { 'Content-Type': 'application/json' }, 
+            body: JSON.stringify(payload) 
+        });
+
+        if (!response.ok) throw new Error("Backend connection failed");
+
+        const data = await response.json();
+        let aiReply = data.candidates[0].content.parts[0].text;
+        document.getElementById(typingId)?.remove();
+
+        aiReply = aiReply.replace(/\\\\times|\\times/g, ' × ');
+        aiReply = aiReply.replace(/\\\\div|\\div/g, ' ÷ ');
+        aiReply = aiReply.replace(/\\\\rightarrow|\\rightarrow/g, ' → ');
+        aiReply = aiReply.replace(/\\\\text{([^}]+)}|\\text{([^}]+)}/g, '$1$2');
+        aiReply = aiReply.replace(/([a-zA-Z])_([0-9a-zA-Z]+)/g, '$1<sub>$2</sub>');
+        aiReply = aiReply.replace(/([a-zA-Z0-9])\^([0-9a-zA-Z]+)/g, '$1<sup>$2</sup>');
+        aiReply = aiReply.replace(/\*\*(.*?)\*\*/g, '<strong style="color: #0f172a; font-weight: 900;">$1</strong>');
+        
+        chatBox.innerHTML += `
+            <div style="align-self: flex-start; background: #ffffff; border: 1px solid #e2e8f0; padding: 14px 18px; border-radius: 20px; border-bottom-left-radius: 4px; max-width: 85%; box-shadow: 0 2px 4px rgba(0,0,0,0.02);">
+                <p style="margin: 0; font-size: 14px; color: #334155; line-height: 1.5; white-space: pre-wrap;">${aiReply}</p>
+            </div>`;
+        chatBox.scrollTop = chatBox.scrollHeight;
+        renderMath(); 
+    } catch (error) {
+        console.error("AI Error:", error);
+        const typingBubble = document.getElementById(typingId);
+        if (typingBubble) {
+            typingBubble.innerHTML = `<p style="margin: 0; font-size: 14px; color: #ef4444;">Sorry, connection failed! Make sure Vercel backend is updated.</p>`;
+        }
+    }
+}
+
+// ==========================================
+// 9. THE BACKPACK ENGINE
+// ==========================================
+function toggleBookmark(itemId) {
+    const id = String(itemId);
+    const exists = myBackpack.some(savedId => String(savedId) === id);
+    
+    if (exists) { 
+        myBackpack = myBackpack.filter(savedId => String(savedId) !== id); 
+    } else { 
+        myBackpack.push(id); 
+    }
+    
+    localStorage.setItem('studyBackpack', JSON.stringify(myBackpack));
+    renderStudentMaterials();
+    if (currentPage === 'backpack') renderBackpack();
+}
+
+function renderBackpack() {
+    const container = document.getElementById('backpack-materials-container');
+    if (!container) return;
+
+    if (myBackpack.length === 0) {
+        container.innerHTML = `
+            <div style="text-align: center; padding: 40px; color: #94a3b8; border: 1px dashed #cbd5e1; border-radius: 20px;">
+                Your backpack is empty.
+            </div>`;
+        return;
+    }
+
+    const savedItems = allStudyMaterials.filter(item => myBackpack.some(savedId => String(savedId) === String(item.id)));
+    container.innerHTML = '';
+    
+    const splitSavedItems = splitContentIntoBlocks(savedItems);
+
+    splitSavedItems.forEach(item => { 
+        container.innerHTML += generateCardHTML(item); 
+    });
+    
+    safeCreateIcons();
+    renderMath(); 
+}
+    </script>
+
 </body>
 </html>
