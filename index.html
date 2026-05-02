@@ -79,7 +79,7 @@
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
                 </button>
             </div>
-
+            
             <div id="mobile-menu" class="bg-white shadow-md border-t border-slate-100 absolute w-full left-0" style="display: none; top: 100%; z-index: 40;">
                 <div class="flex flex-col pt-2 pb-6">
                     <span class="nav-link cursor-pointer py-3 text-slate-600 font-medium text-[15px] block" style="padding-left: 24px; text-align: left;" onclick="navigateTo('home')">Home</span>
@@ -88,15 +88,15 @@
                     <span class="nav-link cursor-pointer py-3 text-slate-600 font-medium text-[15px] block" style="padding-left: 24px; text-align: left;" onclick="navigateTo('isc')">ISC (11–12)</span>
                     <span class="nav-link cursor-pointer py-3 text-slate-600 font-medium text-[15px] block" style="padding-left: 24px; text-align: left;" onclick="navigateTo('qa')">Notes / Q&amp;A</span>
                     <span class="nav-link cursor-pointer py-3 text-slate-600 font-medium text-[15px] block" style="padding-left: 24px; text-align: left;" onclick="navigateTo('solutions')">Textbook Solutions</span>
-                    <span class="nav-link cursor-pointer py-3 text-slate-600 font-medium text-[15px] block" style="padding-left: 24px; text-align: left;" onclick="navigateTo('backpack')">My Backpack</span>
-                    <span class="nav-link cursor-pointer py-3 text-slate-600 font-medium text-[15px] block" style="padding-left: 24px; text-align: left;" onclick="navigateTo('ai-helper')">AI Assistant</span>
+                    <span class="nav-link cursor-pointer py-3 text-slate-600 font-medium text-[15px] block" style="padding-left: 24px; text-align: left;" onclick="navigateTo('backpack')"><i data-lucide="backpack" style="display: inline-block; width: 18px; height: 18px; margin-right: 8px; vertical-align: middle; color: #f59e0b;"></i> My Backpack</span>
+                    <a href="#" class="nav-link" style="display: block; padding: 10px; text-decoration: none; color: #475569; font-weight: 600;" onclick="navigateTo('ai-helper')"><i data-lucide="bot" style="display: inline-block; width: 18px; height: 18px; margin-right: 8px; vertical-align: middle; color: #9333ea;"></i> AI Assistant</a>
                     <span class="nav-link cursor-pointer py-3 text-slate-600 font-medium text-[15px] block" style="padding-left: 24px; text-align: left;" onclick="navigateTo('pdfs')">All PDFs</span>
                     <span class="nav-link cursor-pointer py-3 text-slate-600 font-medium text-[15px] block" style="padding-left: 24px; text-align: left;" onclick="navigateTo('contact')">Contact Us</span>
                     <span class="nav-link cursor-pointer py-3 text-slate-600 font-medium text-[15px] block" style="padding-left: 24px; text-align: left;" onclick="navigateTo('privacy')">Privacy Policy</span>
                     <span class="nav-link cursor-pointer py-3 text-slate-600 font-medium text-[15px] block" style="padding-left: 24px; text-align: left;" onclick="navigateTo('terms')">Terms & Conditions</span>
                     <span class="nav-link cursor-pointer py-3 text-slate-600 font-medium text-[15px] block" style="padding-left: 24px; text-align: left;" onclick="navigateTo('disclaimer')">Disclaimer</span>
                     <div style="padding: 0 24px; margin-top: 8px; box-sizing: border-box; width: 100%;">
-                        <button class="w-full bg-[#f1f5f9] hover:bg-[#e2e8f0] text-[#0f172a] font-bold py-3 rounded-xl flex items-center justify-center gap-2 transition text-[14px]" onclick="showLoginModal()">Admin Panel</button>
+                        <button class="w-full bg-[#f1f5f9] hover:bg-[#e2e8f0] text-[#0f172a] font-bold py-3 rounded-xl flex items-center justify-center gap-2 transition text-[14px]" onclick="showLoginModal()"><i data-lucide="settings" class="w-4 h-4"></i> Admin Panel</button>
                     </div>
                 </div>
             </div>
@@ -136,7 +136,7 @@
                     </div>
                 </div>
             </section>
-
+            
             <div class="max-w-6xl mx-auto px-4 py-4">
                 <div class="dynamic-ad-slot" data-slot="slot-home" style="background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; height: 90px; display: flex; align-items: center; justify-content: center; margin-bottom: 24px;"><span style="color: #94a3b8; font-size: 10px; letter-spacing: 1px; text-transform: uppercase;">Advertisement</span></div>
             </div>
@@ -161,6 +161,9 @@
                     <h3 style="color: #334155; font-size: 18px; font-weight: 800; margin-bottom: 16px;">Our Mission</h3>
                     <p style="color: #64748b; font-size: 15px; line-height: 1.7; margin-bottom: 32px;">To make board exam preparation <strong style="color: #334155;">simple, effective, and stress-free</strong>. We provide notes written in easy English, exam-oriented questions, and revision content so students can focus on understanding rather than memorizing.</p>
                     
+                    <h3 style="color: #334155; font-size: 18px; font-weight: 800; margin-bottom: 16px;">Our Team</h3>
+                    <p style="color: #64748b; font-size: 15px; line-height: 1.7; margin-bottom: 32px;">We are a passionate team of educators and technologists committed to helping students succeed. Our team includes current and former ICSE/ISC teachers who bring their valuable classroom insights to create the best possible study materials.</p>
+
                     <h3 style="color: #334155; font-size: 18px; font-weight: 800; margin-bottom: 16px;">What We Offer</h3>
                     <ul style="color: #64748b; font-size: 15px; line-height: 1.8; margin-bottom: 32px; padding-left: 20px; list-style-type: disc;">
                         <li style="margin-bottom: 8px;">Chapter-wise notes for all major subjects</li>
@@ -188,7 +191,6 @@
                     <div onclick="openClassNotebooks('Class 10', 'English Literature')" style="background-color: #ffffff; border: 1px solid #f1f5f9; border-radius: 24px; padding: 24px 12px; text-align: center; box-shadow: 0 4px 20px rgba(0,0,0,0.02); cursor: pointer;"><div style="width: 48px; height: 48px; background-color: #fdf4ff; border-radius: 14px; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px auto;"><i data-lucide="book-open" style="color: #3b82f6; width: 24px; height: 24px;"></i></div><h3 style="color: #0f172a; font-size: 14px; font-weight: 800; margin-bottom: 4px;">English Literature</h3></div>
                     <div onclick="openClassNotebooks('Class 10', 'Hindi')" style="background-color: #ffffff; border: 1px solid #f1f5f9; border-radius: 24px; padding: 24px 12px; text-align: center; box-shadow: 0 4px 20px rgba(0,0,0,0.02); cursor: pointer;"><div style="width: 48px; height: 48px; background-color: #fce7f3; border-radius: 14px; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px auto;"><i data-lucide="pen-tool" style="color: #ec4899; width: 24px; height: 24px;"></i></div><h3 style="color: #0f172a; font-size: 14px; font-weight: 800; margin-bottom: 4px;">Hindi</h3></div>
                     <div onclick="openClassNotebooks('Class 10', 'Mathematics')" style="background-color: #ffffff; border: 1px solid #f1f5f9; border-radius: 24px; padding: 24px 12px; text-align: center; box-shadow: 0 4px 20px rgba(0,0,0,0.02); cursor: pointer;"><div style="width: 48px; height: 48px; background-color: #fff7ed; border-radius: 14px; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px auto;"><i data-lucide="calculator" style="color: #f97316; width: 24px; height: 24px;"></i></div><h3 style="color: #0f172a; font-size: 14px; font-weight: 800; margin-bottom: 4px;">Mathematics</h3></div>
-                    <div onclick="openClassNotebooks('Class 10', 'Science (Physics)')" style="background-color: #ffffff; border: 1px solid #f1f5f9; border-radius: 24px; padding: 24px 12px; text-align: center; box-shadow: 0 4px 20px rgba(0,0,0,0.02); cursor: pointer;"><div style="width: 48px; height: 48px; background-color: #faf5ff; border-radius: 14px; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px auto;"><i data-lucide="atom" style="color: #a855f7; width: 24px; height: 24px;"></i></div><h3 style="color: #0f172a; font-size: 14px; font-weight: 800; margin-bottom: 4px;">Science (Physics)</h3></div>
                 </div>
             </div>
         </main>
@@ -202,8 +204,8 @@
                     <p style="color: #94a3b8; font-size: 14px; line-height: 1.6; max-width: 400px; margin: 0 auto;">Select a subject to explore notes, questions, and revision material.</p>
                 </div>
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 40px;">
-                    <div onclick="openClassNotebooks('Class 12', 'English Language')" style="background-color: #ffffff; border: 1px solid #f1f5f9; border-radius: 24px; padding: 24px 12px; text-align: center; box-shadow: 0 4px 20px rgba(0,0,0,0.02); cursor: pointer;"><div style="width: 48px; height: 48px; background-color: #eff6ff; border-radius: 14px; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px auto;"><i data-lucide="book" style="color: #3b82f6; width: 24px; height: 24px;"></i></div><h3 style="color: #0f172a; font-size: 14px; font-weight: 800; margin-bottom: 4px;">English Language</h3></div>
                     <div onclick="openClassNotebooks('Class 12', 'Physics')" style="background-color: #ffffff; border: 1px solid #f1f5f9; border-radius: 24px; padding: 24px 12px; text-align: center; box-shadow: 0 4px 20px rgba(0,0,0,0.02); cursor: pointer;"><div style="width: 48px; height: 48px; background-color: #faf5ff; border-radius: 14px; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px auto;"><i data-lucide="atom" style="color: #a855f7; width: 24px; height: 24px;"></i></div><h3 style="color: #0f172a; font-size: 14px; font-weight: 800; margin-bottom: 4px;">Physics</h3></div>
+                    <div onclick="openClassNotebooks('Class 12', 'Mathematics')" style="background-color: #ffffff; border: 1px solid #f1f5f9; border-radius: 24px; padding: 24px 12px; text-align: center; box-shadow: 0 4px 20px rgba(0,0,0,0.02); cursor: pointer;"><div style="width: 48px; height: 48px; background-color: #fff7ed; border-radius: 14px; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px auto;"><i data-lucide="calculator" style="color: #f97316; width: 24px; height: 24px;"></i></div><h3 style="color: #0f172a; font-size: 14px; font-weight: 800; margin-bottom: 4px;">Mathematics</h3></div>
                 </div>
             </div>
         </main>
@@ -212,10 +214,10 @@
             <div style="max-width: 800px; margin: 0 auto;">
                 <div class="dynamic-ad-slot" data-slot="slot-content" style="background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; height: 90px; display: flex; align-items: center; justify-content: center; margin-bottom: 24px;"><span style="color: #94a3b8; font-size: 10px; letter-spacing: 1px; text-transform: uppercase;">Advertisement</span></div>
                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
-                    <div onclick="navigateTo('icse')" aria-label="Go Back" role="button" style="cursor: pointer; color: #334155; font-size: 14px; font-weight: 700; display: flex; align-items: center; gap: 6px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg> Back</div>
+                    <div onclick="goBack()" aria-label="Go Back" role="button" style="cursor: pointer; color: #334155; font-size: 14px; font-weight: 700; display: flex; align-items: center; gap: 6px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg> Back</div>
                 </div>
-                <h2 id="dynamic-icse-title" style="color: #0f172a; font-size: 28px; font-weight: 900; margin-bottom: 8px;">Subject</h2>
-                <div id="icse-materials-container" style="display: flex; flex-direction: column; gap: 16px; margin-bottom: 40px; margin-top: 20px;"></div>
+                <h2 id="dynamic-icse-title" style="color: #0f172a; font-size: 28px; font-weight: 900; margin-bottom: 8px;">Subject Notes</h2>
+                <div id="icse-materials-container" style="display: column; gap: 16px; margin-bottom: 40px;"></div>
             </div>
         </main>
 
@@ -223,121 +225,10 @@
             <div style="max-width: 800px; margin: 0 auto;">
                 <div class="dynamic-ad-slot" data-slot="slot-content" style="background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; height: 90px; display: flex; align-items: center; justify-content: center; margin-bottom: 24px;"><span style="color: #94a3b8; font-size: 10px; letter-spacing: 1px; text-transform: uppercase;">Advertisement</span></div>
                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
-                    <div onclick="navigateTo('isc')" aria-label="Go Back" role="button" style="cursor: pointer; color: #334155; font-size: 14px; font-weight: 700; display: flex; align-items: center; gap: 6px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg> Back</div>
+                    <div onclick="goBack()" aria-label="Go Back" role="button" style="cursor: pointer; color: #334155; font-size: 14px; font-weight: 700; display: flex; align-items: center; gap: 6px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg> Back</div>
                 </div>
-                <h2 id="dynamic-isc-title" style="color: #0f172a; font-size: 28px; font-weight: 900; margin-bottom: 8px;">Subject</h2>
-                <div id="isc-materials-container" style="display: flex; flex-direction: column; gap: 16px; margin-bottom: 40px; margin-top: 20px;"></div>
-            </div>
-        </main>
-
-        <main id="page-qa" style="display: none; background-color: #ffffff; padding: 24px 20px 60px 20px;">
-            <div style="max-width: 800px; margin: 0 auto;">
-                <div class="dynamic-ad-slot" data-slot="slot-content" style="background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; height: 90px; display: flex; align-items: center; justify-content: center; margin-bottom: 24px;"><span style="color: #94a3b8; font-size: 10px; letter-spacing: 1px; text-transform: uppercase;">Advertisement</span></div>
-                <div style="text-align: center; margin-bottom: 32px;">
-                    <h2 style="color: #0f172a; font-size: 28px; font-weight: 900; margin-bottom: 8px;"> Notes &amp; Q&A</h2>
-                    <p style="color: #94a3b8; font-size: 14px; line-height: 1.6;">Filter by class, subject, and chapter to find study materials.</p>
-                </div>
-
-                <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 24px; padding: 20px; box-shadow: 0 4px 6px rgba(0,0,0,0.02); margin-bottom: 24px;">
-                    <div style="margin-bottom: 16px;">
-                        <label for="qa-filter-class" style="display: block; color: #475569; font-size: 13px; font-weight: 600; margin-bottom: 8px;">Class</label>
-                        <select id="qa-filter-class" aria-label="Select Class" onchange="updateDynamicFilters('qa')" style="width: 100%; padding: 14px; border-radius: 12px; border: 1px solid #e2e8f0; background: #f8fafc; font-size: 15px;">
-                            <option value="">All Classes</option>
-                            <option value="Class 9">Class 9</option>
-                            <option value="Class 10">Class 10</option>
-                            <option value="Class 11">Class 11</option>
-                            <option value="Class 12">Class 12</option>
-                        </select>
-                    </div>
-                    <div style="margin-bottom: 16px;">
-                        <label for="qa-filter-subject" style="display: block; color: #475569; font-size: 13px; font-weight: 600; margin-bottom: 8px;">Subject</label>
-                        <select id="qa-filter-subject" aria-label="Select Subject" onchange="updateDynamicFilters('qa')" style="width: 100%; padding: 14px; border-radius: 12px; border: 1px solid #e2e8f0; background: #f8fafc; font-size: 15px;">
-                            <option value="">All Subjects</option>
-                        </select>
-                    </div>
-                    <div style="margin-bottom: 16px;">
-                        <label for="qa-filter-chapter" style="display: block; color: #475569; font-size: 13px; font-weight: 600; margin-bottom: 8px;">Chapter</label>
-                        <select id="qa-filter-chapter" aria-label="Select Chapter" onchange="updateDynamicFilters('qa')" style="width: 100%; padding: 14px; border-radius: 12px; border: 1px solid #e2e8f0; background: #f8fafc; font-size: 15px;">
-                            <option value="">All Chapters</option>
-                        </select>
-                    </div>
-                    <div style="margin-bottom: 16px;">
-                        <label for="qa-filter-subchapter" style="display: block; color: #475569; font-size: 13px; font-weight: 600; margin-bottom: 8px;">Subchapter (Optional)</label>
-                        <select id="qa-filter-subchapter" aria-label="Select Subchapter" style="width: 100%; padding: 14px; border-radius: 12px; border: 1px solid #e2e8f0; background: #f8fafc; font-size: 15px;">
-                            <option value="">All Subchapters</option>
-                        </select>
-                    </div>
-                    <button onclick="applyDynamicFilter('qa', 'qa-materials-container')" aria-label="Apply Filters" style="width: 100%; background: #10b981; color: white; border: none; padding: 14px; border-radius: 12px; font-size: 15px; font-weight: 700; cursor: pointer;">Find Notes</button>
-                </div>
-
-                <div id="qa-materials-container">
-                    <div style="text-align: center; padding: 40px 20px; background-color: #f8fafc; border-radius: 24px; border: 1px dashed #cbd5e1;">
-                        <i data-lucide="search" style="color: #94a3b8; width: 32px; height: 32px; margin: 0 auto 12px auto; display: block;"></i>
-                        <p style="color: #64748b; font-size: 14px; font-weight: 500;">Select filters above to view materials.</p>
-                    </div>
-                </div>
-            </div>
-        </main>
-
-        <main id="page-backpack" style="display: none; background-color: #ffffff; padding: 24px 20px 60px 20px;">
-            <div style="max-width: 800px; margin: 0 auto;">
-                <div class="dynamic-ad-slot" data-slot="slot-content" style="background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; height: 90px; display: flex; align-items: center; justify-content: center; margin-bottom: 24px;"><span style="color: #94a3b8; font-size: 10px; letter-spacing: 1px; text-transform: uppercase;">Advertisement</span></div>
-                <div style="text-align: center; margin-bottom: 32px;">
-                    <h2 style="color: #0f172a; font-size: 28px; font-weight: 900; margin-bottom: 8px;">My Backpack</h2>
-                    <p style="color: #94a3b8; font-size: 14px; line-height: 1.6;">Your saved study materials for quick access.</p>
-                </div>
-                <div id="backpack-materials-container"></div>
-            </div>
-        </main>
-
-        <main id="page-solutions" style="display: none; background-color: #ffffff; padding: 24px 20px 60px 20px;">
-            <div style="max-width: 800px; margin: 0 auto;">
-                <div class="dynamic-ad-slot" data-slot="slot-content" style="background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; height: 90px; display: flex; align-items: center; justify-content: center; margin-bottom: 24px;"><span style="color: #94a3b8; font-size: 10px; letter-spacing: 1px; text-transform: uppercase;">Advertisement</span></div>
-                
-                <div style="margin-bottom: 24px;">
-                    <h2 id="solutions-main-title" style="color: #0f172a; font-size: 24px; font-weight: 900; margin-bottom: 16px;">Textbook Solutions</h2>
-                    
-                    <div style="display: flex; gap: 12px; margin-bottom: 24px;">
-                        <select id="sol-filter-class" aria-label="Select Class" onchange="renderSolutionsChapters()" style="flex: 1; padding: 12px; border-radius: 12px; border: 1px solid #e2e8f0; background: #f8fafc; font-size: 14px; font-weight: 600; outline: none;">
-                            <option value="">Select Class...</option>
-                            <option value="Class 9">Class 9</option><option value="Class 10">Class 10</option>
-                            <option value="Class 11">Class 11</option><option value="Class 12">Class 12</option>
-                        </select>
-                        <select id="sol-filter-subject" aria-label="Select Subject" onchange="renderSolutionsChapters()" style="flex: 1; padding: 12px; border-radius: 12px; border: 1px solid #e2e8f0; background: #f8fafc; font-size: 14px; font-weight: 600; outline: none;">
-                            <option value="">Select Subject...</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div id="solutions-chapter-list" style="display: flex; flex-direction: column;">
-                    <div style="text-align: center; padding: 40px; border: 1px dashed #cbd5e1; border-radius: 16px;">
-                        <p style="color: #64748b; font-size: 14px; font-weight: 500;">Select a Class and Subject above to view chapters.</p>
-                    </div>
-                </div>
-
-                <div id="solutions-materials-container" style="display: none; flex-direction: column; gap: 16px;"></div>
-
-                <div id="solutions-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.7); z-index: 9999; align-items: flex-end; justify-content: center;">
-                    <div style="background: white; width: 100%; max-width: 800px; height: 80vh; border-radius: 24px 24px 0 0; display: flex; flex-direction: column; overflow: hidden; animation: slideUp 0.3s ease-out;">
-                        
-                        <div style="display: flex; align-items: center; padding: 16px 20px; border-bottom: 1px solid #e2e8f0;">
-                            <button onclick="closeSolutionsModal()" aria-label="Close Solutions" style="background: none; border: none; cursor: pointer; color: #475569; display: flex; align-items: center;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></button>
-                            <h3 style="flex: 1; text-align: center; font-size: 16px; font-weight: 800; color: #0f172a; margin: 0; padding-right: 24px;">Go To Question</h3>
-                        </div>
-
-                        <div style="display: flex; flex: 1; overflow: hidden;">
-                            <div style="width: 120px; background: #f8fafc; border-right: 1px solid #e2e8f0; display: flex; flex-direction: column; user-select: none; -webkit-tap-highlight-color: transparent;">
-                                <div id="tab-exercise" onclick="switchSolutionsTab('exercise')" style="padding: 16px 8px; font-size: 14px; font-weight: 800; color: #0f8368; border-bottom: 2px solid #0f8368; background: white; cursor: pointer; text-align: center;">Exercise</div>
-                                <div id="tab-questions" onclick="switchSolutionsTab('questions')" style="padding: 16px 8px; font-size: 14px; font-weight: 600; color: #64748b; cursor: pointer; text-align: center; border-bottom: none; background: transparent;">Questions</div>
-                            </div>
-                            <div id="solutions-exercise-list" style="flex: 1; overflow-y: auto; padding: 8px 0;"></div>
-                        </div>
-
-                        <div style="padding: 16px 20px; border-top: 1px solid #e2e8f0; background: white; box-shadow: 0 -4px 10px rgba(0,0,0,0.05);">
-                            <button onclick="applySolutionsFilter()" style="width: 100%; background: #65a30d; color: white; padding: 16px; border-radius: 100px; font-size: 14px; font-weight: 800; border: none; cursor: pointer; letter-spacing: 0.5px;">APPLY</button>
-                        </div>
-                    </div>
-                </div>
+                <h2 id="dynamic-isc-title" style="color: #0f172a; font-size: 28px; font-weight: 900; margin-bottom: 8px;">Subject Notes</h2>
+                <div id="isc-materials-container" style="display: column; gap: 16px; margin-bottom: 40px;"></div>
             </div>
         </main>
 
@@ -500,12 +391,10 @@
                                 <option value="Textbook Solutions">Textbook Solutions</option>
                             </select>
                         </div>
-
                         <div style="display: flex; align-items: center; gap: 10px; padding: 14px; background: #f0fdf4; border-radius: 12px; border: 1px solid #bbf7d0; margin-top: 8px;">
                             <input type="checkbox" id="admin-split-flag" style="width: 20px; height: 20px; accent-color: #16a34a; cursor: pointer;">
                             <label for="admin-split-flag" style="color: #166534; font-size: 14px; font-weight: 800; cursor: pointer; margin: 0;">Enable Auto-Split for Students (Cuts Q1, Q2 into pages)</label>
                         </div>
-
                         <div>
                             <label for="admin-text-input" style="display: block; color: #64748b; font-size: 13px; font-weight: 600; margin-bottom: 8px;">Content / Text</label>
                             <textarea id="admin-text-input" aria-label="Content Text Input" placeholder="Paste all your questions here as one block..." style="width: 100%; padding: 16px; border-radius: 12px; border: 1px solid #e2e8f0; font-size: 15px; resize: vertical; min-height: 180px; box-sizing: border-box;"></textarea>
@@ -543,56 +432,135 @@
             </div>
         </main>
 
-        <main id="page-notes" style="display: none; background-color: #ffffff; padding: 24px 20px 60px 20px;">
+        <main id="page-qa" style="display: none; background-color: #ffffff; padding: 24px 20px 60px 20px;">
             <div style="max-width: 800px; margin: 0 auto;">
                 <div class="dynamic-ad-slot" data-slot="slot-content" style="background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; height: 90px; display: flex; align-items: center; justify-content: center; margin-bottom: 24px;"><span style="color: #94a3b8; font-size: 10px; letter-spacing: 1px; text-transform: uppercase;">Advertisement</span></div>
-               <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
-                    <div onclick="navigateTo('icse')" aria-label="Go Back" role="button" style="cursor: pointer; color: #334155; font-size: 14px; font-weight: 700; display: flex; align-items: center; gap: 6px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg> Back</div>
+                <div style="text-align: center; margin-bottom: 32px;">
+                    <h2 style="color: #0f172a; font-size: 28px; font-weight: 900; margin-bottom: 8px;"> Notes &amp; Q&A</h2>
+                    <p style="color: #94a3b8; font-size: 14px; line-height: 1.6;">Filter by class, subject, and chapter to find study materials.</p>
                 </div>
-                <h2 id="dynamic-icse-title" style="color: #0f172a; font-size: 28px; font-weight: 900; margin-bottom: 8px;">Subject</h2>
-                <div id="icse-materials-container" style="display: flex; flex-direction: column; gap: 16px; margin-bottom: 40px; margin-top: 20px;"></div>
+
+                <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 24px; padding: 20px; box-shadow: 0 4px 6px rgba(0,0,0,0.02); margin-bottom: 24px;">
+                    <div style="margin-bottom: 16px;">
+                        <label for="qa-filter-class" style="display: block; color: #475569; font-size: 13px; font-weight: 600; margin-bottom: 8px;">Class</label>
+                        <select id="qa-filter-class" aria-label="Select Class" onchange="updateDynamicFilters('qa')" style="width: 100%; padding: 14px; border-radius: 12px; border: 1px solid #e2e8f0; background: #f8fafc; font-size: 15px;">
+                            <option value="">All Classes</option>
+                            <option value="Class 9">Class 9</option>
+                            <option value="Class 10">Class 10</option>
+                            <option value="Class 11">Class 11</option>
+                            <option value="Class 12">Class 12</option>
+                        </select>
+                    </div>
+                    <div style="margin-bottom: 16px;">
+                        <label for="qa-filter-subject" style="display: block; color: #475569; font-size: 13px; font-weight: 600; margin-bottom: 8px;">Subject</label>
+                        <select id="qa-filter-subject" aria-label="Select Subject" onchange="updateDynamicFilters('qa')" style="width: 100%; padding: 14px; border-radius: 12px; border: 1px solid #e2e8f0; background: #f8fafc; font-size: 15px;">
+                            <option value="">All Subjects</option>
+                        </select>
+                    </div>
+                    <div style="margin-bottom: 16px;">
+                        <label for="qa-filter-chapter" style="display: block; color: #475569; font-size: 13px; font-weight: 600; margin-bottom: 8px;">Chapter</label>
+                        <select id="qa-filter-chapter" aria-label="Select Chapter" onchange="updateDynamicFilters('qa')" style="width: 100%; padding: 14px; border-radius: 12px; border: 1px solid #e2e8f0; background: #f8fafc; font-size: 15px;">
+                            <option value="">All Chapters</option>
+                        </select>
+                    </div>
+                    <div style="margin-bottom: 16px;">
+                        <label for="qa-filter-subchapter" style="display: block; color: #475569; font-size: 13px; font-weight: 600; margin-bottom: 8px;">Subchapter (Optional)</label>
+                        <select id="qa-filter-subchapter" aria-label="Select Subchapter" style="width: 100%; padding: 14px; border-radius: 12px; border: 1px solid #e2e8f0; background: #f8fafc; font-size: 15px;">
+                            <option value="">All Subchapters</option>
+                        </select>
+                    </div>
+                    <button onclick="applyDynamicFilter('qa', 'qa-materials-container')" aria-label="Apply Filters" style="width: 100%; background: #10b981; color: white; border: none; padding: 14px; border-radius: 12px; font-size: 15px; font-weight: 700; cursor: pointer;">Find Notes</button>
+                </div>
+
+                <div id="qa-materials-container">
+                    <div style="text-align: center; padding: 40px 20px; background-color: #f8fafc; border-radius: 24px; border: 1px dashed #cbd5e1;">
+                        <i data-lucide="search" style="color: #94a3b8; width: 32px; height: 32px; margin: 0 auto 12px auto; display: block;"></i>
+                        <p style="color: #64748b; font-size: 14px; font-weight: 500;">Select filters above to view materials.</p>
+                    </div>
+                </div>
             </div>
         </main>
 
-        <main id="page-notes-isc" style="display: none; background-color: #ffffff; padding: 24px 20px 60px 20px;">
+        <main id="page-backpack" style="display: none; background-color: #ffffff; padding: 24px 20px 60px 20px;">
             <div style="max-width: 800px; margin: 0 auto;">
                 <div class="dynamic-ad-slot" data-slot="slot-content" style="background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; height: 90px; display: flex; align-items: center; justify-content: center; margin-bottom: 24px;"><span style="color: #94a3b8; font-size: 10px; letter-spacing: 1px; text-transform: uppercase;">Advertisement</span></div>
-               <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
-                    <div onclick="navigateTo('isc')" aria-label="Go Back" role="button" style="cursor: pointer; color: #334155; font-size: 14px; font-weight: 700; display: flex; align-items: center; gap: 6px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg> Back</div>
+                <div style="text-align: center; margin-bottom: 32px;">
+                    <h2 style="color: #0f172a; font-size: 28px; font-weight: 900; margin-bottom: 8px;">My Backpack</h2>
+                    <p style="color: #94a3b8; font-size: 14px; line-height: 1.6;">Your saved study materials for quick access.</p>
                 </div>
-                <h2 id="dynamic-isc-title" style="color: #0f172a; font-size: 28px; font-weight: 900; margin-bottom: 8px;">Subject</h2>
-                <div id="isc-materials-container" style="display: flex; flex-direction: column; gap: 16px; margin-bottom: 40px; margin-top: 20px;"></div>
+                <div id="backpack-materials-container"></div>
             </div>
         </main>
 
-        <footer style="background-color: #0f172a; border-top: 1px solid #1e293b; padding: 40px 24px; color: #cbd5e1; font-family: 'DM Sans', sans-serif;">
-            <div style="max-width: 600px; margin: 0 auto;">
-                <p style="font-size: 14px; line-height: 1.6; margin-bottom: 30px; color: #94a3b8; text-align: center;">
-                    Your smart study partner for ICSE & ISC board exams. Free notes, questions, and revision materials.
-                </p>
-                <div style="display: flex; flex-direction: column; gap: 14px; margin-bottom: 40px; text-align: center; color: #f8fafc; font-weight: 500;">
-                    <span onclick="navigateTo('about')" style="cursor:pointer;" aria-label="Navigate to About">About Us</span>
-                    <span onclick="navigateTo('contact')" style="cursor:pointer;" aria-label="Navigate to Contact">Contact</span>
-                    <span onclick="navigateTo('privacy')" style="cursor:pointer;" aria-label="Navigate to Privacy Policy">Privacy Policy</span>
-                    <span onclick="navigateTo('terms')" style="cursor:pointer;" aria-label="Navigate to Terms">Terms & Conditions</span>
-                    <span onclick="navigateTo('disclaimer')" style="cursor:pointer;" aria-label="Navigate to Disclaimer">Disclaimer</span>
-                </div>
+        <main id="page-solutions" style="display: none; background-color: #ffffff; padding: 24px 20px 60px 20px;">
+            <div style="max-width: 800px; margin: 0 auto;">
+                <div class="dynamic-ad-slot" data-slot="slot-content" style="background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; height: 90px; display: flex; align-items: center; justify-content: center; margin-bottom: 24px;"><span style="color: #94a3b8; font-size: 10px; letter-spacing: 1px; text-transform: uppercase;">Advertisement</span></div>
                 
-                <div style="text-align: center; color: #64748b; font-size: 11px; margin-bottom: 24px; padding-top: 20px; border-top: 1px solid #1e293b;" itemscope itemtype="http://schema.org/Organization">
-                    <span itemprop="name" style="font-weight: bold; color: #94a3b8;">StudiesSupport</span> | 
-                    <span itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
-                        <span itemprop="addressLocality">Howrah</span>, 
-                        <span itemprop="addressRegion">West Bengal</span>, 
-                        <span itemprop="addressCountry">India</span>
-                    </span> |
-                    Email: <span itemprop="email">bachchupatra67@gmail.com</span>
+                <div style="margin-bottom: 24px;">
+                    <h2 id="solutions-main-title" style="color: #0f172a; font-size: 24px; font-weight: 900; margin-bottom: 16px;">Textbook Solutions</h2>
+                    
+                    <div style="display: flex; gap: 12px; margin-bottom: 24px;">
+                        <select id="sol-filter-class" aria-label="Select Class" onchange="renderSolutionsChapters()" style="flex: 1; padding: 12px; border-radius: 12px; border: 1px solid #e2e8f0; background: #f8fafc; font-size: 14px; font-weight: 600; outline: none;">
+                            <option value="">Select Class...</option>
+                            <option value="Class 9">Class 9</option><option value="Class 10">Class 10</option>
+                            <option value="Class 11">Class 11</option><option value="Class 12">Class 12</option>
+                        </select>
+                        <select id="sol-filter-subject" aria-label="Select Subject" onchange="renderSolutionsChapters()" style="flex: 1; padding: 12px; border-radius: 12px; border: 1px solid #e2e8f0; background: #f8fafc; font-size: 14px; font-weight: 600; outline: none;">
+                            <option value="">Select Subject...</option>
+                        </select>
+                    </div>
                 </div>
 
-                <div style="text-align: center; font-size: 12px; color: #64748b;">
-                    © 2025 StudiesSupport. All rights reserved. Built for ICSE & ISC students.
+                <div id="solutions-chapter-list" style="display: flex; flex-direction: column;">
+                    <div style="text-align: center; padding: 40px; border: 1px dashed #cbd5e1; border-radius: 16px;">
+                        <p style="color: #64748b; font-size: 14px; font-weight: 500;">Select a Class and Subject above to view chapters.</p>
+                    </div>
+                </div>
+
+                <div id="solutions-materials-container" style="display: none; flex-direction: column; gap: 16px;"></div>
+
+                <div id="solutions-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.7); z-index: 9999; align-items: flex-end; justify-content: center;">
+                    <div style="background: white; width: 100%; max-width: 800px; height: 80vh; border-radius: 24px 24px 0 0; display: flex; flex-direction: column; overflow: hidden; animation: slideUp 0.3s ease-out;">
+                        
+                        <div style="display: flex; align-items: center; padding: 16px 20px; border-bottom: 1px solid #e2e8f0;">
+                            <button onclick="closeSolutionsModal()" aria-label="Close Solutions" style="background: none; border: none; cursor: pointer; color: #475569; display: flex; align-items: center;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></button>
+                            <h3 style="flex: 1; text-align: center; font-size: 16px; font-weight: 800; color: #0f172a; margin: 0; padding-right: 24px;">Go To Question</h3>
+                        </div>
+
+                        <div style="display: flex; flex: 1; overflow: hidden;">
+                            <div style="width: 120px; background: #f8fafc; border-right: 1px solid #e2e8f0; display: flex; flex-direction: column; user-select: none; -webkit-tap-highlight-color: transparent;">
+                                <div id="tab-exercise" onclick="switchSolutionsTab('exercise')" style="padding: 16px 8px; font-size: 14px; font-weight: 800; color: #0f8368; border-bottom: 2px solid #0f8368; background: white; cursor: pointer; text-align: center;">Exercise</div>
+                                <div id="tab-questions" onclick="switchSolutionsTab('questions')" style="padding: 16px 8px; font-size: 14px; font-weight: 600; color: #64748b; cursor: pointer; text-align: center; border-bottom: none; background: transparent;">Questions</div>
+                            </div>
+                            <div id="solutions-exercise-list" style="flex: 1; overflow-y: auto; padding: 8px 0;"></div>
+                        </div>
+
+                        <div style="padding: 16px 20px; border-top: 1px solid #e2e8f0; background: white; box-shadow: 0 -4px 10px rgba(0,0,0,0.05);">
+                            <button onclick="applySolutionsFilter()" style="width: 100%; background: #65a30d; color: white; padding: 16px; border-radius: 100px; font-size: 14px; font-weight: 800; border: none; cursor: pointer; letter-spacing: 0.5px;">APPLY</button>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </footer>
+        </main>
+
+        <main id="page-pdfs" style="display: none; background-color: #ffffff; padding: 24px 20px 60px 20px;">
+            <div style="max-width: 600px; margin: 0 auto;">
+                <div class="dynamic-ad-slot" data-slot="slot-extras" style="background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; height: 90px; display: flex; align-items: center; justify-content: center; margin-bottom: 24px;"><span style="color: #94a3b8; font-size: 10px; letter-spacing: 1px; text-transform: uppercase;">Advertisement</span></div>
+                <div style="text-align: center; margin-bottom: 24px;"><i data-lucide="download-cloud" style="width: 40px; height: 40px; color: #0f172a; margin: 0 auto;"></i></div>
+                <div style="text-align: center; margin-bottom: 40px;">
+                    <h2 style="color: #0f172a; font-size: 28px; font-weight: 900; line-height: 1.3; margin-bottom: 16px;">Get All Study PDFs in One Place</h2>
+                    <p style="color: #64748b; font-size: 15px; line-height: 1.6;">To access all notes, PDFs, and exclusive study materials, join our Telegram channel. It's free and always updated!</p>
+                </div>
+                <div style="display: flex; flex-direction: column; gap: 12px; margin-bottom: 40px;">
+                    <div style="background-color: #f0f9ff; padding: 20px 24px; border-radius: 20px; display: flex; align-items: center; gap: 16px;"><i data-lucide="file-text" style="color: #334155; width: 20px; height: 20px;"></i><span style="color: #334155; font-size: 15px; font-weight: 600;">All Chapter PDFs</span></div>
+                    <div style="background-color: #fff7ed; padding: 20px 24px; border-radius: 20px; display: flex; align-items: center; gap: 16px;"><i data-lucide="zap" style="color: #334155; width: 20px; height: 20px;"></i><span style="color: #334155; font-size: 15px; font-weight: 600;">Quick Revision Notes</span></div>
+                    <div style="background-color: #f0fdf4; padding: 20px 24px; border-radius: 20px; display: flex; align-items: center; gap: 16px;"><i data-lucide="star" style="color: #334155; width: 20px; height: 20px;"></i><span style="color: #334155; font-size: 15px; font-weight: 600;">Important Questions</span></div>
+                </div>
+                <div style="text-align: center; margin-bottom: 40px;">
+                    <a href="https://t.me/studiessupport2026" target="_blank" style="display: inline-flex; align-items: center; justify-content: center; gap: 10px; background-color: #ffffff; color: #0f172a; padding: 18px 40px; border-radius: 100px; font-size: 16px; font-weight: 800; text-decoration: none; box-shadow: 0 10px 40px rgba(0,0,0,0.08); border: 1px solid #f1f5f9; width: 100%; max-width: 300px;"><i data-lucide="send" style="color: #3b82f6; width: 20px; height: 20px;"></i> Join Telegram Channel</a>
+                </div>
+            </div>
+        </main>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -717,8 +685,46 @@ const generateCardHTML = (item) => {
         </div>`;
 };
 
+function navigateTo(pageName, isBack = false) {
+    if (pageName === 'admin' && localStorage.getItem('isAdminLoggedIn') !== 'true') { showLoginModal(); return; }
+    if (!isBack && currentPage !== pageName) { pageHistory.push(currentPage); }
+    currentPage = pageName;
+
+    const backBtn = document.getElementById('universal-back-btn');
+    if (backBtn) backBtn.style.display = (pageName === 'home') ? 'none' : 'flex';
+    if (pageName === 'home') pageHistory = [];
+
+    document.querySelectorAll('main').forEach(page => { page.style.display = 'none'; page.classList.remove('active'); });
+
+    const targetPage = document.getElementById('page-' + pageName);
+    if (targetPage) { targetPage.style.display = 'block'; targetPage.classList.add('active'); }
+
+    if (pageName === 'backpack') renderBackpack();
+    else if (pageName === 'solutions') updateSolutionsSubjectDropdown();
+    else renderStudentMaterials();
+
+    const mobileMenu = document.getElementById('mobile-menu');
+    if (mobileMenu && mobileMenu.style.display === 'block') toggleMobileMenu();
+    window.scrollTo(0, 0);
+
+    safeCreateIcons();
+}
+
+function goBack() { if (pageHistory.length > 0) { navigateTo(pageHistory.pop(), true); } else { navigateTo('home'); } }
+function toggleMobileMenu() { const menu = document.getElementById('mobile-menu'); if (menu) menu.style.display = (menu.style.display === 'block') ? 'none' : 'block'; }
+
+async function showLoginModal() { 
+    if (localStorage.getItem('isAdminLoggedIn') === 'true') { navigateTo('admin'); return; }
+    if (supabaseClient) {
+        const { data } = await supabaseClient.auth.getSession();
+        if (data && data.session) { localStorage.setItem('isAdminLoggedIn', 'true'); navigateTo('admin'); return; }
+    }
+    document.getElementById('login-modal')?.classList.remove('hidden'); 
+}
+function closeLoginModal() { document.getElementById('login-modal')?.classList.add('hidden'); }
+
 // ==========================================
-// 🌟 AD MANAGER
+// 🌟 AD BUILDER & CONTROLLER
 // ==========================================
 async function handleAdUpload(event) {
     event.preventDefault();
@@ -873,7 +879,7 @@ function updateSubjectDropdown() {
     const board = boardSelect.value;
     const subjectSelect = document.getElementById('admin-subject-select');
     if (!subjectSelect) return;
-    
+
     let standardSubjects = board === 'ICSE' 
         ? ['English Language', 'English Literature', 'Mathematics', 'Science (Physics)', 'Science (Chemistry)', 'Science (Biology)', 'Hindi', 'History & Civics', 'Geography', 'Computer Science']
         : ['English Language', 'English Literature', 'Hindi', 'Physics', 'Chemistry', 'Mathematics', 'Biology', 'Computer Science', 'Accounts', 'Business Studies', 'Economics', 'History'];
@@ -903,13 +909,13 @@ async function handleMaterialUpload(event) {
     const typeValue = document.getElementById('admin-type-select').value;
     let subjectValue = document.getElementById('admin-subject-select').value;
     if (subjectValue === 'CUSTOM_NEW') subjectValue = document.getElementById('admin-custom-subject').value.trim();
-    
+
     const chapterValue = document.getElementById('admin-chapter-input').value.trim();
     const subchapterValue = document.getElementById('admin-subchapter-input').value.trim();
     const textbookValue = document.getElementById('admin-textbook-input').value.trim();
     let textContent = document.getElementById('admin-text-input').value;
     const enableSplit = document.getElementById('admin-split-flag')?.checked;
-    
+
     const file = document.getElementById('file-upload').files[0];
     if (!file && textContent.trim() === "" && !editingMaterialId) return alert("Please add text content or a file!");
 
@@ -975,10 +981,10 @@ async function fetchAndDisplayMaterials() {
     try {
         const { data, error } = await supabaseClient.from('study_materials').select('*').order('created_at', { ascending: false });
         if (error) throw error;
-        
+
         allAdBanners = data.filter(m => (m.subchapter || '').startsWith('SYSTEM_AD_'));
         allStudyMaterials = data.filter(m => !(m.subchapter || '').startsWith('SYSTEM_AD_'));
-        
+
         renderAds(); 
         renderAdminAdsList();
         renderAdminMaterials(); 
@@ -998,7 +1004,7 @@ function renderAdminMaterials() {
     let filtered = allStudyMaterials; 
     if (classFilter) filtered = filtered.filter(m => m.class_level === classFilter);
     if (subFilter) filtered = filtered.filter(m => m.subject === subFilter);
-    
+
     const btn = document.getElementById('bulk-delete-btn');
     if (btn) btn.style.display = 'none'; 
 
@@ -1010,7 +1016,7 @@ function renderAdminMaterials() {
     container.innerHTML = filtered.map(item => {
         let isSplit = (item.content_text || '').includes('[SPLIT_ENABLED]');
         let splitBadge = isSplit ? `<span style="background: #dcfce7; color: #166534; padding: 2px 8px; border-radius: 6px; font-size: 10px; font-weight: 800; margin-left: 8px; display: inline-block;">Auto-Split ON</span>` : '';
-        
+
         return `
         <div style="background: white; border: 1px solid #e2e8f0; border-radius: 16px; padding: 16px; margin-bottom: 12px; display: flex; align-items: flex-start; gap: 12px;">
             <input type="checkbox" class="admin-item-checkbox" aria-label="Select Material" value="${item.id}" onchange="toggleBulkDeleteBtn()" style="width: 20px; height: 20px; margin-top: 4px; accent-color: #ef4444; cursor: pointer;">
@@ -1026,7 +1032,7 @@ function renderAdminMaterials() {
             </div>
         </div>`;
     }).join('');
-    
+
     renderMath();
 }
 
@@ -1038,6 +1044,253 @@ function updateAdminDatalists() {
     chapList.innerHTML = [...new Set(allStudyMaterials.map(m => m.chapter).filter(Boolean))].map(c => `<option value="${c}">`).join('');
     subChapList.innerHTML = [...new Set(allStudyMaterials.map(m => m.subchapter).filter(Boolean))].map(sc => `<option value="${sc}">`).join('');
 }
+
+function updateSolutionsSubjectDropdown() {
+    const classSelect = document.getElementById('sol-filter-class');
+    const subjectSelect = document.getElementById('sol-filter-subject');
+    if (!classSelect || !subjectSelect) return;
+
+    let validMaterials = allStudyMaterials.filter(m => m.content_type === 'Textbook Solutions');
+    if (classSelect.value) validMaterials = validMaterials.filter(m => m.class_level === classSelect.value);
+
+    const currentSub = subjectSelect.value;
+    const subjects = [...new Set(validMaterials.map(m => m.subject).filter(Boolean))].sort();
+    subjectSelect.innerHTML = '<option value="">Select Subject...</option>' + subjects.map(s => `<option value="${s}">${s}</option>`).join('');
+    if (subjects.includes(currentSub)) subjectSelect.value = currentSub;
+}
+
+function renderSolutionsChapters() {
+    updateSolutionsSubjectDropdown();
+    const classVal = document.getElementById('sol-filter-class')?.value;
+    const subjectVal = document.getElementById('sol-filter-subject')?.value;
+    const chapterList = document.getElementById('solutions-chapter-list');
+    const cardsContainer = document.getElementById('solutions-materials-container');
+    
+    if(!chapterList || !cardsContainer) return;
+    cardsContainer.style.display = 'none';
+    chapterList.style.display = 'flex';
+
+    if (!classVal || !subjectVal) {
+        chapterList.innerHTML = `<div style="text-align: center; padding: 40px; border: 1px dashed #cbd5e1; border-radius: 16px;"><p style="color: #64748b; font-size: 14px; font-weight: 500;">Select a Class and Subject above to view chapters.</p></div>`;
+        return;
+    }
+
+    const filtered = allStudyMaterials.filter(m => m.content_type === 'Textbook Solutions' && m.class_level === classVal && m.subject === subjectVal);
+    const chapters = [...new Set(filtered.map(m => m.chapter).filter(Boolean))];
+
+    if (chapters.length === 0) {
+        chapterList.innerHTML = `<div style="text-align: center; padding: 40px; background: #f8fafc; border-radius: 16px;"><p style="color: #64748b; font-size: 14px; font-weight: 500;">No textbook solutions found for this subject.</p></div>`;
+        return;
+    }
+
+    chapterList.innerHTML = chapters.map((chap, index) => {
+        const num = String(index + 1).padStart(2, '0');
+        return `
+        <div onclick="openSolutionsModal('${chap.replace(/'/g, "\\'")}')" style="display: flex; align-items: center; gap: 16px; padding: 20px 16px; border-bottom: 1px solid #f1f5f9; cursor: pointer; transition: background 0.2s;">
+            <span style="font-size: 16px; font-weight: 800; color: #f472b6;">${num}</span>
+            <span style="font-size: 15px; font-weight: 700; color: #334155; flex: 1;">${chap}</span>
+        </div>`;
+    }).join('');
+}
+
+function openSolutionsModal(chapterName) {
+    currentSolutionChapter = chapterName;
+    activeSolTab = 'exercise';
+    const classVal = document.getElementById('sol-filter-class').value;
+    const subjectVal = document.getElementById('sol-filter-subject').value;
+    const subchapters = [...new Set(allStudyMaterials.filter(m => 
+        m.content_type === 'Textbook Solutions' && m.class_level === classVal && m.subject === subjectVal && m.chapter === currentSolutionChapter
+    ).map(m => m.subchapter).filter(Boolean))].sort();
+
+    activeSolSubchapter = subchapters.length > 0 ? subchapters[0] : '';
+    activeSolQuestion = 'all'; 
+    document.getElementById('solutions-modal').style.display = 'flex';
+    renderSolutionsModalContent();
+}
+
+function switchSolutionsTab(tabName) {
+    activeSolTab = tabName;
+    renderSolutionsModalContent();
+}
+
+function renderSolutionsModalContent() {
+    const tabEx = document.getElementById('tab-exercise');
+    const tabQ = document.getElementById('tab-questions');
+    const listContainer = document.getElementById('solutions-exercise-list');
+
+    if (activeSolTab === 'exercise') {
+        tabEx.style.color = '#0f8368'; tabEx.style.borderBottom = '2px solid #0f8368'; tabEx.style.background = 'white'; tabEx.style.fontWeight = '800';
+        tabQ.style.color = '#64748b'; tabQ.style.borderBottom = 'none'; tabQ.style.background = 'transparent'; tabQ.style.fontWeight = '600';
+    } else {
+        tabQ.style.color = '#0f8368'; tabQ.style.borderBottom = '2px solid #0f8368'; tabQ.style.background = 'white'; tabQ.style.fontWeight = '800';
+        tabEx.style.color = '#64748b'; tabEx.style.borderBottom = 'none'; tabEx.style.background = 'transparent'; tabEx.style.fontWeight = '600';
+    }
+
+    const classVal = document.getElementById('sol-filter-class').value;
+    const subjectVal = document.getElementById('sol-filter-subject').value;
+    
+    let chapterMaterials = allStudyMaterials.filter(m => 
+        m.content_type === 'Textbook Solutions' && m.class_level === classVal && m.subject === subjectVal && m.chapter === currentSolutionChapter
+    );
+
+    if (activeSolTab === 'exercise') {
+        const subchapters = [...new Set(chapterMaterials.map(m => m.subchapter).filter(Boolean))].sort();
+        if (subchapters.length === 0) {
+            listContainer.innerHTML = '<p style="padding: 20px; color:#64748b; font-size: 14px; text-align: center;">No specific exercises categorized. Just click APPLY.</p>';
+        } else {
+            listContainer.innerHTML = subchapters.map(sc => `
+                <label class="sol-radio-container" onclick="activeSolSubchapter='${sc.replace(/'/g, "\\'")}'; activeSolQuestion='all'; renderSolutionsModalContent();">
+                    <input type="radio" name="sol-exercise-radio" aria-label="Select Subchapter" value="${sc}" ${activeSolSubchapter === sc ? 'checked' : ''} class="sol-radio-input">
+                    <span style="font-size: 14px; font-weight: 600; color: #334155;">${sc}</span>
+                </label>
+            `).join('');
+        }
+    } else {
+        if (activeSolSubchapter) chapterMaterials = chapterMaterials.filter(m => m.subchapter === activeSolSubchapter);
+        let splitChapMats = splitContentIntoBlocks(chapterMaterials);
+        let rawNumbers = splitChapMats.map(m => {
+            const match = (m.content_text || '').match(/(?:\*\*|\s)*(?:Q\.?|Question|Ques)\s*(\d+)/i);
+            return match ? parseInt(match[1]) : null;
+        }).filter(n => n !== null);
+        let uniqueNumbers = [...new Set(rawNumbers)].sort((a,b) => a - b);
+
+        let html = `
+            <label class="sol-radio-container" onclick="activeSolQuestion='all'; renderSolutionsModalContent();">
+                <input type="radio" name="sol-question-radio" aria-label="Select All Questions" value="all" ${activeSolQuestion === 'all' ? 'checked' : ''} class="sol-radio-input">
+                <span style="font-size: 14px; font-weight: 600; color: #334155;">All Questions</span>
+            </label>
+        `;
+        if (uniqueNumbers.length === 0) {
+            html += '<p style="padding: 20px; color:#64748b; font-size: 14px; text-align:center;">Questions are not numbered. Click APPLY to read all.</p>';
+        } else {
+            html += uniqueNumbers.map(num => `
+                <label class="sol-radio-container" onclick="activeSolQuestion='${num}'; renderSolutionsModalContent();">
+                    <input type="radio" name="sol-question-radio" aria-label="Select Question" value="${num}" ${String(activeSolQuestion) === String(num) ? 'checked' : ''} class="sol-radio-input">
+                    <span style="font-size: 14px; font-weight: 600; color: #334155;">${num}</span>
+                </label>
+            `).join('');
+        }
+        listContainer.innerHTML = html;
+    }
+}
+
+function closeSolutionsModal() { document.getElementById('solutions-modal').style.display = 'none'; }
+
+function applySolutionsFilter() {
+    closeSolutionsModal();
+    const chapterList = document.getElementById('solutions-chapter-list');
+    const container = document.getElementById('solutions-materials-container');
+    chapterList.style.display = 'none';
+    container.style.display = 'flex';
+    container.innerHTML = '';
+    
+    const classVal = document.getElementById('sol-filter-class').value;
+    const subjectVal = document.getElementById('sol-filter-subject').value;
+
+    let chapterMaterials = allStudyMaterials.filter(m => 
+        m.content_type === 'Textbook Solutions' && m.class_level === classVal && m.subject === subjectVal && m.chapter === currentSolutionChapter
+    );
+    if (activeSolSubchapter) chapterMaterials = chapterMaterials.filter(m => m.subchapter === activeSolSubchapter); 
+    
+    let splitMaterials = splitContentIntoBlocks(chapterMaterials);
+    let filtered = [...splitMaterials];
+
+    if (activeSolQuestion !== 'all') {
+        filtered = filtered.filter(m => {
+            const match = (m.content_text || '').match(/(?:\*\*|\s)*(?:Q\.?|Question|Ques)\s*(\d+)/i);
+            return match && String(match[1]) === String(activeSolQuestion);
+        });
+    }
+
+    container.innerHTML += `<button onclick="renderSolutionsChapters()" aria-label="Back to Chapters" style="background: #f1f5f9; border: none; padding: 10px 16px; border-radius: 10px; font-weight: 700; color: #334155; cursor: pointer; align-self: flex-start; margin-bottom: 8px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg> Back to Chapters</button>`;
+    let headerTitle = `${currentSolutionChapter}`;
+    if (activeSolSubchapter) headerTitle += ` — ${activeSolSubchapter}`;
+    if (activeSolQuestion !== 'all') headerTitle += ` (Q.${activeSolQuestion})`;
+    container.innerHTML += `<h3 style="font-size: 18px; font-weight: 800; color: #0f172a; margin-bottom: 8px;">${headerTitle}</h3>`;
+
+    if (filtered.length === 0) {
+        container.innerHTML += `<div style="text-align: center; padding: 40px;"><p style="color: #64748b; font-size: 15px; font-weight: 600;">No materials found.</p></div>`;
+    } else {
+        filtered.forEach(item => { container.innerHTML += generateCardHTML(item); });
+    }
+
+    if (activeSolQuestion !== 'all') {
+        let rawNumbers = splitMaterials.map(m => {
+            const match = (m.content_text || '').match(/(?:\*\*|\s)*(?:Q\.?|Question|Ques)\s*(\d+)/i);
+            return match ? parseInt(match[1]) : null;
+        }).filter(n => n !== null);
+        let uniqueNumbers = [...new Set(rawNumbers)].sort((a,b) => a - b);
+        let currentIndex = uniqueNumbers.indexOf(parseInt(activeSolQuestion));
+        let paginationHTML = `<div style="display: flex; justify-content: space-between; margin-top: 16px; padding-top: 16px; border-top: 1px solid #e2e8f0;">`;
+
+        if (currentIndex > 0) {
+            let prevQ = uniqueNumbers[currentIndex - 1];
+            paginationHTML += `<button onclick="activeSolQuestion='${prevQ}'; applySolutionsFilter(); window.scrollTo(0,0);" aria-label="Previous" style="background: #f1f5f9; color: #334155; padding: 10px 16px; border-radius: 10px; font-weight: 700; border: none; cursor: pointer; display: flex; align-items: center; gap: 6px;">Prev (Q.${prevQ})</button>`;
+        } else {
+            paginationHTML += `<div></div>`;
+        }
+
+        if (currentIndex !== -1 && currentIndex < uniqueNumbers.length - 1) {
+            let nextQ = uniqueNumbers[currentIndex + 1];
+            paginationHTML += `<button onclick="activeSolQuestion='${nextQ}'; applySolutionsFilter(); window.scrollTo(0,0);" aria-label="Next" style="background: #2563eb; color: #ffffff; padding: 10px 16px; border-radius: 10px; font-weight: 700; border: none; cursor: pointer; display: flex; align-items: center; gap: 6px;">Next (Q.${nextQ})</button>`;
+        }
+        paginationHTML += `</div>`;
+        container.innerHTML += paginationHTML;
+    }
+    
+    safeCreateIcons();
+    renderMath();
+}
+
+function renderStudentMaterials() {
+    function drawCards(container, materials, boardType) {
+        if (materials.length === 0) {
+            container.innerHTML = `<p style="text-align: center; color: #94a3b8; font-size: 15px;">No content added yet for this subject.</p>`;
+            return;
+        }
+        
+        container.innerHTML = '';
+        const topClass = boardType === 'ICSE' ? 'Class 10' : 'Class 12';
+        const bottomClass = boardType === 'ICSE' ? 'Class 9' : 'Class 11';
+
+        const splitMaterials = splitContentIntoBlocks(materials);
+
+        const topMaterials = splitMaterials.filter(item => item.class_level === topClass);
+        const bottomMaterials = splitMaterials.filter(item => item.class_level === bottomClass);
+        const otherMaterials = splitMaterials.filter(item => item.class_level !== topClass && item.class_level !== bottomClass);
+
+        if (topMaterials.length > 0) {
+            container.innerHTML += `<div style="margin-bottom: 16px; display: inline-flex; align-items: center; gap: 8px; background: #fee2e2; color: #991b1b; padding: 8px 16px; border-radius: 12px; font-weight: 800; font-size: 14px;"><i data-lucide="flame" style="width: 18px; height: 18px;"></i> ${topClass} (Board Exams)</div>`;
+            topMaterials.forEach(item => { container.innerHTML += generateCardHTML(item); });
+        }
+        
+        if (bottomMaterials.length > 0) {
+            container.innerHTML += `<div style="margin-top: 24px; margin-bottom: 16px; display: inline-flex; align-items: center; gap: 8px; background: #f1f5f9; color: #475569; padding: 8px 16px; border-radius: 12px; font-weight: 800; font-size: 14px;"><i data-lucide="book" style="width: 18px; height: 18px;"></i> ${bottomClass}</div>`;
+            bottomMaterials.forEach(item => { container.innerHTML += generateCardHTML(item); });
+        }
+        
+        if (otherMaterials.length > 0) {
+            otherMaterials.forEach(item => { container.innerHTML += generateCardHTML(item); });
+        }
+        
+        safeCreateIcons();
+    }
+
+    const icseContainer = document.getElementById('icse-materials-container');
+    if (icseContainer && document.getElementById('page-notes').classList.contains('active')) {
+        const title = document.getElementById('dynamic-icse-title').innerText.trim();
+        drawCards(icseContainer, allStudyMaterials.filter(item => item.board === 'ICSE' && item.subject === title && item.content_type !== 'Textbook Solutions'), 'ICSE');
+    }
+
+    const iscContainer = document.getElementById('isc-materials-container');
+    if (iscContainer && document.getElementById('page-notes-isc').classList.contains('active')) {
+        const title = document.getElementById('dynamic-isc-title').innerText.trim();
+        drawCards(iscContainer, allStudyMaterials.filter(item => item.board === 'ISC' && item.subject === title && item.content_type !== 'Textbook Solutions'), 'ISC');
+    }
+
+    renderMath(); 
+}
     </script>
+
 </body>
 </html>
