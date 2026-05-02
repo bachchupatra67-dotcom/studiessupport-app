@@ -981,4 +981,158 @@ function renderSolutionsModalContent() {
     const classVal = document.getElementById('sol-filter-class').value;
     const subjectVal = document.getElementById('sol-filter-subject').value;
     
-    let chapterMaterials =
+    let chapterMaterials = allStudyMaterials.filter(m => 
+        m.content_type === 'Textbook Solutions' && m.class_level === classVal && m.subject === subjectVal && m.chapter === currentSolutionChapter
+    );
+
+    if (activeSolTab === 'exercise') {
+        const subchapters = [...new Set(chapterMaterials.map(m => m.subchapter).filter(Boolean))].sort();
+        if (subchapters.length === 0) {
+            listContainer.innerHTML = '<p style="padding: 20px; color:#64748b; font-size: 14px; text-align: center;">No specific exercises categorized. Just click APPLY.</p>';
+        } else {
+            listContainer.innerHTML = subchapters.map(sc => `
+                <label class="sol-radio-container" onclick="activeSolSubchapter='${sc.replace(/'/g, "\\'")}'; activeSolQuestion='all'; renderSolutionsModalContent();">
+                    <input type="radio" name="sol-exercise-radio" value="${sc}" aria-label="Select Subchapter" ${activeSolSubchapter === sc ? 'checked' : ''} class="sol-radio-input">
+                    <span style="font-size: 14px; font-weight: 600; color: #334155;">${sc}</span>
+                </label>
+            `).join('');
+        }
+    } else {
+        if (activeSolSubchapter) chapterMaterials = chapterMaterials.filter(m => m.subchapter === activeSolSubchapter);
+        let splitChapMats = splitContentIntoBlocks(chapterMaterials);
+        let rawNumbers = splitChapMats.map(m => {
+            const match = (m.content_text || '').match(/(?:\*\*|\s)*(?:Q\.?|Question|Ques)\s*(\d+)/i);
+            return match ? parseInt(match[1]) : null;
+        }).filter(n => n !== null);
+        let uniqueNumbers = [...new Set(rawNumbers)].sort((a,b) => a - b);
+
+        let html = `
+            <label class="sol-radio-container" onclick="activeSolQuestion='all'; renderSolutionsModalContent();">
+                <input type="radio" name="sol-question-radio" value="all" aria-label="Select All Questions" value="all" ${activeSolQuestion === 'all' ? 'checked' : ''} class="sol-radio-input">
+                <span style="font-size: 14px; font-weight: 600; color: #334155;">All Questions</span>
+            </label>
+        `;
+        if (uniqueNumbers.length === 0) {
+            html += '<p style="padding: 20px; color:#64748b; font-size: 14px; text-align:center;">Questions are not numbered. Click APPLY to view all.</p>';
+        } else {
+            html += uniqueNumbers.map(num => `
+                <label class="sol-radio-container" onclick="activeSolQuestion='${num}'; renderSolutionsModalContent();">
+                    <input type="radio" name="sol-question-radio" aria-label="Select Question" value="${num}" ${String(activeSolQuestion) === String(num) ? 'checked' : ''} class="sol-radio-input">
+                    <span style="font-size: 14px; font-weight: 600; color: #334155;">${num}</span>
+                </label>
+            `).join('');
+        }
+        listContainer.innerHTML = html;
+    }
+}
+
+function closeSolutionsModal() { document.getElementById('solutions-modal').style.display = 'none'; }
+
+function applySolutionsFilter() {
+    closeSolutionsModal();
+    const chapterList = document.getElementById('solutions-chapter-list');
+    const container = document.getElementById('solutions-materials-container');
+    chapterList.style.display = 'none';
+    container.style.display = 'flex';
+    container.innerHTML = '';
+    
+    const classVal = document.getElementById('sol-filter-class').value;
+    const subjectVal = document.getElementById('sol-filter-subject').value;
+
+    let chapterMaterials = allStudyMaterials.filter(m => 
+        m.content_type === 'Textbook Solutions' && m.class_level === classVal && m.subject === subjectVal && m.chapter === currentSolutionChapter
+    );
+    if (activeSolSubchapter) chapterMaterials = chapterMaterials.filter(m => m.subchapter === activeSolSubchapter); 
+    
+    let splitMaterials = splitContentIntoBlocks(chapterMaterials);
+    let filtered = [...splitMaterials];
+
+    if (activeSolQuestion !== 'all') {
+        filtered = filtered.filter(m => {
+            const match = (m.content_text || '').match(/(?:\*\*|\s)*(?:Q\.?|Question|Ques)\s*(\d+)/i);
+            return match && String(match[1]) === String(activeSolQuestion);
+        });
+    }
+
+    container.innerHTML += `<button onclick="renderSolutionsChapters()" aria-label="Back to Chapters" style="background: #f1f5f9; border: none; padding: 10px 16px; border-radius: 10px; font-weight: 700; color: #334155; cursor: pointer; align-self: flex-start; margin-bottom: 8px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg> Back to Chapters</button>`;
+    let headerTitle = `${currentSolutionChapter}`;
+    if (activeSolSubchapter) headerTitle += ` — ${activeSolSubchapter}`;
+    if (activeSolQuestion !== 'all') headerTitle += ` (Q.${activeSolQuestion})`;
+    container.innerHTML += `<h3 style="font-size: 18px; font-weight: 800; color: #0f172a; margin-bottom: 8px;">${headerTitle}</h3>`;
+
+    if (filtered.length === 0) {
+        container.innerHTML += `<div style="text-align: center; padding: 40px;"><p style="color: #64748b; font-size: 15px; font-weight: 600;">No materials found.</p></div>`;
+    } else {
+        filtered.forEach(item => { container.innerHTML += generateCardHTML(item); });
+    }
+
+    // 🌟 PREV/NEXT PAGINATION ENGINE
+    if (activeSolQuestion !== 'all') {
+        let rawNumbers = splitMaterials.map(m => {
+            const match = (m.content_text || '').match(/(?:\*\*|\s)*(?:Q\.?|Question|Ques)\s*(\d+)/i);
+            return match ? parseInt(match[1]) : null;
+        }).filter(n => n !== null);
+        
+        let uniqueNumbers = [...new Set(rawNumbers)].sort((a,b) => a - b);
+        let currentIndex = uniqueNumbers.indexOf(parseInt(activeSolQuestion));
+
+        let paginationHTML = `<div style="display: flex; justify-content: space-between; margin-top: 16px; padding-top: 16px; border-top: 1px solid #e2e8f0;">`;
+
+        if (currentIndex > 0) {
+            let prevQ = uniqueNumbers[currentIndex - 1];
+            paginationHTML += `<button onclick="activeSolQuestion='${prevQ}'; applySolutionsFilter(); window.scrollTo(0,0);" aria-label="Previous" style="background: #f1f5f9; color: #334155; padding: 10px 16px; border-radius: 10px; font-weight: 700; border: none; cursor: pointer; display: flex; align-items: center; gap: 6px;">Prev (Q.${prevQ})</button>`;
+        } else {
+            paginationHTML += `<div></div>`;
+        }
+
+        if (currentIndex !== -1 && currentIndex < uniqueNumbers.length - 1) {
+            let nextQ = uniqueNumbers[currentIndex + 1];
+            paginationHTML += `<button onclick="activeSolQuestion='${nextQ}'; applySolutionsFilter(); window.scrollTo(0,0);" aria-label="Next" style="background: #2563eb; color: #ffffff; padding: 10px 16px; border-radius: 10px; font-weight: 700; border: none; cursor: pointer; display: flex; align-items: center; gap: 6px;">Next (Q.${nextQ})</button>`;
+        }
+
+        paginationHTML += `</div>`;
+        container.innerHTML += paginationHTML;
+    }
+    
+    safeCreateIcons();
+    renderMath();
+}
+
+// ==========================================
+// 8. THE BACKPACK ENGINE
+// ==========================================
+function toggleBookmark(itemId) {
+    const id = String(itemId);
+    const exists = myBackpack.some(savedId => String(savedId) === id);
+    if (exists) { 
+        myBackpack = myBackpack.filter(savedId => String(savedId) !== id); 
+    } else { 
+        myBackpack.push(id); 
+    }
+    localStorage.setItem('studyBackpack', JSON.stringify(myBackpack));
+    renderStudentMaterials();
+    if (currentPage === 'backpack') renderBackpack();
+}
+
+function renderBackpack() {
+    const container = document.getElementById('backpack-materials-container');
+    if (!container) return;
+    if (myBackpack.length === 0) {
+        container.innerHTML = `<div style="text-align: center; padding: 40px; color: #94a3b8; border: 1px dashed #cbd5e1; border-radius: 20px;">Your backpack is empty.</div>`;
+        return;
+    }
+
+    const savedItems = allStudyMaterials.filter(item => myBackpack.some(savedId => String(savedId) === String(item.id)));
+    container.innerHTML = '';
+    const splitSavedItems = splitContentIntoBlocks(savedItems);
+
+    splitSavedItems.forEach(item => { 
+        container.innerHTML += generateCardHTML(item); 
+    });
+    
+    safeCreateIcons();
+    renderMath(); 
+}
+    </script>
+</body>
+</html>
