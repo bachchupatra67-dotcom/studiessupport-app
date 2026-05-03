@@ -1199,8 +1199,16 @@ const generateCardHTML = (item) => {
     formattedText = formattedText.replace(/\\\\Delta|\\Delta|\\\\delta|\\delta/g, 'Δ');
     formattedText = formattedText.replace(/([a-zA-Z])_([0-9a-zA-Z]+)/g, '$1<sub>$2</sub>');
     formattedText = formattedText.replace(/([a-zA-Z0-9])\^([0-9a-zA-Z]+)/g, '$1<sup>$2</sup>');
+        // 1. Gemini Headers (### and ##)
+    formattedText = formattedText.replace(/### (.*?)(?=\n|$)/g, '<br><strong style="font-size: 16px; color: #0f172a; font-weight: 900; display: block; margin-top: 8px;">$1</strong>');
+    formattedText = formattedText.replace(/## (.*?)(?=\n|$)/g, '<br><strong style="font-size: 18px; color: #0f172a; font-weight: 900; display: block; margin-top: 12px;">$1</strong>');
+    
+    // 2. Gemini Bold text (**)
     formattedText = formattedText.replace(/\*\*([\s\S]*?)\*\*/g, '<strong style="color: #0f172a; font-weight: 900;">$1</strong>');
-    formattedText = formattedText.replace(/\*\*/g, '');
+    
+    // 3. Gemini Bullet points (* Item)
+    formattedText = formattedText.replace(/^\* (.*?)(?=\n|$)/gm, '<li style="margin-left: 20px; list-style-type: disc; margin-bottom: 4px;">$1</li>');
+
     formattedText = formattedText.replace(/(^|\n|\s*)((?:Q\.?|Question|Ques)\s*\d+[\s\S]*?)(?=\n\s*Ans\.?|\n\s*Answer\.?|$)/i, function(match, p1, p2) {
         if (p2.includes('<strong')) return match; 
         return `${p1}<strong style="color: #0f172a; font-weight: 900;">${p2.trim()}</strong>`;
@@ -1519,7 +1527,6 @@ function applySolutionsFilter() {
     let headerTitle = `${currentSolutionChapter}`;
     if (activeSolSubchapter) headerTitle += ` — ${activeSolSubchapter}`;
     if (activeSolQuestion !== 'all') headerTitle += ` (Q.${activeSolQuestion})`;
-    container.innerHTML += `<h3 style="font-size: 18px; font-weight: 800; color: #0f172a; margin-bottom: 8px;">${headerTitle}</h3>`;
 
     if (filtered.length === 0) {
         container.innerHTML += `<div style="text-align: center; padding: 40px;"><p style="color: #64748b; font-size: 15px; font-weight: 600;">No materials found.</p></div>`;
