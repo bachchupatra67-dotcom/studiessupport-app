@@ -262,9 +262,19 @@
                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
                     <div onclick="navigateTo('icse')" aria-label="Go Back" role="button" style="cursor: pointer; color: #334155; font-size: 14px; font-weight: 700; display: flex; align-items: center; gap: 6px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg> Back</div>
                 </div>
-                <h2 id="dynamic-icse-title" style="color: #0f172a; font-size: 28px; font-weight: 900; margin-bottom: 8px;">Subject</h2>
-                <div id="icse-materials-container" style="display: flex; flex-direction: column; gap: 16px; margin-bottom: 40px; margin-top: 20px;"></div>
-            </div>
+                <h2 id="dynamic-icse-title" style="color: #0f172a; font-size: 28px; font-weight: 900; margin-bottom: 16px;">Subject</h2>
+                
+                <div style="display: flex; gap: 12px; margin-bottom: 24px;">
+                    <select id="icse-class-filter" onchange="renderStudentMaterials()" style="flex: 1; padding: 12px; border-radius: 12px; border: 1px solid #e2e8f0; background: #f8fafc; font-size: 14px; font-weight: 600; outline: none;">
+                        <option value="All">All Classes (9 & 10)</option>
+                        <option value="Class 9">Class 9</option>
+                        <option value="Class 10">Class 10</option>
+                    </select>
+                    <button onclick="goToSolutionsFromNotes('ICSE')" style="flex: 1; background: #eff6ff; color: #2563eb; border: 1px dashed #3b82f6; border-radius: 12px; font-weight: 700; font-size: 14px; cursor: pointer; transition: 0.2s;">📚 Textbook Solutions</button>
+                </div>
+
+                <div id="icse-materials-container" style="display: flex; flex-direction: column; gap: 16px; margin-bottom: 40px;"></div>
+
         </main>
 
         <main id="page-notes-isc" style="display: none; background-color: #ffffff; padding: 24px 20px 60px 20px;">
@@ -273,8 +283,20 @@
                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
                     <div onclick="navigateTo('isc')" aria-label="Go Back" role="button" style="cursor: pointer; color: #334155; font-size: 14px; font-weight: 700; display: flex; align-items: center; gap: 6px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg> Back</div>
                 </div>
-                <h2 id="dynamic-isc-title" style="color: #0f172a; font-size: 28px; font-weight: 900; margin-bottom: 8px;">Subject</h2>
-                <div id="isc-materials-container" style="display: flex; flex-direction: column; gap: 16px; margin-bottom: 40px; margin-top: 20px;"></div>
+                                <h2 id="dynamic-isc-title" style="color: #0f172a; font-size: 28px; font-weight: 900; margin-bottom: 16px;">Subject</h2>
+                
+                <div style="display: flex; gap: 12px; margin-bottom: 24px;">
+                    <select id="isc-class-filter" onchange="renderStudentMaterials()" style="flex: 1; padding: 12px; border-radius: 12px; border: 1px solid #e2e8f0; background: #f8fafc; font-size: 14px; font-weight: 600; outline: none;">
+                        <option value="All">All Classes (11 & 12)</option>
+                        <option value="Class 11">Class 11</option>
+                        <option value="Class 12">Class 12</option>
+                    </select>
+                    <button onclick="goToSolutionsFromNotes('ISC')" style="flex: 1; background: #eff6ff; color: #2563eb; border: 1px dashed #3b82f6; border-radius: 12px; font-weight: 700; font-size: 14px; cursor: pointer; transition: 0.2s;">📚 Textbook Solutions</button>
+                </div>
+
+                <div id="isc-materials-container" style="display: flex; flex-direction: column; gap: 16px; margin-bottom: 40px;"></div>
+
+
             </div>
         </main>
 
@@ -1319,28 +1341,24 @@ function showSkeletons(containerId) {
 }
 
 function renderStudentMaterials() {
-    function drawCards(container, materials, boardType) {
-                // 🌟 ADD THE TEXTBOOK SOLUTIONS BRIDGE BUTTON
-        const subjectTitle = boardType === 'ICSE' ? document.getElementById('dynamic-icse-title').innerText.trim() : document.getElementById('dynamic-isc-title').innerText.trim();
-        const defaultClass = boardType === 'ICSE' ? 'Class 10' : 'Class 12';
-        
-        let solutionsBtn = `
-            <div onclick="goToSolutions('${defaultClass}', '${subjectTitle}')" style="background: #eff6ff; border: 1px dashed #3b82f6; border-radius: 16px; padding: 16px; text-align: center; cursor: pointer; margin-bottom: 24px; display: flex; align-items: center; justify-content: center; gap: 8px;">
-                <span style="color: #2563eb; font-weight: 800; font-size: 15px;">📚 View Textbook Solutions for ${subjectTitle} →</span>
-            </div>
-        `;
+    function drawCards(container, materials, boardType, classFilterId) {
+        // 🌟 Apply the new class filter
+        const selectedClass = document.getElementById(classFilterId)?.value || 'All';
+        if (selectedClass !== 'All') {
+            materials = materials.filter(m => m.class_level === selectedClass);
+        }
 
         if (materials.length === 0) {
-            container.innerHTML = solutionsBtn + `<p style="text-align: center; color: #94a3b8; font-size: 15px;">No notes added yet for this subject.</p>`;
+            container.innerHTML = `<p style="text-align: center; color: #94a3b8; font-size: 15px;">No content added yet for this subject.</p>`;
             return;
         }
 
-        container.innerHTML = solutionsBtn;
-
+        container.innerHTML = '';
         const topClass = boardType === 'ICSE' ? 'Class 10' : 'Class 12';
         const bottomClass = boardType === 'ICSE' ? 'Class 9' : 'Class 11';
 
         const splitMaterials = splitContentIntoBlocks(materials);
+
         const topMaterials = splitMaterials.filter(item => item.class_level === topClass);
         const bottomMaterials = splitMaterials.filter(item => item.class_level === bottomClass);
         const otherMaterials = splitMaterials.filter(item => item.class_level !== topClass && item.class_level !== bottomClass);
@@ -1349,29 +1367,34 @@ function renderStudentMaterials() {
             container.innerHTML += `<div style="margin-bottom: 16px; display: inline-flex; align-items: center; gap: 8px; background: #fee2e2; color: #991b1b; padding: 8px 16px; border-radius: 12px; font-weight: 800; font-size: 14px;"><i data-lucide="flame" style="width: 18px; height: 18px;"></i> ${topClass} (Board Exams)</div>`;
             topMaterials.forEach(item => { container.innerHTML += generateCardHTML(item); });
         }
+
         if (bottomMaterials.length > 0) {
             container.innerHTML += `<div style="margin-top: 24px; margin-bottom: 16px; display: inline-flex; align-items: center; gap: 8px; background: #f1f5f9; color: #475569; padding: 8px 16px; border-radius: 12px; font-weight: 800; font-size: 14px;"><i data-lucide="book" style="width: 18px; height: 18px;"></i> ${bottomClass}</div>`;
             bottomMaterials.forEach(item => { container.innerHTML += generateCardHTML(item); });
         }
+
         if (otherMaterials.length > 0) {
             otherMaterials.forEach(item => { container.innerHTML += generateCardHTML(item); });
         }
+
         safeCreateIcons();
     }
 
     const icseContainer = document.getElementById('icse-materials-container');
     if (icseContainer && document.getElementById('page-notes').classList.contains('active')) {
         const title = document.getElementById('dynamic-icse-title').innerText.trim();
-        drawCards(icseContainer, allStudyMaterials.filter(item => item.board === 'ICSE' && item.subject === title && item.content_type !== 'Textbook Solutions'), 'ICSE');
+        drawCards(icseContainer, allStudyMaterials.filter(item => item.board === 'ICSE' && item.subject === title && item.content_type !== 'Textbook Solutions'), 'ICSE', 'icse-class-filter');
     }
 
     const iscContainer = document.getElementById('isc-materials-container');
     if (iscContainer && document.getElementById('page-notes-isc').classList.contains('active')) {
         const title = document.getElementById('dynamic-isc-title').innerText.trim();
-        drawCards(iscContainer, allStudyMaterials.filter(item => item.board === 'ISC' && item.subject === title && item.content_type !== 'Textbook Solutions'), 'ISC');
+        drawCards(iscContainer, allStudyMaterials.filter(item => item.board === 'ISC' && item.subject === title && item.content_type !== 'Textbook Solutions'), 'ISC', 'isc-class-filter');
     }
+
     renderMath(); 
 }
+
 
 function updateSolutionsSubjectDropdown() {
     const classSelect = document.getElementById('sol-filter-class');
@@ -1740,6 +1763,26 @@ window.renderSolutionsChapters = function() {
             chapterList.innerHTML = notesBtn + chapterList.innerHTML;
         }
     }, 100);
+};
+// 🌟 INSTANT ROUTING TO TEXTBOOK SOLUTIONS
+window.goToSolutionsFromNotes = function(board) {
+    let subject = board === 'ICSE' ? document.getElementById('dynamic-icse-title').innerText.trim() : document.getElementById('dynamic-isc-title').innerText.trim();
+    let classLevel = board === 'ICSE' ? document.getElementById('icse-class-filter').value : document.getElementById('isc-class-filter').value;
+    
+    // If "All Classes" is selected, default to the board exam class so the solutions page isn't blank
+    if (classLevel === 'All') classLevel = board === 'ICSE' ? 'Class 10' : 'Class 12';
+
+    currentPage = 'solutions';
+    navigateTo('solutions');
+    
+    setTimeout(() => {
+        document.getElementById('sol-filter-class').value = classLevel;
+        updateSolutionsSubjectDropdown();
+        setTimeout(() => {
+            document.getElementById('sol-filter-subject').value = subject;
+            renderSolutionsChapters();
+        }, 50);
+    }, 50);
 };
 
 
