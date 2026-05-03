@@ -189,6 +189,29 @@
                 </div>
             </section>
         </main>
+                <main id="page-about" style="display: none; background-color: #ffffff; padding: 40px 20px;">
+            <div style="max-width: 800px; margin: 0 auto;">
+                <h2 style="color: #0f172a; font-size: 28px; font-weight: 900; margin-bottom: 24px;">About StudiesSupport</h2>
+                <div style="background-color: #ffffff; border: 1px solid #f1f5f9; border-radius: 24px; padding: 32px 24px; box-shadow: 0 10px 40px rgba(0,0,0,0.03); margin-bottom: 40px;">
+                    <p style="color: #64748b; font-size: 15px; line-height: 1.7; margin-bottom: 32px;"><strong style="color: #334155;">StudiesSupport</strong> is a free educational platform built exclusively for <strong style="color: #334155;">ICSE and ISC students</strong>. We believe every student deserves access to clear, well-organized study materials without any distractions.</p>
+                    <h3 style="color: #334155; font-size: 18px; font-weight: 800; margin-bottom: 16px;">Our Mission</h3>
+                    <p style="color: #64748b; font-size: 15px; line-height: 1.7; margin-bottom: 32px;">To make board exam preparation <strong style="color: #334155;">simple, effective, and stress-free</strong>. We provide notes written in easy English, exam-oriented questions, and revision content so students can focus on understanding rather than memorizing.</p>
+                    <h3 style="color: #334155; font-size: 18px; font-weight: 800; margin-bottom: 16px;">Our Team</h3>
+                    <p style="color: #64748b; font-size: 15px; line-height: 1.7; margin-bottom: 32px;">We are a passionate team of educators and technologists committed to helping students succeed. Our team includes current and former ICSE/ISC teachers who bring their valuable classroom insights to create the best possible study materials.</p>
+                    <h3 style="color: #334155; font-size: 18px; font-weight: 800; margin-bottom: 16px;">What We Offer</h3>
+                    <ul style="color: #64748b; font-size: 15px; line-height: 1.8; margin-bottom: 32px; padding-left: 20px; list-style-type: disc;">
+                        <li style="margin-bottom: 8px;">Chapter-wise notes for all major subjects</li>
+                        <li style="margin-bottom: 8px;">Short and long answer questions</li>
+                        <li style="margin-bottom: 8px;">Important questions for board exams</li>
+                        <li style="margin-bottom: 8px;">Quick revision PDFs via Telegram</li>
+                        <li style="margin-bottom: 8px;">Exam tips and strategies</li>
+                    </ul>
+                    <h3 style="color: #334155; font-size: 18px; font-weight: 800; margin-bottom: 16px;">Our Promise</h3>
+                    <p style="color: #64748b; font-size: 15px; line-height: 1.7; margin: 0;">We keep things simple. No clutter, no unnecessary content — just what you need to score well. All resources are <strong style="color: #334155; font-weight: 800;">100% free.</strong></p>
+                </div>
+            </div>
+        </main>
+
 
         <main id="page-icse" style="display: none; background-color: #ffffff; padding: 24px 20px 60px 20px;">
             <div style="max-width: 800px; margin: 0 auto;">
@@ -549,6 +572,16 @@
                                 <option value="slot-extras">PDFs Page</option>
                             </select>
                         </div>
+                                                <div>
+                            <label for="ad-product-name" style="display: block; color: #64748b; font-size: 13px; font-weight: 600; margin-bottom: 8px;">Product Name (Shown on Right side)</label>
+                            <input type="text" id="ad-product-name" placeholder="e.g., Oswaal ICSE Class 10 Solved Papers..." required style="width: 100%; padding: 16px; border-radius: 12px; border: 1px solid #e2e8f0; font-size: 15px; box-sizing: border-box;">
+                        </div>
+
+                                                <div>
+                            <label for="ad-product-name" style="display: block; color: #64748b; font-size: 13px; font-weight: 600; margin-bottom: 8px;">Product Name (Shown on Right side)</label>
+                            <input type="text" id="ad-product-name" placeholder="e.g., Oswaal ICSE Class 10 Books..." required style="width: 100%; padding: 16px; border-radius: 12px; border: 1px solid #e2e8f0; font-size: 15px; box-sizing: border-box;">
+                        </div>
+
                         <div>
                             <label for="ad-link-input" style="display: block; color: #64748b; font-size: 13px; font-weight: 600; margin-bottom: 8px;">Affiliate Link (Where the ad goes)</label>
                             <input type="url" id="ad-link-input" placeholder="https://amazon.in/..." required style="width: 100%; padding: 16px; border-radius: 12px; border: 1px solid #e2e8f0; font-size: 15px; box-sizing: border-box;">
@@ -724,6 +757,7 @@ let currentPage = 'home';
 let myBackpack = JSON.parse(localStorage.getItem('studyBackpack')) || [];
 let supabaseClient = null;
 let editingMaterialId = null;
+let editingAdId = null;
 let allStudyMaterials = [];
 let allAdBanners = [];
 
@@ -735,15 +769,8 @@ try {
     }
 } catch (error) { console.error("Supabase error:", error); }
 
-// ==========================================
-// 2. WAKE UP THE WEBSITE
-// ==========================================
 function safeCreateIcons() {
-    try {
-        if (window.lucide) lucide.createIcons();
-    } catch(e) {
-        console.warn('Lucide icon error:', e);
-    }
+    try { if (window.lucide) lucide.createIcons(); } catch(e) { console.warn(e); }
 }
 
 function initApp() {
@@ -759,92 +786,8 @@ if (document.readyState === 'loading') {
 }
 
 // ==========================================
-// 3. SMART ON-THE-FLY SPLITTER ENGINE
+// 2. NAVIGATION & LOGIN LOGIC
 // ==========================================
-function splitContentIntoBlocks(materials) {
-    let splitMaterials = [];
-    materials.forEach(m => {
-        let rawText = m.content_text || '';
-        if (rawText.includes('[SPLIT_ENABLED]')) {
-            rawText = rawText.replace(/\[SPLIT_ENABLED\]/g, '').trim();
-            let blocks = rawText.split(/(?=(?:\*\*|__|\s)*(?:Q\.?|Question|Ques)\s*\d+)/i)
-                                .map(t => t.trim())
-                                .filter(t => t.length > 3); 
-            if (blocks.length === 0) blocks = [rawText]; 
-            blocks.forEach(b => { splitMaterials.push({ ...m, content_text: b }); });
-        } else {
-            splitMaterials.push({ ...m, content_text: rawText.replace(/\[SPLIT_ENABLED\]/g, '') });
-        }
-    });
-    return splitMaterials;
-}
-
-// ==========================================
-// 4. NAVIGATION & RENDERING
-// ==========================================
-function renderMath() {
-    if (window.MathJax) {
-        setTimeout(() => { MathJax.typesetPromise().catch((err) => console.log('MathJax error:', err)); }, 100);
-    }
-}
-
-const generateCardHTML = (item) => {
-    let linkBtn = item.file_url ? `<a href="${item.file_url}" target="_blank" style="display: inline-block; background: #2563eb; color: #ffffff; padding: 10px 20px; border-radius: 10px; text-decoration: none; font-size: 14px; font-weight: 700; margin-top: 12px;">Download PDF</a>` : '';
-
-    let formattedText = item.content_text || '';
-
-    formattedText = formattedText.replace(/\\\\times|\\times/g, ' × ');
-    formattedText = formattedText.replace(/\\\\div|\\div/g, ' ÷ ');
-    formattedText = formattedText.replace(/\\\\rightarrow|\\rightarrow/g, ' → ');
-    formattedText = formattedText.replace(/\\\\Rightarrow|\\Rightarrow/g, ' ⇒ ');
-
-    formattedText = formattedText.replace(/\\\\text{([^}]+)}|\\text{([^}]+)}/g, function(match, p1, p2) { return p1 || p2 || ''; });
-
-    formattedText = formattedText.replace(/\\\\tau|\\tau/g, 'τ');
-    formattedText = formattedText.replace(/\\\\theta|\\theta/g, 'θ');
-    formattedText = formattedText.replace(/\\\\omega|\\omega/g, 'ω');
-    formattedText = formattedText.replace(/\\\\alpha|\\alpha/g, 'α');
-    formattedText = formattedText.replace(/\\\\beta|\\beta/g, 'β');
-    formattedText = formattedText.replace(/\\\\gamma|\\gamma/g, 'γ');
-    formattedText = formattedText.replace(/\\\\Delta|\\Delta|\\\\delta|\\delta/g, 'Δ');
-
-    formattedText = formattedText.replace(/([a-zA-Z])_([0-9a-zA-Z]+)/g, '$1<sub>$2</sub>');
-    formattedText = formattedText.replace(/([a-zA-Z0-9])\^([0-9a-zA-Z]+)/g, '$1<sup>$2</sup>');
-
-    formattedText = formattedText.replace(/\*\*([\s\S]*?)\*\*/g, '<strong style="color: #0f172a; font-weight: 900;">$1</strong>');
-    formattedText = formattedText.replace(/\*\*/g, '');
-
-    formattedText = formattedText.replace(/(^|\n|\s*)((?:Q\.?|Question|Ques)\s*\d+[\s\S]*?)(?=\n\s*Ans\.?|\n\s*Answer\.?|$)/i, function(match, p1, p2) {
-        if (p2.includes('<strong')) return match; 
-        return `${p1}<strong style="color: #0f172a; font-weight: 900;">${p2.trim()}</strong>`;
-    });
-
-    let textNotes = formattedText ? `<div style="background: #f8fafc; padding: 12px; border-radius: 8px; font-size: 14px; color: #334155; margin-top: 12px; white-space: pre-wrap; overflow-x: auto; font-family: sans-serif; line-height: 1.6;">${formattedText}</div>` : '';
-
-    let subchapterBadge = item.subchapter ? `<span style="background: #fef3c7; color: #d97706; padding: 4px 8px; border-radius: 6px; font-size: 11px; font-weight: 800; display: inline-block; margin-bottom: 8px; margin-left: 6px;">${item.subchapter}</span>` : '';
-    let textbookDisplay = item.textbook ? `<div style="color: #64748b; font-size: 12px; margin-top: 6px; display: flex; align-items: center; gap: 4px;"><i data-lucide="book-open" style="width: 14px; height: 14px;"></i> ${item.textbook}</div>` : '';
-
-    const isSaved = myBackpack.some(savedId => String(savedId) === String(item.id));
-    const bookmarkColor = isSaved ? '#f59e0b' : '#94a3b8';
-    const bookmarkFill = isSaved ? '#f59e0b' : 'none';
-
-    return `
-        <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 16px; padding: 20px; box-shadow: 0 4px 6px rgba(0,0,0,0.02); margin-bottom: 16px;">
-            <div style="display: flex; justify-content: space-between; align-items: flex-start;">
-                <h4 style="color: #0f172a; font-size: 16px; font-weight: 800; margin: 0 0 4px 0;">${item.chapter || 'Study Material'}</h4>
-                <button onclick="toggleBookmark('${item.id}')" aria-label="Save Bookmark" style="background: none; border: none; cursor: pointer; padding: 0;">
-                    <i data-lucide="bookmark" style="color: ${bookmarkColor}; width: 24px; height: 24px;" fill="${bookmarkFill}"></i>
-                </button>
-            </div>
-            <span style="background: #eff6ff; color: #2563eb; padding: 4px 8px; border-radius: 6px; font-size: 11px; font-weight: 800; display: inline-block; margin-bottom: 8px;">${item.content_type}</span>
-            ${subchapterBadge}
-            <p style="color: #64748b; font-size: 13px; margin: 0;">${item.class_level} • ${item.subject}</p>
-            ${textbookDisplay}
-            ${textNotes}
-            ${linkBtn}
-        </div>`;
-};
-
 function navigateTo(pageName, isBack = false) {
     if (pageName === 'admin' && localStorage.getItem('isAdminLoggedIn') !== 'true') { showLoginModal(); return; }
     if (!isBack && currentPage !== pageName) { pageHistory.push(currentPage); }
@@ -870,8 +813,14 @@ function navigateTo(pageName, isBack = false) {
     safeCreateIcons();
 }
 
-function goBack() { if (pageHistory.length > 0) { navigateTo(pageHistory.pop(), true); } else { navigateTo('home'); } }
-function toggleMobileMenu() { const menu = document.getElementById('mobile-menu'); if (menu) menu.style.display = (menu.style.display === 'block') ? 'none' : 'block'; }
+function goBack() { 
+    if (pageHistory.length > 0) { navigateTo(pageHistory.pop(), true); } else { navigateTo('home'); } 
+}
+
+function toggleMobileMenu() { 
+    const menu = document.getElementById('mobile-menu'); 
+    if (menu) menu.style.display = (menu.style.display === 'block') ? 'none' : 'block'; 
+}
 
 async function showLoginModal() { 
     if (localStorage.getItem('isAdminLoggedIn') === 'true') { navigateTo('admin'); return; }
@@ -881,11 +830,9 @@ async function showLoginModal() {
     }
     document.getElementById('login-modal')?.classList.remove('hidden'); 
 }
+
 function closeLoginModal() { document.getElementById('login-modal')?.classList.add('hidden'); }
 
-// ==========================================
-// 5. ADMIN PANEL & UPLOADS
-// ==========================================
 async function loginAdmin() {
     const email = document.getElementById('admin-email').value.trim();
     const password = document.getElementById('admin-password').value.trim();
@@ -904,23 +851,26 @@ async function logoutAdmin() {
     alert("Logged out successfully."); navigateTo('home');
 }
 
-// 🌟 FIXED RLS BYPASS FOR ADS (Deleting by ID to completely bypass RLS delete blocks)
+// ==========================================
+// 3. AD BANNER 2-COLUMN FORMATTER
+// ==========================================
 async function handleAdUpload(event) {
     event.preventDefault();
     if (!supabaseClient) return alert("System unavailable.");
 
     const slot = document.getElementById('ad-slot-select').value;
+    const prodInput = document.getElementById('ad-product-name');
+    const productName = prodInput ? prodInput.value.trim() : 'Study Material';
     const link = document.getElementById('ad-link-input').value;
     const imageUrlInput = document.getElementById('ad-image-url-input').value.trim();
     const file = document.getElementById('ad-file-upload').files[0];
 
-    if(!file && !imageUrlInput) return alert("Please provide an Image URL or upload a file.");
+    if(!file && !imageUrlInput && !editingAdId) return alert("Please provide an Image URL or upload a file.");
 
     const btn = event.target.querySelector('button[type="submit"]');
     btn.innerText = "Saving Ad... ⏳"; btn.disabled = true;
 
     try {
-        // 🌟 BYPASS: Find existing ad ID first, then delete by ID (avoids RLS blocking generic deletes)
         const { data: existingAds } = await supabaseClient.from('study_materials').select('id').eq('subchapter', 'SYSTEM_AD_' + slot);
         if (existingAds && existingAds.length > 0) {
             const adIds = existingAds.map(ad => ad.id);
@@ -937,22 +887,14 @@ async function handleAdUpload(event) {
         }
 
         const uploadData = {
-            board: 'ICSE', 
-            subject: 'Mathematics', 
-            class_level: 'Class 10',
-            chapter: 'Chapter 1', 
-            subchapter: 'SYSTEM_AD_' + slot,
-            content_type: 'Text Notes', 
-            content_text: link, 
-            file_url: finalImageUrl
+            board: 'ICSE', subject: 'Mathematics', class_level: 'Class 10', chapter: 'Chapter 1', 
+            subchapter: 'SYSTEM_AD_' + slot, textbook: productName, content_type: 'Text Notes', 
+            content_text: link, file_url: finalImageUrl
         };
 
-        const { error: insertError } = await supabaseClient.from('study_materials').insert([uploadData]);
-        if(insertError) throw insertError;
-
-        alert("Ad Banner successfully saved!");
+        await supabaseClient.from('study_materials').insert([uploadData]);
+        alert("Ad Banner saved!");
         event.target.reset();
-        document.getElementById('ad-file-name-display').innerText = 'Click to upload ad image';
         fetchAndDisplayMaterials();
     } catch (err) { alert("Error: " + err.message); }
     finally { btn.innerText = "Save Ad Banner"; btn.disabled = false; }
@@ -965,15 +907,47 @@ function renderAds() {
         const adData = allAdBanners.find(m => m.subchapter === 'SYSTEM_AD_' + slotName);
 
         if (adData && adData.file_url) {
-            el.innerHTML = `<a href="${adData.content_text}" target="_blank" style="display:block; width:100%; height:100%;"><img src="${adData.file_url}" alt="Ad" style="width:100%; height:100%; object-fit:cover; border-radius:8px;"></a>`;
+            el.style.backgroundColor = "white";
+            el.style.border = "1px solid #e2e8f0";
+            el.innerHTML = `
+                <a href="${adData.content_text}" aria-label="Ad Link" target="_blank" class="ad-image-container" style="display:flex; width:100%; height:100%; align-items:center; text-decoration:none; padding: 8px; box-sizing:border-box;">
+                    <div style="height: 100%; width: 74px; flex-shrink: 0; padding-right:12px; margin-right:12px; border-right: 1px solid #e2e8f0; display:flex; align-items:center; justify-content:center;">
+                        <img src="${adData.file_url}" alt="Product" style="max-width: 100%; max-height: 100%; object-fit: contain;">
+                    </div>
+                    <div style="flex:1; text-align: left; overflow: hidden;">
+                        <span style="font-size:10px; font-weight:800; color:#3b82f6; text-transform:uppercase; display:block; margin-bottom:4px;">Recommended</span>
+                        <span style="color:#0f172a; font-size:14px; font-weight:700; line-height:1.3; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; text-overflow:ellipsis;">${adData.textbook || 'Buy this product!'}</span>
+                    </div>
+                </a>`;
             el.style.padding = "0";
-            el.style.border = "none";
         } else {
             el.innerHTML = defaultAdHtml;
             el.style.padding = "";
+            el.style.backgroundColor = "#f8fafc";
             el.style.border = "1px solid #e2e8f0";
         }
     });
+}
+
+// ==========================================
+// 4. DATABASE & RENDER LOGIC
+// ==========================================
+async function fetchAndDisplayMaterials() {
+    if (!supabaseClient) return;
+    try {
+        const { data, error } = await supabaseClient.from('study_materials').select('*').order('created_at', { ascending: false });
+        if (error) throw error;
+
+        allAdBanners = data.filter(m => (m.subchapter || '').startsWith('SYSTEM_AD_'));
+        allStudyMaterials = data.filter(m => !(m.subchapter || '').startsWith('SYSTEM_AD_'));
+
+        renderAds(); 
+        renderAdminMaterials(); 
+        renderStudentMaterials(); 
+        updateAdminDatalists(); 
+        updateSolutionsSubjectDropdown();
+        if (currentPage === 'backpack') renderBackpack();
+    } catch (error) { console.error(error); }
 }
 
 function updateSubjectDropdown() {
@@ -1073,7 +1047,7 @@ async function deleteSelectedMaterials() {
 
     const btn = document.getElementById('bulk-delete-btn');
     const oldText = btn.innerHTML;
-    btn.innerHTML = `<i data-lucide="trash-2" style="width: 14px; height: 14px;"></i> Deleting...`;
+    btn.innerHTML = `Deleting...`;
     btn.disabled = true;
 
     try {
@@ -1125,25 +1099,6 @@ function editMaterial(id) {
     window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-async function fetchAndDisplayMaterials() {
-    if (!supabaseClient) return;
-    try {
-        const { data, error } = await supabaseClient.from('study_materials').select('*').order('created_at', { ascending: false });
-        if (error) throw error;
-
-        // 🌟 IDENTIFY ADS BY THE FAKE SUBCHAPTER TAG
-        allAdBanners = data.filter(m => (m.subchapter || '').startsWith('SYSTEM_AD_'));
-        allStudyMaterials = data.filter(m => !(m.subchapter || '').startsWith('SYSTEM_AD_'));
-
-        renderAds(); 
-        renderAdminMaterials(); 
-        renderStudentMaterials(); 
-        updateAdminDatalists(); 
-        updateSolutionsSubjectDropdown();
-        if (currentPage === 'backpack') renderBackpack();
-    } catch (error) { console.error(error); }
-}
-
 function renderAdminMaterials() {
     const container = document.getElementById('admin-materials-container');
     if (!container) return;
@@ -1181,7 +1136,6 @@ function renderAdminMaterials() {
             </div>
         </div>`;
     }).join('');
-
     renderMath();
 }
 
@@ -1189,25 +1143,226 @@ function updateAdminDatalists() {
     const chapList = document.getElementById('admin-chapters-list');
     const subChapList = document.getElementById('admin-subchapters-list');
     if (!chapList || !subChapList) return;
-
     chapList.innerHTML = [...new Set(allStudyMaterials.map(m => m.chapter).filter(Boolean))].map(c => `<option value="${c}">`).join('');
     subChapList.innerHTML = [...new Set(allStudyMaterials.map(m => m.subchapter).filter(Boolean))].map(sc => `<option value="${sc}">`).join('');
 }
 
+// ==========================================
+// 5. CLASS NOTEBOOKS & SOLUTIONS
+// ==========================================
+function openClassNotebooks(classLevel, subject) {
+    currentPage = 'qa'; 
+    navigateTo('qa');
+    document.getElementById('qa-filter-class').value = classLevel;
+    updateDynamicFilters('qa');
+    document.getElementById('qa-filter-subject').value = subject;
+    applyDynamicFilter('qa', 'qa-materials-container');
+}
 
-// ==========================================
-// 6. 🌟 SOLUTIONS PAGE LOGIC
-// ==========================================
-let currentSolutionChapter = '';
-let activeSolTab = 'exercise';
-let activeSolSubchapter = '';
-let activeSolQuestion = 'all';
+function splitContentIntoBlocks(materials) {
+    let splitMaterials = [];
+    materials.forEach(m => {
+        let rawText = m.content_text || '';
+        if (rawText.includes('[SPLIT_ENABLED]')) {
+            rawText = rawText.replace(/\[SPLIT_ENABLED\]/g, '').trim();
+            let blocks = rawText.split(/(?=(?:\*\*|__|\s)*(?:Q\.?|Question|Ques)\s*\d+)/i)
+                                .map(t => t.trim())
+                                .filter(t => t.length > 3); 
+            if (blocks.length === 0) blocks = [rawText]; 
+            blocks.forEach(b => { splitMaterials.push({ ...m, content_text: b }); });
+        } else {
+            splitMaterials.push({ ...m, content_text: rawText.replace(/\[SPLIT_ENABLED\]/g, '') });
+        }
+    });
+    return splitMaterials;
+}
+
+function renderMath() {
+    if (window.MathJax) setTimeout(() => { MathJax.typesetPromise().catch((err) => console.log(err)); }, 100);
+}
+
+const generateCardHTML = (item) => {
+    let linkBtn = item.file_url ? `<a href="${item.file_url}" target="_blank" style="display: inline-block; background: #2563eb; color: #ffffff; padding: 10px 20px; border-radius: 10px; text-decoration: none; font-size: 14px; font-weight: 700; margin-top: 12px;">Download PDF</a>` : '';
+    let formattedText = item.content_text || '';
+    
+    formattedText = formattedText.replace(/\\\\times|\\times/g, ' × ');
+    formattedText = formattedText.replace(/\\\\div|\\div/g, ' ÷ ');
+    formattedText = formattedText.replace(/\\\\rightarrow|\\rightarrow/g, ' → ');
+    formattedText = formattedText.replace(/\\\\Rightarrow|\\Rightarrow/g, ' ⇒ ');
+    formattedText = formattedText.replace(/\\\\text{([^}]+)}|\\text{([^}]+)}/g, function(match, p1, p2) { return p1 || p2 || ''; });
+    formattedText = formattedText.replace(/\\\\tau|\\tau/g, 'τ');
+    formattedText = formattedText.replace(/\\\\theta|\\theta/g, 'θ');
+    formattedText = formattedText.replace(/\\\\omega|\\omega/g, 'ω');
+    formattedText = formattedText.replace(/\\\\alpha|\\alpha/g, 'α');
+    formattedText = formattedText.replace(/\\\\beta|\\beta/g, 'β');
+    formattedText = formattedText.replace(/\\\\gamma|\\gamma/g, 'γ');
+    formattedText = formattedText.replace(/\\\\Delta|\\Delta|\\\\delta|\\delta/g, 'Δ');
+    formattedText = formattedText.replace(/([a-zA-Z])_([0-9a-zA-Z]+)/g, '$1<sub>$2</sub>');
+    formattedText = formattedText.replace(/([a-zA-Z0-9])\^([0-9a-zA-Z]+)/g, '$1<sup>$2</sup>');
+    formattedText = formattedText.replace(/\*\*([\s\S]*?)\*\*/g, '<strong style="color: #0f172a; font-weight: 900;">$1</strong>');
+    formattedText = formattedText.replace(/\*\*/g, '');
+    formattedText = formattedText.replace(/(^|\n|\s*)((?:Q\.?|Question|Ques)\s*\d+[\s\S]*?)(?=\n\s*Ans\.?|\n\s*Answer\.?|$)/i, function(match, p1, p2) {
+        if (p2.includes('<strong')) return match; 
+        return `${p1}<strong style="color: #0f172a; font-weight: 900;">${p2.trim()}</strong>`;
+    });
+    
+    let textNotes = formattedText ? `<div style="background: #f8fafc; padding: 12px; border-radius: 8px; font-size: 14px; color: #334155; margin-top: 12px; white-space: pre-wrap; overflow-x: auto; font-family: sans-serif; line-height: 1.6;">${formattedText}</div>` : '';
+    let subchapterBadge = item.subchapter ? `<span style="background: #fef3c7; color: #d97706; padding: 4px 8px; border-radius: 6px; font-size: 11px; font-weight: 800; display: inline-block; margin-bottom: 8px; margin-left: 6px;">${item.subchapter}</span>` : '';
+    let textbookDisplay = item.textbook ? `<div style="color: #64748b; font-size: 12px; margin-top: 6px; display: flex; align-items: center; gap: 4px;"><i data-lucide="book-open" style="width: 14px; height: 14px;"></i> ${item.textbook}</div>` : '';
+
+    const isSaved = myBackpack.some(savedId => String(savedId) === String(item.id));
+    const bookmarkColor = isSaved ? '#f59e0b' : '#94a3b8';
+    const bookmarkFill = isSaved ? '#f59e0b' : 'none';
+
+    return `
+        <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 16px; padding: 20px; box-shadow: 0 4px 6px rgba(0,0,0,0.02); margin-bottom: 16px;">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                <h4 style="color: #0f172a; font-size: 16px; font-weight: 800; margin: 0 0 4px 0;">${item.chapter || 'Study Material'}</h4>
+                <button onclick="toggleBookmark('${item.id}')" aria-label="Save Bookmark" style="background: none; border: none; cursor: pointer; padding: 0;">
+                    <i data-lucide="bookmark" style="color: ${bookmarkColor}; width: 24px; height: 24px;" fill="${bookmarkFill}"></i>
+                </button>
+            </div>
+            <span style="background: #eff6ff; color: #2563eb; padding: 4px 8px; border-radius: 6px; font-size: 11px; font-weight: 800; display: inline-block; margin-bottom: 8px;">${item.content_type}</span>
+            ${subchapterBadge}
+            <p style="color: #64748b; font-size: 13px; margin: 0;">${item.class_level} • ${item.subject}</p>
+            ${textbookDisplay}
+            ${textNotes}
+            ${linkBtn}
+        </div>`;
+};
+
+function updateDynamicFilters(pagePrefix) {
+    const classSelect = document.getElementById(`${pagePrefix}-filter-class`);
+    const subjectSelect = document.getElementById(`${pagePrefix}-filter-subject`);
+    const chapterSelect = document.getElementById(`${pagePrefix}-filter-chapter`);
+    const subchapterSelect = document.getElementById(`${pagePrefix}-filter-subchapter`);
+    if(!classSelect || !subjectSelect || !chapterSelect || !subchapterSelect) return;
+    
+    let validMaterials = allStudyMaterials;
+    if(pagePrefix === 'sol') validMaterials = validMaterials.filter(m => m.content_type === 'Textbook Solutions');
+    else if(pagePrefix === 'qa') validMaterials = validMaterials.filter(m => m.content_type !== 'Textbook Solutions');
+
+    const classVal = classSelect.value;
+    if (classVal) validMaterials = validMaterials.filter(m => m.class_level === classVal);
+
+    let standardSubjects = [];
+    if (classVal === 'Class 9' || classVal === 'Class 10') {
+        standardSubjects = ['English Language', 'English Literature', 'Mathematics', 'Science (Physics)', 'Science (Chemistry)', 'Science (Biology)', 'Hindi', 'History & Civics', 'Geography', 'Computer Science'];
+    } else if (classVal === 'Class 11' || classVal === 'Class 12') {
+        standardSubjects = ['English Language', 'English Literature', 'Hindi', 'Physics', 'Chemistry', 'Mathematics', 'Biology', 'Computer Science', 'Accounts', 'Business Studies', 'Economics', 'History'];
+    }
+
+    const currentSub = subjectSelect.value;
+    const dbSubjects = validMaterials.map(m => m.subject).filter(Boolean);
+    const subjects = [...new Set([...standardSubjects, ...dbSubjects])].sort();
+    
+    subjectSelect.innerHTML = '<option value="">All Subjects</option>';
+    subjects.forEach(s => { subjectSelect.innerHTML += `<option value="${s}">${s}</option>`; });
+    if (subjects.includes(currentSub)) subjectSelect.value = currentSub;
+
+    if (subjectSelect.value) validMaterials = validMaterials.filter(m => m.subject === subjectSelect.value);
+    
+    const currentChap = chapterSelect.value;
+    const chapters = [...new Set(validMaterials.map(m => m.chapter).filter(Boolean))].sort();
+    chapterSelect.innerHTML = '<option value="">All Chapters</option>';
+    chapters.forEach(c => { chapterSelect.innerHTML += `<option value="${c}">${c}</option>`; });
+    if (chapters.includes(currentChap)) chapterSelect.value = currentChap;
+
+    if (chapterSelect.value) validMaterials = validMaterials.filter(m => m.chapter === chapterSelect.value);
+    
+    const currentSubchap = subchapterSelect.value;
+    const subchapters = [...new Set(validMaterials.map(m => m.subchapter).filter(Boolean))].sort();
+    subchapterSelect.innerHTML = '<option value="">All Subchapters</option>';
+    subchapters.forEach(sc => { subchapterSelect.innerHTML += `<option value="${sc}">${sc}</option>`; });
+    if (subchapters.includes(currentSubchap)) subchapterSelect.value = currentSubchap;
+}
+
+function applyDynamicFilter(pagePrefix, containerId) {
+    const classVal = document.getElementById(`${pagePrefix}-filter-class`).value;
+    const subjectVal = document.getElementById(`${pagePrefix}-filter-subject`).value;
+    const chapterVal = document.getElementById(`${pagePrefix}-filter-chapter`).value;
+    const subchapterVal = document.getElementById(`${pagePrefix}-filter-subchapter`).value;
+    const container = document.getElementById(containerId);
+
+    if(pagePrefix === 'sol') showSkeletons(containerId);
+
+    setTimeout(() => {
+        let filtered = allStudyMaterials;
+        if(pagePrefix === 'sol') filtered = filtered.filter(m => m.content_type === 'Textbook Solutions');
+        else if(pagePrefix === 'qa') filtered = filtered.filter(m => m.content_type !== 'Textbook Solutions');
+
+        if (classVal) filtered = filtered.filter(m => m.class_level === classVal);
+        if (subjectVal) filtered = filtered.filter(m => m.subject === subjectVal);
+        if (chapterVal) filtered = filtered.filter(m => m.chapter === chapterVal);
+        if (subchapterVal) filtered = filtered.filter(m => m.subchapter === subchapterVal);
+
+        if (filtered.length === 0) {
+            container.innerHTML = `<div style="text-align: center; padding: 40px;"><p style="color: #64748b; font-size: 15px; font-weight: 600;">No materials found.</p></div>`;
+            return;
+        }
+
+        container.innerHTML = '';
+        const splitFiltered = splitContentIntoBlocks(filtered);
+        splitFiltered.forEach(item => { container.innerHTML += generateCardHTML(item); });
+        safeCreateIcons();
+        renderMath(); 
+    }, pagePrefix === 'sol' ? 500 : 0);
+}
+
+function showSkeletons(containerId) {
+    const container = document.getElementById(containerId);
+    if (!container) return;
+    container.innerHTML = '';
+    for (let i = 0; i < 3; i++) container.innerHTML += `<div class="skeleton-box" style="height: 160px; margin-bottom: 16px; border-radius: 16px; opacity: 0.6;"></div>`;
+}
+
+function renderStudentMaterials() {
+    function drawCards(container, materials, boardType) {
+        if (materials.length === 0) {
+            container.innerHTML = `<p style="text-align: center; color: #94a3b8; font-size: 15px;">No content added yet for this subject.</p>`;
+            return;
+        }
+        container.innerHTML = '';
+        const topClass = boardType === 'ICSE' ? 'Class 10' : 'Class 12';
+        const bottomClass = boardType === 'ICSE' ? 'Class 9' : 'Class 11';
+
+        const splitMaterials = splitContentIntoBlocks(materials);
+        const topMaterials = splitMaterials.filter(item => item.class_level === topClass);
+        const bottomMaterials = splitMaterials.filter(item => item.class_level === bottomClass);
+        const otherMaterials = splitMaterials.filter(item => item.class_level !== topClass && item.class_level !== bottomClass);
+
+        if (topMaterials.length > 0) {
+            container.innerHTML += `<div style="margin-bottom: 16px; display: inline-flex; align-items: center; gap: 8px; background: #fee2e2; color: #991b1b; padding: 8px 16px; border-radius: 12px; font-weight: 800; font-size: 14px;"><i data-lucide="flame" style="width: 18px; height: 18px;"></i> ${topClass} (Board Exams)</div>`;
+            topMaterials.forEach(item => { container.innerHTML += generateCardHTML(item); });
+        }
+        if (bottomMaterials.length > 0) {
+            container.innerHTML += `<div style="margin-top: 24px; margin-bottom: 16px; display: inline-flex; align-items: center; gap: 8px; background: #f1f5f9; color: #475569; padding: 8px 16px; border-radius: 12px; font-weight: 800; font-size: 14px;"><i data-lucide="book" style="width: 18px; height: 18px;"></i> ${bottomClass}</div>`;
+            bottomMaterials.forEach(item => { container.innerHTML += generateCardHTML(item); });
+        }
+        if (otherMaterials.length > 0) {
+            otherMaterials.forEach(item => { container.innerHTML += generateCardHTML(item); });
+        }
+        safeCreateIcons();
+    }
+
+    const icseContainer = document.getElementById('icse-materials-container');
+    if (icseContainer && document.getElementById('page-notes').classList.contains('active')) {
+        const title = document.getElementById('dynamic-icse-title').innerText.trim();
+        drawCards(icseContainer, allStudyMaterials.filter(item => item.board === 'ICSE' && item.subject === title && item.content_type !== 'Textbook Solutions'), 'ICSE');
+    }
+
+    const iscContainer = document.getElementById('isc-materials-container');
+    if (iscContainer && document.getElementById('page-notes-isc').classList.contains('active')) {
+        const title = document.getElementById('dynamic-isc-title').innerText.trim();
+        drawCards(iscContainer, allStudyMaterials.filter(item => item.board === 'ISC' && item.subject === title && item.content_type !== 'Textbook Solutions'), 'ISC');
+    }
+    renderMath(); 
+}
 
 function updateSolutionsSubjectDropdown() {
     const classSelect = document.getElementById('sol-filter-class');
     const subjectSelect = document.getElementById('sol-filter-subject');
     if (!classSelect || !subjectSelect) return;
-
     let validMaterials = allStudyMaterials.filter(m => m.content_type === 'Textbook Solutions');
     if (classSelect.value) validMaterials = validMaterials.filter(m => m.class_level === classSelect.value);
 
@@ -1219,14 +1374,12 @@ function updateSolutionsSubjectDropdown() {
 
 function renderSolutionsChapters() {
     updateSolutionsSubjectDropdown();
-
     const classVal = document.getElementById('sol-filter-class')?.value;
     const subjectVal = document.getElementById('sol-filter-subject')?.value;
     const chapterList = document.getElementById('solutions-chapter-list');
     const cardsContainer = document.getElementById('solutions-materials-container');
-
+    
     if(!chapterList || !cardsContainer) return;
-
     cardsContainer.style.display = 'none';
     chapterList.style.display = 'flex';
 
@@ -1256,17 +1409,14 @@ function renderSolutionsChapters() {
 function openSolutionsModal(chapterName) {
     currentSolutionChapter = chapterName;
     activeSolTab = 'exercise';
-
     const classVal = document.getElementById('sol-filter-class').value;
     const subjectVal = document.getElementById('sol-filter-subject').value;
-
     const subchapters = [...new Set(allStudyMaterials.filter(m => 
         m.content_type === 'Textbook Solutions' && m.class_level === classVal && m.subject === subjectVal && m.chapter === currentSolutionChapter
     ).map(m => m.subchapter).filter(Boolean))].sort();
 
     activeSolSubchapter = subchapters.length > 0 ? subchapters[0] : '';
     activeSolQuestion = 'all'; 
-
     document.getElementById('solutions-modal').style.display = 'flex';
     renderSolutionsModalContent();
 }
@@ -1291,7 +1441,7 @@ function renderSolutionsModalContent() {
 
     const classVal = document.getElementById('sol-filter-class').value;
     const subjectVal = document.getElementById('sol-filter-subject').value;
-
+    
     let chapterMaterials = allStudyMaterials.filter(m => 
         m.content_type === 'Textbook Solutions' && m.class_level === classVal && m.subject === subjectVal && m.chapter === currentSolutionChapter
     );
@@ -1310,14 +1460,11 @@ function renderSolutionsModalContent() {
         }
     } else {
         if (activeSolSubchapter) chapterMaterials = chapterMaterials.filter(m => m.subchapter === activeSolSubchapter);
-
         let splitChapMats = splitContentIntoBlocks(chapterMaterials);
-
         let rawNumbers = splitChapMats.map(m => {
             const match = (m.content_text || '').match(/(?:\*\*|\s)*(?:Q\.?|Question|Ques)\s*(\d+)/i);
             return match ? parseInt(match[1]) : null;
         }).filter(n => n !== null);
-
         let uniqueNumbers = [...new Set(rawNumbers)].sort((a,b) => a - b);
 
         let html = `
@@ -1326,9 +1473,8 @@ function renderSolutionsModalContent() {
                 <span style="font-size: 14px; font-weight: 600; color: #334155;">All Questions</span>
             </label>
         `;
-
         if (uniqueNumbers.length === 0) {
-            html += '<p style="padding: 20px; color:#64748b; font-size: 14px; text-align:center;">Questions are not numbered in standard format (e.g., Q.1). Click APPLY to read all.</p>';
+            html += '<p style="padding: 20px; color:#64748b; font-size: 14px; text-align:center;">Questions are not numbered. Click APPLY to read all.</p>';
         } else {
             html += uniqueNumbers.map(num => `
                 <label class="sol-radio-container" onclick="activeSolQuestion='${num}'; renderSolutionsModalContent();">
@@ -1347,22 +1493,18 @@ function applySolutionsFilter() {
     closeSolutionsModal();
     const chapterList = document.getElementById('solutions-chapter-list');
     const container = document.getElementById('solutions-materials-container');
-
     chapterList.style.display = 'none';
     container.style.display = 'flex';
     container.innerHTML = '';
-
+    
     const classVal = document.getElementById('sol-filter-class').value;
     const subjectVal = document.getElementById('sol-filter-subject').value;
 
     let chapterMaterials = allStudyMaterials.filter(m => 
         m.content_type === 'Textbook Solutions' && m.class_level === classVal && m.subject === subjectVal && m.chapter === currentSolutionChapter
     );
-
-    if (activeSolSubchapter) {
-        chapterMaterials = chapterMaterials.filter(m => m.subchapter === activeSolSubchapter); 
-    }
-
+    if (activeSolSubchapter) chapterMaterials = chapterMaterials.filter(m => m.subchapter === activeSolSubchapter); 
+    
     let splitMaterials = splitContentIntoBlocks(chapterMaterials);
     let filtered = [...splitMaterials];
 
@@ -1373,12 +1515,10 @@ function applySolutionsFilter() {
         });
     }
 
-    container.innerHTML += `<button onclick="renderSolutionsChapters()" style="background: #f1f5f9; border: none; padding: 10px 16px; border-radius: 10px; display: inline-flex; align-items: center; gap: 8px; font-weight: 700; color: #334155; cursor: pointer; align-self: flex-start; margin-bottom: 8px;"><i data-lucide="arrow-left" style="width: 16px; height: 16px;"></i> Back to Chapters</button>`;
-
+    container.innerHTML += `<button onclick="renderSolutionsChapters()" aria-label="Back to Chapters" style="background: #f1f5f9; border: none; padding: 10px 16px; border-radius: 10px; display: inline-flex; align-items: center; gap: 8px; font-weight: 700; color: #334155; cursor: pointer; align-self: flex-start; margin-bottom: 8px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg> Back to Chapters</button>`;
     let headerTitle = `${currentSolutionChapter}`;
     if (activeSolSubchapter) headerTitle += ` — ${activeSolSubchapter}`;
     if (activeSolQuestion !== 'all') headerTitle += ` (Q.${activeSolQuestion})`;
-
     container.innerHTML += `<h3 style="font-size: 18px; font-weight: 800; color: #0f172a; margin-bottom: 8px;">${headerTitle}</h3>`;
 
     if (filtered.length === 0) {
@@ -1387,207 +1527,76 @@ function applySolutionsFilter() {
         filtered.forEach(item => { container.innerHTML += generateCardHTML(item); });
     }
 
-    // 🌟 PREV/NEXT PAGINATION ENGINE
     if (activeSolQuestion !== 'all') {
         let rawNumbers = splitMaterials.map(m => {
             const match = (m.content_text || '').match(/(?:\*\*|\s)*(?:Q\.?|Question|Ques)\s*(\d+)/i);
             return match ? parseInt(match[1]) : null;
         }).filter(n => n !== null);
-
         let uniqueNumbers = [...new Set(rawNumbers)].sort((a,b) => a - b);
         let currentIndex = uniqueNumbers.indexOf(parseInt(activeSolQuestion));
-
         let paginationHTML = `<div style="display: flex; justify-content: space-between; margin-top: 16px; padding-top: 16px; border-top: 1px solid #e2e8f0;">`;
 
         if (currentIndex > 0) {
             let prevQ = uniqueNumbers[currentIndex - 1];
-            paginationHTML += `<button onclick="activeSolQuestion='${prevQ}'; applySolutionsFilter(); window.scrollTo(0,0);" style="background: #f1f5f9; color: #334155; padding: 10px 16px; border-radius: 10px; font-weight: 700; border: none; cursor: pointer; display: flex; align-items: center; gap: 6px;"><i data-lucide="chevron-left" style="width:16px;height:16px;"></i> Prev (Q.${prevQ})</button>`;
+            paginationHTML += `<button onclick="activeSolQuestion='${prevQ}'; applySolutionsFilter(); window.scrollTo(0,0);" aria-label="Previous" style="background: #f1f5f9; color: #334155; padding: 10px 16px; border-radius: 10px; font-weight: 700; border: none; cursor: pointer; display: flex; align-items: center; gap: 6px;">Prev (Q.${prevQ})</button>`;
         } else {
             paginationHTML += `<div></div>`;
         }
 
         if (currentIndex !== -1 && currentIndex < uniqueNumbers.length - 1) {
             let nextQ = uniqueNumbers[currentIndex + 1];
-            paginationHTML += `<button onclick="activeSolQuestion='${nextQ}'; applySolutionsFilter(); window.scrollTo(0,0);" style="background: #2563eb; color: #ffffff; padding: 10px 16px; border-radius: 10px; font-weight: 700; border: none; cursor: pointer; display: flex; align-items: center; gap: 6px;">Next (Q.${nextQ}) <i data-lucide="chevron-right" style="width:16px;height:16px;"></i></button>`;
+            paginationHTML += `<button onclick="activeSolQuestion='${nextQ}'; applySolutionsFilter(); window.scrollTo(0,0);" aria-label="Next" style="background: #2563eb; color: #ffffff; padding: 10px 16px; border-radius: 10px; font-weight: 700; border: none; cursor: pointer; display: flex; align-items: center; gap: 6px;">Next (Q.${nextQ})</button>`;
         }
-
         paginationHTML += `</div>`;
         container.innerHTML += paginationHTML;
     }
-
+    
     safeCreateIcons();
     renderMath();
 }
 
 // ==========================================
-// 7. NOTES PAGE FILTERS & RENDERING
+// 6. BACKPACK
 // ==========================================
-function updateDynamicFilters(pagePrefix) {
-    const classSelect = document.getElementById(`${pagePrefix}-filter-class`);
-    const subjectSelect = document.getElementById(`${pagePrefix}-filter-subject`);
-    const chapterSelect = document.getElementById(`${pagePrefix}-filter-chapter`);
-    const subchapterSelect = document.getElementById(`${pagePrefix}-filter-subchapter`);
-
-    if(!classSelect || !subjectSelect || !chapterSelect || !subchapterSelect) return;
-
-    let validMaterials = allStudyMaterials;
-
-    if(pagePrefix === 'sol') {
-        validMaterials = validMaterials.filter(m => m.content_type === 'Textbook Solutions');
-    } else if(pagePrefix === 'qa') {
-        validMaterials = validMaterials.filter(m => m.content_type !== 'Textbook Solutions');
+function toggleBookmark(itemId) {
+    const id = String(itemId);
+    const exists = myBackpack.some(savedId => String(savedId) === id);
+    if (exists) { 
+        myBackpack = myBackpack.filter(savedId => String(savedId) !== id); 
+    } else { 
+        myBackpack.push(id); 
     }
-
-    const classVal = classSelect.value;
-    if (classVal) validMaterials = validMaterials.filter(m => m.class_level === classVal);
-
-    let standardSubjects = [];
-    if (classVal === 'Class 9' || classVal === 'Class 10') {
-        standardSubjects = ['English Language', 'English Literature', 'Mathematics', 'Science (Physics)', 'Science (Chemistry)', 'Science (Biology)', 'Hindi', 'History & Civics', 'Geography', 'Computer Science'];
-    } else if (classVal === 'Class 11' || classVal === 'Class 12') {
-        standardSubjects = ['English Language', 'English Literature', 'Hindi', 'Physics', 'Chemistry', 'Mathematics', 'Biology', 'Computer Science', 'Accounts', 'Business Studies', 'Economics', 'History'];
-    } else {
-        standardSubjects = ['English Language', 'English Literature', 'Mathematics', 'Science (Physics)', 'Science (Chemistry)', 'Science (Biology)', 'Hindi', 'History & Civics', 'Geography', 'Computer Science', 'Physics', 'Chemistry', 'Biology', 'Accounts', 'Business Studies', 'Economics', 'History'];
-    }
-
-    const currentSub = subjectSelect.value;
-    const dbSubjects = validMaterials.map(m => m.subject).filter(Boolean);
-    const subjects = [...new Set([...standardSubjects, ...dbSubjects])].sort();
-
-    subjectSelect.innerHTML = '<option value="">All Subjects</option>';
-    subjects.forEach(s => { subjectSelect.innerHTML += `<option value="${s}">${s}</option>`; });
-    if (subjects.includes(currentSub)) subjectSelect.value = currentSub;
-
-    if (subjectSelect.value) { validMaterials = validMaterials.filter(m => m.subject === subjectSelect.value); }
-
-    const currentChap = chapterSelect.value;
-    const chapters = [...new Set(validMaterials.map(m => m.chapter).filter(Boolean))].sort();
-    chapterSelect.innerHTML = '<option value="">All Chapters</option>';
-    chapters.forEach(c => { chapterSelect.innerHTML += `<option value="${c}">${c}</option>`; });
-    if (chapters.includes(currentChap)) chapterSelect.value = currentChap;
-
-    if (chapterSelect.value) { validMaterials = validMaterials.filter(m => m.chapter === chapterSelect.value); }
-
-    const currentSubchap = subchapterSelect.value;
-    const subchapters = [...new Set(validMaterials.map(m => m.subchapter).filter(Boolean))].sort();
-    subchapterSelect.innerHTML = '<option value="">All Subchapters</option>';
-    subchapters.forEach(sc => { subchapterSelect.innerHTML += `<option value="${sc}">${sc}</option>`; });
-    if (subchapters.includes(currentSubchap)) subchapterSelect.value = currentSubchap;
+    localStorage.setItem('studyBackpack', JSON.stringify(myBackpack));
+    renderStudentMaterials();
+    if (currentPage === 'backpack') renderBackpack();
 }
 
-function applyDynamicFilter(pagePrefix, containerId) {
-    const classVal = document.getElementById(`${pagePrefix}-filter-class`).value;
-    const subjectVal = document.getElementById(`${pagePrefix}-filter-subject`).value;
-    const chapterVal = document.getElementById(`${pagePrefix}-filter-chapter`).value;
-    const subchapterVal = document.getElementById(`${pagePrefix}-filter-subchapter`).value;
-    const container = document.getElementById(containerId);
-
-    if(pagePrefix === 'sol') showSkeletons(containerId);
-
-    setTimeout(() => {
-        let filtered = allStudyMaterials;
-
-        if(pagePrefix === 'sol') {
-            filtered = filtered.filter(m => m.content_type === 'Textbook Solutions');
-        } else if(pagePrefix === 'qa') {
-            filtered = filtered.filter(m => m.content_type !== 'Textbook Solutions');
-        }
-
-        if (classVal) filtered = filtered.filter(m => m.class_level === classVal);
-        if (subjectVal) filtered = filtered.filter(m => m.subject === subjectVal);
-        if (chapterVal) filtered = filtered.filter(m => m.chapter === chapterVal);
-        if (subchapterVal) filtered = filtered.filter(m => m.subchapter === subchapterVal);
-
-        if (filtered.length === 0) {
-            container.innerHTML = `<div style="text-align: center; padding: 40px;"><p style="color: #64748b; font-size: 15px; font-weight: 600;">No materials found.</p></div>`;
-            return;
-        }
-
-        container.innerHTML = '';
-        const splitFiltered = splitContentIntoBlocks(filtered);
-        splitFiltered.forEach(item => { container.innerHTML += generateCardHTML(item); });
-        safeCreateIcons();
-        renderMath(); 
-    }, pagePrefix === 'sol' ? 500 : 0);
-}
-
-function showSkeletons(containerId) {
-    const container = document.getElementById(containerId);
+function renderBackpack() {
+    const container = document.getElementById('backpack-materials-container');
     if (!container) return;
+    if (myBackpack.length === 0) {
+        container.innerHTML = `<div style="text-align: center; padding: 40px; color: #94a3b8; border: 1px dashed #cbd5e1; border-radius: 20px;">Your backpack is empty.</div>`;
+        return;
+    }
+    const savedItems = allStudyMaterials.filter(item => myBackpack.some(savedId => String(savedId) === String(item.id)));
     container.innerHTML = '';
-    for (let i = 0; i < 3; i++) {
-        container.innerHTML += `<div class="skeleton-box" style="height: 160px; margin-bottom: 16px; border-radius: 16px; opacity: 0.6;"></div>`;
-    }
-}
-
-function renderStudentMaterials() {
-    function drawCards(container, materials, boardType) {
-        if (materials.length === 0) {
-            container.innerHTML = `<p style="text-align: center; color: #94a3b8; font-size: 15px;">No content added yet for this subject.</p>`;
-            return;
-        }
-
-        container.innerHTML = '';
-        const topClass = boardType === 'ICSE' ? 'Class 10' : 'Class 12';
-        const bottomClass = boardType === 'ICSE' ? 'Class 9' : 'Class 11';
-
-        const splitMaterials = splitContentIntoBlocks(materials);
-
-        const topMaterials = splitMaterials.filter(item => item.class_level === topClass);
-        const bottomMaterials = splitMaterials.filter(item => item.class_level === bottomClass);
-        const otherMaterials = splitMaterials.filter(item => item.class_level !== topClass && item.class_level !== bottomClass);
-
-        if (topMaterials.length > 0) {
-            container.innerHTML += `<div style="margin-bottom: 16px; display: inline-flex; align-items: center; gap: 8px; background: #fee2e2; color: #991b1b; padding: 8px 16px; border-radius: 12px; font-weight: 800; font-size: 14px;"><i data-lucide="flame" style="width: 18px; height: 18px;"></i> ${topClass} (Board Exams)</div>`;
-            topMaterials.forEach(item => { container.innerHTML += generateCardHTML(item); });
-        }
-
-        if (bottomMaterials.length > 0) {
-            container.innerHTML += `<div style="margin-top: 24px; margin-bottom: 16px; display: inline-flex; align-items: center; gap: 8px; background: #f1f5f9; color: #475569; padding: 8px 16px; border-radius: 12px; font-weight: 800; font-size: 14px;"><i data-lucide="book" style="width: 18px; height: 18px;"></i> ${bottomClass}</div>`;
-            bottomMaterials.forEach(item => { container.innerHTML += generateCardHTML(item); });
-        }
-
-        if (otherMaterials.length > 0) {
-            otherMaterials.forEach(item => { container.innerHTML += generateCardHTML(item); });
-        }
-
-        safeCreateIcons();
-    }
-
-    const icseContainer = document.getElementById('icse-materials-container');
-    if (icseContainer && document.getElementById('page-notes').classList.contains('active')) {
-        const title = document.getElementById('dynamic-icse-title').innerText.trim();
-        drawCards(icseContainer, allStudyMaterials.filter(item => item.board === 'ICSE' && item.subject === title && item.content_type !== 'Textbook Solutions'), 'ICSE');
-    }
-
-    const iscContainer = document.getElementById('isc-materials-container');
-    if (iscContainer && document.getElementById('page-notes-isc').classList.contains('active')) {
-        const title = document.getElementById('dynamic-isc-title').innerText.trim();
-        drawCards(iscContainer, allStudyMaterials.filter(item => item.board === 'ISC' && item.subject === title && item.content_type !== 'Textbook Solutions'), 'ISC');
-    }
-
+    const splitSavedItems = splitContentIntoBlocks(savedItems);
+    splitSavedItems.forEach(item => { container.innerHTML += generateCardHTML(item); });
+    safeCreateIcons();
     renderMath(); 
 }
 
 // ==========================================
-// 8. AI CHAT LOGIC
+// 7. AI HELPER
 // ==========================================
 async function handleAICamera(event) {
     const file = event.target.files[0];
     if (!file) return;
-
-    if (file.size > 4 * 1024 * 1024) {
-        alert("File is too large! Please select a file smaller than 4MB.");
-        return;
-    }
-
+    if (file.size > 4 * 1024 * 1024) return alert("File is too large! Max size 4MB.");
+    
     const chatBox = document.getElementById('chat-box');
     let fileIcon = file.type.includes('pdf') ? '📄' : (file.type.includes('text') ? '📝' : '📷');
-
-    chatBox.innerHTML += `
-        <div style="align-self: flex-start; background: #f1f5f9; padding: 10px 14px; border-radius: 12px; font-size: 12px; color: #64748b;">
-            ${fileIcon} Analyzing ${file.name}...
-        </div>`;
+    chatBox.innerHTML += `<div style="align-self: flex-start; background: #f1f5f9; padding: 10px 14px; border-radius: 12px; font-size: 12px; color: #64748b;">${fileIcon} Analyzing ${file.name}...</div>`;
     chatBox.scrollTop = chatBox.scrollHeight;
 
     const reader = new FileReader();
@@ -1602,36 +1611,21 @@ async function sendAIMessage(fileData = null, mimeType = null) {
     const inputField = document.getElementById('ai-input');
     const chatBox = document.getElementById('chat-box');
     const userText = inputField ? inputField.value.trim() : '';
-
     if (!userText && !fileData) return;
 
     if (!fileData) {
-        chatBox.innerHTML += `
-            <div style="align-self: flex-end; background: #9333ea; color: white; padding: 14px 18px; border-radius: 20px; border-bottom-right-radius: 4px; max-width: 85%; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
-                <p style="margin: 0; font-size: 14px; line-height: 1.5;">${userText}</p>
-            </div>`;
+        chatBox.innerHTML += `<div style="align-self: flex-end; background: #9333ea; color: white; padding: 14px 18px; border-radius: 20px; border-bottom-right-radius: 4px; max-width: 85%;"><p style="margin:0; font-size: 14px; line-height: 1.5;">${userText}</p></div>`;
         inputField.value = '';
     }
 
     const typingId = "typing-" + Date.now();
-    chatBox.innerHTML += `
-        <div id="${typingId}" style="align-self: flex-start; background: #ffffff; border: 1px solid #e2e8f0; padding: 14px 18px; border-radius: 20px; border-bottom-left-radius: 4px; max-width: 85%;">
-            <p style="margin: 0; font-size: 14px; color: #94a3b8;">AI is processing...</p>
-        </div>`;
+    chatBox.innerHTML += `<div id="${typingId}" style="align-self: flex-start; background: #ffffff; border: 1px solid #e2e8f0; padding: 14px 18px; border-radius: 20px; border-bottom-left-radius: 4px; max-width: 85%;"><p style="margin: 0; font-size: 14px; color: #94a3b8;">AI is processing...</p></div>`;
     chatBox.scrollTop = chatBox.scrollHeight;
 
     try {
-        const payload = fileData 
-            ? { fileData: fileData, mimeType: mimeType, prompt: userText || "Please read this file and explain it simply." } 
-            : { prompt: userText };
-
-        const response = await fetch('/api/gemini', { 
-            method: 'POST', 
-            headers: { 'Content-Type': 'application/json' }, 
-            body: JSON.stringify(payload) 
-        });
-
-        if (!response.ok) throw new Error("Backend connection failed");
+        const payload = fileData ? { fileData: fileData, mimeType: mimeType, prompt: userText || "Analyze this file." } : { prompt: userText };
+        const response = await fetch('/api/gemini', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+        if (!response.ok) throw new Error("Connection failed");
 
         const data = await response.json();
         let aiReply = data.candidates[0].content.parts[0].text;
@@ -1644,111 +1638,19 @@ async function sendAIMessage(fileData = null, mimeType = null) {
         aiReply = aiReply.replace(/([a-zA-Z])_([0-9a-zA-Z]+)/g, '$1<sub>$2</sub>');
         aiReply = aiReply.replace(/([a-zA-Z0-9])\^([0-9a-zA-Z]+)/g, '$1<sup>$2</sup>');
         aiReply = aiReply.replace(/\*\*(.*?)\*\*/g, '<strong style="color: #0f172a; font-weight: 900;">$1</strong>');
-
-        chatBox.innerHTML += `
-            <div style="align-self: flex-start; background: #ffffff; border: 1px solid #e2e8f0; padding: 14px 18px; border-radius: 20px; border-bottom-left-radius: 4px; max-width: 85%; box-shadow: 0 2px 4px rgba(0,0,0,0.02);">
-                <p style="margin: 0; font-size: 14px; color: #334155; line-height: 1.5; white-space: pre-wrap;">${aiReply}</p>
-            </div>`;
+        
+        chatBox.innerHTML += `<div style="align-self: flex-start; background: #ffffff; border: 1px solid #e2e8f0; padding: 14px 18px; border-radius: 20px; border-bottom-left-radius: 4px; max-width: 85%;"><p style="margin:0; font-size:14px; color:#334155; line-height:1.5; white-space:pre-wrap;">${aiReply}</p></div>`;
         chatBox.scrollTop = chatBox.scrollHeight;
         renderMath(); 
     } catch (error) {
-        console.error("AI Error:", error);
         const typingBubble = document.getElementById(typingId);
-        if (typingBubble) {
-            typingBubble.innerHTML = `<p style="margin: 0; font-size: 14px; color: #ef4444;">Sorry, connection failed! Make sure Vercel backend is updated.</p>`;
-        }
+        if (typingBubble) typingBubble.innerHTML = `<p style="margin:0; font-size:14px; color:#ef4444;">Sorry, connection failed.</p>`;
     }
-}
-
-// ==========================================
-// 9. THE BACKPACK ENGINE
-// ==========================================
-function toggleBookmark(itemId) {
-    const id = String(itemId);
-    const exists = myBackpack.some(savedId => String(savedId) === id);
-
-    if (exists) { 
-        myBackpack = myBackpack.filter(savedId => String(savedId) !== id); 
-    } else { 
-        myBackpack.push(id); 
-    }
-
-    localStorage.setItem('studyBackpack', JSON.stringify(myBackpack));
-    renderStudentMaterials();
-    if (currentPage === 'backpack') renderBackpack();
-}
-
-function renderBackpack() {
-    const container = document.getElementById('backpack-materials-container');
-    if (!container) return;
-
-    if (myBackpack.length === 0) {
-        container.innerHTML = `
-            <div style="text-align: center; padding: 40px; color: #94a3b8; border: 1px dashed #cbd5e1; border-radius: 20px;">
-                Your backpack is empty.
-            </div>`;
-        return;
-    }
-
-    const savedItems = allStudyMaterials.filter(item => myBackpack.some(savedId => String(savedId) === String(item.id)));
-    container.innerHTML = '';
-
-    const splitSavedItems = splitContentIntoBlocks(savedItems);
-
-    splitSavedItems.forEach(item => { 
-        container.innerHTML += generateCardHTML(item); 
-    });
-
-    safeCreateIcons();
-    renderMath(); 
 }
     </script>
-    <script>
-/* ================================
-   SMART AD SYSTEM (FULL UPGRADE)
-   ================================ */
-
-const DEFAULT_AD = {
-  name: "Free ICSE & ISC Study Notes",
-  image: "https://via.placeholder.com/150",
-  link: "#"
-};
-
-async function loadAds() {
-  let data = DEFAULT_AD;
-
-  try {
-    const res = await fetch("ads.json");
-    if (res.ok) {
-      const json = await res.json();
-      data = { ...data, ...json };
-    }
-  } catch (e) {
-    console.log("Using default ad");
-  }
-
-  const slots = document.querySelectorAll(".dynamic-ad-slot");
-
-  slots.forEach((slot, index) => {
-    slot.innerHTML = `
-      <a href="${data.link}" target="_blank" class="ad-box">
-        <img src="${data.image}" alt="product"/>
-        <div class="ad-content">
-          <div class="ad-title">${data.name}</div>
-        </div>
-      </a>
-    `;
-  });
-}
-
-/* Run on load AND when pages switch */
-window.addEventListener("load", loadAds);
-
-/* If your site uses dynamic navigation, re-run ads */
-document.addEventListener("click", () => {
-  setTimeout(loadAds, 300);
-});
-</script>
-
 </body>
 </html>
+
+
+</body>
+</html
