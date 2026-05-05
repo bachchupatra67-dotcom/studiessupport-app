@@ -1198,7 +1198,7 @@ function renderMath() {
 }
 
 const generateCardHTML = (item) => {
-        let linkBtn = item.file_url ? `<a href="${item.file_url}" target="_blank" style="display: inline-block; background: #2563eb; color: #ffffff; padding: 10px 20px; border-radius: 10px; text-decoration: none; font-size: 14px; font-weight: 700; margin-top: 12px;">Download File</a>` : '';
+    let linkBtn = item.file_url ? `<a href="${item.file_url}" target="_blank" style="display: inline-block; background: #2563eb; color: #ffffff; padding: 10px 20px; border-radius: 10px; text-decoration: none; font-size: 14px; font-weight: 700; margin-top: 12px;">Download File</a>` : '';
 
     // 🌟 FILE PREVIEW ENGINE WITH PERCENTAGE LOADER
     let previewHTML = '';
@@ -1243,7 +1243,6 @@ const generateCardHTML = (item) => {
         }
     }
 
-
     let formattedText = item.content_text || '';
     
     formattedText = formattedText.replace(/\\\\times|\\times/g, ' × ');
@@ -1260,7 +1259,8 @@ const generateCardHTML = (item) => {
     formattedText = formattedText.replace(/\\\\Delta|\\Delta|\\\\delta|\\delta/g, 'Δ');
     formattedText = formattedText.replace(/([a-zA-Z])_([0-9a-zA-Z]+)/g, '$1<sub>$2</sub>');
     formattedText = formattedText.replace(/([a-zA-Z0-9])\^([0-9a-zA-Z]+)/g, '$1<sup>$2</sup>');
-        // 1. Gemini Headers (### and ##)
+    
+    // 1. Gemini Headers (### and ##)
     formattedText = formattedText.replace(/### (.*?)(?=\n|$)/g, '<br><strong style="font-size: 16px; color: #0f172a; font-weight: 900; display: block; margin-top: 8px;">$1</strong>');
     formattedText = formattedText.replace(/## (.*?)(?=\n|$)/g, '<br><strong style="font-size: 18px; color: #0f172a; font-weight: 900; display: block; margin-top: 12px;">$1</strong>');
     
@@ -1283,24 +1283,38 @@ const generateCardHTML = (item) => {
     const bookmarkColor = isSaved ? '#f59e0b' : '#94a3b8';
     const bookmarkFill = isSaved ? '#f59e0b' : 'none';
 
+    // 🌟 UPGRADED ACCORDION HTML
     return `
-        <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 16px; padding: 20px; box-shadow: 0 4px 6px rgba(0,0,0,0.02); margin-bottom: 16px;">
+        <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 16px; padding: 20px; box-shadow: 0 4px 6px rgba(0,0,0,0.02); margin-bottom: 16px; transition: all 0.3s ease;">
+            
             <div style="display: flex; justify-content: space-between; align-items: flex-start;">
-                <h4 style="color: #0f172a; font-size: 16px; font-weight: 800; margin: 0 0 4px 0;">${item.chapter || 'Study Material'}</h4>
-                <button onclick="toggleBookmark('${item.id}')" aria-label="Save Bookmark" style="background: none; border: none; cursor: pointer; padding: 0;">
-                    <i data-lucide="bookmark" style="color: ${bookmarkColor}; width: 24px; height: 24px;" fill="${bookmarkFill}"></i>
-                </button>
+                <div style="flex: 1; cursor: pointer;" onclick="toggleCardContent('content-${item.id}', 'icon-${item.id}')">
+                    <h4 style="color: #0f172a; font-size: 16px; font-weight: 800; margin: 0 0 4px 0;">${item.chapter || 'Study Material'}</h4>
+                    <span style="background: #eff6ff; color: #2563eb; padding: 4px 8px; border-radius: 6px; font-size: 11px; font-weight: 800; display: inline-block; margin-bottom: 8px;">${item.content_type}</span>
+                    ${subchapterBadge}
+                    <p style="color: #64748b; font-size: 13px; margin: 0;">${item.class_level} • ${item.subject}</p>
+                    ${textbookDisplay}
+                </div>
+                
+                <div style="display: flex; flex-direction: column; align-items: center; gap: 16px; margin-left: 12px;">
+                    <button onclick="toggleBookmark('${item.id}')" aria-label="Save Bookmark" style="background: none; border: none; cursor: pointer; padding: 0;">
+                        <i data-lucide="bookmark" style="color: ${bookmarkColor}; width: 24px; height: 24px;" fill="${bookmarkFill}"></i>
+                    </button>
+                    <button onclick="toggleCardContent('content-${item.id}', 'icon-${item.id}')" aria-label="Expand Content" style="background: none; border: none; cursor: pointer; padding: 0;">
+                        <i data-lucide="chevron-down" id="icon-${item.id}" style="color: #64748b; width: 24px; height: 24px; transition: transform 0.3s ease;"></i>
+                    </button>
+                </div>
             </div>
-            <span style="background: #eff6ff; color: #2563eb; padding: 4px 8px; border-radius: 6px; font-size: 11px; font-weight: 800; display: inline-block; margin-bottom: 8px;">${item.content_type}</span>
-            ${subchapterBadge}
-            <p style="color: #64748b; font-size: 13px; margin: 0;">${item.class_level} • ${item.subject}</p>
-            ${textbookDisplay}
-            ${textNotes}
-            ${previewHTML}
-            ${linkBtn}
+            
+            <div id="content-${item.id}" style="display: none; margin-top: 16px; border-top: 1px solid #f1f5f9; padding-top: 16px;">
+                ${textNotes}
+                ${typeof previewHTML !== 'undefined' ? previewHTML : ''}
+                ${linkBtn}
+            </div>
+            
         </div>`;
-
 };
+
 
 function updateDynamicFilters(pagePrefix) {
     const classSelect = document.getElementById(`${pagePrefix}-filter-class`);
