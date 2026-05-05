@@ -1848,6 +1848,19 @@ window.goToSolutionsFromNotes = function(board) {
         }, 50);
     }, 50);
 };
+// 🌟 ACCORDION TOGGLE LOGIC FOR CARDS
+window.toggleCardContent = function(contentId, iconId) {
+    const content = document.getElementById(contentId);
+    const icon = document.getElementById(iconId);
+    
+    if (content.style.display === 'none') {
+        content.style.display = 'block';
+        icon.style.transform = 'rotate(180deg)'; // Flips the arrow upside down ^
+    } else {
+        content.style.display = 'none';
+        icon.style.transform = 'rotate(0deg)'; // Returns arrow to normal v
+    }
+};
 
 
     </script>
