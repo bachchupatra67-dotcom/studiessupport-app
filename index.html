@@ -1387,13 +1387,17 @@ function showSkeletons(containerId) {
     for (let i = 0; i < 3; i++) container.innerHTML += `<div class="skeleton-box" style="height: 160px; margin-bottom: 16px; border-radius: 16px; opacity: 0.6;"></div>`;
 }
 
-function renderStudentMaterials() {
+window.renderStudentMaterials = function() {
     function drawCards(container, materials, boardType, classFilterId) {
-        // 🌟 Apply the new class filter
+        // Apply the class filter
         const selectedClass = document.getElementById(classFilterId)?.value || 'All';
         if (selectedClass !== 'All') {
             materials = materials.filter(m => m.class_level === selectedClass);
         }
+
+        // Hide the old "Bridge Buttons" so the UI is clean
+        const bridgeBtns = container.parentElement.querySelectorAll('button');
+        bridgeBtns.forEach(btn => { if(btn.innerText.includes('Textbook Solutions')) btn.style.display = 'none'; });
 
         if (materials.length === 0) {
             container.innerHTML = `<p style="text-align: center; color: #94a3b8; font-size: 15px;">No content added yet for this subject.</p>`;
@@ -1411,12 +1415,12 @@ function renderStudentMaterials() {
         const otherMaterials = splitMaterials.filter(item => item.class_level !== topClass && item.class_level !== bottomClass);
 
         if (topMaterials.length > 0) {
-            container.innerHTML += `<div style="margin-bottom: 16px; display: inline-flex; align-items: center; gap: 8px; background: #fee2e2; color: #991b1b; padding: 8px 16px; border-radius: 12px; font-weight: 800; font-size: 14px;"><i data-lucide="flame" style="width: 18px; height: 18px;"></i> ${topClass} (Board Exams)</div>`;
+            container.innerHTML += `<div style="margin-bottom: 16px; display: inline-flex; align-items: center; gap: 8px; background: #fee2e2; color: #991b1b; padding: 8px 16px; border-radius: 12px; font-weight: 800; font-size: 14px;"><i data-lucide="flame" style="width: 18px; height: 18px;"></i> ${topClass} (Notes & Solutions)</div>`;
             topMaterials.forEach(item => { container.innerHTML += generateCardHTML(item); });
         }
 
         if (bottomMaterials.length > 0) {
-            container.innerHTML += `<div style="margin-top: 24px; margin-bottom: 16px; display: inline-flex; align-items: center; gap: 8px; background: #f1f5f9; color: #475569; padding: 8px 16px; border-radius: 12px; font-weight: 800; font-size: 14px;"><i data-lucide="book" style="width: 18px; height: 18px;"></i> ${bottomClass}</div>`;
+            container.innerHTML += `<div style="margin-top: 24px; margin-bottom: 16px; display: inline-flex; align-items: center; gap: 8px; background: #f1f5f9; color: #475569; padding: 8px 16px; border-radius: 12px; font-weight: 800; font-size: 14px;"><i data-lucide="book" style="width: 18px; height: 18px;"></i> ${bottomClass} (Notes & Solutions)</div>`;
             bottomMaterials.forEach(item => { container.innerHTML += generateCardHTML(item); });
         }
 
@@ -1430,17 +1434,20 @@ function renderStudentMaterials() {
     const icseContainer = document.getElementById('icse-materials-container');
     if (icseContainer && document.getElementById('page-notes').classList.contains('active')) {
         const title = document.getElementById('dynamic-icse-title').innerText.trim();
-        drawCards(icseContainer, allStudyMaterials.filter(item => item.board === 'ICSE' && item.subject === title && item.content_type !== 'Textbook Solutions'), 'ICSE', 'icse-class-filter');
+        // 🌟 Shows ALL materials (Notes AND Solutions) for this subject
+        drawCards(icseContainer, allStudyMaterials.filter(item => item.board === 'ICSE' && item.subject === title), 'ICSE', 'icse-class-filter');
     }
 
     const iscContainer = document.getElementById('isc-materials-container');
     if (iscContainer && document.getElementById('page-notes-isc').classList.contains('active')) {
         const title = document.getElementById('dynamic-isc-title').innerText.trim();
-        drawCards(iscContainer, allStudyMaterials.filter(item => item.board === 'ISC' && item.subject === title && item.content_type !== 'Textbook Solutions'), 'ISC', 'isc-class-filter');
+        // 🌟 Shows ALL materials (Notes AND Solutions) for this subject
+        drawCards(iscContainer, allStudyMaterials.filter(item => item.board === 'ISC' && item.subject === title), 'ISC', 'isc-class-filter');
     }
 
     renderMath(); 
-}
+};
+
 
 
 function updateSolutionsSubjectDropdown() {
@@ -1749,28 +1756,24 @@ function goToSolutions(classLevel, subject) {
         renderSolutionsChapters();
     }, 50);
 }
-// 🌟 CONNECTING NOTES AND TEXTBOOK SOLUTIONS
+// 🌟 INSTANT ROUTING TO DEDICATED SUBJECT PAGE
 window.openClassNotebooks = function(classLevel, subject) {
-    currentPage = 'qa';
-    navigateTo('qa');
-    document.getElementById('qa-filter-class').value = classLevel;
-    updateDynamicFilters('qa');
-    setTimeout(() => {
-        document.getElementById('qa-filter-subject').value = subject;
-        applyDynamicFilter('qa', 'qa-materials-container');
-    }, 100); 
+    // Automatically determine the board based on the class clicked
+    let board = (classLevel === 'Class 9' || classLevel === 'Class 10') ? 'ICSE' : 'ISC';
+    let pageId = board === 'ICSE' ? 'notes' : 'notes-isc';
+    let titleId = board === 'ICSE' ? 'dynamic-icse-title' : 'dynamic-isc-title';
+    let filterId = board === 'ICSE' ? 'icse-class-filter' : 'isc-class-filter';
+
+    // Set the subject title and apply the class filter automatically
+    document.getElementById(titleId).innerText = subject;
+    document.getElementById(filterId).value = classLevel;
+    
+    // Jump straight to the dedicated page
+    currentPage = pageId;
+    navigateTo(pageId);
+    renderStudentMaterials();
 };
 
-window.goToSolutions = function(classLevel, subject) {
-    currentPage = 'solutions';
-    navigateTo('solutions');
-    document.getElementById('sol-filter-class').value = classLevel;
-    updateSolutionsSubjectDropdown();
-    setTimeout(() => {
-        document.getElementById('sol-filter-subject').value = subject;
-        renderSolutionsChapters();
-    }, 100);
-};
 
 // Inject Bridge Button into Notes
 const originalApplyDynamicFilter = window.applyDynamicFilter;
