@@ -1198,7 +1198,24 @@ function renderMath() {
 }
 
 const generateCardHTML = (item) => {
-    let linkBtn = item.file_url ? `<a href="${item.file_url}" target="_blank" style="display: inline-block; background: #2563eb; color: #ffffff; padding: 10px 20px; border-radius: 10px; text-decoration: none; font-size: 14px; font-weight: 700; margin-top: 12px;">Download PDF</a>` : '';
+        let linkBtn = item.file_url ? `<a href="${item.file_url}" target="_blank" style="display: inline-block; background: #2563eb; color: #ffffff; padding: 10px 20px; border-radius: 10px; text-decoration: none; font-size: 14px; font-weight: 700; margin-top: 12px;">Download File</a>` : '';
+
+    // 🌟 FILE PREVIEW ENGINE
+    let previewHTML = '';
+    if (item.file_url) {
+        const fileExt = item.file_url.toLowerCase();
+        if (fileExt.match(/\.(jpeg|jpg|gif|png|webp)$/i)) {
+            // Show Image
+            previewHTML = `<div style="margin-top: 16px; border: 1px solid #e2e8f0; border-radius: 12px; overflow: hidden;"><img src="${item.file_url}" style="width: 100%; max-height: 400px; object-fit: contain; background: #f8fafc; display: block;" alt="Image Preview" /></div>`;
+        } else {
+            // Show PDF/Doc using Google Docs Viewer for flawless mobile display
+            previewHTML = `<div style="margin-top: 16px; border: 1px solid #e2e8f0; border-radius: 12px; overflow: hidden; height: 400px; position: relative; background: #f8fafc; display: flex; justify-content: center; align-items: center;">
+                <iframe src="https://docs.google.com/viewer?url=${encodeURIComponent(item.file_url)}&embedded=true" style="width: 100%; height: 100%; border: none; position: absolute; top: 0; left: 0;"></iframe>
+                <p style="color: #94a3b8; font-size: 13px; z-index: 0;">Loading document preview...</p>
+            </div>`;
+        }
+    }
+
     let formattedText = item.content_text || '';
     
     formattedText = formattedText.replace(/\\\\times|\\times/g, ' × ');
@@ -1251,8 +1268,10 @@ const generateCardHTML = (item) => {
             <p style="color: #64748b; font-size: 13px; margin: 0;">${item.class_level} • ${item.subject}</p>
             ${textbookDisplay}
             ${textNotes}
+            ${previewHTML}
             ${linkBtn}
         </div>`;
+
 };
 
 function updateDynamicFilters(pagePrefix) {
