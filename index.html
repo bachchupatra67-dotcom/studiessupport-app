@@ -777,23 +777,27 @@ let editingAdId = null;
 let allStudyMaterials = [];
 let allAdBanners = [];
 
-try {
-    if (typeof supabase !== 'undefined') {
-        const supabaseUrl = 'https://gycmmdlkppyavwkqdxym.supabase.co';
-        const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd5Y21tZGxrcHB5YXZ3a3FkeHltIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU2NjE3NTgsImV4cCI6MjA5MTIzNzc1OH0.REcaVfmLe6SKMrPcvo13lq90CH762AaOhNOOwRgYNSc';
-        supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
-    }
-} catch (error) { console.error("Supabase error:", error); }
-
 function safeCreateIcons() {
     try { if (window.lucide) lucide.createIcons(); } catch(e) { console.warn(e); }
 }
 
 function initApp() {
+    // 🌟 WAIT FOR DEFER: Only connect to database AFTER the page is fully loaded
+    try {
+        if (typeof supabase !== 'undefined') {
+            const supabaseUrl = 'https://gycmmdlkppyavwkqdxym.supabase.co';
+            const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd5Y21tZGxrcHB5YXZ3a3FkeHltIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU2NjE3NTgsImV4cCI6MjA5MTIzNzc1OH0.REcaVfmLe6SKMrPcvo13lq90CH762AaOhNOOwRgYNSc';
+            supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
+        } else {
+            console.warn("Supabase is taking a moment to load...");
+        }
+    } catch (error) { console.error("Supabase error:", error); }
+
     navigateTo('home'); 
     try { fetchAndDisplayMaterials(); } catch(e) { console.error(e); }
     safeCreateIcons();
 }
+
 
 if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', initApp);
