@@ -256,6 +256,14 @@
                     <h2 style="color: #0f172a; font-size: 28px; font-weight: 900; margin-bottom: 12px;">ISC – Class 11 &amp; 12</h2>
                     <p style="color: #94a3b8; font-size: 14px; line-height: 1.6; max-width: 400px; margin: 0 auto;">Select a subject to explore notes, questions, and revision material.</p>
                 </div>
+                <div style="background: #fffbeb; border: 1px solid #fde68a; border-radius: 20px; padding: 20px; text-align: center; margin-bottom: 32px; box-shadow: 0 4px 15px rgba(245, 158, 11, 0.05);">
+                    <div style="background: #fef3c7; width: 48px; height: 48px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 12px auto;">
+                        <i data-lucide="hammer" style="color: #d97706; width: 24px; height: 24px;"></i>
+                    </div>
+                    <h3 style="color: #92400e; font-size: 16px; font-weight: 800; margin: 0 0 6px 0;">Work in Progress!</h3>
+                    <p style="color: #b45309; font-size: 13.5px; line-height: 1.5; margin: 0;">We are currently gathering the best teachers and resources for Class 11 & 12. Complete notes are coming soon!</p>
+                </div>
+
                                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 40px;">
                     <div onclick="openClassNotebooks('Class 12', 'English Language')" style="background-color: #ffffff; border: 1px solid #f1f5f9; border-radius: 24px; padding: 24px 12px; text-align: center; box-shadow: 0 4px 20px rgba(0,0,0,0.02); cursor: pointer;"><div style="width: 48px; height: 48px; background-color: #eff6ff; border-radius: 14px; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px auto;"><i data-lucide="book" style="color: #3b82f6; width: 24px; height: 24px;"></i></div><h3 style="color: #0f172a; font-size: 14px; font-weight: 800; margin-bottom: 4px;">English Language</h3></div>
                     <div onclick="openClassNotebooks('Class 12', 'English Literature')" style="background-color: #ffffff; border: 1px solid #f1f5f9; border-radius: 24px; padding: 24px 12px; text-align: center; box-shadow: 0 4px 20px rgba(0,0,0,0.02); cursor: pointer;"><div style="width: 48px; height: 48px; background-color: #eff6ff; border-radius: 14px; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px auto;"><i data-lucide="book-open" style="color: #3b82f6; width: 24px; height: 24px;"></i></div><h3 style="color: #0f172a; font-size: 14px; font-weight: 800; margin-bottom: 4px;">English Literature</h3></div>
@@ -1448,9 +1456,20 @@ window.renderStudentMaterials = function() {
         bridgeBtns.forEach(btn => { if(btn.innerText.includes('Textbook Solutions')) btn.style.display = 'none'; });
 
         if (materials.length === 0) {
-            container.innerHTML = `<p style="text-align: center; color: #94a3b8; font-size: 15px;">No content added yet for this subject.</p>`;
+            if (boardType === 'ISC') {
+                container.innerHTML = `
+                <div style="text-align: center; padding: 40px 20px; background: #fffbeb; border: 1px dashed #fcd34d; border-radius: 24px; margin-top: 16px;">
+                    <i data-lucide="hammer" style="color: #d97706; width: 36px; height: 36px; margin: 0 auto 12px auto; display: block;"></i>
+                    <h3 style="color: #92400e; font-size: 18px; font-weight: 800; margin-bottom: 8px;">We are working hard on this!</h3>
+                    <p style="color: #b45309; font-size: 14px; line-height: 1.6; max-width: 300px; margin: 0 auto;">Our team is actively preparing the highest quality study materials for this subject. Please check back soon!</p>
+                </div>`;
+            } else {
+                container.innerHTML = `<p style="text-align: center; color: #94a3b8; font-size: 15px; margin-top: 20px;">No content added yet for this subject.</p>`;
+            }
+            safeCreateIcons();
             return;
         }
+
 
         container.innerHTML = '';
         const topClass = boardType === 'ICSE' ? 'Class 10' : 'Class 12';
