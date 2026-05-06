@@ -4,16 +4,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>StudiesSupport – ICSE & ISC Study Made Simple | Free Notes & Solutions</title>
-    <meta name="description" content="Free ICSE and ISC study materials, chapter-wise notes, textbook solutions, important questions, and quick revision PDFs for Class 9, 10, 11, and 12 students.">
-    <meta name="keywords" content="ICSE, ISC, Class 10, Class 12, board exams, study materials, physics notes, math solutions, textbook solutions, important questions, free study app, StudiesSupport">
-    <meta name="robots" content="index, follow">
-    <meta name="author" content="StudiesSupport">
+        <title>StudiesSupport - ICSE & ISC Study Made Simple | Free Notes</title>
+    <meta name="description" content="Free ICSE and ISC study materials, notes, and step-by-step textbook solutions. Your smart study partner for Class 9 to 12 board exams." />
+    
+    <link rel="canonical" href="https://studiessupport.vercel.app/" />
+    
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📚</text></svg>" />
+    
+    <link rel="preconnect" href="https://gycmmdlkppyavwkqdxym.supabase.co" crossorigin />
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+    <link rel="preconnect" href="https://unpkg.com" crossorigin />
 
-    <meta property="og:title" content="StudiesSupport – Premium ICSE & ISC Materials">
-    <meta property="og:description" content="Ace your board exams with our free notes, textbook solutions, and revision PDFs.">
-    <meta property="og:type" content="website">
-    <meta property="og:site_name" content="StudiesSupport">
+    <meta property="og:title" content="StudiesSupport - ICSE & ISC Study Made Simple" />
+    <meta property="og:description" content="Free chapter-wise notes and textbook solutions for ICSE & ISC students." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://studiessupport.vercel.app/" />
+    <meta property="og:image" content="https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?q=80&w=1200&auto=format&fit=crop" />
+    
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="StudiesSupport - ICSE & ISC Notes" />
+    <meta name="twitter:description" content="Free chapter-wise notes and textbook solutions for ICSE & ISC students." />
 
     <meta name="google-adsense-account" content="ca-pub-9469645405774202">
 
@@ -89,6 +99,7 @@
 </head>
 
 <body class="h-full bg-white text-slate-800 overflow-auto">
+    <h1 style="position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); border: 0;">StudiesSupport: Free ICSE and ISC Board Exam Notes and Textbook Solutions</h1>
 
     <div id="login-modal" class="modal-overlay hidden" style="position: fixed; inset: 0; background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(4px); z-index: 10000; display: flex; align-items: center; justify-content: center; padding: 20px;">
         <div style="background: white; width: 100%; max-width: 400px; border-radius: 24px; overflow: hidden; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25); position: relative;">
@@ -96,8 +107,8 @@
             <div style="padding: 32px 24px;">
                 <h3 style="font-size: 20px; font-weight: 800; color: #0f172a; margin: 0 0 8px 0; text-align: center;">Admin Dashboard</h3>
                 <div style="display: flex; flex-direction: column; gap: 16px;">
-                    <div><label for="admin-email" style="display: block; color: #475569; font-size: 13px; font-weight: 600; margin-bottom: 6px;">Email Address</label><input type="email" id="admin-email" aria-label="Admin Email" placeholder="admin@example.com" style="width: 100%; padding: 14px 16px; border-radius: 12px; border: 1px solid #e2e8f0; background: #f8fafc; font-size: 15px;"></div>
-                    <div><label for="admin-password" style="display: block; color: #475569; font-size: 13px; font-weight: 600; margin-bottom: 6px;">Password</label><input type="password" id="admin-password" aria-label="Admin Password" placeholder="••••••••" style="width: 100%; padding: 14px 16px; border-radius: 12px; border: 1px solid #e2e8f0; background: #f8fafc; font-size: 15px;"></div>
+                    <div><label for="admin-email" style="display: block; color: #475569; font-size: 13px; font-weight: 600; margin-bottom: 6px;">Email Address</label><input type="email" autocomplete="email" id="admin-email" aria-label="Admin Email" placeholder="admin@example.com" style="width: 100%; padding: 14px 16px; border-radius: 12px; border: 1px solid #e2e8f0; background: #f8fafc; font-size: 15px;"></div>
+                    <div><label for="admin-password" style="display: block; color: #475569; font-size: 13px; font-weight: 600; margin-bottom: 6px;">Password</label><input type="password" autocomplete="current-password" id="admin-password" aria-label="Admin Password" placeholder="••••••••" style="width: 100%; padding: 14px 16px; border-radius: 12px; border: 1px solid #e2e8f0; background: #f8fafc; font-size: 15px;"></div>
                     <button onclick="loginAdmin()" style="width: 100%; background: #2563eb; color: white; border: none; padding: 14px; border-radius: 12px; font-size: 15px; font-weight: 700; cursor: pointer; margin-top: 8px;">Login to Dashboard</button>
                 </div>
             </div>
@@ -150,7 +161,7 @@
                 <div style="background: linear-gradient(135deg, #818cf8 0%, #c084fc 100%); padding: 3px; border-radius: 20px; max-width: 600px; margin: 0 auto 40px auto; cursor: pointer; box-shadow: 0 10px 25px rgba(139, 92, 246, 0.15);" onclick="navigateTo('ai-helper')">
                     <div style="background: #ffffff; padding: 20px; border-radius: 17px; display: flex; align-items: center; gap: 16px;">
                         <div style="background: #f3e8ff; padding: 14px; border-radius: 14px;"><i data-lucide="bot" style="color: #9333ea; width: 28px; height: 28px;"></i></div>
-                        <div style="flex: 1;"><h3 style="margin: 0; font-size: 18px; font-weight: 800; color: #0f172a;">AI Study Assistant</h3><p style="margin: 4px 0 0 0; font-size: 13px; color: #64748b;">Get instant answers to your study doubts.</p></div>
+                        <div style="flex: 1;"><h2 style="margin: 0; font-size: 18px; font-weight: 800; color: #0f172a;">AI Study Assistant</h2><p style="margin: 4px 0 0 0; font-size: 13px; color: #64748b;">Get instant answers to your study doubts.</p></div>
                         <div style="background: #f1f5f9; padding: 8px; border-radius: 50%;"><i data-lucide="arrow-right" style="color: #64748b; width: 20px; height: 20px;"></i></div>
                     </div>
                 </div>
@@ -593,10 +604,6 @@
                             <input type="text" id="ad-product-name" placeholder="e.g., Oswaal ICSE Class 10 Solved Papers..." required style="width: 100%; padding: 16px; border-radius: 12px; border: 1px solid #e2e8f0; font-size: 15px; box-sizing: border-box;">
                         </div>
 
-                                                <div>
-                            <label for="ad-product-name" style="display: block; color: #64748b; font-size: 13px; font-weight: 600; margin-bottom: 8px;">Product Name (Shown on Right side)</label>
-                            <input type="text" id="ad-product-name" placeholder="e.g., Oswaal ICSE Class 10 Books..." required style="width: 100%; padding: 16px; border-radius: 12px; border: 1px solid #e2e8f0; font-size: 15px; box-sizing: border-box;">
-                        </div>
 
                         <div>
                             <label for="ad-link-input" style="display: block; color: #64748b; font-size: 13px; font-weight: 600; margin-bottom: 8px;">Affiliate Link (Where the ad goes)</label>
