@@ -265,7 +265,7 @@
                 <h2 id="dynamic-icse-title" style="color: #0f172a; font-size: 28px; font-weight: 900; margin-bottom: 16px;">Subject</h2>
                 
                 <div style="display: flex; gap: 12px; margin-bottom: 24px;">
-                    <select id="icse-class-filter" onchange="renderStudentMaterials()" style="flex: 1; padding: 12px; border-radius: 12px; border: 1px solid #e2e8f0; background: #f8fafc; font-size: 14px; font-weight: 600; outline: none;">
+                    <select id="icse-class-filter" onchange="renderStudentMaterials()" style="flex: 1; padding: 12px; border-radius: 12px; border: 1px solid #e2e8f0; background: #f8fafc; font-size: 14px; font-weight: 600; ">
                         <option value="All">All Classes (9 & 10)</option>
                         <option value="Class 9">Class 9</option>
                         <option value="Class 10">Class 10</option>
@@ -286,7 +286,7 @@
                                 <h2 id="dynamic-isc-title" style="color: #0f172a; font-size: 28px; font-weight: 900; margin-bottom: 16px;">Subject</h2>
                 
                 <div style="display: flex; gap: 12px; margin-bottom: 24px;">
-                    <select id="isc-class-filter" onchange="renderStudentMaterials()" style="flex: 1; padding: 12px; border-radius: 12px; border: 1px solid #e2e8f0; background: #f8fafc; font-size: 14px; font-weight: 600; outline: none;">
+                    <select id="isc-class-filter" onchange="renderStudentMaterials()" style="flex: 1; padding: 12px; border-radius: 12px; border: 1px solid #e2e8f0; background: #f8fafc; font-size: 14px; font-weight: 600; ">
                         <option value="All">All Classes (11 & 12)</option>
                         <option value="Class 11">Class 11</option>
                         <option value="Class 12">Class 12</option>
@@ -357,12 +357,12 @@
                     <h2 id="solutions-main-title" style="color: #0f172a; font-size: 24px; font-weight: 900; margin-bottom: 16px;">Textbook Solutions</h2>
 
                     <div style="display: flex; gap: 12px; margin-bottom: 24px;">
-                        <select id="sol-filter-class" aria-label="Select Class" onchange="renderSolutionsChapters()" style="flex: 1; padding: 12px; border-radius: 12px; border: 1px solid #e2e8f0; background: #f8fafc; font-size: 14px; font-weight: 600; outline: none;">
+                        <select id="sol-filter-class" aria-label="Select Class" onchange="renderSolutionsChapters()" style="flex: 1; padding: 12px; border-radius: 12px; border: 1px solid #e2e8f0; background: #f8fafc; font-size: 14px; font-weight: 600; ">
                             <option value="">Select Class...</option>
                             <option value="Class 9">Class 9</option><option value="Class 10">Class 10</option>
                             <option value="Class 11">Class 11</option><option value="Class 12">Class 12</option>
                         </select>
-                        <select id="sol-filter-subject" aria-label="Select Subject" onchange="renderSolutionsChapters()" style="flex: 1; padding: 12px; border-radius: 12px; border: 1px solid #e2e8f0; background: #f8fafc; font-size: 14px; font-weight: 600; outline: none;">
+                        <select id="sol-filter-subject" aria-label="Select Subject" onchange="renderSolutionsChapters()" style="flex: 1; padding: 12px; border-radius: 12px; border: 1px solid #e2e8f0; background: #f8fafc; font-size: 14px; font-weight: 600; ">
                             <option value="">Select Subject...</option>
                         </select>
                     </div>
@@ -580,7 +580,7 @@
                     <form id="ad-upload-form" onsubmit="handleAdUpload(event)" style="display: flex; flex-direction: column; gap: 20px;">
                         <div>
                             <label for="ad-slot-select" style="display: block; color: #64748b; font-size: 13px; font-weight: 600; margin-bottom: 8px;">Select Banner Location</label>
-                            <select id="ad-slot-select" required style="width: 100%; padding: 16px; border-radius: 12px; border: 1px solid #e2e8f0; background-color: #f8fafc; font-size: 15px; outline: none;">
+                            <select id="ad-slot-select" required style="width: 100%; padding: 16px; border-radius: 12px; border: 1px solid #e2e8f0; background-color: #f8fafc; font-size: 15px; ">
                                 <option value="">Choose where to show the ad...</option>
                                 <option value="slot-home">Home Page</option>
                                 <option value="slot-boards">ICSE & ISC Subject Pages</option>
@@ -624,7 +624,7 @@
                     <form id="upload-form" onsubmit="handleMaterialUpload(event)" style="display: flex; flex-direction: column; gap: 20px;">
                         <div>
                             <label for="admin-board-select" style="display: block; color: #64748b; font-size: 13px; font-weight: 600; margin-bottom: 8px;">Board</label>
-                            <select id="admin-board-select" aria-label="Select Board" onchange="updateSubjectDropdown()" required style="width: 100%; padding: 16px; border-radius: 12px; border: 1px solid #e2e8f0; background-color: #f8fafc; font-size: 15px; outline: none;">
+                            <select id="admin-board-select" aria-label="Select Board" onchange="updateSubjectDropdown()" required style="width: 100%; padding: 16px; border-radius: 12px; border: 1px solid #e2e8f0; background-color: #f8fafc; font-size: 15px; ">
                                 <option value="">Select Board...</option>
                                 <option value="ICSE">ICSE</option>
                                 <option value="ISC">ISC</option>
@@ -632,7 +632,7 @@
                         </div>
                         <div>
                             <label for="admin-class-select" style="display: block; color: #64748b; font-size: 13px; font-weight: 600; margin-bottom: 8px;">Class</label>
-                            <select id="admin-class-select" aria-label="Select Class" required style="width: 100%; padding: 16px; border-radius: 12px; border: 1px solid #e2e8f0; background-color: #f8fafc; font-size: 15px; outline: none;">
+                            <select id="admin-class-select" aria-label="Select Class" required style="width: 100%; padding: 16px; border-radius: 12px; border: 1px solid #e2e8f0; background-color: #f8fafc; font-size: 15px; ">
                                 <option value="">Select Class...</option>
                                 <option value="Class 9">Class 9</option><option value="Class 10">Class 10</option>
                                 <option value="Class 11">Class 11</option><option value="Class 12">Class 12</option>
@@ -640,7 +640,7 @@
                         </div>
                         <div>
                             <label for="admin-subject-select" style="display: block; color: #64748b; font-size: 13px; font-weight: 600; margin-bottom: 8px;">Subject</label>
-                            <select id="admin-subject-select" aria-label="Select Subject" onchange="toggleCustomSubject()" required style="width: 100%; padding: 16px; border-radius: 12px; border: 1px solid #e2e8f0; background-color: #f8fafc; font-size: 15px; outline: none; margin-bottom: 8px;">
+                            <select id="admin-subject-select" aria-label="Select Subject" onchange="toggleCustomSubject()" required style="width: 100%; padding: 16px; border-radius: 12px; border: 1px solid #e2e8f0; background-color: #f8fafc; font-size: 15px;  margin-bottom: 8px;">
                                 <option value="">Select Board First</option>
                             </select>
                             <input type="text" id="admin-custom-subject" placeholder="Type your new subject name..." style="width: 100%; padding: 16px; border-radius: 12px; border: 1px solid #e2e8f0; font-size: 15px; box-sizing: border-box; display: none;">
@@ -661,7 +661,7 @@
                         </div>
                         <div>
                             <label for="admin-type-select" style="display: block; color: #64748b; font-size: 13px; font-weight: 600; margin-bottom: 8px;">Content Type</label>
-                            <select id="admin-type-select" aria-label="Select Content Type" required style="width: 100%; padding: 16px; border-radius: 12px; border: 1px solid #e2e8f0; background-color: #f8fafc; font-size: 15px; outline: none;">
+                            <select id="admin-type-select" aria-label="Select Content Type" required style="width: 100%; padding: 16px; border-radius: 12px; border: 1px solid #e2e8f0; background-color: #f8fafc; font-size: 15px; ">
                                 <option value="">Select Type...</option>
                                 <option value="PDF Document">PDF Document</option>
                                 <option value="Text Notes">Text Notes</option>
@@ -696,12 +696,12 @@
                             <button id="bulk-delete-btn" onclick="deleteSelectedMaterials()" style="display: none; background: #ef4444; color: white; padding: 8px 12px; border-radius: 8px; border: none; font-size: 13px; font-weight: 700; cursor: pointer; align-items: center; gap: 6px; box-shadow: 0 2px 4px rgba(239,68,68,0.2);">
                                 <i data-lucide="trash-2" style="width: 14px; height: 14px;"></i> Delete Selected
                             </button>
-                            <select id="admin-filter-class" aria-label="Filter by Class" onchange="renderAdminMaterials()" style="padding: 8px 12px; border-radius: 8px; border: 1px solid #cbd5e1; font-size: 13px; outline: none; background: white;">
+                            <select id="admin-filter-class" aria-label="Filter by Class" onchange="renderAdminMaterials()" style="padding: 8px 12px; border-radius: 8px; border: 1px solid #cbd5e1; font-size: 13px;  background: white;">
                                 <option value="">All Classes</option>
                                 <option value="Class 9">Class 9</option><option value="Class 10">Class 10</option>
                                 <option value="Class 11">Class 11</option><option value="Class 12">Class 12</option>
                             </select>
-                            <select id="admin-filter-subject" aria-label="Filter by Subject" onchange="renderAdminMaterials()" style="padding: 8px 12px; border-radius: 8px; border: 1px solid #cbd5e1; font-size: 13px; outline: none; background: white;">
+                            <select id="admin-filter-subject" aria-label="Filter by Subject" onchange="renderAdminMaterials()" style="padding: 8px 12px; border-radius: 8px; border: 1px solid #cbd5e1; font-size: 13px;  background: white;">
                                 <option value="">All Subjects</option>
                             </select>
                         </div>
