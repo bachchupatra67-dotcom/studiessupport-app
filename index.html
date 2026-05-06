@@ -739,6 +739,27 @@
                 </div>
             </div>
         </main>
+                <div style="max-width: 800px; margin: 0 auto 40px auto; padding: 0 20px;">
+            <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 20px; padding: 20px; box-shadow: inset 0 2px 4px rgba(255,255,255,0.5);">
+                <h3 style="color: #0f172a; font-size: 15px; font-weight: 800; margin: 0 0 16px 0; display: flex; align-items: center; gap: 6px;"><i data-lucide="compass" style="color: #3b82f6; width: 18px; height: 18px;"></i> Discover More</h3>
+                
+                <div style="display: flex; flex-wrap: wrap; gap: 10px;">
+                    <span onclick="navigateTo('ai-helper')" style="background: #f3e8ff; border: 1px solid #d8b4fe; padding: 8px 16px; border-radius: 100px; font-size: 13px; font-weight: 700; color: #7e22ce; cursor: pointer; display: flex; align-items: center; gap: 6px; transition: 0.2s;"><i data-lucide="bot" style="width: 14px; height: 14px;"></i> AI Assistant</span>
+                    <span onclick="navigateTo('pdfs')" style="background: #e0f2fe; border: 1px solid #7dd3fc; padding: 8px 16px; border-radius: 100px; font-size: 13px; font-weight: 700; color: #0369a1; cursor: pointer; display: flex; align-items: center; gap: 6px; transition: 0.2s;"><i data-lucide="download" style="width: 14px; height: 14px;"></i> Revision PDFs</span>
+                    
+                    <span onclick="openClassNotebooks('Class 10', 'Mathematics')" style="background: white; border: 1px solid #cbd5e1; padding: 8px 16px; border-radius: 100px; font-size: 13px; font-weight: 600; color: #475569; cursor: pointer; transition: 0.2s;">Mathematics</span>
+                    <span onclick="openClassNotebooks('Class 10', 'Science (Physics)')" style="background: white; border: 1px solid #cbd5e1; padding: 8px 16px; border-radius: 100px; font-size: 13px; font-weight: 600; color: #475569; cursor: pointer; transition: 0.2s;">Physics</span>
+                    <span onclick="openClassNotebooks('Class 10', 'Science (Chemistry)')" style="background: white; border: 1px solid #cbd5e1; padding: 8px 16px; border-radius: 100px; font-size: 13px; font-weight: 600; color: #475569; cursor: pointer; transition: 0.2s;">Chemistry</span>
+                    <span onclick="openClassNotebooks('Class 10', 'Science (Biology)')" style="background: white; border: 1px solid #cbd5e1; padding: 8px 16px; border-radius: 100px; font-size: 13px; font-weight: 600; color: #475569; cursor: pointer; transition: 0.2s;">Biology</span>
+                    <span onclick="openClassNotebooks('Class 10', 'English Language')" style="background: white; border: 1px solid #cbd5e1; padding: 8px 16px; border-radius: 100px; font-size: 13px; font-weight: 600; color: #475569; cursor: pointer; transition: 0.2s;">English</span>
+                    <span onclick="openClassNotebooks('Class 10', 'Computer Science')" style="background: white; border: 1px solid #cbd5e1; padding: 8px 16px; border-radius: 100px; font-size: 13px; font-weight: 600; color: #475569; cursor: pointer; transition: 0.2s;">Computer</span>
+                    <span onclick="openClassNotebooks('Class 10', 'Social Studies')" style="background: white; border: 1px solid #cbd5e1; padding: 8px 16px; border-radius: 100px; font-size: 13px; font-weight: 600; color: #475569; cursor: pointer; transition: 0.2s;">History/Civics</span>
+                    
+                    <span onclick="navigateTo('icse')" style="background: #f1f5f9; border: 1px solid #cbd5e1; padding: 8px 16px; border-radius: 100px; font-size: 13px; font-weight: 700; color: #334155; cursor: pointer; transition: 0.2s;">See All Classes →</span>
+                </div>
+            </div>
+        </div>
+
 
         <footer style="background-color: #0f172a; border-top: 1px solid #1e293b; padding: 40px 24px; color: #cbd5e1; font-family: 'DM Sans', sans-serif;">
             <div style="max-width: 600px; margin: 0 auto;">
@@ -1467,24 +1488,6 @@ window.renderStudentMaterials = function() {
             container.innerHTML += renderBlock(notesMaterials, 'Notes & Q&A');
         }
 
-        // 2. Draw DISCOVER MORE Banner In Between
-        container.innerHTML += `
-            <div style="margin: 32px 0; background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%); border: 1px solid #e2e8f0; border-radius: 24px; padding: 24px; text-align: center; box-shadow: inset 0 2px 4px rgba(255,255,255,0.8);">
-                <h3 style="color: #0f172a; font-size: 18px; font-weight: 900; margin-bottom: 16px; display: flex; align-items: center; justify-content: center; gap: 8px;"><i data-lucide="sparkles" style="color: #eab308; width: 20px; height: 20px;"></i> Discover More</h3>
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
-                    <div onclick="navigateTo('ai-helper')" style="background: white; padding: 16px; border-radius: 16px; cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.03); border: 1px solid #f1f5f9;">
-                        <i data-lucide="bot" style="color: #9333ea; width: 28px; height: 28px; margin: 0 auto 8px auto;"></i>
-                        <h4 style="font-size: 14px; font-weight: 800; color: #0f172a; margin: 0;">AI Assistant</h4>
-                        <p style="font-size: 11px; color: #64748b; margin: 4px 0 0 0;">Solve doubts instantly</p>
-                    </div>
-                    <div onclick="navigateTo('pdfs')" style="background: white; padding: 16px; border-radius: 16px; cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.03); border: 1px solid #f1f5f9;">
-                        <i data-lucide="download-cloud" style="color: #0ea5e9; width: 28px; height: 28px; margin: 0 auto 8px auto;"></i>
-                        <h4 style="font-size: 14px; font-weight: 800; color: #0f172a; margin: 0;">Revision PDFs</h4>
-                        <p style="font-size: 11px; color: #64748b; margin: 4px 0 0 0;">Get extra materials</p>
-                    </div>
-                </div>
-            </div>
-        `;
 
         // 3. Draw Solutions Last
         if (solutionsMaterials.length > 0) {
