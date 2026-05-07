@@ -957,6 +957,7 @@ async function handleAdUpload(event) {
     const slot = document.getElementById('ad-slot-select').value;
     const prodInput = document.getElementById('ad-product-name');
     const productName = prodInput ? prodInput.value.trim() : 'Study Material';
+    const productPrice = document.getElementById('ad-price-input').value.trim();
     const link = document.getElementById('ad-link-input').value;
     const imageUrlInput = document.getElementById('ad-image-url-input').value.trim();
     const file = document.getElementById('ad-file-upload').files[0];
@@ -982,11 +983,18 @@ async function handleAdUpload(event) {
             finalImageUrl = supabaseClient.storage.from('study-materials').getPublicUrl(safeFileName).data.publicUrl;
         }
 
-        const uploadData = {
-            board: 'ICSE', subject: 'Mathematics', class_level: 'Class 10', chapter: 'Chapter 1', 
-            subchapter: 'SYSTEM_AD_' + slot, textbook: productName, content_type: 'Text Notes', 
-            content_text: link, file_url: finalImageUrl
+                const uploadData = {
+            board: productPrice, // 🌟 Save the price here!
+            subject: 'Mathematics', 
+            class_level: 'Class 10', 
+            chapter: 'Chapter 1', 
+            subchapter: 'SYSTEM_AD_' + slot, 
+            textbook: productName, 
+            content_type: 'Text Notes', 
+            content_text: link, 
+            file_url: finalImageUrl
         };
+
 
         await supabaseClient.from('study_materials').insert([uploadData]);
         alert("Ad Banner saved!");
@@ -1005,16 +1013,18 @@ function renderAds() {
         if (adData && adData.file_url) {
             el.style.backgroundColor = "white";
             el.style.border = "1px solid #e2e8f0";
-            el.innerHTML = `
+               el.innerHTML = `
                 <a href="${adData.content_text}" aria-label="Ad Link" target="_blank" class="ad-image-container" style="display:flex; width:100%; height:100%; align-items:center; text-decoration:none; padding: 8px; box-sizing:border-box;">
                     <div style="height: 100%; width: 74px; flex-shrink: 0; padding-right:12px; margin-right:12px; border-right: 1px solid #e2e8f0; display:flex; align-items:center; justify-content:center;">
                         <img src="${adData.file_url}" alt="Product" style="max-width: 100%; max-height: 100%; object-fit: contain;">
                     </div>
                     <div style="flex:1; text-align: left; overflow: hidden;">
                         <span style="font-size:10px; font-weight:800; color:#3b82f6; text-transform:uppercase; display:block; margin-bottom:4px;">Recommended</span>
-                        <span style="color:#0f172a; font-size:14px; font-weight:700; line-height:1.3; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; text-overflow:ellipsis;">${adData.textbook || 'Buy this product!'}</span>
+                        <span style="color:#0f172a; font-size:13px; font-weight:700; line-height:1.2; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; text-overflow:ellipsis; margin-bottom:4px;">${adData.textbook || 'Buy this product!'}</span>
+                        <span style="color:#16a34a; font-size:14px; font-weight:900; display:block;">${adData.board || ''}</span>
                     </div>
                 </a>`;
+
             el.style.padding = "0";
         } else {
             el.innerHTML = defaultAdHtml;
