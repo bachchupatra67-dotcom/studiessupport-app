@@ -609,7 +609,8 @@
                     <form id="ad-upload-form" onsubmit="handleAdUpload(event)" style="display: flex; flex-direction: column; gap: 20px;">
                         <div>
                             <label for="ad-slot-select" style="display: block; color: #64748b; font-size: 13px; font-weight: 600; margin-bottom: 8px;">Select Banner Location</label>
-                            <select id="ad-slot-select" required style="width: 100%; padding: 16px; border-radius: 12px; border: 1px solid #e2e8f0; background-color: #f8fafc; font-size: 15px; ">
+                            <select id="ad-slot-select" onchange="loadExistingAdData()" required style="width: 100%; padding: 16px; border-radius: 12px; border: 1px solid #e2e8f0; background-color: #f8fafc; font-size: 15px; ">
+
                                 <option value="">Choose where to show the ad...</option>
                                 <option value="slot-home">Home Page</option>
                                 <option value="slot-boards">ICSE & ISC Subject Pages</option>
@@ -950,6 +951,38 @@ async function logoutAdmin() {
 // ==========================================
 // 3. AD BANNER 2-COLUMN FORMATTER
 // ==========================================
+window.loadExistingAdData = function() {
+    const slot = document.getElementById('ad-slot-select').value;
+    if (!slot) return;
+
+    // Search the database for an ad in this specific slot
+    const existingAd = allAdBanners.find(m => m.subchapter === 'SYSTEM_AD_' + slot);
+    
+    const prodInput = document.getElementById('ad-product-name');
+    const linkInput = document.getElementById('ad-link-input');
+    const imgInput = document.getElementById('ad-image-url-input');
+    const priceInput = document.getElementById('ad-price-input');
+    const submitBtn = document.querySelector('#ad-upload-form button[type="submit"]');
+
+    if (existingAd) {
+        // If an ad exists, auto-fill the boxes!
+        if (prodInput) prodInput.value = existingAd.textbook || '';
+        if (linkInput) linkInput.value = existingAd.content_text || '';
+        if (imgInput) imgInput.value = existingAd.file_url || '';
+        if (priceInput) priceInput.value = existingAd.board || '';
+        
+        if (submitBtn) submitBtn.innerText = "Update Ad Banner";
+    } else {
+        // If the slot is empty, clear the boxes
+        if (prodInput) prodInput.value = '';
+        if (linkInput) linkInput.value = '';
+        if (imgInput) imgInput.value = '';
+        if (priceInput) priceInput.value = '';
+        
+        if (submitBtn) submitBtn.innerText = "Save Ad Banner";
+    }
+};
+
 async function handleAdUpload(event) {
     event.preventDefault();
     if (!supabaseClient) return alert("System unavailable.");
