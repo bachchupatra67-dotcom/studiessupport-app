@@ -858,6 +858,12 @@ function navigateTo(pageName, isBack = false, updateUrl = true) {
     if (pageName === 'admin' && localStorage.getItem('isAdminLoggedIn') !== 'true') { showLoginModal(); return; }
     if (!isBack && currentPage !== pageName) { pageHistory.push(currentPage); }
     currentPage = pageName;
+    // 🌟 RESET SEO TITLE FOR MAIN PAGES
+    if (pageName === 'home') {
+        document.title = "StudiesSupport - ICSE & ISC Study Made Simple | Free Notes";
+    } else if (pageName === 'solutions') {
+        document.title = "Textbook Solutions | ICSE & ISC Class 9-12";
+    }
 
     // 🌟 URL ROUTING: Update the browser link for Google SEO!
     if (updateUrl) {
@@ -1891,6 +1897,9 @@ window.openClassNotebooks = function(classLevel, subject, updateUrl = true) {
     document.getElementById(titleId).innerText = subject;
     document.getElementById(filterId).value = classLevel;
     
+    // 🌟 DYNAMIC SEO KEYWORDS: Changes the browser tab so Google reads it!
+    document.title = `${subject} Question Answers & Notes | ${board} ${classLevel}`;
+    
     // 🌟 URL ROUTING FOR SUBJECTS
     if (updateUrl) {
         window.history.pushState({ page: pageId, classLevel: classLevel, subject: subject }, "", `?page=${pageId}&class=${encodeURIComponent(classLevel)}&subject=${encodeURIComponent(subject)}`);
@@ -1900,6 +1909,7 @@ window.openClassNotebooks = function(classLevel, subject, updateUrl = true) {
     navigateTo(pageId, false, false); 
     renderStudentMaterials();
 };
+
 
 
 
