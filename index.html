@@ -840,7 +840,6 @@ function initApp() {
         }
     } catch (error) { console.error("Supabase error:", error); }
 
-    navigateTo('home'); 
     try { fetchAndDisplayMaterials(); } catch(e) { console.error(e); }
     safeCreateIcons();
 }
@@ -855,10 +854,16 @@ if (document.readyState === 'loading') {
 // ==========================================
 // 2. NAVIGATION & LOGIN LOGIC
 // ==========================================
-function navigateTo(pageName, isBack = false) {
+function navigateTo(pageName, isBack = false, updateUrl = true) {
     if (pageName === 'admin' && localStorage.getItem('isAdminLoggedIn') !== 'true') { showLoginModal(); return; }
     if (!isBack && currentPage !== pageName) { pageHistory.push(currentPage); }
     currentPage = pageName;
+
+    // 🌟 URL ROUTING: Update the browser link for Google SEO!
+    if (updateUrl) {
+        const newUrl = pageName === 'home' ? window.location.pathname : `?page=${pageName}`;
+        window.history.pushState({ page: pageName }, "", newUrl);
+    }
 
     const backBtn = document.getElementById('universal-back-btn');
     if (backBtn) backBtn.style.display = (pageName === 'home') ? 'none' : 'flex';
@@ -879,6 +884,20 @@ function navigateTo(pageName, isBack = false) {
 
     safeCreateIcons();
 }
+
+// 🌟 MAKE BROWSER BACK BUTTON WORK WITH NEW URLS
+window.addEventListener('popstate', (event) => {
+    if (event.state && event.state.page) {
+        if (event.state.subject) {
+            openClassNotebooks(event.state.classLevel, event.state.subject, false);
+        } else {
+            navigateTo(event.state.page, true, false);
+        }
+    } else {
+        navigateTo('home', true, false);
+    }
+});
+
 
 function goBack() { 
     if (pageHistory.length > 0) { navigateTo(pageHistory.pop(), true); } else { navigateTo('home'); } 
@@ -1013,7 +1032,20 @@ async function fetchAndDisplayMaterials() {
         renderStudentMaterials(); 
         updateAdminDatalists(); 
         updateSolutionsSubjectDropdown();
-        if (currentPage === 'backpack') renderBackpack();
+               // 🌟 DEEP LINKING: Read the URL so Google can open exact subjects!
+        const params = new URLSearchParams(window.location.search);
+        const urlPage = params.get('page');
+        const urlClass = params.get('class');
+        const urlSubject = params.get('subject');
+
+        if ((urlPage === 'notes' || urlPage === 'notes-isc') && urlClass && urlSubject) {
+            openClassNotebooks(urlClass, urlSubject, false);
+        } else if (urlPage) {
+            navigateTo(urlPage, false, false);
+        } else if (currentPage === 'backpack') {
+            renderBackpack();
+        }
+
     } catch (error) { console.error(error); }
 }
 
@@ -1850,22 +1882,25 @@ function goToSolutions(classLevel, subject) {
     }, 50);
 }
 // 🌟 INSTANT ROUTING TO DEDICATED SUBJECT PAGE
-window.openClassNotebooks = function(classLevel, subject) {
-    // Automatically determine the board based on the class clicked
+window.openClassNotebooks = function(classLevel, subject, updateUrl = true) {
     let board = (classLevel === 'Class 9' || classLevel === 'Class 10') ? 'ICSE' : 'ISC';
     let pageId = board === 'ICSE' ? 'notes' : 'notes-isc';
     let titleId = board === 'ICSE' ? 'dynamic-icse-title' : 'dynamic-isc-title';
     let filterId = board === 'ICSE' ? 'icse-class-filter' : 'isc-class-filter';
 
-    // Set the subject title and apply the class filter automatically
     document.getElementById(titleId).innerText = subject;
     document.getElementById(filterId).value = classLevel;
     
-    // Jump straight to the dedicated page
+    // 🌟 URL ROUTING FOR SUBJECTS
+    if (updateUrl) {
+        window.history.pushState({ page: pageId, classLevel: classLevel, subject: subject }, "", `?page=${pageId}&class=${encodeURIComponent(classLevel)}&subject=${encodeURIComponent(subject)}`);
+    }
+    
     currentPage = pageId;
-    navigateTo(pageId);
+    navigateTo(pageId, false, false); 
     renderStudentMaterials();
 };
+
 
 
 // Inject Bridge Button into Notes
